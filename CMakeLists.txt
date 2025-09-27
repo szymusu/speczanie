@@ -13,7 +13,9 @@ add_executable(${PROJECT_NAME} main.c
         plot/components/ScatterPlot.c
         plot/components/ScatterPlot.h
         plot/plot_math.c
-        plot/plot_math.h)
+        plot/plot_math.h
+        plot/components/SplinePlot.c
+        plot/components/SplinePlot.h)
 
 target_link_libraries(${PROJECT_NAME} raylib)
 

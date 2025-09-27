@@ -1,13 +1,13 @@
-#include "ScatterPlot.h"
+#include "SplinePlot.h"
 
 #include <math.h>
 #include <raylib.h>
 
 #include "../plot_math.h"
 
-#define COUNT 20
+#define COUNT 200
 
-double init1(Vector2* points) {
+double init(Vector2* points) {
     for (int i = 0; i < COUNT; ++i) {
         const float x = (float) i / COUNT * 20.f - 10.f;
         points[i].x = (x + 10.f) / 20.f * PLOT_WIDTH + PLOT_OFFSET_X;
@@ -16,15 +16,13 @@ double init1(Vector2* points) {
     return GetTime();
 }
 
-void ScatterPlot() {
+void SplinePlot() {
     static Vector2 points[COUNT];
     static bool first = true;
     if (first) {
-        init1(points);
+        init(points);
         first = false;
     }
 
-    for (int i = 0; i < COUNT; ++i) {
-        DrawCircleV(points[i], 5.f, RED);
-    }
+    DrawSplineLinear(points, COUNT, 2.f, DARKGREEN);
 }

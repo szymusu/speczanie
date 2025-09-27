@@ -2,6 +2,8 @@
 
 #include "diagnostics/components/fps.h"
 #include "plot/components/Plot.h"
+#include "plot/components/ScatterPlot.h"
+#include "plot/components/SplinePlot.h"
 
 int main() {
     const int SCREEN_WIDTH = 800;
@@ -16,6 +18,8 @@ int main() {
         if (GetTime() > .5) FpsCounter();
 
         Plot();
+        ScatterPlot();
+        SplinePlot();
 
         EndDrawing();
     }
