@@ -6,8 +6,8 @@ find_package(raylib 3.0 REQUIRED) # Requires at least version 3.0
 set(CMAKE_C_STANDARD 11) # Requires C11 standard
 
 add_executable(${PROJECT_NAME} main.c
-        diagnostics/components/fps.c
-        diagnostics/components/fps.h
+        diagnostics/components/FpsCounter.c
+        diagnostics/components/FpsCounter.h
         plot/components/plot.c
         plot/components/plot.h
         plot/components/ScatterPlot.c
@@ -15,7 +15,9 @@ add_executable(${PROJECT_NAME} main.c
         plot/plot_math.c
         plot/plot_math.h
         plot/components/SplinePlot.c
-        plot/components/SplinePlot.h)
+        plot/components/SplinePlot.h
+        plot/components/Grid.c
+        plot/components/Grid.h)
 
 target_link_libraries(${PROJECT_NAME} raylib)
 

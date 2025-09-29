@@ -1,4 +1,4 @@
-#include "fps.h"
+#include "FpsCounter.h"
 
 #include <raylib.h>
 #include <stdio.h>

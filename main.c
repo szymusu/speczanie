@@ -1,6 +1,7 @@
 #include <raylib.h>
 
-#include "diagnostics/components/fps.h"
+#include "diagnostics/components/FpsCounter.h"
+#include "plot/components/Grid.h"
 #include "plot/components/Plot.h"
 #include "plot/components/ScatterPlot.h"
 #include "plot/components/SplinePlot.h"
@@ -17,6 +18,7 @@ int main() {
 
         if (GetTime() > .5) FpsCounter();
 
+        Grid(1.);
         Plot();
         ScatterPlot();
         SplinePlot();
