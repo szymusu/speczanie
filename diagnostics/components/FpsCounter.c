@@ -2,13 +2,14 @@
 
 #include <raylib.h>
 #include <stdio.h>
+#include <stdint.h>
 
 void FpsCounter() {
     static char text[64] = {0};
     static int min = 999999;
     static int buffer[256] = {0};
     static int sum = 0;
-    static u_int8_t index = 0;
+    static uint8_t index = 0;
 
     const int current = GetFPS();
     if (current < min) min = current;

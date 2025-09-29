@@ -37,7 +37,7 @@ void Grid(const double step) {
         const float px = transform_x_to_pixel(x, start_x, end_x);
         start.x = px;
         end.x = px;
-        DrawLineEx(start, end, .5f, GRAY);
+        DrawLineEx(start, end, 1.f, GRAY);
         sprintf(number, "%.2f", x);
         DrawText(number, px, transform_y_to_pixel(0, start_y, end_y), 10, BLACK);
     }
@@ -45,7 +45,7 @@ void Grid(const double step) {
         const float px = transform_x_to_pixel(x, start_x, end_x);
         start.x = px;
         end.x = px;
-        DrawLineEx(start, end, .5f, GRAY);
+        DrawLineEx(start, end, 1.f, GRAY);
         sprintf(number, "%.2f", x);
         DrawText(number, px, transform_y_to_pixel(0, start_y, end_y), 10, BLACK);
     }
@@ -55,7 +55,7 @@ void Grid(const double step) {
         const float py = transform_y_to_pixel(y, start_y, end_y);
         start.y = py;
         end.y = py;
-        DrawLineEx(start, end, .5f, GRAY);
+        DrawLineEx(start, end, 1.f, GRAY);
         sprintf(number, "%.2f", y);
         DrawText(number, transform_x_to_pixel(0, start_x, end_x), py, 10, BLACK);
     }
@@ -63,7 +63,7 @@ void Grid(const double step) {
         const float py = transform_y_to_pixel(y, start_y, end_y);
         start.y = py;
         end.y = py;
-        DrawLineEx(start, end, .5f, GRAY);
+        DrawLineEx(start, end, 1.f, GRAY);
         sprintf(number, "%.2f", y);
         DrawText(number, transform_x_to_pixel(0, start_x, end_x), py, 10, BLACK);
     }
