@@ -7,21 +7,21 @@
 
 #define COUNT 200
 
-void compute(Vector2* points, const double start_x, const double end_x, const double start_y, const double end_y) {
-    const double step = (end_x - start_x) / COUNT;
+void compute(Vector2* points, const Bounds bounds) {
+    const double step = (bounds.end_x - bounds.start_x) / COUNT;
 
     for (int i = 0; i < COUNT; ++i) {
-        const double x = start_x + step * i;
-        points[i].x = transform_x_to_pixelf(x, start_x, end_x);
-        points[i].y = transform_y_to_pixelf(sin(x), start_y, end_y);
+        const double x = bounds.start_x + step * i;
+        points[i].x = transform_x_to_pixelf(x, bounds.start_x, bounds.end_x);
+        points[i].y = transform_y_to_pixelf(sin(x), bounds.start_y, bounds.end_y);
     }
 }
 
-void SplinePlot(const double start_x, const double end_x, const double start_y, const double end_y) {
+void SplinePlot(const Bounds bounds) {
     static Vector2 points[COUNT];
     static bool first = true;
     if (first) {
-        compute(points, start_x, end_x, start_y, end_y);
+        compute(points, bounds);
         first = false;
     }
 

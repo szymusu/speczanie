@@ -23,3 +23,12 @@ int transform_x_to_pixel(double x, double start_x, double end_x) {
 int transform_y_to_pixel(double y, double start_y, double end_y) {
     return (-y - start_y) / (end_y - start_y) * PLOT_HEIGHT + PLOT_OFFSET_Y;
 }
+
+Bounds compute_bounds(const double zoom, const double pan_x) {
+    return (Bounds) {
+        .start_x = PLOT_START_X / zoom + pan_x,
+        .end_x = PLOT_END_X / zoom + pan_x,
+        .start_y = PLOT_START_Y / zoom / ((double) PLOT_WIDTH / PLOT_HEIGHT),
+        .end_y = PLOT_END_Y / zoom / ((double) PLOT_WIDTH / PLOT_HEIGHT)
+    };
+}
