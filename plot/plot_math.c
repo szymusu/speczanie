@@ -24,6 +24,13 @@ int transform_y_to_pixel(double y, double start_y, double end_y) {
     return (-y - start_y) / (end_y - start_y) * PLOT_HEIGHT + PLOT_OFFSET_Y;
 }
 
+Vector2 transform_v_to_pixel(const Vector2 v, const Bounds bounds) {
+    return (Vector2){
+        .x = (v.x - bounds.start_x) / (bounds.end_x - bounds.start_x) * PLOT_WIDTH + PLOT_OFFSET_X,
+        .y = (-v.y - bounds.start_y) / (bounds.end_y - bounds.start_y) * PLOT_HEIGHT + PLOT_OFFSET_Y,
+    };
+}
+
 Bounds compute_bounds(const double zoom, const Vector2 pan) {
     return (Bounds) {
         .start_x = PLOT_START_X / zoom + pan.x,

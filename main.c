@@ -2,6 +2,7 @@
 
 #include "diagnostics/components/FpsCounter.h"
 #include "plot/plot_math.h"
+#include "plot/components/DataPlot.h"
 #include "plot/components/Grid.h"
 #include "plot/components/SplinePlot.h"
 
@@ -10,6 +11,9 @@ int main() {
     const int SCREEN_HEIGHT = 450;
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Raylib Window");
     // SetTargetFPS(60);
+
+    const Vector2 data[4] = { {0, 0}, {1, 2}, {3, 2}, {6, 4}};
+    Vector2 points[4];
 
     float zoom = 1.f;
     Vector2 pan = {0, 0};
@@ -34,6 +38,7 @@ int main() {
 
         Grid(1., bounds);
         SplinePlot(bounds);
+        DataPlot(data, points, 4, bounds);
 
         EndDrawing();
     }

@@ -28,6 +28,7 @@ float transform_x_to_pixelf(double x, double start_x, double end_x);
 float transform_y_to_pixelf(double y, double start_y, double end_y);
 int transform_x_to_pixel(double x, double start_x, double end_x);
 int transform_y_to_pixel(double y, double start_y, double end_y);
+Vector2 transform_v_to_pixel(Vector2 v, Bounds bounds);
 
 Bounds compute_bounds(double zoom, Vector2 pan);
 
