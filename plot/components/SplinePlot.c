@@ -19,11 +19,7 @@ void compute(Vector2* points, const Bounds bounds) {
 
 void SplinePlot(const Bounds bounds) {
     static Vector2 points[COUNT];
-    static bool first = true;
-    if (first) {
-        compute(points, bounds);
-        first = false;
-    }
+    compute(points, bounds);
 
     DrawSplineLinear(points, COUNT, 2.f, DARKGREEN);
 }

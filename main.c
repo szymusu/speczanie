@@ -11,11 +11,22 @@ int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Raylib Window");
     // SetTargetFPS(60);
 
-    const double zoom = 1.;
-    const double pan_x = 5.;
-    Bounds bounds = compute_bounds(zoom, pan_x);
+    float zoom = 1.f;
+    Vector2 pan = {0, 0};
+    Bounds bounds = compute_bounds(zoom, pan);
 
     while (!WindowShouldClose()) {
+        zoom += GetMouseWheelMove() * 0.1f;
+        if (zoom <= 0.1f) zoom = 0.1f;
+
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            const Vector2 delta = GetMouseDelta();
+            pan.x -= delta.x * (bounds.end_x - bounds.start_x) / PLOT_WIDTH;
+            pan.y -= delta.y * (bounds.end_y - bounds.start_y) / PLOT_HEIGHT;
+        }
+
+        bounds = compute_bounds(zoom, pan);
+
         BeginDrawing();
         ClearBackground(RAYWHITE);
 

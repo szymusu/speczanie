@@ -11,6 +11,8 @@
 #define PLOT_START_Y -10.
 #define PLOT_END_Y 10.
 
+#include <raylib.h>
+
 typedef struct {
     double start_x;
     double end_x;
@@ -27,6 +29,6 @@ float transform_y_to_pixelf(double y, double start_y, double end_y);
 int transform_x_to_pixel(double x, double start_x, double end_x);
 int transform_y_to_pixel(double y, double start_y, double end_y);
 
-Bounds compute_bounds(double zoom, double pan_x);
+Bounds compute_bounds(double zoom, Vector2 pan);
 
 #endif //PLOT_MATH_H
