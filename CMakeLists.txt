@@ -19,7 +19,9 @@ add_executable(${PROJECT_NAME} main.c
         plot/components/Grid.c
         plot/components/Grid.h
         plot/components/DataPlot.c
-        plot/components/DataPlot.h)
+        plot/components/DataPlot.h
+        data/parse_binary.c
+        data/parse_binary.h)
 
 target_link_libraries(${PROJECT_NAME} raylib)
 target_link_libraries(${PROJECT_NAME} m)

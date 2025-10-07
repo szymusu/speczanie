@@ -1,5 +1,8 @@
 #include <raylib.h>
+#include <stdio.h>
+#include <stdlib.h>
 
+#include "data/parse_binary.h"
 #include "diagnostics/components/FpsCounter.h"
 #include "plot/plot_math.h"
 #include "plot/components/DataPlot.h"
@@ -7,13 +10,18 @@
 #include "plot/components/SplinePlot.h"
 
 int main() {
+    BinaryFile file = file_parse("input/19_v10.W01");
+    Vector2* data = malloc(sizeof(Vector2) * file.header.row_count);
+    Vector2* points = malloc(sizeof(Vector2) * file.header.row_count);
+    for (uint32_t i = 0; i < file.header.row_count; ++i) {
+        data[i].x = file.columns[3].data[i] * 50;
+        data[i].y = file.columns[0].data[i];
+    }
+
     const int SCREEN_WIDTH = 800;
     const int SCREEN_HEIGHT = 450;
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Raylib Window");
     // SetTargetFPS(60);
-
-    const Vector2 data[4] = { {0, 0}, {1, 2}, {3, 2}, {6, 4}};
-    Vector2 points[4];
 
     float zoom = 1.f;
     Vector2 pan = {0, 0};
@@ -38,10 +46,11 @@ int main() {
 
         Grid(1., bounds);
         SplinePlot(bounds);
-        DataPlot(data, points, 4, bounds);
+        DataPlot(data, points, file.header.row_count, bounds);
 
         EndDrawing();
     }
 
     CloseWindow();
+    file_destroy(&file);
 }
