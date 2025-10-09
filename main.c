@@ -4,6 +4,7 @@
 
 #include "data/parse_binary.h"
 #include "diagnostics/components/FpsCounter.h"
+#include "plot/move.h"
 #include "plot/plot_math.h"
 #include "plot/components/DataPlot.h"
 #include "plot/components/Grid.h"
@@ -28,14 +29,7 @@ int main() {
     Bounds bounds = compute_bounds(zoom, pan);
 
     while (!WindowShouldClose()) {
-        zoom += GetMouseWheelMove() * 0.1f;
-        if (zoom <= 0.1f) zoom = 0.1f;
-
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            const Vector2 delta = GetMouseDelta();
-            pan.x -= delta.x * (bounds.end_x - bounds.start_x) / PLOT_WIDTH;
-            pan.y -= delta.y * (bounds.end_y - bounds.start_y) / PLOT_HEIGHT;
-        }
+        process_move(&zoom, &pan, bounds);
 
         bounds = compute_bounds(zoom, pan);
 
