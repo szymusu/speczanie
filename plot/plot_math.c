@@ -31,11 +31,11 @@ Vector2 transform_v_to_pixel(const Vector2 v, const Bounds bounds) {
     };
 }
 
-Bounds compute_bounds(const double zoom, const Vector2 pan) {
+Bounds compute_bounds(const float zoom, const Vector2 pan) {
     return (Bounds) {
         .start_x = PLOT_START_X / zoom + pan.x,
         .end_x = PLOT_END_X / zoom + pan.x,
-        .start_y = PLOT_START_Y / zoom / ((double) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
-        .end_y = PLOT_END_Y / zoom / ((double) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
+        .start_y = PLOT_START_Y / zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
+        .end_y = PLOT_END_Y / zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
     };
 }

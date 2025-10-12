@@ -13,16 +13,15 @@
 int main() {
     BinaryFile file = file_parse("input/19_v10.W01");
     Vector2* data = malloc(sizeof(Vector2) * file.header.row_count);
-    Vector2* points = malloc(sizeof(Vector2) * file.header.row_count);
     for (uint32_t i = 0; i < file.header.row_count; ++i) {
         data[i].x = file.columns[3].data[i] * 50;
         data[i].y = file.columns[0].data[i];
     }
+    Vector2* points = malloc(sizeof(Vector2) * file.header.row_count);
 
     const int SCREEN_WIDTH = 800;
     const int SCREEN_HEIGHT = 450;
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Raylib Window");
-    // SetTargetFPS(60);
 
     float zoom = 1.f;
     Vector2 pan = {0, 0};

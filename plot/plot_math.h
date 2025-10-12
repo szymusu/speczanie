@@ -14,10 +14,10 @@
 #include <raylib.h>
 
 typedef struct {
-    double start_x;
-    double end_x;
-    double start_y;
-    double end_y;
+    float start_x;
+    float end_x;
+    float start_y;
+    float end_y;
 } Bounds;
 
 double pixel_to_x(int pixel);
@@ -30,6 +30,6 @@ int transform_x_to_pixel(double x, double start_x, double end_x);
 int transform_y_to_pixel(double y, double start_y, double end_y);
 Vector2 transform_v_to_pixel(Vector2 v, Bounds bounds);
 
-Bounds compute_bounds(double zoom, Vector2 pan);
+Bounds compute_bounds(float zoom, Vector2 pan);
 
 #endif //PLOT_MATH_H
