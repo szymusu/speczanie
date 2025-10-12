@@ -23,7 +23,9 @@ add_executable(${PROJECT_NAME} main.c
         data/parse_binary.c
         data/parse_binary.h
         plot/move.c
-        plot/move.h)
+        plot/move.h
+        data/point_data.c
+        data/point_data.h)
 
 target_link_libraries(${PROJECT_NAME} raylib)
 target_link_libraries(${PROJECT_NAME} m)
