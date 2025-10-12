@@ -25,7 +25,13 @@ add_executable(${PROJECT_NAME} main.c
         plot/move.c
         plot/move.h
         data/point_data.c
-        data/point_data.h)
+        data/point_data.h
+        diagnostics/more_data.c
+        diagnostics/more_data.h
+        text/text.c
+        text/text.h
+        diagnostics/components/Clock.c
+        diagnostics/components/Clock.h)
 
 target_link_libraries(${PROJECT_NAME} raylib)
 target_link_libraries(${PROJECT_NAME} m)
