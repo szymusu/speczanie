@@ -11,7 +11,7 @@ move_change_t process_move(float* zoom, Vector2* pan, const Bounds bounds) {
 
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
         const Vector2 delta = GetMouseDelta();
-        if (delta.x != 0.f && delta.y != 0.f) {
+        if (delta.x != 0.f || delta.y != 0.f) {
             change &= 2;
             pan->x -= delta.x * (bounds.end_x - bounds.start_x) / PLOT_WIDTH;
             pan->y -= delta.y * (bounds.end_y - bounds.start_y) / PLOT_HEIGHT;
