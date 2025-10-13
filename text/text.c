@@ -4,6 +4,10 @@
 
 Font default_font;
 
+Font* get_font() {
+    return &default_font;
+}
+
 void font_init(const char* file_name) {
     default_font = LoadFont(file_name);
     if (!IsFontValid(default_font)) {

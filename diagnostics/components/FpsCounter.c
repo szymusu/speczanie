@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#include "../../text/text.h"
+
 void FpsCounter() {
     static char text[64] = {0};
     static int min = 999999;
@@ -20,6 +22,10 @@ void FpsCounter() {
 
     ++index;
 
+    DrawRectangle(0, 0, 65, (15-3)*3+10, RAYWHITE);
+
     sprintf(text, "FPS %d\nmin %d\navg %d", current, min, sum / 256);
-    DrawText(text, 10, 10, 13, BLACK);
+    SetTextLineSpacing(-3);
+    Text(text, 5, 5, 15, BLACK);
+    SetTextLineSpacing(0);
 }

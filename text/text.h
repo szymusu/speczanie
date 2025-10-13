@@ -2,6 +2,8 @@
 #define TEXT_H
 
 #include <raylib.h>
+
+Font* get_font();
 void font_init(const char* file_name);
 void font_unload();
 void Text(const char* text, int posX, int posY, int fontSize, Color color);

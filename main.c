@@ -45,8 +45,6 @@ int main() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        if (GetTime() > .5) FpsCounter();
-
         Grid(1., bounds);
         // SplinePlot(bounds);
         // DataPlot(data, points, file.header.row_count, bounds);
@@ -61,6 +59,7 @@ int main() {
         Text(count_text, 700, 430, 20, RED);
         DataPlot(sin0.data, sin0.points, current_count, bounds, change);
 
+        if (GetTime() > .5) FpsCounter();
         EndDrawing();
 
         change = process_move(&zoom, &pan, bounds);
