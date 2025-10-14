@@ -23,8 +23,8 @@ int main() {
     // }
     // Vector2* points = malloc(sizeof(Vector2) * file.header.row_count);
     const int count = 10000000;
-    int current_count = count;
-    DataAndPoints sin0 = create_sinus_data(count, 0.f);
+    DataSource sin0 = create_sinus_data(count, 0.f);
+    DataPlotState sin0_state = DataPlotState_create(sin0.count);
 
     const int SCREEN_WIDTH = 800;
     const int SCREEN_HEIGHT = 450;
@@ -33,31 +33,17 @@ int main() {
 
     float zoom = 1.f;
     Vector2 pan = {0, 0};
-    Bounds bounds;
     move_change_t change = 3;
 
-    char count_text[20];
-
-
     while (!WindowShouldClose()) {
-        bounds = compute_bounds(zoom, pan);
+        const Bounds bounds = compute_bounds(zoom, pan);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
         Grid(1., bounds);
-        // SplinePlot(bounds);
-        // DataPlot(data, points, file.header.row_count, bounds);
 
-        if (change) {
-            clock_start();
-            current_count = translate_data_to_points(sin0.data, sin0.points, count, bounds);
-            clock_end();
-        }
-        Clock();
-        sprintf(count_text, "C: %d", current_count);
-        Text(count_text, 700, 430, 20, RED);
-        DataPlot(sin0.data, sin0.points, current_count, bounds, change);
+        DataPlot(sin0.data, sin0.count, bounds, change, &sin0_state);
 
         if (GetTime() > .5) FpsCounter();
         EndDrawing();
@@ -69,4 +55,5 @@ int main() {
     CloseWindow();
     // file_destroy(&file);
     destroy_sinus_data(&sin0);
+    DataPlotState_destroy(&sin0_state);
 }

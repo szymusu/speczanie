@@ -4,6 +4,16 @@
 #include "../plot_math.h"
 #include "../move.h"
 
-void DataPlot(const Vector2* data, Vector2* points, int count, Bounds bounds, move_change_t change);
+typedef struct {
+    Vector2* point_buffer;
+    int visible_count;
+    char count_text[32];
+
+} DataPlotState;
+
+void DataPlot(const Vector2* data, int data_count, Bounds bounds, move_change_t change, DataPlotState* state);
+
+DataPlotState DataPlotState_create(int data_count);
+void DataPlotState_destroy(DataPlotState* state);
 
 #endif //DATAPLOT_H

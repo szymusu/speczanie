@@ -1,7 +1,28 @@
 #include "DataPlot.h"
 
-#include "../../data/point_data.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-void DataPlot(const Vector2* data, Vector2* points, int count, const Bounds bounds, const move_change_t change) {
-    DrawSplineLinear(points, count, 2.f, DARKBLUE);
+#include "../../data/point_data.h"
+#include "../../text/text.h"
+#include "../../diagnostics/components/Clock.h"
+
+void DataPlot(const Vector2* data, const int data_count, const Bounds bounds, const move_change_t change, DataPlotState* state) {
+    if (change) {
+        clock_start();
+        state->visible_count = translate_data_to_points(data, state->point_buffer, data_count, bounds);
+        clock_end();
+    }
+    Clock();
+    sprintf(state->count_text, "C: %d", state->visible_count);
+    Text(state->count_text, 700, 430, 20, RED);
+    DrawSplineLinear(state->point_buffer, state->visible_count, 2.f, DARKBLUE);
+}
+
+DataPlotState DataPlotState_create(const int data_count) {
+    return (DataPlotState) { .point_buffer = malloc(sizeof(Vector2) * data_count) };
+}
+
+void DataPlotState_destroy(DataPlotState* state) {
+    free(state->point_buffer);
 }

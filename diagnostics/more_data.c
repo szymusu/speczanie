@@ -3,11 +3,10 @@
 #include <math.h>
 #include <stdlib.h>
 
-DataAndPoints create_sinus_data(const int count, const float offset) {
-    DataAndPoints data = {
+DataSource create_sinus_data(const int count, const float offset) {
+    const DataSource data = {
         .count = count,
         .data = malloc(sizeof(Vector2) * count),
-        .points = malloc(sizeof(Vector2) * count),
     };
     for (int i = 0; i < count; i++) {
         data.data[i].x = i * .01f - 100000.f;
@@ -16,7 +15,6 @@ DataAndPoints create_sinus_data(const int count, const float offset) {
     return data;
 }
 
-void destroy_sinus_data(DataAndPoints* data) {
+void destroy_sinus_data(DataSource* data) {
     free(data->data);
-    free(data->points);
 }
