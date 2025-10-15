@@ -15,6 +15,7 @@ typedef struct {
 typedef struct {
     DataSource data_source;
     Bounds bounds;
+    Vector2 plot_offset;
 } DataPlotProps;
 
 void DataPlot(DataPlotProps props, move_change_t change, DataPlotState* state);

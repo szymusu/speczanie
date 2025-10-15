@@ -48,7 +48,8 @@ int main() {
         DataPlot(
             (DataPlotProps) {
                 .data_source = sin0,
-                .bounds = bounds
+                .bounds = bounds,
+                .plot_offset = move_state.plot_offset
             },
             change, &sin0_state);
 

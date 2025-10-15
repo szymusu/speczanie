@@ -6,12 +6,6 @@
 #include "data_source.h"
 #include "../plot/plot_math.h"
 
-/**
- * @param data_source
- * @param points destination for pixel values
- * @param bounds current view bounds
- * @return size of visible points
- */
-int translate_data_to_points(DataSource data_source, Vector2* points, Bounds bounds);
+int translate_data_to_points(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
 
 #endif //POINT_DATA_H

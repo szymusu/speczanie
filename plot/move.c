@@ -4,17 +4,27 @@ move_change_t process_move(MoveState* state, const Bounds bounds) {
     move_change_t change = 0;
     const float wheel_change = GetMouseWheelMove();
     if (wheel_change != 0.f) {
-        change |= 1;
+        change |= MOVE_CHANGE_ZOOM;
         state->zoom += wheel_change * 0.1f;
         if (state->zoom <= 0.1f) state->zoom = 0.1f;
     }
 
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
         const Vector2 delta = GetMouseDelta();
-        if (delta.x != 0.f || delta.y != 0.f) {
-            change |= 2;
-            state->pan.x -= delta.x * (bounds.end_x - bounds.start_x) / PLOT_WIDTH;
-            state->pan.y -= delta.y * (bounds.end_y - bounds.start_y) / PLOT_HEIGHT;
+        if (delta.x == 0.f && delta.y == 0.f) {
+            return change;
+        }
+        const float delta_x = delta.x * (bounds.end_x - bounds.start_x) / PLOT_WIDTH;
+        const float delta_y = delta.y * (bounds.end_y - bounds.start_y) / PLOT_HEIGHT;
+        if (IsKeyDown(KEY_LEFT_CONTROL)) {
+            change |= MOVE_CHANGE_PLOT;
+            state->plot_offset.x += delta_x;
+            state->plot_offset.y += delta_y;
+        }
+        else {
+            change |= MOVE_CHANGE_PAN;
+            state->pan.x -= delta_x;
+            state->pan.y -= delta_y;
         }
     }
     return change;
