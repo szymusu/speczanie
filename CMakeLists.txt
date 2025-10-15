@@ -31,7 +31,8 @@ add_executable(${PROJECT_NAME} main.c
         text/text.c
         text/text.h
         diagnostics/components/Clock.c
-        diagnostics/components/Clock.h)
+        diagnostics/components/Clock.h
+        data/data_source.h)
 
 target_link_libraries(${PROJECT_NAME} raylib)
 target_link_libraries(${PROJECT_NAME} m)

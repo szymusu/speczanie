@@ -3,6 +3,7 @@
 
 #include "../plot_math.h"
 #include "../move.h"
+#include "../../data/data_source.h"
 
 typedef struct {
     Vector2* point_buffer;
@@ -11,7 +12,12 @@ typedef struct {
 
 } DataPlotState;
 
-void DataPlot(const Vector2* data, int data_count, Bounds bounds, move_change_t change, DataPlotState* state);
+typedef struct {
+    DataSource data_source;
+    Bounds bounds;
+} DataPlotProps;
+
+void DataPlot(DataPlotProps props, move_change_t change, DataPlotState* state);
 
 DataPlotState DataPlotState_create(int data_count);
 void DataPlotState_destroy(DataPlotState* state);

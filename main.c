@@ -43,7 +43,12 @@ int main() {
 
         Grid(1., bounds);
 
-        DataPlot(sin0.data, sin0.count, bounds, change, &sin0_state);
+        DataPlot(
+            (DataPlotProps) {
+                .data_source = sin0,
+                .bounds = bounds
+            },
+            change, &sin0_state);
 
         if (GetTime() > .5) FpsCounter();
         EndDrawing();
