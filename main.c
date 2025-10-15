@@ -31,12 +31,14 @@ int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Raylib Window");
     font_init("resources/JetBrainsMono-SemiBold.ttf");
 
-    float zoom = 1.f;
-    Vector2 pan = {0, 0};
-    move_change_t change = 3;
+    MoveState move_state = {
+        .zoom = 1.f,
+        .pan = {0, 0}
+    };
+    move_change_t change = 0b11;
 
     while (!WindowShouldClose()) {
-        const Bounds bounds = compute_bounds(zoom, pan);
+        const Bounds bounds = compute_bounds(move_state.zoom, move_state.pan);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -53,7 +55,7 @@ int main() {
         if (GetTime() > .5) FpsCounter();
         EndDrawing();
 
-        change = process_move(&zoom, &pan, bounds);
+        change = process_move(&move_state, bounds);
     }
 
     font_unload();

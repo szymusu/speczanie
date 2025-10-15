@@ -7,6 +7,11 @@
 
 typedef unsigned char move_change_t;
 
-move_change_t process_move(float* zoom, Vector2* pan, Bounds bounds);
+typedef struct {
+    Vector2 pan;
+    float zoom;
+} MoveState;
+
+move_change_t process_move(MoveState* state, Bounds bounds);
 
 #endif //MOVE_H
