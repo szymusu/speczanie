@@ -4,8 +4,27 @@
 #include <stdio.h>
 
 #include "../plot_math.h"
+#include "../../text/text.h"
 
-void Grid(const double step, const Bounds bounds) {
+float find_step(const Bounds bounds) {
+    const float target_step = (bounds.end_x - bounds.start_x) / 10.f;
+    float step = 1.f;
+    if (step > target_step) {
+        while (step > target_step) {
+            step /= 2.f;
+        }
+    }
+    else {
+        while (step < target_step) {
+            step *= 2.f;
+        }
+    }
+    return step;
+}
+
+void Grid(const Bounds bounds) {
+    const float step = find_step(bounds);
+
     DrawLineEx(
         (Vector2) {transform_x_to_pixelf(0, bounds.start_x, bounds.end_x), PLOT_OFFSET_Y},
         (Vector2) {transform_x_to_pixelf(0, bounds.start_x, bounds.end_x), PLOT_HEIGHT + PLOT_OFFSET_Y},
@@ -17,45 +36,46 @@ void Grid(const double step, const Bounds bounds) {
         1.5f, BLACK
         );
 
-    Vector2 start = {.y = PLOT_OFFSET_Y};
-    Vector2 end = {.y = PLOT_HEIGHT + PLOT_OFFSET_Y};
+    char number_text[16];
     const int zero_x = transform_x_to_pixel(0, bounds.start_x, bounds.end_x);
     const int zero_y = transform_y_to_pixel(0, bounds.start_y, bounds.end_y);
-    char number[16];
-    for (double x = 0.; x <= bounds.end_x; x += step) {
+
+    Vector2 start = {.y = PLOT_OFFSET_Y};
+    Vector2 end = {.y = PLOT_HEIGHT + PLOT_OFFSET_Y};
+    for (float x = 0.; x <= bounds.end_x; x += step) {
         const float px = transform_x_to_pixelf(x, bounds.start_x, bounds.end_x);
         start.x = px;
         end.x = px;
         DrawLineEx(start, end, 1.f, GRAY);
-        sprintf(number, "%.2f", x);
-        DrawText(number, (int) px, zero_y, 10, BLACK);
+        sprintf(number_text, "%.2f", x);
+        Text(number_text, (int) px, zero_y, 12, BLACK);
     }
-    for (double x = -step; x >= bounds.start_x; x -= step) {
+    for (float x = -step; x >= bounds.start_x; x -= step) {
         const float px = transform_x_to_pixelf(x, bounds.start_x, bounds.end_x);
         start.x = px;
         end.x = px;
         DrawLineEx(start, end, 1.f, GRAY);
-        sprintf(number, "%.2f", x);
-        DrawText(number, (int) px, zero_y, 10, BLACK);
+        sprintf(number_text, "%.2f", x);
+        Text(number_text, (int) px, zero_y, 12, BLACK);
     }
     start.x = PLOT_OFFSET_X;
     end.x = PLOT_WIDTH + PLOT_OFFSET_X;
-    for (double y = step;; y += step) {
+    for (float y = step;; y += step) {
         const float py = transform_y_to_pixelf(y, bounds.start_y, bounds.end_y);
         if (py < PLOT_OFFSET_Y) break;
         start.y = py;
         end.y = py;
         DrawLineEx(start, end, 1.f, GRAY);
-        sprintf(number, "%.2f", y);
-        DrawText(number, zero_x, (int) py, 10, BLACK);
+        sprintf(number_text, "%.2f", y);
+        Text(number_text, zero_x, (int) py, 12, BLACK);
     }
-    for (double y = -step;; y -= step) {
+    for (float y = -step;; y -= step) {
         const float py = transform_y_to_pixelf(y, bounds.start_y, bounds.end_y);
         if (py > PLOT_OFFSET_Y + PLOT_HEIGHT) break;
         start.y = py;
         end.y = py;
         DrawLineEx(start, end, 1.f, GRAY);
-        sprintf(number, "%.2f", y);
-        DrawText(number, zero_x, (int) py, 10, BLACK);
+        sprintf(number_text, "%.2f", y);
+        Text(number_text, zero_x, (int) py, 12, BLACK);
     }
 }

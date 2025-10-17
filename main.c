@@ -14,6 +14,8 @@
 #include "text/text.h"
 
 int main() {
+    InitWindow(800, 450, "Raylib Window");
+    font_init("resources/JetBrainsMono-SemiBold.ttf");
 
     // BinaryFile file = file_parse("input/19_v10.W01");
     // Vector2* data = malloc(sizeof(Vector2) * file.header.row_count);
@@ -22,14 +24,8 @@ int main() {
     //     data[i].y = file.columns[0].data[i];
     // }
     // Vector2* points = malloc(sizeof(Vector2) * file.header.row_count);
-    const int count = 10000000;
-    DataSource sin0 = create_sinus_data(count, 0.f);
+    DataSource sin0 = create_sinus_data(10000000, 0.f);
     DataPlotState sin0_state = DataPlotState_create(sin0.count);
-
-    const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 450;
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Raylib Window");
-    font_init("resources/JetBrainsMono-SemiBold.ttf");
 
     MoveState move_state = {
         .zoom = 1.f,
@@ -43,7 +39,7 @@ int main() {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        Grid(1., bounds);
+        Grid(bounds);
 
         DataPlot(
             (DataPlotProps) {

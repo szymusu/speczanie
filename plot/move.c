@@ -5,7 +5,7 @@ move_change_t process_move(MoveState* state, const Bounds bounds) {
     const float wheel_change = GetMouseWheelMove();
     if (wheel_change != 0.f) {
         change |= MOVE_CHANGE_ZOOM;
-        state->zoom += wheel_change * 0.1f;
+        state->zoom += wheel_change * 0.01f * state->zoom;
         if (state->zoom <= 0.1f) state->zoom = 0.1f;
     }
 

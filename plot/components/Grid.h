@@ -3,6 +3,6 @@
 
 #include "../plot_math.h"
 
-void Grid(double step, Bounds bounds);
+void Grid(Bounds bounds);
 
 #endif //GRID_H
