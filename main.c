@@ -17,15 +17,9 @@ int main() {
     InitWindow(800, 450, "Raylib Window");
     font_init("resources/JetBrainsMono-SemiBold.ttf");
 
-    // BinaryFile file = file_parse("input/19_v10.W01");
-    // Vector2* data = malloc(sizeof(Vector2) * file.header.row_count);
-    // for (uint32_t i = 0; i < file.header.row_count; ++i) {
-    //     data[i].x = file.columns[3].data[i] * 50;
-    //     data[i].y = file.columns[0].data[i];
-    // }
-    // Vector2* points = malloc(sizeof(Vector2) * file.header.row_count);
-    DataSource sin0 = create_sinus_data(10000000, 0.f);
-    DataPlotState sin0_state = DataPlotState_create(sin0.count);
+    BinaryFile file = file_parse("input/19_v10.W01");
+    DataSource file_source = data_source_columns(&file, 3, 0, 50.f);
+    DataPlotState plot_state = DataPlotState_create(file_source.count);
 
     MoveState move_state = {
         .zoom = 1.f,
@@ -43,11 +37,11 @@ int main() {
 
         DataPlot(
             (DataPlotProps) {
-                .data_source = sin0,
+                .data_source = file_source,
                 .bounds = bounds,
                 .plot_offset = move_state.plot_offset
             },
-            change, &sin0_state);
+            change, &plot_state);
 
         if (GetTime() > .5) FpsCounter();
         EndDrawing();
@@ -57,7 +51,7 @@ int main() {
 
     font_unload();
     CloseWindow();
-    // file_destroy(&file);
-    destroy_sinus_data(&sin0);
-    DataPlotState_destroy(&sin0_state);
+    file_destroy(&file);
+    data_source_destroy(&file_source);
+    DataPlotState_destroy(&plot_state);
 }
