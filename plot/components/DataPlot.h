@@ -9,6 +9,7 @@ typedef struct {
     Vector2* point_buffer;
     int visible_count;
     char count_text[32];
+    int visible_start;
 
 } DataPlotState;
 

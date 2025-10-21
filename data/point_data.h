@@ -6,6 +6,11 @@
 #include "data_source.h"
 #include "../plot/plot_math.h"
 
-int translate_data_to_points(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
+typedef struct {
+    int count;
+    int start;
+} VisiblePointInfo;
+
+VisiblePointInfo compute_visible_points(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
 
 #endif //POINT_DATA_H
