@@ -14,6 +14,7 @@
 #include "text/text.h"
 
 int main() {
+    SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_WINDOW_RESIZABLE);
     InitWindow(800, 450, "Raylib Window");
     font_init("resources/JetBrainsMono-SemiBold.ttf");
 
