@@ -25,12 +25,12 @@ VisiblePointInfo compute_visible_points(const DataSource data_source, Vector2* p
     const int visible_count = data_source.count - res.start;
     for (int i = 0; i < visible_count; i++) {
         const int i_source = i + res.start;
-        if (data_source.data[i_source].x > bounds.end_x - offset.x) {
-            res.count = i;
-            return res;
-        }
         point_buffer[i].x = (data_source.data[i_source].x - bounds.start_x + offset.x) * x_factor + PLOT_OFFSET_X;
         point_buffer[i].y = (data_source.data[i_source].y + bounds.start_y - offset.y) * y_factor + PLOT_OFFSET_Y;
+        if (data_source.data[i_source].x > bounds.end_x - offset.x) {
+            res.count = i + 1;
+            return res;
+        }
     }
     res.count = visible_count;
     return res;
