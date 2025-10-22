@@ -33,7 +33,11 @@ add_executable(${PROJECT_NAME} main.c
         diagnostics/components/Clock.c
         diagnostics/components/Clock.h
         data/data_source.h
-        data/data_source.c)
+        data/data_source.c
+        plot/components/PointHoverTooltip.c
+        plot/components/PointHoverTooltip.h
+        text/TextBox.c
+        text/TextBox.h)
 
 target_link_libraries(${PROJECT_NAME} raylib)
 target_link_libraries(${PROJECT_NAME} m)

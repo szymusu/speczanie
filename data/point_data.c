@@ -13,8 +13,8 @@ int find_first_visible(const Vector2* data, const int count, const float start_x
     return a;
 }
 
-VisiblePointInfo compute_visible_points(const DataSource data_source, Vector2* point_buffer, const Bounds bounds, const Vector2 offset) {
-    VisiblePointInfo res = {
+VisiblePointsInfo compute_visible_points(const DataSource data_source, Vector2* point_buffer, const Bounds bounds, const Vector2 offset) {
+    VisiblePointsInfo res = {
         .start = find_first_visible(data_source.data, data_source.count, bounds.start_x - offset.x)
     };
     if (res.start == -1) return res;

@@ -20,10 +20,14 @@ void font_unload() {
     UnloadFont(default_font);
 }
 
-void Text(const char* text, const int posX, const int posY, const int fontSize, const Color color) {
+void Text(const char* text, const float posX, const float posY, const float fontSize, const Color color) {
     DrawTextEx(default_font, text, (Vector2) {posX, posY}, fontSize, 0, color);
 }
 
 void TextV(const char* text, const Vector2 pos, const float fontSize, const Color color) {
-    DrawTextEx(default_font, text, pos, fontSize, 1, color);
+    DrawTextEx(default_font, text, pos, fontSize, 0, color);
+}
+
+Vector2 FontMeasureText(const char* text, const float fontSize) {
+    return MeasureTextEx(default_font, text, fontSize, 0);
 }

@@ -9,8 +9,8 @@
 typedef struct {
     int count;
     int start;
-} VisiblePointInfo;
+} VisiblePointsInfo;
 
-VisiblePointInfo compute_visible_points(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
+VisiblePointsInfo compute_visible_points(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
 
 #endif //POINT_DATA_H
