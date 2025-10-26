@@ -9,13 +9,17 @@ typedef unsigned char textbox_align_t;
 typedef struct {
     Vector2 origin;
     Vector2 padding;
-    Vector2 offset;
     const char* text;
     float font_size;
+    Color background_color;
+    Color border_color;
+    float border;
     textbox_align_t align;
 
 } TextBoxProps;
 
-void TextBox(TextBoxProps props);
+Rectangle box_get_rect(TextBoxProps props);
+void DrawTextBox(TextBoxProps props, Rectangle box);
+Rectangle TextBox(TextBoxProps props);
 
 #endif //TEXTBOX_H

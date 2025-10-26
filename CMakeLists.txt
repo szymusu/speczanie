@@ -37,7 +37,10 @@ add_executable(${PROJECT_NAME} main.c
         plot/components/PointHoverTooltip.c
         plot/components/PointHoverTooltip.h
         text/TextBox.c
-        text/TextBox.h)
+        text/TextBox.h
+        text/Button.c
+        text/Button.h
+)
 
 target_link_libraries(${PROJECT_NAME} raylib)
 target_link_libraries(${PROJECT_NAME} m)

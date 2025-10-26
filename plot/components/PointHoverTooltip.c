@@ -29,10 +29,12 @@ void PointHoverTooltip(const PointHoverTooltipProps props) {
         TextBox((TextBoxProps) {
             .text = text,
             .font_size = 15,
-            .origin = pixel_point,
-            .offset = {5, -5},
+            .origin = {pixel_point.x + 5, pixel_point.y - 5},
             .padding = {5, 2},
-            .align = TEXTBOX_ALIGN_BOTTOM
+            .align = TEXTBOX_ALIGN_BOTTOM,
+            .background_color = WHITE,
+            .border_color = BLUE,
+            .border = 1
         });
     }
 }
