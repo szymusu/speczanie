@@ -59,13 +59,15 @@ int main() {
             change |= MOVE_CHANGE_PLOT;
         }
 
-        if (Button((Vector2) {10, 100}, "Zeruj start", 16, 0) == BUTTON_STATE_CLICKED) {
-            data_apply_offset(&file_source, (Vector2) {
-                -file_source.data[0].x,
-                file_source.data[0].y
-            });
-            *(uint64_t*)&move_state.plot_offset = 0;
-            change |= MOVE_CHANGE_PLOT;
+        if (file_source.data->x != 0 || file_source.data->y != 0) {
+            if (Button((Vector2) {10, 100}, "Zeruj start", 16, 0) == BUTTON_STATE_CLICKED) {
+                data_apply_offset(&file_source, (Vector2) {
+                    -file_source.data[0].x,
+                    file_source.data[0].y
+                });
+                *(uint64_t*)&move_state.plot_offset = 0;
+                change |= MOVE_CHANGE_PLOT;
+            }
         }
 
         if (*(uint64_t*)&move_state.plot_offset != 0) {
