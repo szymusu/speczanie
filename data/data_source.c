@@ -33,9 +33,14 @@ void data_scale_y(DataSource* data_source, const float scale_y) {
     }
 }
 
-void data_cut_left(DataSource* data_source, const int count) {
-    data_source->count -= count;
+void data_cut_left(DataSource* data_source, const int index) {
+    data_source->count -= index;
     for (int i = 0; i < data_source->count; ++i) {
-        data_source->data[i] = data_source->data[i + count];
+        data_source->data[i] = data_source->data[i + index];
     }
+}
+
+void data_cut_right(DataSource* data_source, const int index) {
+    if (index + 1 >= data_source->count) return;
+    data_source->count = index + 1;
 }

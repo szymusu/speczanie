@@ -71,7 +71,7 @@ int main() {
         }
 
         if (*(uint64_t*)&move_state.plot_offset != 0) {
-            if (Button((Vector2) {10, 150}, offset_text, 16, 0) == BUTTON_STATE_CLICKED) {
+            if (Button((Vector2) {10, 140}, offset_text, 16, 0) == BUTTON_STATE_CLICKED) {
                 data_apply_offset(&file_source, move_state.plot_offset);
                 *(uint64_t*)&move_state.plot_offset = 0;
                 change |= MOVE_CHANGE_PLOT;
@@ -79,8 +79,14 @@ int main() {
         }
 
         if (plot_state.selected_point > 0) {
-            if (Button((Vector2) {10, 200}, "Utnij", 16, 0) == BUTTON_STATE_CLICKED) {
+            Text("Utnij", 10, 200, 16, BLACK);
+            if (Button((Vector2) {70, 200}, "Lewo", 16, TEXTBOX_ALIGN_RIGHT) == BUTTON_STATE_CLICKED) {
                 data_cut_left(&file_source, plot_state.selected_point);
+                plot_state.selected_point = -1;
+                change |= MOVE_CHANGE_PLOT;
+            }
+            if (Button((Vector2) {75, 200}, "Prawo", 16, 0) == BUTTON_STATE_CLICKED) {
+                data_cut_right(&file_source, plot_state.selected_point);
                 plot_state.selected_point = -1;
                 change |= MOVE_CHANGE_PLOT;
             }

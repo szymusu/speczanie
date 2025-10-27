@@ -15,6 +15,7 @@ DataSource data_source_columns(const BinaryFile* file, int x_column, int y_colum
 void data_source_destroy(DataSource* data_source);
 void data_apply_offset(DataSource* data_source, Vector2 offset);
 void data_scale_y(DataSource* data_source, float scale_y);
-void data_cut_left(DataSource* data_source, int count);
+void data_cut_left(DataSource* data_source, int index);
+void data_cut_right(DataSource* data_source, int index);
 
 #endif //DATA_SOURCE_H
