@@ -21,7 +21,7 @@ int main() {
 
     // BinaryFile file = file_parse("input/19_v10.W01");
     BinaryFile file = file_parse("input/20_v50.W01");
-    DataSource file_source = data_source_columns(&file, 3, 0, 50.f);
+    DataSource file_source = data_source_columns(&file, 3, 0, 100.f);
     DataPlotState plot_state = DataPlotState_create(file_source.count);
 
     MoveState move_state = {
@@ -30,34 +30,13 @@ int main() {
     };
     move_change_t change = 0b11;
 
-    int clicks = 0;
-    char clicks_text[4] = "0";
+    char offset_text[32] = "0";
 
     while (!WindowShouldClose()) {
         const Bounds bounds = compute_bounds(move_state.zoom, move_state.pan);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
-
-        const button_state_t button = Button((TextBoxProps) {
-            .origin = {10, 100},
-            .padding = {20, 10},
-            .text = "chuj",
-            .font_size = 20,
-            .background_color = {255, 230, 230, 255},
-            .border_color = BLACK,
-            .border = 2
-        }, (TextBoxProps) {
-            .padding = {20, 10},
-            .text = clicks_text,
-            .font_size = 20,
-            .background_color = LIGHTGRAY,
-            .border_color = PINK,
-            .border = 10
-        });
-        if (button == BUTTON_STATE_CLICKED) {
-            sprintf(clicks_text, "%d", ++clicks);
-        }
 
         Grid(bounds);
 
@@ -69,10 +48,44 @@ int main() {
             },
             change, &plot_state);
 
-        if (GetTime() > .5) FpsCounter();
-        EndDrawing();
 
         change = process_move(&move_state, bounds);
+        if (change & MOVE_CHANGE_PLOT) {
+            sprintf(offset_text, "x: %.2f\ny: %.2f", move_state.plot_offset.x, move_state.plot_offset.y);
+        }
+
+        if (Button((Vector2) {10, 50}, "Odwroc y", 16, 0) == BUTTON_STATE_CLICKED) {
+            data_scale_y(&file_source, -1);
+            change |= MOVE_CHANGE_PLOT;
+        }
+
+        if (Button((Vector2) {10, 100}, "Zeruj start", 16, 0) == BUTTON_STATE_CLICKED) {
+            data_apply_offset(&file_source, (Vector2) {
+                -file_source.data[0].x,
+                file_source.data[0].y
+            });
+            *(uint64_t*)&move_state.plot_offset = 0;
+            change |= MOVE_CHANGE_PLOT;
+        }
+
+        if (*(uint64_t*)&move_state.plot_offset != 0) {
+            if (Button((Vector2) {10, 150}, offset_text, 16, 0) == BUTTON_STATE_CLICKED) {
+                data_apply_offset(&file_source, move_state.plot_offset);
+                *(uint64_t*)&move_state.plot_offset = 0;
+                change |= MOVE_CHANGE_PLOT;
+            }
+        }
+
+        if (plot_state.selected_point > 0) {
+            if (Button((Vector2) {10, 200}, "Utnij", 16, 0) == BUTTON_STATE_CLICKED) {
+                data_cut_left(&file_source, plot_state.selected_point);
+                plot_state.selected_point = -1;
+                change |= MOVE_CHANGE_PLOT;
+            }
+        }
+
+        if (GetTime() > .5) FpsCounter();
+        EndDrawing();
     }
 
     font_unload();

@@ -10,6 +10,7 @@ typedef struct {
     Vector2* point_buffer;
     VisiblePointsInfo visible;
     char count_text[32];
+    int selected_point;
 
 } DataPlotState;
 

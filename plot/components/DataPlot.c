@@ -21,15 +21,29 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
     DrawCircleV(state->point_buffer[0], 10.f, RED);
     DrawCircleV(state->point_buffer[state->visible.count - 1], 10.f, ORANGE);
 
-    PointHoverTooltip((PointHoverTooltipProps) {
-        .data = props.data_source.data,
-        .points = state->point_buffer,
-        .visible = state->visible
-    });
+    const int hover_index = find_hover_point(state->point_buffer, state->visible.count);
+    if (hover_index != -1) {
+        PointHoverTooltip((PointHoverTooltipProps) {
+           .data = props.data_source.data,
+           .points = state->point_buffer,
+           .visible = state->visible,
+           .index = hover_index
+       });
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            state->selected_point = hover_index + state->visible.start;
+        }
+    }
+
+    if (state->selected_point >= state->visible.start && state->selected_point < state->visible.start + state->visible.count) {
+        DrawCircleV(state->point_buffer[state->selected_point - state->visible.start], 7, BLUE);
+    }
 }
 
 DataPlotState DataPlotState_create(const int data_count) {
-    return (DataPlotState) { .point_buffer = malloc(sizeof(Vector2) * data_count) };
+    return (DataPlotState) {
+        .point_buffer = malloc(sizeof(Vector2) * data_count),
+        .selected_point = -1
+    };
 }
 
 void DataPlotState_destroy(DataPlotState* state) {

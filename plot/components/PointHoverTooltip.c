@@ -18,23 +18,20 @@ int find_hover_point(const Vector2* points, const int count) {
 }
 
 void PointHoverTooltip(const PointHoverTooltipProps props) {
-    const int hover_index = find_hover_point(props.points, props.visible.count);
-    if (hover_index != -1) {
-        char text[32];
-        const Vector2 data_point = props.data[hover_index + props.visible.start];
-        const Vector2 pixel_point = props.points[hover_index];
-        DrawCircleV(pixel_point, 6.f, DARKBLUE);
+    const Vector2 data_point = props.data[props.index + props.visible.start];
+    const Vector2 pixel_point = props.points[props.index];
+    DrawCircleV(pixel_point, 6.f, DARKBLUE);
 
-        sprintf(text, "x: %.3f\ny: %.3f", data_point.x, data_point.y);
-        TextBox((TextBoxProps) {
-            .text = text,
-            .font_size = 15,
-            .origin = {pixel_point.x + 5, pixel_point.y - 5},
-            .padding = {5, 2},
-            .align = TEXTBOX_ALIGN_BOTTOM,
-            .background_color = WHITE,
-            .border_color = BLUE,
-            .border = 1
-        });
-    }
+    char text[32];
+    sprintf(text, "x: %.3f\ny: %.3f", data_point.x, data_point.y);
+    TextBox((TextBoxProps) {
+        .text = text,
+        .font_size = 15,
+        .origin = {pixel_point.x + 5, pixel_point.y - 5},
+        .padding = {5, 2},
+        .align = TEXTBOX_ALIGN_BOTTOM,
+        .background_color = WHITE,
+        .border_color = BLUE,
+        .border = 1
+    });
 }

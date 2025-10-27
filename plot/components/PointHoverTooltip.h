@@ -8,9 +8,11 @@ typedef struct {
     Vector2* data;
     Vector2* points;
     VisiblePointsInfo visible;
+    int index;
 
 } PointHoverTooltipProps;
 
 void PointHoverTooltip(PointHoverTooltipProps props);
+int find_hover_point(const Vector2* points, int count);
 
 #endif //POINTHOVERTOOLTIP_H
