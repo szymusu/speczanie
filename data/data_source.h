@@ -17,5 +17,6 @@ void data_apply_offset(DataSource* data_source, Vector2 offset);
 void data_scale_y(DataSource* data_source, float scale_y);
 void data_cut_left(DataSource* data_source, int index);
 void data_cut_right(DataSource* data_source, int index);
+void data_flip_x(DataSource* data_source);
 
 #endif //DATA_SOURCE_H

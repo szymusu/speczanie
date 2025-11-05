@@ -60,6 +60,11 @@ int main() {
             change |= MOVE_CHANGE_PLOT;
         }
 
+        if (Button((Vector2) {100, 50}, "Odwroc x", 16, 0) == BUTTON_STATE_CLICKED) {
+            data_flip_x(&file_source);
+            change |= MOVE_CHANGE_PLOT;
+        }
+
         if (file_source.data->x != 0 || file_source.data->y != 0) {
             if (Button((Vector2) {10, 100}, "Zeruj start", 16, 0) == BUTTON_STATE_CLICKED) {
                 data_apply_offset(&file_source, (Vector2) {

@@ -44,3 +44,18 @@ void data_cut_right(DataSource* data_source, const int index) {
     if (index + 1 >= data_source->count) return;
     data_source->count = index + 1;
 }
+
+void data_flip_x(DataSource* data_source) {
+    const int mid_i = data_source->count / 2;
+    for (int i = 0; i < mid_i; ++i) {
+        const int j = data_source->count - i - 1;
+        const Vector2 tmp = data_source->data[i];
+        data_source->data[i] = data_source->data[j];
+        data_source->data[j] = tmp;
+        data_source->data[i].x = -data_source->data[i].x;
+        data_source->data[j].x = -data_source->data[j].x;
+    }
+    if (data_source->count & 1) {
+        data_source->data[mid_i].x = -data_source->data[mid_i].x;
+    }
+}
