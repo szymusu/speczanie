@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <time.h>
 
+#include "../../plot/plot_math.h"
 #include "../../text/text.h"
 
 char clock_text[64];
@@ -33,5 +34,5 @@ void clock_end() {
 }
 
 void Clock() {
-    Text(clock_text, 0, 410, 20, BLACK);
+    Text(clock_text, 0, PLOT_HEIGHT - 40, 20, BLACK);
 }

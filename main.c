@@ -15,12 +15,13 @@
 #include "text/text.h"
 
 int main() {
-    SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_WINDOW_RESIZABLE);
-    InitWindow(800, 450, "Raylib Window");
+    // Anty-aliasing mega psuje FPS
+    // SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
+    InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Raylib Window");
     font_init("resources/JetBrainsMono-SemiBold.ttf");
 
-    // BinaryFile file = file_parse("input/19_v10.W01");
-    BinaryFile file = file_parse("input/20_v50.W01");
+    BinaryFile file = file_parse("input/19_v10.W01");
+    // BinaryFile file = file_parse("input/20_v50.W01");
     DataSource file_source = data_source_columns(&file, 3, 0, 100.f);
     DataPlotState plot_state = DataPlotState_create(file_source.count);
 
@@ -80,12 +81,12 @@ int main() {
 
         if (plot_state.selected_point > 0) {
             Text("Utnij", 10, 200, 16, BLACK);
-            if (Button((Vector2) {70, 200}, "Lewo", 16, TEXTBOX_ALIGN_RIGHT) == BUTTON_STATE_CLICKED) {
+            if (Button((Vector2) {70, 216}, "Lewo", 16, TEXTBOX_ALIGN_RIGHT) == BUTTON_STATE_CLICKED) {
                 data_cut_left(&file_source, plot_state.selected_point);
                 plot_state.selected_point = -1;
                 change |= MOVE_CHANGE_PLOT;
             }
-            if (Button((Vector2) {75, 200}, "Prawo", 16, 0) == BUTTON_STATE_CLICKED) {
+            if (Button((Vector2) {75, 216}, "Prawo", 16, 0) == BUTTON_STATE_CLICKED) {
                 data_cut_right(&file_source, plot_state.selected_point);
                 plot_state.selected_point = -1;
                 change |= MOVE_CHANGE_PLOT;

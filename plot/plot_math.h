@@ -1,8 +1,10 @@
 #ifndef PLOT_MATH_H
 #define PLOT_MATH_H
 
-#define PLOT_WIDTH 800
-#define PLOT_HEIGHT 450
+// #define PLOT_WIDTH 800
+#define PLOT_WIDTH 1200
+// #define PLOT_HEIGHT 450
+#define PLOT_HEIGHT 600
 #define PLOT_OFFSET_X 0
 #define PLOT_OFFSET_Y 0
 

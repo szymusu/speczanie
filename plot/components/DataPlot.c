@@ -16,7 +16,7 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
     }
     Clock();
     sprintf(state->count_text, "C: %d", state->visible.count);
-    Text(state->count_text, 700, 430, 20, RED);
+    Text(state->count_text, PLOT_WIDTH - 100, PLOT_HEIGHT - 20, 20, RED);
     DrawSplineLinear(state->point_buffer, state->visible.count, 2.f, DARKBLUE);
     DrawCircleV(state->point_buffer[0], 10.f, RED);
     DrawCircleV(state->point_buffer[state->visible.count - 1], 10.f, ORANGE);

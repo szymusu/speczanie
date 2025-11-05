@@ -2,3 +2,9 @@ wczytywanie
 obcinanie
 przesuwanie
 skalowanie (np. * -1)
+
+obórt Y
+przesuwanie tylko po osiach
+
+później
+ekstrapolacja prostej
