@@ -8,7 +8,9 @@
 
 typedef struct {
     Vector2* point_buffer;
+    Vector2* shadow_point_buffer;
     VisiblePointsInfo visible;
+    VisiblePointsInfo shadow_visible;
     char count_text[32];
     int selected_point;
 

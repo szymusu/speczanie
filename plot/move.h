@@ -8,6 +8,7 @@
 #define MOVE_CHANGE_ZOOM 1
 #define MOVE_CHANGE_PAN 2
 #define MOVE_CHANGE_PLOT 4
+#define MOVE_CHANGE_APPLY_OFFSET 8
 
 typedef unsigned char move_change_t;
 

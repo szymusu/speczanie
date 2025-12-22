@@ -13,6 +13,7 @@
 #include "plot/components/SplinePlot.h"
 #include "text/Button.h"
 #include "text/text.h"
+#include "util/vector2.h"
 
 int main() {
     // Anty-aliasing mega psuje FPS
@@ -55,6 +56,12 @@ int main() {
             sprintf(offset_text, "x: %.2f\ny: %.2f", move_state.plot_offset.x, move_state.plot_offset.y);
         }
 
+        if (change & MOVE_CHANGE_APPLY_OFFSET) {
+            puts("aplaj ofset");
+            data_apply_offset(&file_source, move_state.plot_offset);
+            move_state.plot_offset = VECTOR2_ZERO;
+        }
+
         if (Button((Vector2) {10, 50}, "Odwroc y", 16, 0) == BUTTON_STATE_CLICKED) {
             data_scale_y(&file_source, -1);
             change |= MOVE_CHANGE_PLOT;
@@ -71,7 +78,7 @@ int main() {
                     -file_source.data[0].x,
                     file_source.data[0].y
                 });
-                *(uint64_t*)&move_state.plot_offset = 0;
+                move_state.plot_offset = VECTOR2_ZERO;
                 change |= MOVE_CHANGE_PLOT;
             }
         }
@@ -79,7 +86,7 @@ int main() {
         if (*(uint64_t*)&move_state.plot_offset != 0) {
             if (Button((Vector2) {10, 140}, offset_text, 16, 0) == BUTTON_STATE_CLICKED) {
                 data_apply_offset(&file_source, move_state.plot_offset);
-                *(uint64_t*)&move_state.plot_offset = 0;
+                move_state.plot_offset = VECTOR2_ZERO;
                 change |= MOVE_CHANGE_PLOT;
             }
         }

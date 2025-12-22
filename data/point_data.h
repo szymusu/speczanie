@@ -11,6 +11,7 @@ typedef struct {
     int start;
 } VisiblePointsInfo;
 
-VisiblePointsInfo compute_visible_points(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
+VisiblePointsInfo compute_visible_points(DataSource data_source, Vector2* point_buffer, Bounds bounds);
+VisiblePointsInfo compute_visible_points_offset(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
 
 #endif //POINT_DATA_H

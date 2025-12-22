@@ -40,6 +40,8 @@ add_executable(${PROJECT_NAME} main.c
         text/TextBox.h
         text/Button.c
         text/Button.h
+        util/vector2.c
+        util/vector2.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)
