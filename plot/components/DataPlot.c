@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "Arrow.h"
 #include "../../text/text.h"
 #include "../../diagnostics/components/Clock.h"
 #include "PointHoverTooltip.h"
@@ -27,6 +28,7 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
 
     if (state->shadow_visible.count) {
         DrawSplineLinear(state->shadow_point_buffer, state->shadow_visible.count, 2.f, (Color){150, 150, 150, 200});
+        Arrow(props.data_source.data[0], props.plot_offset, props.bounds);
     }
 
     const int hover_index = find_hover_point(state->point_buffer, state->visible.count);

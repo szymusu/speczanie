@@ -42,6 +42,10 @@ add_executable(${PROJECT_NAME} main.c
         text/Button.h
         util/vector2.c
         util/vector2.h
+        plot/components/Arrow.c
+        plot/components/Arrow.h
+        state/state.c
+        state/state.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)
