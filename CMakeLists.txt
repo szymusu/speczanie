@@ -46,6 +46,10 @@ add_executable(${PROJECT_NAME} main.c
         plot/components/Arrow.h
         state/state.c
         state/state.h
+        files/components/FileList.c
+        files/components/FileList.h
+        files/open_files.c
+        files/open_files.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)
