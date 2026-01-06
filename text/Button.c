@@ -32,7 +32,8 @@ button_state_t Button(const Vector2 origin, const char* text, const float font_s
         .align = align,
         .border = 1,
         .background_color = RAYWHITE,
-        .border_color = DARKBLUE
+        .border_color = DARKBLUE,
+        .text_color = BLACK
     };
     const Rectangle box = box_get_rect(props);
     DrawTextBox(props, box);

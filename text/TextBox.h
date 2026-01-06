@@ -11,6 +11,7 @@ typedef struct {
     Vector2 padding;
     const char* text;
     float font_size;
+    Color text_color;
     Color background_color;
     Color border_color;
     float border;

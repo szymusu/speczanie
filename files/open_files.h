@@ -17,6 +17,7 @@ int get_count();
 
 void select_file(int index);
 OpenFile* get_selected_file();
+int get_selected();
 
 int open_file(const char* filename);
 void close_file(int index);

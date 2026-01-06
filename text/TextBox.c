@@ -14,7 +14,7 @@ Rectangle box_get_rect(const TextBoxProps props) {
 void DrawTextBox(const TextBoxProps props, const Rectangle box) {
     DrawRectangleRec(box, props.background_color);
     DrawRectangleLinesEx(box, props.border, props.border_color);
-    Text(props.text, box.x + props.padding.x, box.y + props.padding.y, props.font_size, BLACK);
+    Text(props.text, box.x + props.padding.x, box.y + props.padding.y, props.font_size, props.text_color);
 }
 
 Rectangle TextBox(const TextBoxProps props) {

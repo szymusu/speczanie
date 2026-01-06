@@ -17,6 +17,10 @@ int get_count() {
     return count;
 }
 
+int get_selected() {
+    return selected;
+}
+
 void select_file(const int index) {
     selected = index;
 }
