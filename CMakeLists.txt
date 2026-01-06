@@ -8,14 +8,8 @@ set(CMAKE_C_STANDARD 11) # Requires C11 standard
 add_executable(${PROJECT_NAME} main.c
         diagnostics/components/FpsCounter.c
         diagnostics/components/FpsCounter.h
-        plot/components/Plot.c
-        plot/components/Plot.h
-        plot/components/ScatterPlot.c
-        plot/components/ScatterPlot.h
         plot/plot_math.c
         plot/plot_math.h
-        plot/components/SplinePlot.c
-        plot/components/SplinePlot.h
         plot/components/Grid.c
         plot/components/Grid.h
         plot/components/DataPlot.c
@@ -50,6 +44,8 @@ add_executable(${PROJECT_NAME} main.c
         files/components/FileList.h
         files/open_files.c
         files/open_files.h
+        plot/components/Controls.c
+        plot/components/Controls.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

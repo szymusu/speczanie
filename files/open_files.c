@@ -26,6 +26,7 @@ void select_file(const int index) {
 }
 
 OpenFile* get_selected_file() {
+    if (!count) return NULL;
     return &files[selected];
 }
 

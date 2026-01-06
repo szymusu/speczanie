@@ -32,6 +32,7 @@ void PointHoverTooltip(const PointHoverTooltipProps props) {
         .align = TEXTBOX_ALIGN_BOTTOM,
         .background_color = WHITE,
         .border_color = BLUE,
-        .border = 1
+        .border = 1,
+        .text_color = BLACK
     });
 }
