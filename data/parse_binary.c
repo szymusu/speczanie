@@ -3,23 +3,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-BinaryFile file_parse(const char* filename) {
-    BinaryFile data;
+void parse_error_expected(union FileParseResult* res, const enum FileParseErrorType type, const uint32_t expected, const uint32_t actual) {
+    res->error.zero = 0;
+    res->error.error_type = type;
+    res->error.expected_value = expected;
+    res->error.actual_value = actual;
+}
+
+void parse_error(union FileParseResult* res, const enum FileParseErrorType type) {
+    parse_error_expected(res, type, 0, 0);
+}
+
+union FileParseResult file_parse(const char* filename) {
+    union FileParseResult res;
     FILE* file = fopen(filename, "rb");
     if (file == NULL) {
-        printf("Error opening file\n");
-        return (BinaryFile) {0};
+        parse_error(&res, INVALID_HANDLE);
+        return res;
     }
-    fread(&data.header, sizeof(data.header), 1, file);
+    fread(&res.file.header, sizeof(res.file.header), 1, file);
 
-    data.columns = malloc(sizeof(data.columns[0]) * data.header.column_count);
-    for (int i = 0; i < data.header.column_count; ++i) {
-        fread(&data.columns[i], sizeof(data.columns[0].pre_data) + sizeof(data.columns[0].label), 1, file);
-        data.columns[i].data = malloc(4 * data.header.row_count);
-        fread(data.columns[i].data, 4, data.header.row_count, file);
+    if (res.file.header.magic != FILE_MAGIC) {
+        fclose(file);
+        parse_error_expected(&res, INVALID_MAGIC, FILE_MAGIC, res.file.header.magic);
+        return res;
     }
 
-    return data;
+    res.file.columns = malloc(sizeof(res.file.columns[0]) * res.file.header.column_count);
+    for (int i = 0; i < res.file.header.column_count; ++i) {
+        fread(&res.file.columns[i], sizeof(res.file.columns[0].pre_data) + sizeof(res.file.columns[0].label), 1, file);
+        res.file.columns[i].data = malloc(4 * res.file.header.row_count);
+        fread(res.file.columns[i].data, 4, res.file.header.row_count, file);
+    }
+
+    fclose(file);
+    return res;
 }
 
 void column_destroy(Column* column) {
@@ -31,6 +49,21 @@ void file_destroy(BinaryFile* file) {
         column_destroy(&file->columns[i]);
     }
     free(file->columns);
+}
+
+bool is_parsed_error(const union FileParseResult parse_result) {
+    return parse_result.error.zero == 0;
+}
+
+void print_parse_error(const FileParseError error) {
+    switch (error.error_type) {
+    case INVALID_HANDLE:
+        printf("Cannot open the file\n");
+        break;
+    case INVALID_MAGIC:
+        printf("Wrong magic number. Expected %x, got %x\n", error.expected_value, error.actual_value);
+        break;
+    }
 }
 
 void column_print(Column* column, const uint32_t count) {

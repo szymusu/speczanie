@@ -114,6 +114,15 @@ int main() {
 
         if (GetTime() > .5) FpsCounter();
         EndDrawing();
+
+        if (IsFileDropped()) {
+            const FilePathList files = LoadDroppedFiles();
+            for (int i = 0; i < files.count; ++i) {
+                printf("%s\n", files.paths[i]);
+                open_file(files.paths[i]);
+            }
+            UnloadDroppedFiles(files);
+        }
     }
 
     font_unload();

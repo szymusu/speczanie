@@ -32,7 +32,13 @@ OpenFile* get_selected_file() {
 int open_file(const char* filename) {
     if (count == OPEN_FILES_MAX_COUNT) return -1;
 
-    files[count].binary_file = file_parse(filename);
+    const union FileParseResult parse_result = file_parse(filename);
+    if (is_parsed_error(parse_result)) {
+        print_parse_error(parse_result.error);
+        return -1;
+    }
+
+    files[count].binary_file = parse_result.file;
     files[count].data_source = data_source_columns(&files[count].binary_file, 3, 0, 100.f);
     files[count].data_plot_state = DataPlotState_create(files[count].data_source.count);
     files[count].filename = malloc(strlen(filename) + 1);
