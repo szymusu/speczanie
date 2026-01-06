@@ -6,6 +6,11 @@
 #include "../../util/vector2.h"
 
 move_change_t Controls(OpenFile* current_file, MoveState* move_state, move_change_t change) {
+    if (change & MOVE_CHANGE_APPLY_OFFSET) {
+        data_apply_offset(&current_file->data_source, move_state->plot_offset);
+        move_state->plot_offset = VECTOR2_ZERO;
+    }
+
     if (Button((Vector2) {10, 50}, "Odwroc y", 16, 0) == BUTTON_STATE_CLICKED) {
         data_scale_y(&current_file->data_source, -1);
         change |= MOVE_CHANGE_PLOT;

@@ -30,6 +30,33 @@ OpenFile* get_selected_file() {
     return &files[selected];
 }
 
+void set_path_and_name(OpenFile* file, const char* filepath) {
+    int length = 0;
+    int last_slash = 0;
+    for (int i = 0;; ++i) {
+        if (filepath[i] == '\0') {
+            length = i;
+            break;
+        }
+        if (filepath[i] == '/') {
+            last_slash = i;
+        }
+    }
+    char* path = malloc(length + 1);
+    strcpy(path, filepath);
+
+    char* name;
+    if (length - last_slash < 1) {
+        name = path;
+    }
+    else {
+        name = &path[last_slash + 1];
+    }
+
+    file->filepath = path;
+    file->filename = name;
+}
+
 int open_file(const char* filename) {
     if (count == OPEN_FILES_MAX_COUNT) return -1;
 
@@ -42,8 +69,8 @@ int open_file(const char* filename) {
     files[count].binary_file = parse_result.file;
     files[count].data_source = data_source_columns(&files[count].binary_file, 3, 0, 100.f);
     files[count].data_plot_state = DataPlotState_create(files[count].data_source.count);
-    files[count].filename = malloc(strlen(filename) + 1);
-    strcpy(files[count].filename, filename);
+    set_path_and_name(&files[count], filename);
+
     return count++;
 }
 
@@ -51,7 +78,7 @@ void free_file(const int index) {
     file_destroy(&files[index].binary_file);
     data_source_destroy(&files[index].data_source);
     DataPlotState_destroy(&files[index].data_plot_state);
-    free(files[index].filename);
+    free(files[index].filepath);
 }
 
 void clear_files() {

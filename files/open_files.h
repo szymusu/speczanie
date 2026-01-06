@@ -10,6 +10,7 @@ typedef struct {
     DataSource data_source;
     DataPlotState data_plot_state;
     char* filename;
+    char* filepath;
 } OpenFile;
 
 OpenFile* get_files();

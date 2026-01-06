@@ -5,7 +5,6 @@
 #include <stdint.h>
 
 #define FILE_MAGIC 0x3f866666
-// #define FILE_MAGIC 0x3f866665
 
 typedef struct {
     uint32_t magic;
