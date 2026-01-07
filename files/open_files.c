@@ -22,8 +22,9 @@ int get_selected() {
     return selected;
 }
 
-void select_file(const int index) {
+OpenFile* select_file(const int index) {
     selected = index;
+    return &files[selected];
 }
 
 OpenFile* get_selected_file() {

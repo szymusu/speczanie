@@ -16,7 +16,7 @@ typedef struct {
 OpenFile* get_files();
 int get_count();
 
-void select_file(int index);
+OpenFile* select_file(int index);
 OpenFile* get_selected_file();
 int get_selected();
 
