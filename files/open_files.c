@@ -1,5 +1,6 @@
 #include "open_files.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -62,6 +63,7 @@ int open_file(const char* filename) {
 
     const union FileParseResult parse_result = file_parse(filename);
     if (is_parsed_error(parse_result)) {
+        printf("%s: ", filename);
         print_parse_error(parse_result.error);
         return -1;
     }

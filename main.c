@@ -1,6 +1,7 @@
 #include <raylib.h>
 #include <stdio.h>
 
+#include "args/args.h"
 #include "diagnostics/components/FpsCounter.h"
 #include "files/open_files.h"
 #include "files/components/FileList.h"
@@ -11,14 +12,14 @@
 #include "plot/components/Grid.h"
 #include "text/text.h"
 
-int main() {
+int main(const int argc, char** argv) {
+    if (process_args(argc, argv)) return -1;
+
     // Anty-aliasing mega psuje FPS na Macu
     SetConfigFlags(FLAG_MSAA_4X_HINT);
-    InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Raylib Window");
+    InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Spęczator 2000");
     font_init("resources/JetBrainsMono-SemiBold.ttf");
 
-    // open_file("input/19_v10.W01");
-    // open_file("input/20_v50.W01");
     OpenFile* current_file = get_selected_file();
 
     MoveState move_state = {

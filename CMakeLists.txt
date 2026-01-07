@@ -46,6 +46,8 @@ add_executable(${PROJECT_NAME} main.c
         files/open_files.h
         plot/components/Controls.c
         plot/components/Controls.h
+        args/args.c
+        args/args.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)
