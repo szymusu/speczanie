@@ -18,7 +18,7 @@ int main(const int argc, char** argv) {
     // Anty-aliasing mega psuje FPS na Macu
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Spęczator 2000");
-    font_init("resources/JetBrainsMono-SemiBold.ttf");
+    font_init();
 
     OpenFile* current_file = get_selected_file();
 

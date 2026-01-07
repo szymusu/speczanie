@@ -13,7 +13,7 @@ Font* get_font() {
     return &default_font;
 }
 
-void font_init(const char* file_name) {
+void font_init() {
     constexpr size_t font_size = sizeof font_bytes;
     printf("font byte size %lu\n", font_size);
     if (!font_size) {
@@ -22,9 +22,8 @@ void font_init(const char* file_name) {
     }
 
     default_font = LoadFontFromMemory(".ttf", font_bytes, sizeof font_bytes, 32, nullptr, 250);
-
     if (!IsFontValid(default_font)) {
-        printf("Font %s couldn't load!\n", file_name);
+        printf("Font %s couldn't load!\n");
         default_font = GetFontDefault();
     }
 }
