@@ -1,10 +1,9 @@
 #include "DataPlot.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 
 #include "Arrow.h"
-#include "../../text/text.h"
+#include "Line.h"
 #include "PointHoverTooltip.h"
 #include "../../util/vector2.h"
 
@@ -19,8 +18,6 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
             state->shadow_visible.count = 0;
         }
     }
-    sprintf(state->count_text, "C: %d", state->visible.count);
-    Text(state->count_text, PLOT_WIDTH - 100, PLOT_HEIGHT - 20, 20, RED);
     DrawSplineLinear(state->point_buffer, state->visible.count, 2.f, DARKBLUE);
     DrawCircleV(state->point_buffer[0], 10.f, RED);
     DrawCircleV(state->point_buffer[state->visible.count - 1], 10.f, ORANGE);
@@ -40,12 +37,29 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
         });
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             state->selected_point = hover_index + state->visible.start;
+            state->input_mode = PLOT_INPUT_SELECT;
+        }
+    }
+    if (state->input_mode == PLOT_INPUT_SELECT) {
+        if (hover_index != -1) {
+            const int second_point = hover_index + state->visible.start;
+            if (second_point == state->selected_point) {
+                state->selected_second_point = -1;
+            }
+            else {
+                state->selected_second_point = second_point;
+            }
         }
     }
 
-    if (state->selected_point >= state->visible.start && state->selected_point < state->visible.start + state->visible.count) {
+    if (is_in_view(state->selected_point, state->visible)) {
         DrawCircleV(state->point_buffer[state->selected_point - state->visible.start], 7, BLUE);
     }
+    if (is_in_view(state->selected_second_point, state->visible)) {
+        DrawCircleV(state->point_buffer[state->selected_second_point - state->visible.start], 7, SKYBLUE);
+    }
+
+    Line(state, props.data_source, props.bounds);
 }
 
 DataPlotState DataPlotState_create(const int data_count) {
@@ -53,6 +67,7 @@ DataPlotState DataPlotState_create(const int data_count) {
         .point_buffer = malloc(sizeof(Vector2) * data_count),
         .shadow_point_buffer = malloc(sizeof(Vector2) * data_count),
         .selected_point = -1,
+        .selected_second_point = -1,
         .zoom = 1.f,
     };
 }

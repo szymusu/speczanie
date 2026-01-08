@@ -13,5 +13,6 @@ typedef struct {
 
 VisiblePointsInfo compute_visible_points(DataSource data_source, Vector2* point_buffer, Bounds bounds);
 VisiblePointsInfo compute_visible_points_offset(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
+bool is_in_view(int point_index, VisiblePointsInfo visible);
 
 #endif //POINT_DATA_H

@@ -39,3 +39,7 @@ VisiblePointsInfo compute_visible_points_offset(const DataSource data_source, Ve
 VisiblePointsInfo compute_visible_points(const DataSource data_source, Vector2* point_buffer, const Bounds bounds) {
     return compute_visible_points_offset(data_source, point_buffer, bounds, (Vector2){0,0});
 }
+
+bool is_in_view(const int point_index, const VisiblePointsInfo visible) {
+    return point_index >= visible.start && point_index < visible.start + visible.count;
+}

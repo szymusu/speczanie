@@ -12,7 +12,7 @@
 
 typedef unsigned char move_change_t;
 
-enum PlotInputState {
+enum PlotInputMode {
     PLOT_INPUT_IDLE,
     PLOT_INPUT_MOVE,
     PLOT_INPUT_SELECT,
@@ -23,13 +23,16 @@ typedef struct {
     Vector2* shadow_point_buffer;
     VisiblePointsInfo visible;
     VisiblePointsInfo shadow_visible;
-    char count_text[32];
-    int selected_point;
 
     Vector2 pan;
     Vector2 plot_offset;
     float zoom;
-    enum PlotInputState input_state;
+
+    Vector2 mouse_position;
+    int selected_point;
+    int selected_second_point;
+
+    enum PlotInputMode input_mode;
 
 } DataPlotState;
 
