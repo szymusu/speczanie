@@ -22,31 +22,30 @@ int main(const int argc, char** argv) {
 
     OpenFile* current_file = get_selected_file();
 
-    MoveState move_state = {
-        .zoom = 1.f,
-        .pan = {0, 0}
-    };
     move_change_t change = 0b11;
 
     while (!WindowShouldClose()) {
-        const Bounds bounds = compute_bounds(move_state.zoom, move_state.pan);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
-        Grid(bounds);
+        if (current_file) {
+            const Bounds bounds = compute_bounds(current_file->data_plot_state.zoom, current_file->data_plot_state.pan);
+            Grid(bounds);
+            DataPlot(
+                (DataPlotProps) {
+                    .data_source = current_file->data_source,
+                    .bounds = bounds,
+                },
+                change, &current_file->data_plot_state);
 
-        if (current_file) DataPlot(
-            (DataPlotProps) {
-                .data_source = current_file->data_source,
-                .bounds = bounds,
-                .plot_offset = move_state.plot_offset
-            },
-            change, &current_file->data_plot_state);
+            change = process_move(&current_file->data_plot_state, bounds);
+            change = Controls(current_file, &current_file->data_plot_state, change);
+        }
+        else {
+            Text("Upuść pliki .W01 aby otworzyć", 200, 200, 20, BLACK);
+        }
 
-        change = process_move(&move_state, bounds);
-
-        if (current_file) change = Controls(current_file, &move_state, change);
 
         const int clicked = FileList();
         if (clicked != -1) {

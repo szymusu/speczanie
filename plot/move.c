@@ -5,7 +5,7 @@
 // #define ZOOM_SPEED .01f
 #define ZOOM_SPEED .08f
 
-move_change_t process_move(MoveState* state, const Bounds bounds) {
+move_change_t process_move(DataPlotState* state, const Bounds bounds) {
     move_change_t change = 0;
     const float wheel_change = GetMouseWheelMove();
     if (wheel_change != 0.f) {

@@ -5,10 +5,10 @@
 #include "../../data/data_source.h"
 #include "../../util/vector2.h"
 
-move_change_t Controls(OpenFile* current_file, MoveState* move_state, move_change_t change) {
+move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change_t change) {
     if (change & MOVE_CHANGE_APPLY_OFFSET) {
-        data_apply_offset(&current_file->data_source, move_state->plot_offset);
-        move_state->plot_offset = VECTOR2_ZERO;
+        data_apply_offset(&current_file->data_source, state->plot_offset);
+        state->plot_offset = VECTOR2_ZERO;
     }
 
     if (Button((Vector2) {10, 50}, "Odwroc y", 16, 0) == BUTTON_STATE_CLICKED) {
@@ -27,7 +27,7 @@ move_change_t Controls(OpenFile* current_file, MoveState* move_state, move_chang
                 -current_file->data_source.data[0].x,
                 current_file->data_source.data[0].y
             });
-            move_state->plot_offset = VECTOR2_ZERO;
+            state->plot_offset = VECTOR2_ZERO;
             change |= MOVE_CHANGE_PLOT;
         }
     }
