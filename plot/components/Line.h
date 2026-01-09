@@ -3,6 +3,6 @@
 
 #include "DataPlot.h"
 
-void Line(const DataPlotState* state, DataSource data_source, Bounds bounds);
+void Line(DataPlotState* state, DataSource data_source, Bounds bounds);
 
 #endif //SPECZANIE_LINE_H

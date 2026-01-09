@@ -19,6 +19,12 @@ enum PlotInputMode {
 };
 
 typedef struct {
+    Vector2 end_point;
+    float a;
+    float b;
+} CurveLinear;
+
+typedef struct {
     Vector2* point_buffer;
     Vector2* shadow_point_buffer;
     VisiblePointsInfo visible;
@@ -31,6 +37,8 @@ typedef struct {
     Vector2 mouse_position;
     int selected_point;
     int selected_second_point;
+
+    CurveLinear curve_linear;
 
     enum PlotInputMode input_mode;
 

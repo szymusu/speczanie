@@ -10,7 +10,16 @@ void DrawLineWithTransform(Vector2 p1, Vector2 p2, const Bounds bounds, const Co
     DrawLineEx(p1, p2, 2, color);
 }
 
-void Line(const DataPlotState* state, const DataSource data_source, const Bounds bounds) {
+void DrawCurveLinear(const CurveLinear curve_linear, const Bounds bounds) {
+    const Vector2 p0 = { -curve_linear.b / curve_linear.a, 0 };
+    DrawLineWithTransform(p0, curve_linear.end_point, bounds, GREEN);
+}
+
+void Line(DataPlotState* state, const DataSource data_source, const Bounds bounds) {
+    if (state->curve_linear.a && state->input_mode != PLOT_INPUT_SELECT) {
+        DrawCurveLinear(state->curve_linear, bounds);
+    }
+
     if (state->selected_point == -1) return;
 
     Vector2 p1 = data_source.data[state->selected_point];
@@ -35,8 +44,10 @@ void Line(const DataPlotState* state, const DataSource data_source, const Bounds
 
     const float a = d.y / d.x;
     const float b = p1.y - p1.x*a;
-
-    const float x0 = -b / a;
-    const Vector2 p0 = { x0, 0 };
-    DrawLineWithTransform(p0, p2, bounds, GREEN);
+    state->curve_linear = (CurveLinear) {
+        .end_point = p2,
+        .a = a,
+        .b = b
+    };
+    DrawCurveLinear(state->curve_linear, bounds);
 }
