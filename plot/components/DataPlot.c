@@ -19,8 +19,8 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
         }
     }
     DrawSplineLinear(state->point_buffer, state->visible.count, 2.f, DARKBLUE);
-    DrawCircleV(state->point_buffer[0], 10.f, RED);
-    DrawCircleV(state->point_buffer[state->visible.count - 1], 10.f, ORANGE);
+    DrawCircleV(state->point_buffer[0], 6, RED);
+    DrawCircleV(state->point_buffer[state->visible.count - 1], 6, ORANGE);
 
     if (state->shadow_visible.count) {
         DrawSplineLinear(state->shadow_point_buffer, state->shadow_visible.count, 2.f, (Color){150, 150, 150, 200});
@@ -41,14 +41,12 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
         }
     }
     if (state->input_mode == PLOT_INPUT_SELECT) {
-        if (hover_index != -1) {
-            const int second_point = hover_index + state->visible.start;
-            if (second_point == state->selected_point) {
-                state->selected_second_point = -1;
-            }
-            else {
-                state->selected_second_point = second_point;
-            }
+        const int second_point = hover_index + state->visible.start;
+        if (second_point == state->selected_point || hover_index == -1) {
+            state->selected_second_point = -1;
+        }
+        else {
+            state->selected_second_point = second_point;
         }
     }
 

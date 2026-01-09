@@ -9,5 +9,6 @@ bool is_vec2_zero(Vector2 vec);
 float vec2_magnitude(Vector2 vec);
 float vec2_angle(Vector2 vec);
 float vec2_angle_between(Vector2 v1, Vector2 v2);
+Vector2 vec2_subtract(Vector2 this, Vector2 from_this);
 
 #endif //VECTOR2_H
