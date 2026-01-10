@@ -3,7 +3,7 @@
 #include "../../text/Button.h"
 #include "../../text/text.h"
 #include "../../data/data_source.h"
-#include "../../util/vector2.h"
+#include "../../math/vector2.h"
 
 move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change_t change) {
     if (change & MOVE_CHANGE_APPLY_OFFSET) {

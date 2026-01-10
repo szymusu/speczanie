@@ -34,8 +34,8 @@ add_executable(${PROJECT_NAME} main.c
         text/TextBox.h
         text/Button.c
         text/Button.h
-        util/vector2.c
-        util/vector2.h
+        math/vector2.c
+        math/vector2.h
         plot/components/Arrow.c
         plot/components/Arrow.h
         state/state.c
@@ -50,6 +50,10 @@ add_executable(${PROJECT_NAME} main.c
         args/args.h
         plot/components/Line.c
         plot/components/Line.h
+        plot/components/Polynomial.c
+        plot/components/Polynomial.h
+        math/regression.c
+        math/regression.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

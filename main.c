@@ -5,6 +5,7 @@
 #include "diagnostics/components/FpsCounter.h"
 #include "files/open_files.h"
 #include "files/components/FileList.h"
+#include "math/regression.h"
 #include "plot/move.h"
 #include "plot/plot_math.h"
 #include "plot/components/Controls.h"

@@ -5,7 +5,8 @@
 #include "Arrow.h"
 #include "Line.h"
 #include "PointHoverTooltip.h"
-#include "../../util/vector2.h"
+#include "Polynomial.h"
+#include "../../math/vector2.h"
 
 
 void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotState* state) {
@@ -58,7 +59,10 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
     }
 
     Line(state, props.data_source, props.bounds);
+    Polynomial(state->curve_polynomial, change, props.bounds);
 }
+
+constexpr float coeffs[] = {1, 1, .2f, -.1f};
 
 DataPlotState DataPlotState_create(const int data_count) {
     return (DataPlotState) {
@@ -67,9 +71,16 @@ DataPlotState DataPlotState_create(const int data_count) {
         .selected_point = -1,
         .selected_second_point = -1,
         .zoom = 1.f,
+        .curve_polynomial = {
+            .coefficients = coeffs,
+            .start_x = -3,
+            .end_x = 5,
+            .order = sizeof coeffs / sizeof coeffs[0]
+        }
     };
 }
 
 void DataPlotState_destroy(DataPlotState* state) {
     free(state->point_buffer);
+    // free(state->curve_polynomial.coefficients);
 }

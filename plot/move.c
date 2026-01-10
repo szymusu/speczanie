@@ -1,6 +1,6 @@
 #include "move.h"
 
-#include "../util/vector2.h"
+#include "../math/vector2.h"
 
 // #define ZOOM_SPEED .01f
 #define ZOOM_SPEED .08f

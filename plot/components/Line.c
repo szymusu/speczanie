@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-#include "../../util/vector2.h"
+#include "../../math/vector2.h"
 
 void DrawLineWithTransform(Vector2 p1, Vector2 p2, const Bounds bounds, const Color color) {
     p1 = transform_v_to_pixel(p1, bounds);

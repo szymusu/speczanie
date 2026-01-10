@@ -2,7 +2,7 @@
 
 #include <math.h>
 
-#include "../../util/vector2.h"
+#include "../../math/vector2.h"
 
 #define ARROW_PADDING 0.3f
 #define ARROW_HEAD_ANGLE 0.6f

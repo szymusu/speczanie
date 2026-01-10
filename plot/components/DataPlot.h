@@ -9,6 +9,7 @@
 #define MOVE_CHANGE_PAN 2
 #define MOVE_CHANGE_PLOT 4
 #define MOVE_CHANGE_APPLY_OFFSET 8
+#define MOVE_CHANGE_POLYNOMIAL 16
 
 typedef unsigned char move_change_t;
 
@@ -26,6 +27,14 @@ typedef struct {
 
 typedef struct {
     Vector2* point_buffer;
+    float* coefficients;
+    float start_x;
+    float end_x;
+    uint8_t order;
+} CurvePolynomial;
+
+typedef struct {
+    Vector2* point_buffer;
     Vector2* shadow_point_buffer;
     VisiblePointsInfo visible;
     VisiblePointsInfo shadow_visible;
@@ -39,6 +48,7 @@ typedef struct {
     int selected_second_point;
 
     CurveLinear curve_linear;
+    CurvePolynomial curve_polynomial;
 
     enum PlotInputMode input_mode;
 
