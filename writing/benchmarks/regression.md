@@ -1,33 +1,7 @@
-#include "regression.h"
+# Algorytm regresji wielomianowej
 
-#include <stdlib.h>
-#include <math.h>
-#include <stdio.h>
-
-#include "vector2.h"
-#include "../diagnostics/components/Clock.h"
-
-#define _get_mat_cell(row, col) matrix[swap_table[row] * m + col]
-#define _get_error(row) errors[swap_table[row]]
-#define _get_coeff(row) coeffs[swap_table[row]]
-
-void e_matrix_print(const float* matrix, const float* errors, const int* swap_table, const int m) {
-    for (int row = 0; row < m; ++row) {
-        for (int col = 0; col < m; ++col) {
-            printf("  %2.2f  ", _get_mat_cell(row, col));
-        }
-        printf("|  %2.2f  ", _get_error(row));
-        putchar('\n');
-    }
-    putchar('\n');
-}
-
-void swap_rows(int* swap_table, const int row1, const int row2) {
-    const int tmp = swap_table[row1];
-    swap_table[row1] = swap_table[row2];
-    swap_table[row2] = tmp;
-}
-
+## pierwotna funkcja
+```c++
 void regression(CurvePolynomial* curve, const Vector2* points, const int point_count) {
     clock_start();
     const int degree = point_count - 1;
@@ -98,3 +72,40 @@ void regression(CurvePolynomial* curve, const Vector2* points, const int point_c
     curve->end_x = points[point_count - 1].x;
     clock_end();
 }
+```
+
+### debug
+```
+samples: 10000
+cycles: 1228592 avg 1182240 best
+ms: 0.340353 avg 0.328000 best
+samples: 10000
+cycles: 1222491 avg 1187676 best
+ms: 0.338560 avg 0.329000 best
+samples: 10000
+cycles: 1221949 avg 1184508 best
+ms: 0.338329 avg 0.328000 best
+samples: 10000
+cycles: 1219704 avg 1187136 best
+ms: 0.337932 avg 0.328000 best
+```
+
+
+### release
+```
+samples: 10000
+cycles: 951561 avg 913932 best
+ms: 0.263545 avg 0.253000 best
+samples: 10000
+cycles: 952509 avg 913644 best
+ms: 0.263831 avg 0.253000 best
+samples: 10000
+cycles: 939618 avg 913608 best
+ms: 0.260251 avg 0.252000 best
+samples: 10000
+cycles: 942651 avg 914544 best
+ms: 0.261089 avg 0.253000 best
+```
+
+
+## 

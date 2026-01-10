@@ -2,6 +2,8 @@
 #include <stdio.h>
 
 #include "args/args.h"
+#include "diagnostics/components/BenchmarkProgress.h"
+#include "diagnostics/components/Clock.h"
 #include "diagnostics/components/FpsCounter.h"
 #include "files/open_files.h"
 #include "files/components/FileList.h"
@@ -26,6 +28,12 @@ int main(const int argc, char** argv) {
     move_change_t change = 0b11;
 
     while (!WindowShouldClose()) {
+
+        const int samples = get_sample_count();
+        if (samples < CLOCK_SAMPLE_COUNT && samples != -1) {
+            change |= MOVE_CHANGE_BENCHMARK;
+        }
+        BenchmarkProgress(samples, CLOCK_SAMPLE_COUNT);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);

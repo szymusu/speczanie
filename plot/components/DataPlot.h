@@ -10,6 +10,7 @@
 #define MOVE_CHANGE_PLOT 4
 #define MOVE_CHANGE_APPLY_OFFSET 8
 #define MOVE_CHANGE_POLYNOMIAL 16
+#define MOVE_CHANGE_BENCHMARK 32
 
 typedef unsigned char move_change_t;
 

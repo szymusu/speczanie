@@ -1,8 +1,10 @@
 #include "Polynomial.h"
 
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 
+#include "../../diagnostics/components/Clock.h"
 #include "../../math/regression.h"
 
 #define POINT_COUNT 100
@@ -55,14 +57,20 @@ void Polynomial(CurvePolynomial* curve, move_change_t change, const Bounds bound
         DrawRectangle(50, 0, 20, 50, RED);
     }
     if (!point_count) {
-        gen_points(curve, -5, 25);
+        gen_points(curve, -5, 29);
         change |= MOVE_CHANGE_POLYNOMIAL;
     }
 
-    regression(curve, points, point_count);
     if (change) {
+        regression(curve, points, point_count);
+
         compute_points(curve, bounds);
+        // for (int i = 0; i < curve->order; ++i) {
+        //     printf("%.2f  ", curve->coefficients[i]);
+        // }
+        // putchar('\n');
     }
+    Clock();
 
     DrawSplineLinear(curve->point_buffer, POINT_COUNT, 2.f, LIGHTGRAY);
 
