@@ -97,14 +97,13 @@ void regression(CurvePolynomial* curve, const Vector2* points, const int point_c
 
 
     for (int i = 0; i < m; ++i) {
-        errors[i] = _get_coeff(i);
+        curve->coefficients[i] = _get_coeff(i);
     }
     free(matrix);
+    free(errors);
     free(coeffs);
-    // free(coeffs);
     free(swap_table);
 
-    curve->coefficients = errors;
     curve->order = m;
     curve->start_x = points[0].x;
     curve->end_x = points[point_count - 1].x;
