@@ -28,33 +28,63 @@ void swap_rows(int* swap_table, const int row1, const int row2) {
     swap_table[row2] = tmp;
 }
 
+float power_fi(const float x, int pow) {
+    if (pow == 0) return 1;
+    float res = x;
+    while (--pow) {
+        res *= x;
+    }
+    return res;
+}
+
 void regression(CurvePolynomial* curve, const Vector2* points, const int point_count) {
-    clock_start();
+    // printf("%f\n", power_fi(2, 3));
     const int degree = point_count - 1;
     const int n = point_count;
     const int m = degree;
 
-    float* matrix = malloc((m*m + 2*m) * sizeof (float)  +  m * sizeof (int));
+    float* matrix = malloc((m*m + 4*m + 2*n) * sizeof (float)  +  m * sizeof (int));
     float* errors = &matrix[m*m];
     float* coeffs = &errors[m];
-    int* swap_table = (int*) &coeffs[m];
+    float* sum_of_powers = &coeffs[m];
+    float* points_x = &sum_of_powers[2 * m];
+    float* points_x_powers = &points_x[n];
+    int* swap_table = (int*) &points_x_powers[n];
+
+    clock_start();
+    sum_of_powers[0] = (float) n;
+    sum_of_powers[1] = 0;
+    for (int i = 0; i < n; ++i) {
+        const float x = points[i].x;
+        points_x[i] = x;
+        points_x_powers[i] = x;
+        sum_of_powers[1] += x;
+    }
+    for (int pow = 2; pow < 2 * m; ++pow) {
+        float total = 0;
+        for (int i = 0; i < n; ++i) {
+            points_x_powers[i] *= points_x[i];
+            total += points_x_powers[i];
+        }
+        sum_of_powers[pow] = total;
+    }
+    clock_end();
 
     for (int row = 0; row < m; ++row) {
         swap_table[row] = row;
 
         for (int col = 0; col < m; ++col) {
-            float cell = 0;
-            const int power = row + col;
-            for (int i = 0; i < n; ++i) {
-                cell += pownf(points[i].x, power);
-            }
-            _get_mat_cell(row, col) = cell;
+            matrix[row * m + col] = sum_of_powers[row + col];
         }
+    }
+
+    for (int row = 0; row < m; ++row) {
         float error = 0;
         for (int i = 0; i < n; ++i) {
-            error += pownf(points[i].x, row) * points[i].y;
+            error += power_fi(points[i].x, row) * points[i].y;
+            // error += pownf(points[i].x, row) * points[i].y;
         }
-        _get_error(row) = error;
+        errors[row] = error;
     }
 
     for (int i = 0; i < m - 1; ++i) {
@@ -96,5 +126,4 @@ void regression(CurvePolynomial* curve, const Vector2* points, const int point_c
     curve->order = m;
     curve->start_x = points[0].x;
     curve->end_x = points[point_count - 1].x;
-    clock_end();
 }

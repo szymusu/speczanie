@@ -13,7 +13,14 @@ Vector2* points = nullptr;
 int point_count = 0;
 
 void gen_points(CurvePolynomial* curve, const float start_x, const int count) {
-    curve->coefficients = malloc(count * sizeof *points);
+    // curve->coefficients = malloc(3 * sizeof *curve->coefficients);
+    // point_count = 3;
+    // points = malloc(3 * sizeof *points);
+    // points[0] = (Vector2) {.1f, .1f};
+    // points[1] = (Vector2) {.35f, .45f};
+    // points[2] = (Vector2) {.6f, .8f};
+
+    curve->coefficients = malloc(count * sizeof *curve->coefficients);
 
     points = malloc(count * sizeof *points);
     point_count = count;
