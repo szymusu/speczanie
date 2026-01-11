@@ -89,8 +89,6 @@ samples: 10000
 cycles: 1219704 avg 1187136 best
 ms: 0.337932 avg 0.328000 best
 ```
-
-
 ### release
 ```
 samples: 10000
@@ -531,11 +529,6 @@ for (int pow = 2; pow < 2 * m; ++pow) {
 }
 clock_end();
 ```
-ilość operacji mnożenia:
-2m * n
-2(m² - m)
-ilość operacji dodawania:
-2m * n + n
 
 ### debug
 ```
@@ -571,4 +564,192 @@ ms: 0.001559 avg 0.000000 best
 ### 10-krotne przyspieszenie
 Zamiast każdorazowo liczyć x^n, x^(n+1), ...
 Obliczamy następną potęgę na podstawie poprzedniej: x^(n+1) = x^n * x
-Usprawniamy złożoność obliczeniową
+Usprawniamy złożoność obliczeniową 
+ilość operacji mnożenia:
+2m * n
+2(m² - m)
+ilość operacji dodawania:
+2m * n + n
+2m * (m-1) + m-1
+2m² - m - 1
+
+
+## wypełnianie macierzy
+```c++
+clock_start();
+for (int row = 0; row < m; ++row) {
+    swap_table[row] = row;
+
+    for (int col = 0; col < m; ++col) {
+        matrix[row * m + col] = sum_of_powers[row + col];
+    }
+}
+clock_end();
+```
+### debug
+```
+samples: 10000
+cycles: 11213 avg 9216 best
+ms: 0.002846 avg 0.000000 best
+samples: 10000
+cycles: 11032 avg 9216 best
+ms: 0.002860 avg 0.000000 best
+samples: 10000
+cycles: 11004 avg 9000 best
+ms: 0.002860 avg 0.002000 best
+samples: 10000
+cycles: 11043 avg 9324 best
+ms: 0.002870 avg 0.001000 best
+```
+### release
+```
+samples: 10000
+cycles: 4021 avg 3240 best
+ms: 0.000922 avg 0.000000 best
+samples: 10000
+cycles: 3972 avg 3132 best
+ms: 0.000914 avg 0.000000 best
+samples: 10000
+cycles: 4029 avg 2916 best
+ms: 0.000924 avg 0.000000 best
+samples: 10000
+cycles: 3995 avg 3096 best
+ms: 0.000912 avg 0.000000 best
+```
+
+### szybciutko
+Czas niewiele większy niż overhead benchamrku
+
+
+## wypełnianie wektora błędów
+```c++
+clock_start();
+for (int row = 0; row < m; ++row) {
+    float error = 0;
+    for (int i = 0; i < n; ++i) {
+        error += power_fi(points[i].x, row) * points[i].y;
+        // error += pownf(points[i].x, row) * points[i].y;
+    }
+    errors[row] = error;
+}
+clock_end();
+```
+### debug
+```
+samples: 10000
+cycles: 77407 avg 75024 best
+ms: 0.021263 avg 0.019000 best
+samples: 10000
+cycles: 77480 avg 75240 best
+ms: 0.021263 avg 0.020000 best
+samples: 10000
+cycles: 77297 avg 75204 best
+ms: 0.021254 avg 0.019000 best
+samples: 10000
+cycles: 77554 avg 75456 best
+ms: 0.021311 avg 0.020000 best
+```
+### release
+```
+samples: 10000
+cycles: 15688 avg 13428 best
+ms: 0.004154 avg 0.002000 best
+samples: 10000
+cycles: 15495 avg 13500 best
+ms: 0.004107 avg 0.002000 best
+samples: 10000
+cycles: 15313 avg 13500 best
+ms: 0.004056 avg 0.001000 best
+samples: 10000
+cycles: 15065 avg 13536 best
+ms: 0.003987 avg 0.002000 best
+```
+
+## eliminacja potęgowania z wektora błędów
+stosując tę samą metodę przechowywania obecnej potęgi każdego z punktów w tablicy, eliminujemy kosztowne operacje mnożenia
+```c++
+clock_start();
+errors[0] = 0;
+for (int i = 0; i < n; ++i) {
+    const float y = points[i].y;
+    points_x_powers_y[i] = y;
+    errors[0] += y;
+}
+for (int pow = 1; pow < m; ++pow) {
+    float total = 0;
+    for (int i = 0; i < n; ++i) {
+        points_x_powers_y[i] *= points_x[i];
+        total += points_x_powers_y[i];
+    }
+    errors[pow] = total;
+}
+clock_end();
+```
+### debug
+```
+samples: 10000
+cycles: 13730 avg 12312 best
+ms: 0.003610 avg 0.002000 best
+samples: 10000
+cycles: 14205 avg 12636 best
+ms: 0.003702 avg 0.001000 best
+samples: 10000
+cycles: 13688 avg 12636 best
+ms: 0.003587 avg 0.000000 best
+samples: 10000
+cycles: 13778 avg 12492 best
+ms: 0.003618 avg 0.001000 best
+```
+### release
+```
+samples: 10000
+cycles: 4839 avg 3888 best
+ms: 0.001150 avg 0.000000 best
+samples: 10000
+cycles: 4755 avg 4032 best
+ms: 0.001135 avg 0.000000 best
+samples: 10000
+cycles: 4782 avg 3744 best
+ms: 0.001139 avg 0.000000 best
+samples: 10000
+cycles: 4807 avg 3924 best
+ms: 0.001144 avg 0.000000 best
+```
+### bardzo dobry wynik
+większość czasu to narzut z samego benchmarku
+Możemy usunąć naszą funkcję potęgowania c:
+
+
+## powrót do całej funkcji
+### debug
+```
+samples: 10000
+cycles: 227112 avg 219996 best
+ms: 0.062745 avg 0.060000 best
+samples: 10000
+cycles: 226345 avg 219816 best
+ms: 0.062483 avg 0.059000 best
+samples: 10000
+cycles: 226825 avg 220788 best
+ms: 0.062675 avg 0.061000 best
+samples: 10000
+cycles: 226253 avg 220104 best
+ms: 0.062492 avg 0.060000 best
+```
+### release
+```
+samples: 10000
+cycles: 20354 avg 17460 best
+ms: 0.005447 avg 0.003000 best
+samples: 10000
+cycles: 19150 avg 17244 best
+ms: 0.005123 avg 0.003000 best
+samples: 10000
+cycles: 19586 avg 17424 best
+ms: 0.005245 avg 0.003000 best
+samples: 10000
+cycles: 19994 avg 17568 best
+ms: 0.005364 avg 0.002000 best
+```
+
+### poprawa ok. 47-krotna

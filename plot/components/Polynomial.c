@@ -64,7 +64,7 @@ void Polynomial(CurvePolynomial* curve, move_change_t change, const Bounds bound
         DrawRectangle(50, 0, 20, 50, RED);
     }
     if (!point_count) {
-        gen_points(curve, -5, 29);
+        gen_points(curve, -5, 10);
         change |= MOVE_CHANGE_POLYNOMIAL;
     }
 
