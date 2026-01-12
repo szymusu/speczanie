@@ -18,6 +18,7 @@ enum PlotInputMode {
     PLOT_INPUT_IDLE,
     PLOT_INPUT_MOVE,
     PLOT_INPUT_SELECT,
+    PLOT_INPUT_REGRESSION,
 };
 
 typedef struct {
@@ -47,9 +48,11 @@ typedef struct {
     Vector2 mouse_position;
     int selected_point;
     int selected_second_point;
+    bool* is_selected_flags;
 
     CurveLinear curve_linear;
     CurvePolynomial curve_polynomial;
+    Vector2* regression_points;
 
     enum PlotInputMode input_mode;
 

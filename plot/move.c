@@ -23,7 +23,8 @@ move_change_t process_move(DataPlotState* state, const Bounds bounds) {
 
     switch (state->input_mode) {
 
-    case PLOT_INPUT_IDLE: {
+    case PLOT_INPUT_IDLE:
+    case PLOT_INPUT_REGRESSION: {
         if (no_delta || IsMouseButtonUp(MOUSE_BUTTON_LEFT)) break;
 
         if (IsKeyDown(KEY_LEFT_CONTROL)) {

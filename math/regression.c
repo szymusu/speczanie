@@ -28,10 +28,9 @@ void swap_rows(int* swap_table, const int row1, const int row2) {
     swap_table[row2] = tmp;
 }
 
-void regression(CurvePolynomial* curve, const Vector2* points, const int point_count) {
+void regression(CurvePolynomial* curve, const Vector2* points, const int point_count, const int degree) {
     clock_start();
     // printf("%f\n", power_fi(2, 3));
-    const int degree = point_count - 1;
     const int n = point_count;
     const int m = degree;
 

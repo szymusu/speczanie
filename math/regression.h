@@ -3,6 +3,6 @@
 
 #include "../plot/components/DataPlot.h"
 
-void regression(CurvePolynomial* curve, const Vector2* points, int point_count);
+void regression(CurvePolynomial* curve, const Vector2* points, int point_count, int degree);
 
 #endif //REGRESSION_H

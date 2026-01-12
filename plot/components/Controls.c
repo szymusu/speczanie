@@ -6,6 +6,17 @@
 #include "../../math/vector2.h"
 
 move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change_t change) {
+    if (IsKeyPressed(KEY_R)) {
+        if (state->input_mode == PLOT_INPUT_REGRESSION)
+            state->input_mode = PLOT_INPUT_IDLE;
+        else
+            state->input_mode = PLOT_INPUT_REGRESSION;
+    }
+
+    if (state->input_mode == PLOT_INPUT_REGRESSION) {
+        Text("Wybierz punkty do regresji", 400, 10, 20, BROWN);
+    }
+
     if (change & MOVE_CHANGE_APPLY_OFFSET) {
         data_apply_offset(&current_file->data_source, state->plot_offset);
         state->plot_offset = VECTOR2_ZERO;

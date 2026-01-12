@@ -9,7 +9,7 @@
 #include "../../math/vector2.h"
 
 
-void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotState* state) {
+void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* state) {
     if (change) {
         state->visible = compute_visible_points(props.data_source, state->point_buffer, props.bounds);
         if (!is_vec2_zero(state->plot_offset)) {
@@ -29,6 +29,7 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
     }
 
     const int hover_index = find_hover_point(state->point_buffer, state->visible.count);
+    const int hover_absolute_index = hover_index + state->visible.start;
     if (hover_index != -1) {
         PointHoverTooltip((PointHoverTooltipProps){
             .data = props.data_source.data,
@@ -37,12 +38,17 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
             .index = hover_index
         });
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            state->selected_point = hover_index + state->visible.start;
-            state->input_mode = PLOT_INPUT_SELECT;
+            if (state->input_mode == PLOT_INPUT_REGRESSION) {
+                state->is_selected_flags[hover_absolute_index] = true;
+            }
+            else {
+                state->selected_point = hover_absolute_index;
+                state->input_mode = PLOT_INPUT_SELECT;
+            }
         }
     }
     if (state->input_mode == PLOT_INPUT_SELECT) {
-        const int second_point = hover_index + state->visible.start;
+        const int second_point = hover_absolute_index;
         if (second_point == state->selected_point || hover_index == -1) {
             state->selected_second_point = -1;
         }
@@ -59,7 +65,19 @@ void DataPlot(const DataPlotProps props, const move_change_t change, DataPlotSta
     }
 
     Line(state, props.data_source, props.bounds);
-    Polynomial(&state->curve_polynomial, change, props.bounds);
+
+    if (state->input_mode == PLOT_INPUT_REGRESSION) {
+        int selected_count = 0;
+        for (int i = 0; i < props.data_source.count; ++i) {
+            if (state->is_selected_flags[i]) {
+                state->regression_points[selected_count++] = props.data_source.data[i];
+            }
+        }
+        if (selected_count > 2) {
+            change |= MOVE_CHANGE_POLYNOMIAL;
+            Polynomial(&state->curve_polynomial, state->regression_points, selected_count, change, props.bounds);
+        }
+    }
 }
 
 DataPlotState DataPlotState_create(const int data_count) {
@@ -68,11 +86,18 @@ DataPlotState DataPlotState_create(const int data_count) {
         .shadow_point_buffer = malloc(sizeof(Vector2) * data_count),
         .selected_point = -1,
         .selected_second_point = -1,
+        .is_selected_flags = calloc(data_count, sizeof(bool)),
         .zoom = 1.f,
+        .regression_points = malloc(sizeof(Vector2) * data_count),
+        .curve_polynomial = {.coefficients = malloc(sizeof(float) * data_count)}
     };
 }
 
 void DataPlotState_destroy(DataPlotState* state) {
     free(state->point_buffer);
+    free(state->shadow_point_buffer);
+    free(state->is_selected_flags);
+    free(state->regression_points);
+    free(state->curve_polynomial.coefficients);
     // free(state->curve_polynomial.coefficients);
 }

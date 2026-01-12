@@ -56,6 +56,8 @@ add_executable(${PROJECT_NAME} main.c
         math/regression.h
         diagnostics/components/BenchmarkProgress.c
         diagnostics/components/BenchmarkProgress.h
+        util/swapback_array.c
+        util/swapback_array.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

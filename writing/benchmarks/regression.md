@@ -1,5 +1,9 @@
 # Algorytm regresji wielomianowej
 
+## dane wejściowe
+29 punktów na krzywej 2sinx + 2
+od -5, co 0.3
+
 ## pierwotna funkcja
 ```c++
 void regression(CurvePolynomial* curve, const Vector2* points, const int point_count) {

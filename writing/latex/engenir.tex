@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{polski}
+\usepackage[a4paper, margin=2.5cm]{geometry}
+\usepackage{graphics}
+\usepackage[export]{adjustbox}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{multirow}
+\usepackage{array}
+
+
+\title{Spęczator 2000}
+\date{12.01.2026}
+\author{Szymon Miłkowski}
+
+\begin{document}
+	\maketitle
+	
+	\section{Cel i wstępne założenia}
+	Celem tego projektu było stworzenie graficznego programu komputerowego do analizy, korekcji i transformacji danych pomiarowych z prób spęczania. Danymi wejściowymi do programu miały być pliki binarne w formacie \textit{W01} generowane przez oprogramowanie maszyny badawczej. \\
+	Dodatkowym celem miała być kompatybilność i płynność działania zarówno na współczesnym sprzęcie, jak i starszym (Windows XP 32-bit).
+
+	\section{Wybór technologii}
+	Z racji na wymóg szerokiej kompatybilności, oraz wysokiej wydajności, konieczne było wybranie technologii pozwalającej na kompilację do natywnego kodu maszynowego z minimalną ilością zależności.
+	Wybór padł na język C z biblioteką Raylib do obsługi grafiki, linkowaną statycznie.\\
+	Raylib posiada łatwe w obsłudze API składające się z funkcji do rysowania i obsługi wejścia (mysz, klawiatura).
+	
+	\section{Spęczanie}
+	Próba spęczania polega na ściskaniu próbki wzdłuż jednej osi (pionowej) przez maszynę badawczą z zadaną prędkością. Podczas próby materiał odkształca się, zmniejszając swoją wysokość w kierunki siły oraz - zgodnie z zasadą zachowania objętości - zwiększając swoją szerokość w pozostałych kierunkach. \\
+	Podszas tego procesu, materiał wewnątrz płynie, wypychając materiał na ścianach bocznych na zewnątrz, a materiał przy podstawach trze o górną i dolną ścianę maszyny, co hamuje jego przemieszczenie na zewnątrz. \\
+	Siła nacisku (opór jaki stawia próbka) jest mierzona i zależy od materiału i fazy procesu.
+	
+	\subsection{Fazy procesu}
+	Brak kontaktu
+	\begin{itemize}
+		\item Brak kontaktu - maszyna nie ściska próbki, zmierza w jej kierunku - stała, niska siła
+		\item Pierwszy kontakt - luzy w maszynie są ściskane - szum informacyjny
+		\item Faza liniowa?? - siła rośnie liniowo
+		\item Faza nieliniowa?? - siła rośnie coraz mniej
+	\end{itemize}
+	
+	
+	
+	\pagebreak
+	
+	
+	\section{Format pliku wejściowego}
+	
+	
+	\pagebreak
+	
+	
+	\section{Implementacja}
+	\subsection{Ogólna struktura aplikacji}
+	\subsubsection{Komponenty}
+	Interfejs graficzny aplikacji podzielony jest na "komponenty" - funkcje zawierające logikę kontrolną oraz rysujące pewien element interfejsu. Wywołanie tej funkcji oznacza, że komponent istnieje w obecnej klatce.
+	Funkcje te mogą wywoływać inne funkcje komponentów, co tworzy swego rodzaju strukturę drzewa komponentów, rozpoczynającą się w głównej pętli programu. Pozycja w strukturze drzewa nie ma jednak wpływu na rozmieszczenie elementu, pozycja jest statyczna, lub określana poprzez podane parametry.
+	\subsubsection{Zarządzanie stanem}
+	Inspirowane działaniem innego drzewiastego systemu komponentów graficznych - webowym Reactem - komponenty, jeśli to konieczne, operują na dwóch rodzajach danych: właściwości (\textit{props}) i stan (\textit{state}).
+	\paragraph{Właściwości} są podawane do funkcji komponentu jako kopia (pass by value), bądź stały wskaźnik, mają za zadanie sterować zachowaniem i wyglądem komponentu.
+	\paragraph{Stan} jest podawany jako wskaźnik do pamięci zarządzanej przez rodzica (komponent wywołujuący), ma za zadanie przechowywanie stanu komponentu między wywołaniami, jest modyfikowany głównie przez sam komponent oraz jego dzieci (jeśli zostanie podany do nich jako ich stan).
+	\paragraph{Stan globalny} jest wykorzystywany w niektórych komponentach, które z założenia mają istnieć tylko w jednej sztuce jednocześnie, jak lista otwartych plików lub narzędzia diagnostyczne \textit{FPSCounter} i \textit{Clock}, jako zmienne globalne w jednostce translacyjnej (niewidoczno poza obecnym plikiem .c), lub statyczne zmienne lokalne w funkcji komponentu.
+	
+	
+	
+	\subsection{Rysowanie wykresu}
+	
+	
+\end{document}
