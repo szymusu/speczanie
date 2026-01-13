@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  14 JAN 2026 00:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  14 JAN 2026 00:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -424,8 +424,25 @@ LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line
  (/usr/share/texmf-dist/tex/latex/polski/ot4cmtt.fd
 File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
+Underfull \hbox (badness 10000) in paragraph at lines 148--158
 
-[4{/usr/share/texmf-dist/fonts/enc/dvips/pl/pltt.enc}] (./engenir.aux)
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 148--158
+
+ []
+
+
+
+[4{/usr/share/texmf-dist/fonts/enc/dvips/pl/pltt.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 161--170
+
+ []
+
+
+
+[5] (./engenir.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -447,10 +464,10 @@ ublic/pl/plr12.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plr17.pfb></usr
 /share/texmf-dist/fonts/type1/public/pl/plsy10.pfb></usr/share/texmf-dist/fonts
 /type1/public/pl/plti10.pfb></usr/share/texmf-dist/fonts/type1/public/pl/pltt10
 .pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on engenir.pdf (4 pages, 107941 bytes).
+Output written on engenir.pdf (5 pages, 107187 bytes).
 PDF statistics:
- 78 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 81 PDF objects out of 1000 (max. 8388607)
+ 51 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

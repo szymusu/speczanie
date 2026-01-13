@@ -142,25 +142,32 @@
 	\subsubsection{Transformacja współrzędnych}
 	
 	Punkt podlega przekształceniu liniowemu:
+
 	\begin{equation}
-		\frac{x_{END}}{z} - \frac{x_{START}}{z} = \frac{x_{END} - x_{START}}{z}
+		x = \frac{z(x_p - x_v) - x_{S}}{x_{E} - x_{S}} * W + x_O
 	\end{equation}
+	gdzie \\
+	$z$ - współczynnik skali \\
+	$x_p$ - współrzędna $x$ punktu w układzie kartezjańskim \\
+	$x_v$ - przesunięcie $x$ w układzie kartezjańskim \\
+	$x_S$ - współrzędna $x$ lewej krawędzi układu kartezjańskiego przy zerowym przesunięciu \\
+	$x_E$ - współrzędna $x$ prawej krawędzi układu kartezjańskiego przy zerowym przesunięciu \\
+	$W$ - szerokość wykresu w pikselach \\
+	$x_O$ - odległość prawej krawędzi wykresu od prawej krawędzi ekranu
+	\\\\
 	
 	\begin{equation}
-		x = (x_p - (\frac{x_{START}}{z} + x_{pan})) / \frac{x_{END} - x_{START}}{z}
+		y = \frac{-z(y_p + y_v) - y_{S}}{y_{E} - y_{S}} * H + y_O
 	\end{equation}
+	gdzie \\
+	$z$ - współczynnik skali \\
+	$y_p$ - współrzędna $y$ punktu w układzie kartezjańskim \\
+	$y_v$ - przesunięcie $y$ w układzie kartezjańskim \\
+	$y_S$ - współrzędna $y$ dolnej krawędzi układu kartezjańskiego przy zerowym przesunięciu \\
+	$y_E$ - współrzędna $y$ górnej krawędzi układu kartezjańskiego przy zerowym przesunięciu \\
+	$H$ - wysokość wykresu w pikselach \\
+	$y_O$ - odległość górnej krawędzi wykresu od górnej krawędzi ekranu \\
 	
-	\begin{equation}
-		x = (x_pz - x_{START} - x_{pan}z) * \frac{1}{x_{END} - x_{START}}
-	\end{equation}
-	
-	\begin{equation}
-		x = \frac{z(x_p - x_{pan}) - x_{START}}{x_{END} - x_{START}} * W + x_O
-	\end{equation}
-	
-	\begin{equation}
-		x = \frac{z(x_p - x_v) - x_{START}}{x_{END} - x_{START}} * W + x_O
-	\end{equation}	
-	
+	Zmiana znaku $y_p$ jest spowodowana, tym że oś +Y we współrzędnych ekranowych skierowana jest w dół.
 	
 \end{document}
