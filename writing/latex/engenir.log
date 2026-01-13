@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  13 JAN 2026 00:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  14 JAN 2026 00:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -392,33 +392,65 @@ LaTeX Font Info:    External font `plex10' loaded for size
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf-dist/fonts
 /enc/dvips/pl/plrm.enc}{/usr/share/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr
 /share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <10> on input line 63.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <7> on input line 63.
+LaTeX Font Info:    External font `plex10' loaded for size
+(Font)              <5> on input line 63.
 
-[2]
+Underfull \hbox (badness 2884) in paragraph at lines 72--72
+[]|\OT4/cmr/m/n/10 wygl¡da jak zb¦d-na in-for-ma-cja, mo-»e
+ []
 
-[3] (./engenir.aux)
+
+Overfull \hbox (25.46042pt too wide) in paragraph at lines 63--81
+ [] 
+ []
+
+
+Overfull \hbox (10.79153pt too wide) in paragraph at lines 87--95
+ [] 
+ []
+
+
+
+[2{/usr/share/texmf-dist/fonts/enc/dvips/pl/plmi.enc}{/usr/share/texmf-dist/fon
+ts/enc/dvips/pl/plms.enc}]
+
+[3]
+LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 
+135.
+ (/usr/share/texmf-dist/tex/latex/polski/ot4cmtt.fd
+File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+
+[4{/usr/share/texmf-dist/fonts/enc/dvips/pl/pltt.enc}] (./engenir.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4634 strings out of 475136
- 71061 string characters out of 5766291
- 473879 words of memory out of 5000000
- 27563 multiletter control sequences out of 15000+600000
- 566398 words of font info for 54 fonts, out of 8000000 for 9000
+ 4684 strings out of 475136
+ 71830 string characters out of 5766291
+ 485879 words of memory out of 5000000
+ 27599 multiletter control sequences out of 15000+600000
+ 569647 words of font info for 63 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
- 63i,6n,65p,423b,217s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 63i,13n,65p,433b,217s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/pl/plbx10.pfb></usr/share/texmf-dis
 t/fonts/type1/public/pl/plbx12.pfb></usr/share/texmf-dist/fonts/type1/public/pl
-/plr10.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plr12.pfb></usr/share/t
-exmf-dist/fonts/type1/public/pl/plr17.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/pl/plti10.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.
-pfb>
-Output written on engenir.pdf (3 pages, 66099 bytes).
+/plmi10.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plmi7.pfb></usr/share/
+texmf-dist/fonts/type1/public/pl/plr10.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/pl/plr12.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plr17.pfb></usr
+/share/texmf-dist/fonts/type1/public/pl/plsy10.pfb></usr/share/texmf-dist/fonts
+/type1/public/pl/plti10.pfb></usr/share/texmf-dist/fonts/type1/public/pl/pltt10
+.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on engenir.pdf (4 pages, 107941 bytes).
 PDF statistics:
- 52 PDF objects out of 1000 (max. 8388607)
- 32 compressed objects within 1 object stream
+ 78 PDF objects out of 1000 (max. 8388607)
+ 49 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
