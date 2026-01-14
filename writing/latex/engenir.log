@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  14 JAN 2026 00:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  14 JAN 2026 23:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -424,25 +424,72 @@ LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line
  (/usr/share/texmf-dist/tex/latex/polski/ot4cmtt.fd
 File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
-Underfull \hbox (badness 10000) in paragraph at lines 148--158
+Underfull \hbox (badness 10000) in paragraph at lines 149--159
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 148--158
+Underfull \hbox (badness 10000) in paragraph at lines 149--159
 
  []
 
 
 
 [4{/usr/share/texmf-dist/fonts/enc/dvips/pl/pltt.enc}]
-Underfull \hbox (badness 10000) in paragraph at lines 161--170
+Underfull \hbox (badness 10000) in paragraph at lines 162--171
+
+ []
+
+
+Overfull \hbox (43.50154pt too wide) in paragraph at lines 196--196
+[]    \OT4/cmtt/m/n/10 .x = (v.x - bounds.start_x) / (bounds.end_x - bounds.sta
+rt_x) * PLOT_WIDTH + PLOT_OFFSET_X,[] 
+ []
+
+
+Overfull \hbox (54.00145pt too wide) in paragraph at lines 196--196
+[]    \OT4/cmtt/m/n/10 .y = (-v.y - bounds.start_y) / (bounds.end_y - bounds.st
+art_y) * PLOT_HEIGHT + PLOT_OFFSET_Y,[] 
+ []
+
+
+
+[5]
+Overfull \hbox (54.00145pt too wide) in paragraph at lines 251--251
+[]   \OT4/cmtt/m/n/10 const DataSource data_source, Vector2* point_buffer, cons
+t Bounds bounds, const Vector2 offset[] 
+ []
+
+
+Overfull \hbox (43.50154pt too wide) in paragraph at lines 251--251
+[]    \OT4/cmtt/m/n/10 .start = find_first_visible(data_source.data, data_sourc
+e.count, bounds.start_x - offset.x)[] 
+ []
+
+
+
+[6]
+
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 325--326
 
  []
 
 
 
-[5] (./engenir.aux)
+[8]
+
+[9]
+Overfull \hbox (12.00182pt too wide) in paragraph at lines 470--470
+[]  \OT4/cmtt/m/n/10 void regression(CurvePolynomial* curve, const Vector2* poi
+nts, const int point_count) {[] 
+ []
+
+
+
+[10]
+
+[11] (./engenir.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -451,23 +498,24 @@ L3 programming layer <2025-01-18>
 Here is how much of TeX's memory you used:
  4684 strings out of 475136
  71830 string characters out of 5766291
- 485879 words of memory out of 5000000
+ 485953 words of memory out of 5000000
  27599 multiletter control sequences out of 15000+600000
  569647 words of font info for 63 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
- 63i,13n,65p,433b,217s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 63i,13n,65p,690b,273s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/pl/plbx10.pfb></usr/share/texmf-dis
 t/fonts/type1/public/pl/plbx12.pfb></usr/share/texmf-dist/fonts/type1/public/pl
 /plmi10.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plmi7.pfb></usr/share/
 texmf-dist/fonts/type1/public/pl/plr10.pfb></usr/share/texmf-dist/fonts/type1/p
 ublic/pl/plr12.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plr17.pfb></usr
-/share/texmf-dist/fonts/type1/public/pl/plsy10.pfb></usr/share/texmf-dist/fonts
-/type1/public/pl/plti10.pfb></usr/share/texmf-dist/fonts/type1/public/pl/pltt10
-.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on engenir.pdf (5 pages, 107187 bytes).
+/share/texmf-dist/fonts/type1/public/pl/plr7.pfb></usr/share/texmf-dist/fonts/t
+ype1/public/pl/plsy10.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plti10.p
+fb></usr/share/texmf-dist/fonts/type1/public/pl/pltt10.pfb></usr/share/texmf-di
+st/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on engenir.pdf (11 pages, 136929 bytes).
 PDF statistics:
- 81 PDF objects out of 1000 (max. 8388607)
- 51 compressed objects within 1 object stream
+ 106 PDF objects out of 1000 (max. 8388607)
+ 68 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

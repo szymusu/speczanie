@@ -10,7 +10,7 @@
 \usepackage{array}
 
 
-\title{Spęczator 2000}
+\title{Analiza wyników pomiarowych z prób spęczania z wykorzystaniem aplikacji komputerowej}
 \date{12.01.2026}
 \author{Szymon Miłkowski}
 
@@ -115,13 +115,13 @@
 	\pagebreak
 	
 	
-	\section{Implementacja}
-	\subsection{Ogólna struktura aplikacji}
-	\subsubsection{Komponenty}
+
+	\section{Ogólna struktura aplikacji}
+	\subsection{Komponenty}
 	Interfejs graficzny aplikacji podzielony jest na "komponenty" - funkcje zawierające logikę kontrolną oraz rysujące pewien element interfejsu. Wywołanie tej funkcji oznacza, że komponent istnieje w obecnej klatce.
 	Funkcje te mogą wywoływać inne funkcje komponentów, co tworzy swego rodzaju strukturę drzewa komponentów, rozpoczynającą się w głównej pętli programu. Pozycja w strukturze drzewa nie ma jednak wpływu na rozmieszczenie elementu, pozycja jest statyczna, lub określana poprzez podane parametry.
 	
-	\subsubsection{Zarządzanie stanem}
+	\subsection{Zarządzanie stanem}
 	Inspirowane działaniem innego drzewiastego systemu komponentów graficznych - webowym Reactem - komponenty, jeśli to konieczne, operują na dwóch rodzajach danych: właściwości (\textit{props}) i stan (\textit{state}).
 	\paragraph{Właściwości} są podawane do funkcji komponentu jako kopia (pass by value), bądź stały wskaźnik, mają za zadanie sterować zachowaniem i wyglądem komponentu.
 	\paragraph{Stan} jest podawany jako wskaźnik do pamięci zarządzanej przez rodzica (komponent wywołujuący), ma za zadanie przechowywanie stanu komponentu między wywołaniami, jest modyfikowany głównie przez sam komponent oraz jego dzieci (jeśli zostanie podany do nich jako ich stan).
@@ -129,18 +129,19 @@
 	
 	
 	
-	\subsection{Rysowanie wykresu}
+	\section{Rysowanie wykresu}
 	Raylib zawiera jedynie proste funkcje rysowania kształtów. Jedną z nich jest \textit{DrawSplineLinear}, łącząca podane współrzędne pikseli liniowymi odcinkami. cośtam właśnie jej użyjemy bla
 	
 	\begin{verbatim}
 		DrawSplineLinear(state->point_buffer, state->visible.count, 2.f, DARKBLUE);
 	\end{verbatim}
 	
-	\subsubsection{Poruszanie się w widoku}
+	\subsection{Poruszanie się w widoku}
 	Aby zwiększyć interaktywność, użytkownik może się poruszać po płaszczyźnie XY, przeciągając płaszczyznę myszką, oraz przybliżając i oddalając kółkiem myszy. Manipulowane są w ten sposób zmienne skali oraz przesunięcia uwzględnione w przekształceniu punktów ze współrzędnych kartezjańskich na współrzędne ekranu.
 	
-	\subsubsection{Transformacja współrzędnych}
+	\subsection{Transformacja współrzędnych}
 	
+	\subsubsection{Model matematyczny}
 	Punkt podlega przekształceniu liniowemu:
 
 	\begin{equation}
@@ -169,5 +170,333 @@
 	$y_O$ - odległość górnej krawędzi wykresu od górnej krawędzi ekranu \\
 	
 	Zmiana znaku $y_p$ jest spowodowana, tym że oś +Y we współrzędnych ekranowych skierowana jest w dół.
+	
+	\subsubsection{Implementacja}
+	W kodzie programu zaimplementowane jest to dwuetapowo.
+	\paragraph{Obliczanie granic widocznego fragmentu}
+	\begin{verbatim}
+		Bounds compute_bounds(const float zoom, const Vector2 pan) {
+			return (Bounds) {
+				.start_x = PLOT_START_X / zoom + pan.x,
+				.end_x = PLOT_END_X / zoom + pan.x,
+				.start_y = PLOT_START_Y / zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
+				.end_y = PLOT_END_Y / zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
+			};
+		}
+	\end{verbatim}
+	
+	\paragraph{Transformacja pojedynczego punktu}
+	\begin{verbatim}
+		Vector2 transform_v_to_pixel(const Vector2 v, const Bounds bounds) {
+			return (Vector2){
+				.x = (v.x - bounds.start_x) / (bounds.end_x - bounds.start_x) * PLOT_WIDTH + PLOT_OFFSET_X,
+				.y = (-v.y - bounds.start_y) / (bounds.end_y - bounds.start_y) * PLOT_HEIGHT + PLOT_OFFSET_Y,
+			};
+		}
+	\end{verbatim}
+	
+	\paragraph{Transformacja wielu punktów jednocześnie} jest zoptymalizowana pod kątem ilości niepotrzebnych operacji (opisana w punkcie 6.3.3).
+	
+	\subsection{Minimalizacja renderowanych punktów}
+	\subsubsection{Opis problemu}
+	Podczas przegladania wykresu, nie każdy punkt będzie widoczny jednocześnie. Chcąc zminimalizować ilość punktów podlegających transformacji oraz rysowaniu, należy znaleźć zakres punktów widocznych na ekranie.
+	
+	\subsubsection{Szukanie pierwszego punktu}
+	Zakładając, że współrzędna $x$ w zestawie danych jest niemalejąca, możemy potraktować zbiór $X$ jako posortowany zbiór danych i użyć wydajnego algorytmu \textbf{wyszukiwania binarnego}, o złożoności obliczeniowej $O(\log_2n)$.
+	
+	\begin{verbatim}
+		int find_first_visible(const Vector2* data, const int count, const float start_x) {
+			if (data[count - 1].x < start_x) return -1;
+			
+			int a = 0, b = count - 1;
+			while (b - a > 1) {
+				const int mid = (a + b) / 2;
+				if (data[mid].x > start_x) b = mid;
+				else a = mid;
+			}
+			return a;
+		}
+	\end{verbatim}
+	
+	\subsubsection{Transformacja punktów}
+	Po znalezieniu pierwszego elementu zbioru wyjściowego, współrzędne są przekształcane i zapisywane w tablicy wyjściwej aż do napotkania punktu znajdującego się za prawą krawędzią widoku lub końca tablicy wejściowej. Wyszukiwanie binarne nie ma tutaj zastosowania, ponieważ i tak każdy widoczny punkt musi zostać przekształcony, co wiąże się z liniowym algorytmem.
+	
+	\begin{verbatim}
+		VisiblePointsInfo compute_visible_points_offset(
+			const DataSource data_source, Vector2* point_buffer, const Bounds bounds, const Vector2 offset
+			) {
+			VisiblePointsInfo res = {
+				.start = find_first_visible(data_source.data, data_source.count, bounds.start_x - offset.x)
+			};
+			if (res.start == -1) return res;
+			
+			const float x_factor =  1 / (bounds.end_x - bounds.start_x) * PLOT_WIDTH;
+			const float y_factor = -1 / (bounds.end_y - bounds.start_y) * PLOT_HEIGHT;
+			
+			const int visible_count = data_source.count - res.start;
+			for (int i = 0; i < visible_count; i++) {
+				const int i_source = i + res.start;
+				point_buffer[i].x = (data_source.data[i_source].x - bounds.start_x + offset.x)
+					* x_factor + PLOT_OFFSET_X;
+				point_buffer[i].y = (data_source.data[i_source].y + bounds.start_y - offset.y)
+					* y_factor + PLOT_OFFSET_Y;
+				if (data_source.data[i_source].x > bounds.end_x - offset.x) {
+					res.count = i + 1;
+					return res;
+				}
+			}
+			res.count = visible_count;
+			return res;
+		}
+	\end{verbatim}
+	Algorytm nie używa funkcji do transformacji pojedynczego punktu, co pozwala na obliczenie niezmiennych współczynników poza pętlą, unikając zbędnych operacji.
+	
+	\subsection{Wykrywanie zmian}
+	Transformacja wszystkich widocznych punktów jest mimo wszystko kosztowną operacją, dlatego wykonywana jest jedynie gdy reprezentacja punktów na wykresie powinna ulec zmianie. Odpowiada za to zmienna \textit{change}, zawierająca flagi sterujące rekalkulacją elementów wykresu, ustawiana przez funkcję odpowiadającą za obsługę wejścia.
+	
+	
+	\pagebreak
+	\section{Analiza danych spęczania}
+	\subsection{Charakterystyka danych}
+	Dane zawarte w plikach z pomiaru próby spęczania zawierają 4 kolumny
+	\subsubsection{Load[kN]}
+	Siła zmierzona przez maszynę - opór, który stawia próbka. Wartości ujemne.
+	\subsubsection{Stroke[mm]}
+	Przemieszczenie narzędzia maszyny. Wartości ujemne.
+	\subsubsection{Command[\%]}
+	
+	\subsubsection{Time[s]}
+	Czas obecnego rekordu, wartość rosnąca od 0, co 0.0025.
+	
+	
+	\subsection{Fazy procesu w danych}
+	\begin{itemize}
+		\item \textbf{Brak kontaktu} - obciążenie jest stałe lub z minimalnymi wachaniami, niewielkie
+		\item \textbf{Pierwszy kontakt} - obciążenie wacha się nierównomiernie, zauważalnie bardziej niż w poprzednim etapie
+		\item \textbf{Liniowa} - obciążenie rośnie liniowo
+		\item \textbf{Nieliniowa} - wzrost obciążenia stopniowo i płynnie maleje
+	\end{itemize}
+	
+	\subsection{Wykrywanie faz}
+	Fazy procesu są na tyle charakterystyczne, że można je wykryć z poziomu algorytmu
+	\\do napisania jeszcze
+	
+	\subsection{Analiza fazy liniowej}
+	
+	\subsection{Analiza fazy nieliniowej}
+	
+	
+	\pagebreak
+	
+	
+	\section{Proces optymalizacji algorytmu regresji wielomianowej}
+	\subsection{Wstęp}
+	Ten rozdział opisuje proces opytmalizacji algorytmu wykonującego regresję wielomianową podanego stopnia dla podanych punktów. Udokumentowane są użyte techniki oraz pomiary czasowe. Przed opytmalizacją, algorytm ten był zdecydowanie najbardziej czasochłonną operacją w całym programie.
+	\subsection{Dane wejściowe, sprzęt i środowisko}
+	Podczas testowania przyjęto następujące parametry:
+	\begin{itemize}
+		\item \textbf{Punkty wejściowe}: 29 punktów na krzywej $2\sin x+2$, dla $x$ od -5, co 0.3
+		\item \textbf{Stopień szukanego wielomianu}: 28
+		\item \textbf{CPU}: AMD Zen2 Ryzen 3600
+		\item \textbf{Kompilator}: GCC 15.2.1
+		\item \textbf{Opcje kompilatora w trybie Debug}: -g
+		\item \textbf{Opcje kompilatora w trybie Release}: -O3
+	\end{itemize}
+	
+	\subsection{Sposób pomiarów}
+	\subsubsection{Realny benchmark}
+	Pomiary algorytmu oraz jego fragmentów miały miejsce jako mierzenie części całego działającego programu, maksymalnie raz na klatkę, przy zachowaniu całej jego pozostałej funkcjonalności. Rezultat był wykorzystany do wyświetlenia na żywo wykresu wyznaczonej funkcji, nie ma mowy więc o pomijaniu przez kompilator operacji, których wynik nie jest używany. Dodatkowo w syntetycznym benchmarku, wywołującym w pętli funkcję wiele razy, korzystniej mogłaby być zapełniona pamięć cache oraz bardziej dokładny predyktor skoków, dlatego wplecenie pomiarów w standardowy przepływ programu lepiej oddaje wydajność w realnych warunkach.
+	
+	\subsubsection{RDTSC}
+	Architektura x86 implementuje instrukcję \textbf{RDTSC} (\textit{Read Time-Stamp Counter}), zwracającą obecną wartość licznika cykli. Licznik służy do precyzyjnego pomiaru czasu i jest inkrementowany co stałą jednostkę czasu, odpowiadającą częstotliwości procesora. Dynamiczne taktowanie obecne we współczesnych rdzeniach nie ma wpływu na częstotliwość tego licznika. W przypadku sprzętu pomiarowego jest to 3.6GHz.
+	
+	\subsubsection{Implementacja pomiaru}
+	W momencie uruchomienia benchmarku ustawiana jest flaga (pkt. 6.4), zapewniająca że komponent wielomianu otrzyma zmianę w każdej klatce, co wywoła pożądaną funkcję. Flaga będzie ustawiana, dopóki benchmark nie zbierze 10000 pomiarów.
+	
+	\paragraph{Rozpoczęcie pomiaru}
+	\begin{verbatim}
+		void clock_start() {
+		#ifndef __arm64
+				start_cycles = __rdtsc();
+		#endif
+				start = clock();
+		}
+	\end{verbatim}
+	Funkcja ustawia zmienne globalne licznika cykli używając funkcji wewnętrznej \verb|__rdtsc| oraz drugiego licznika używając kanonicznego \verb|clock|. Użycie \verb|__rdtsc| jest wyłączone na platformie ARM, gdzie instrukcja \verb|RDTSC| nie jest dostępna.\\
+	
+
+	\paragraph{Zakończenie pomiaru}
+	\begin{verbatim}
+		void clock_end() {
+		#ifndef __arm64
+			end_cycles = __rdtsc();
+		#endif
+			end = clock();
+			const clock_t diff = end - start;
+			const unsigned long long diff_cycles = end_cycles - start_cycles;
+			
+			if (samples == -1) return;
+			if (samples < CLOCK_SAMPLE_COUNT) {
+				samples++;
+				sum += diff;
+				sum_cycles += diff_cycles;
+				if (best == -1 || diff < best) best = diff;
+				if (best_cycles == -1 || diff_cycles < best_cycles) best_cycles = diff_cycles;
+				
+				if (samples == CLOCK_SAMPLE_COUNT) {
+					/* wyświetlanie wyniku... */
+					samples = -1;
+					sum = 0;
+					sum_cycles = 0;
+					best = -1;
+					best_cycles = -1;
+				}
+			}
+		}
+	\end{verbatim}
+	Liczona jest różnica w z obecnym a poprzednim stanem licznika. Wartość -1 dla \verb|samples| oznacza wyłącony benchmark, a dla \verb|best| i \verb|best_cycles| - brak wartości.
+	
+	\subsubsection{Narzut pomiaru}
+	Aby móc wyciagnąć wnioski z pomiarów sekcji kodu, należy najpierw zmierzyć czas wykonania samego kodu pomiarowego. Wszelkie wyniki zbliżone do narzutu powiaru są niemiarodajne.
+	
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 3642 & 2592 & 0.000814 & 0.000000 \\\hline
+			2 & 10000 & 3561 & 2484 & 0.000791 & 0.000000 \\\hline
+			3 & 10000 & 3604 & 2520 & 0.000814 & 0.000000 \\\hline
+			5 & 10000 & 3683 & 2592 & 0.000810 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 3880 & 2628 & 0.000817 & 0.000000 \\\hline
+			2 & 10000 & 3615 & 2556 & 0.000789 & 0.000000 \\\hline
+			3 & 10000 & 3713 & 2736 & 0.000796 & 0.000000 \\\hline
+			4 & 10000 & 3569 & 2700 & 0.000775 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	Czas jest na tyle mały, że \verb|clock| wskazuje 0 - jest za mało precyzyjny.
+	Co ciekawe, wygląda na to, sam narzut w konfiguracji release jest nieco wolniejszy niż w debug.
+	
+	\pagebreak
+	
+	\subsection{Pierwotny algorytm}
+	\subsubsection{Kod}
+	\begin{verbatim}
+		void regression(CurvePolynomial* curve, const Vector2* points, const int point_count) {
+			clock_start();
+			// przygotowanie
+			const int degree = point_count - 1;
+			const int n = point_count;
+			const int m = degree;
+			
+			float* matrix = malloc((m*m + 2*m) * sizeof (float)  +  m * sizeof (int));
+			float* errors = &matrix[m*m];
+			float* coeffs = &errors[m];
+			int* swap_table = (int*) &coeffs[m];
+			
+			// wypełananie macierzy i wektora
+			for (int row = 0; row < m; ++row) {
+				swap_table[row] = row;
+				
+				for (int col = 0; col < m; ++col) {
+					float cell = 0;
+					const int power = row + col;
+					for (int i = 0; i < n; ++i) {
+						cell += pownf(points[i].x, power);
+					}
+					_get_mat_cell(row, col) = cell;
+				}
+				float error = 0;
+				for (int i = 0; i < n; ++i) {
+					error += pownf(points[i].x, row) * points[i].y;
+				}
+				_get_error(row) = error;
+			}
+			
+			// eliminacja Gaussa - postępowanie proste
+			for (int i = 0; i < m - 1; ++i) {
+				float max = fabsf(_get_mat_cell(i, i));
+				int max_row = i;
+				for (int row = i + 1; row < m; ++row) {
+					const float current_abs = fabsf(_get_mat_cell(row, i));
+					if (current_abs > max) {
+						max = current_abs;
+						max_row = row;
+					}
+				}
+				if (max_row != i) swap_rows(swap_table, i, max_row);
+				
+				const float cell = _get_mat_cell(i, i);
+				for (int row = i + 1; row < m; ++row) {
+					const float coeff = _get_mat_cell(row, i) / cell;
+					_get_error(row) -= coeff * _get_error(i);
+					for (int col = 0; col < m; ++col) {
+						_get_mat_cell(row, col) -= coeff * _get_mat_cell(i, col);
+					}
+				}
+			}
+			
+			
+			// eliminacja Gaussa - postępowanie odweotne
+			_get_coeff(m - 1) = _get_error(m - 1) / _get_mat_cell(m - 1, m - 1);
+			for (int i = m - 2; i >= 0; --i) {
+				float sigma = 0;
+				for (int k = i + 1; k < m; ++k) {
+					sigma += _get_mat_cell(i, k) * _get_coeff(k);
+				}
+				_get_coeff(i) = (_get_error(i) - sigma) / _get_mat_cell(i, i);
+			}
+			
+			// przepisanie wyników i zwolnienie pamięci
+			for (int i = 0; i < m; ++i) {
+				curve->coefficients[i] = _get_coeff(i);
+			}
+			free(matrix);
+			
+			curve->order = m;
+			curve->start_x = points[0].x;
+			curve->end_x = points[point_count - 1].x;
+			clock_end();
+		}
+	\end{verbatim}
+	
+	\subsubsection{Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 1228592 & 1182240 & 0.340353 & 0.328000 \\\hline
+			2 & 10000 & 1222491 & 1187676 & 0.338560 & 0.329000 \\\hline
+			3 & 10000 & 1221949 & 1184508 & 0.338329 & 0.328000 \\\hline
+			4 & 10000 & 1219704 & 1187136 & 0.337932 & 0.328000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 951561 & 913932 & 0.263545 & 0.253000 \\\hline
+			2 & 10000 & 952509 & 913644 & 0.263831 & 0.253000 \\\hline
+			3 & 10000 & 939618 & 913608 & 0.260251 & 0.252000 \\\hline
+			4 & 10000 & 942651 & 914544 & 0.261089 & 0.253000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Wnioski}
+	Widać zauważalną różnicę między konfiguracją debug, a release. Wykonanie mieści się poniżej 1 milisekundy, jednak zajmuje dużą ilość czasu w porównaniu do reszty programu oraz powoduje zauważalne spadki liczby klatek na sekundę (z ok. 8000 do ok. 1000).
+	
 	
 \end{document}

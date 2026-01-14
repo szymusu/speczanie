@@ -8,6 +8,7 @@ od -5, co 0.3
 ```c++
 void regression(CurvePolynomial* curve, const Vector2* points, const int point_count) {
     clock_start();
+    // przygotowanie
     const int degree = point_count - 1;
     const int n = point_count;
     const int m = degree;
@@ -17,6 +18,7 @@ void regression(CurvePolynomial* curve, const Vector2* points, const int point_c
     float* coeffs = &errors[m];
     int* swap_table = (int*) &coeffs[m];
 
+    // wypełananie macierzy i wektora
     for (int row = 0; row < m; ++row) {
         swap_table[row] = row;
 
@@ -35,6 +37,7 @@ void regression(CurvePolynomial* curve, const Vector2* points, const int point_c
         _get_error(row) = error;
     }
 
+    // eliminacja Gaussa - postępowanie proste
     for (int i = 0; i < m - 1; ++i) {
         float max = fabsf(_get_mat_cell(i, i));
         int max_row = i;
@@ -57,6 +60,7 @@ void regression(CurvePolynomial* curve, const Vector2* points, const int point_c
         }
     }
 
+    // eliminacja Gaussa - postępowanie odweotne
     _get_coeff(m - 1) = _get_error(m - 1) / _get_mat_cell(m - 1, m - 1);
     for (int i = m - 2; i >= 0; --i) {
         float sigma = 0;
@@ -66,6 +70,7 @@ void regression(CurvePolynomial* curve, const Vector2* points, const int point_c
         _get_coeff(i) = (_get_error(i) - sigma) / _get_mat_cell(i, i);
     }
 
+    // przepisanie wyników i zwolnienie pamięci
     for (int i = 0; i < m; ++i) {
         curve->coefficients[i] = _get_coeff(i);
     }

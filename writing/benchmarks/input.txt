@@ -1,0 +1,12 @@
+samples: 10000
+cycles: 951561 avg 913932 best
+ms: 0.263545 avg 0.253000 best
+samples: 10000
+cycles: 952509 avg 913644 best
+ms: 0.263831 avg 0.253000 best
+samples: 10000
+cycles: 939618 avg 913608 best
+ms: 0.260251 avg 0.252000 best
+samples: 10000
+cycles: 942651 avg 914544 best
+ms: 0.261089 avg 0.253000 best
