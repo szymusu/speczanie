@@ -389,8 +389,15 @@
 	\pagebreak
 	
 	\subsection{Pierwotny algorytm}
-	\subsubsection{Kod}
+	Poniższy kod jest pierwszą poprawną wersją naiwnej implementacji algorytmu regresji. W jego skład wchodzi przygotowanie pamięci, wypełnienie macierzy macierzy i wektora sumami, rozwiązanie układu równań eliminacją Gaussa oraz przepisanie i zwrócenie wyniku.
+	\subsubsection{Całość}
+	\paragraph{Kod}
 	\begin{verbatim}
+		// makra dla przejrzystości
+		#define _get_mat_cell(row, col) matrix[swap_table[row] * m + col]
+		#define _get_error(row) errors[swap_table[row]]
+		#define _get_coeff(row) coeffs[swap_table[row]]
+		
 		void regression(CurvePolynomial* curve, const Vector2* points, const int point_count) {
 			clock_start();
 			// przygotowanie
@@ -445,7 +452,6 @@
 				}
 			}
 			
-			
 			// eliminacja Gaussa - postępowanie odweotne
 			_get_coeff(m - 1) = _get_error(m - 1) / _get_mat_cell(m - 1, m - 1);
 			for (int i = m - 2; i >= 0; --i) {
@@ -469,7 +475,7 @@
 		}
 	\end{verbatim}
 	
-	\subsubsection{Benchmark}
+	\paragraph{Benchmark}
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
 			\multicolumn{6}{|c|}{Debug} \\\hline
@@ -495,8 +501,634 @@
 		\end{tabular}
 	\end{center}
 	
+	\paragraph{Komentarz}
+	Wykonanie mieści się poniżej 1 milisekundy, jednak zajmuje dużą ilość czasu w porównaniu do reszty programu oraz powoduje zauważalne spadki liczby klatek na sekundę (z ok. 8000 do ok. 1000).
+	
+	
+	\pagebreak
+	\subsubsection{Fragment 1 - Alokacja i przygotowanie pamięci}
+	Alokacja pamięci na stercie jest uważana za powolną operację, więc mimo że wyoknujemy ją tylko raz, należy dla pewności ją zmierzyć. Alokacja jest już wstępnie zoptymalizowana, zamiast czterech osobnych alokacji dla czterech tablic, mamy jeden blok pamięci zdolny zmieścić wszystkie tablice, których wskaźniki ustawiamy z odpowiednim przesunięciem.
+	\paragraph{Kod}
+	\begin{verbatim}
+		clock_start();
+		const int degree = point_count - 1;
+		const int n = point_count;
+		const int m = degree;
+		
+		float* matrix = malloc((m*m + 2*m) * sizeof (float)  +  m * sizeof (int));
+		float* errors = &matrix[m*m];
+		float* coeffs = &errors[m];
+		int* swap_table = (int*) &coeffs[m];
+		clock_end();
+	\end{verbatim}
+	
+	\paragraph{Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 4331 & 2952 & 0.000950 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 4131 & 3168 & 0.000930 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	
+	\pagebreak
+	\subsubsection{Fragment 2 - Wypełnianie macierzy i wektora błędów}
+	\paragraph{Kod}
+	\begin{verbatim}
+		clock_start();
+		for (int row = 0; row < m; ++row) {
+			swap_table[row] = row;
+			
+			for (int col = 0; col < m; ++col) {
+				float cell = 0;
+				const int power = row + col;
+				for (int i = 0; i < n; ++i) {
+					cell += pownf(points[i].x, power);
+				}
+				_get_mat_cell(row, col) = cell;
+			}
+			float error = 0;
+			for (int i = 0; i < n; ++i) {
+				error += pownf(points[i].x, row) * points[i].y;
+			}
+			_get_error(row) = error;
+		}
+		clock_end();
+	\end{verbatim}
+	
+	\paragraph{Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 1064016 & 1010808 & 0.294737 & 0.281000 \\\hline
+			2 & 10000 & 1045250 & 1008720 & 0.289477 & 0.280000 \\\hline
+			3 & 10000 & 1049505 & 1009584 & 0.290731 & 0.280000 \\\hline
+			4 & 10000 & 1056144 & 1012932 & 0.292435 & 0.281000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 938385 & 898308 & 0.259947 & 0.248000 \\\hline
+			2 & 10000 & 927664 & 898488 & 0.256944 & 0.248000 \\\hline
+			3 & 10000 & 922574 & 898020 & 0.255469 & 0.248000 \\\hline
+			4 & 10000 & 930611 & 898092 & 0.257770 & 0.248000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	
+	\pagebreak
+	\subsubsection{Fragment 3 - Rozwiązanie układu równań}
+	\paragraph{Kod}
+	\begin{verbatim}
+		clock_start();
+		for (int i = 0; i < m - 1; ++i) {
+			float max = fabsf(_get_mat_cell(i, i));
+			int max_row = i;
+			for (int row = i + 1; row < m; ++row) {
+				const float current_abs = fabsf(_get_mat_cell(row, i));
+				if (current_abs > max) {
+					max = current_abs;
+					max_row = row;
+				}
+			}
+			if (max_row != i) swap_rows(swap_table, i, max_row);
+			
+			const float cell = _get_mat_cell(i, i);
+			for (int row = i + 1; row < m; ++row) {
+				const float coeff = _get_mat_cell(row, i) / cell;
+				_get_error(row) -= coeff * _get_error(i);
+				for (int col = 0; col < m; ++col) {
+					_get_mat_cell(row, col) -= coeff * _get_mat_cell(i, col);
+				}
+			}
+		}
+		
+		_get_coeff(m - 1) = _get_error(m - 1) / _get_mat_cell(m - 1, m - 1);
+		for (int i = m - 2; i >= 0; --i) {
+			float sigma = 0;
+			for (int k = i + 1; k < m; ++k) {
+				sigma += _get_mat_cell(i, k) * _get_coeff(k);
+			}
+			_get_coeff(i) = (_get_error(i) - sigma) / _get_mat_cell(i, i);
+		}
+		clock_end();
+	\end{verbatim}
+	
+	\paragraph{Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 187736 & 180720 & 0.051796 & 0.047000 \\\hline
+			2 & 10000 & 184986 & 180684 & 0.051078 & 0.048000 \\\hline
+			3 & 10000 & 185314 & 180900 & 0.051125 & 0.048000 \\\hline
+			4 & 10000 & 186258 & 180792 & 0.051409 & 0.049000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 13700 & 12240 & 0.003580 & 0.000000 \\\hline
+			2 & 10000 & 13416 & 12204 & 0.003531 & 0.003000 \\\hline
+			3 & 10000 & 13402 & 12348 & 0.003536 & 0.001000 \\\hline
+			4 & 10000 & 13398 & 12240 & 0.003525 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+
+	
+	\pagebreak
+	\subsubsection{Fragment 4 - Przepisywanie wyniku i zwalnianie pamięci}
+	Wynikowa tablica współczynników musi zostać przepisana, ponieważ zamiana wierszy w eliminacji Gaussa zmienia ich kolejność w pamięci.
+	\paragraph{Kod}
+	\begin{verbatim}
+		clock_start();
+		for (int i = 0; i < m; ++i) {
+			curve->coefficients[i] = _get_coeff(i);
+		}
+		free(matrix);
+		
+		curve->order = m;
+		curve->start_x = points[0].x;
+		curve->end_x = points[point_count - 1].x;
+		clock_end();
+	\end{verbatim}
+	
+	\paragraph{Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 3960 & 3132 & 0.000895 & 0.000000 \\\hline
+			2 & 10000 & 3953 & 3132 & 0.000887 & 0.000000 \\\hline
+			3 & 10000 & 3925 & 3132 & 0.000885 & 0.000000 \\\hline
+			4 & 10000 & 4049 & 3168 & 0.000900 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 3809 & 3168 & 0.000859 & 0.000000 \\\hline
+			2 & 10000 & 3921 & 2844 & 0.000870 & 0.000000 \\\hline
+			3 & 10000 & 3844 & 3096 & 0.000854 & 0.000000 \\\hline
+			4 & 10000 & 3712 & 2880 & 0.000842 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Obserwacje i wnioski}
+	Czas zarządzania pamięcią i przepisywania wyniku jest pomijalny.
+	Zdecydowana większość czasu jest skoncentrowana we fragmencie nr 2 - wypełnianiu macierzy i wektora. To na nim należy się skupić pod kątem optymalizacji.
+	Rozwiązywanie układu zajmuje zauważalną, lecz dużo mniejszą ilość czasu.
+	
+	
+	\pagebreak
+	\subsection{Zmiana funkcji potęgi}
+	\subsubsection{Idea}
+	Pierwotna wersja używa funkcji \verb|pownf| ze standardowej biblioteki C. Funkcja ta przyjmuje jako wykładnik 64-bitową liczbę całkowitą ze znakiem. Ideą za tą zmianą była szansa poprawy wydajności poprzez zignorowanie przypadku dla liczb ujemnych, poniaważ w naszym algorytmie nie występują ujemne wykładniki, oraz zmniejszenie rozmiaru wykładnika, co pozwoli uniknąć konwersji z liczby 32-bitowej na 64-bitową oraz zaoszczędzi miejsce w pamięci cache.
+	
+	\subsubsection{Kod}
+	Oba wywołania \verb|pownf| zostały zastąpione wywołaniem własnej funkcji potęgi. Jest to prosty algorytm iteracyjny.
+	\begin{verbatim}
+		float power_fi(const float x, int pow) {
+			if (pow == 0) return 1;
+			float res = x;
+			while (--pow) {
+				res *= x;
+			}
+			return res;
+		}
+	\end{verbatim}
+	
+	\subsubsection{Benchmark}
+	Pomiar obejmuje cały fragment 2 ze zmienioną funkcją potęgi.
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 4380990 & 4185072 & 1.214246 & 1.163000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 671631 & 646632 & 0.185943 & 0.179000 \\\hline
+			2 & 10000 & 672397 & 644472 & 0.186236 & 0.175000 \\\hline
+			3 & 10000 & 675776 & 648216 & 0.187136 & 0.179000 \\\hline
+			4 & 10000 & 670312 & 647784 & 0.185646 & 0.179000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Obserwacje i wnioski}
+	W trybie debug zmiana spowodowała ponad 4-krotny spadek wydajności, a w trybie release - ok. 28\% wzrost.
+	Oznacza to, że początkowe założenia były nietrafione i nowy algorytm jest bardzo wolny, jednak kompilator z włączoną optymalizacją zauważył co próbowaliśmy osiągnąć i podmienił na wydajniejszą implementację.
+	
+	
+	\pagebreak
+	\subsection{Usuwanie redundancji}
+	\subsubsection{Idea}
+	Wracając do wzoru elementów macierzy, można zauważyć, że jest ona bardzo uporządkowana. Co więcej, większość sum pojawia się w niej więcej niż jeden raz. Jeśli weźmiemy elementy od $a_{1,1}$ do $a_{m,m}$, wartość elementu $a_{2,1}$ pojawi się 2-krotnie, wartość $a_{3,1}$ - 3-krotnie, a wartość $a_{m,1}$ - $m$-krotnie. Aby uniknąć zbędnych obliczeń tej samej wartości, tworzymy tablicę sum od $\sum_{i=1}^{n}x_i^0$ do $\sum_{i=1}^{n}x_i^{2m}$, z której będziemy kopiować wartości w odpowiednie elementy macierzy.
+	
+	\subsubsection{Kod}
+	\begin{verbatim}
+		clock_start();
+		// wypełnianie tablicy sum
+		for (int pow = 0; pow < 2*m; ++pow) {
+			float total = 0;
+			for (int i = 0; i < n; ++i) {
+				total += pownf(points[i].x, pow);
+			}
+			powers[pow] = total;
+		}
+		
+		for (int row = 0; row < m; ++row) {
+			swap_table[row] = row;
+			
+			// wypełnianie macierzy
+			for (int col = 0; col < m; ++col) {
+				matrix[row * m + col] = powers[row + col];
+			}
+			
+			/* wypełnianie wektora
+			...
+			*/
+		}
+		clock_end();
+	\end{verbatim}
+	
+	\subsubsection{Benchmark - z pownf}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 125819 & 120420 & 0.034684 & 0.028000 \\\hline
+			2 & 10000 & 124391 & 120348 & 0.034308 & 0.031000 \\\hline
+			3 & 10000 & 124605 & 120420 & 0.034354 & 0.033000 \\\hline
+			4 & 10000 & 127579 & 120600 & 0.035173 & 0.032000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 102549 & 96264 & 0.028172 & 0.026000 \\\hline
+			2 & 10000 & 103316 & 96156 & 0.028430 & 0.025000 \\\hline
+			3 & 10000 & 98939 & 95940 & 0.027211 & 0.025000 \\\hline
+			4 & 10000 & 101698 & 96120 & 0.027971 & 0.025000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Benchmark - z własną funkcją potęgi}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 420020 & 406764 & 0.116187 & 0.111000 \\\hline
+			2 & 10000 & 422607 & 408204 & 0.116971 & 0.112000 \\\hline
+			3 & 10000 & 420295 & 408312 & 0.116333 & 0.102000 \\\hline
+			4 & 10000 & 419029 & 408492 & 0.115991 & 0.113000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 68148 & 65268 & 0.018696 & 0.017000 \\\hline
+			2 & 10000 & 67473 & 65268 & 0.018504 & 0.016000 \\\hline
+			3 & 10000 & 67534 & 65124 & 0.018524 & 0.016000 \\\hline
+			4 & 10000 & 68253 & 65412 & 0.018719 & 0.016000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Obserwacje i wnioski}
+	Zapisanie wyniku sum dało bardzo znaczące przyspieszenie. W każdej konfiguracji fragment wykonuje się około 10-krotnie szybciej.
+	
+	\subsection{Wypełnianie macierzy i wektora - pomiar fragmentów}
+	\subsubsection{Fragment 1 - Obliczanie sum}
+	\paragraph{Kod}
+	\begin{verbatim}
+		clock_start();
+		for (int pow = 0; pow < 2*m; ++pow) {
+			float total = 0;
+			for (int i = 0; i < n; ++i) {
+				total += power_fi(points[i].x, pow);
+			}
+			powers[pow] = total;
+		}
+		clock_end();
+	\end{verbatim}
+	\paragraph{Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 337407 & 327492 & 0.093372 & 0.090000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 61379 & 57600 & 0.016807 & 0.014000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Fragment 2 - Kopiowanie sum do macierzy}
+	\paragraph{Kod}
+	\begin{verbatim}
+		clock_start();
+		for (int row = 0; row < m; ++row) {
+			swap_table[row] = row;
+			
+			for (int col = 0; col < m; ++col) {
+				matrix[row * m + col] = sum_of_powers[row + col];
+			}
+		}
+		clock_end();
+	\end{verbatim}
+	\paragraph{Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 11213 & 9216 & 0.002846 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 3972 & 3132 & 0.000914 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Fragment 3 - Wypełnianie wektora}
+	\paragraph{Kod}
+	\begin{verbatim}
+		clock_start();
+		for (int row = 0; row < m; ++row) {
+			float error = 0;
+			for (int i = 0; i < n; ++i) {
+				error += power_fi(points[i].x, row) * points[i].y;
+			}
+			errors[row] = error;
+		}
+		clock_end();
+	\end{verbatim}
+	\paragraph{Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 77407 & 75024 & 0.021263 & 0.019000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 15495 & 13500 & 0.004107 & 0.002000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Obserwacje i wnioski}
+	Najwięcej czasu zajmuje obliczanie sum potęg. Kilkukrotnie mniej - wypełnianie wektora, a w trybie release wypełnianie macierzy jest pomijalne.
+	
+	
+	\pagebreak
+	\subsection{Eliminacja potęgowania - podejście iteracyjne}
+	\subsubsection{Idea}
+	Potęgowanie poprzez wielokrotne mnożenie wymaga dużej ilości operacji mnożenia.
+	Dodatkowo, są to operacje liniowo zależne od siebie, więc procesor musi je wykonać w prawidłowej kolejności jedna po drugiej. Niweluje to sposoby przyspieszania obliczeń na współczesnym sprzęcie, takie jak OoO (Out of Order execution) oraz SIMD (Single Instruction, Multiple Data).
+	Złożoność obliczeniowa takiego algorytmu to $O(n) = n$, gdzie $n$ to wykładnik.\\
+	Algorytm wypełniający tablicę sum wykorzystuje $2mn$ potęg, zatem zakładając, że $n = m-1$, ilość operacji mnożenia jest równa:
+	\begin{equation}
+		O(m) = 2m^2n = 2(m^3 - m^2)
+	\end{equation}
+	Rozwiązaniem tego preblemu jest zmiana podejścia z obliczania każdej potęgi osobno:
+	\begin{equation}
+		x^n = x*x*...*x
+	\end{equation}
+	na obliczanie następnej potęgi na podstawie poprzedniej:
+	\begin{equation}
+		x^n = x^{n-1}*x
+	\end{equation}
+	Dzięki temu każda następna potęga wymaga jedynie jednej operacji mnożenia i ich ilość w całym algorytmie zmienia się na:
+	\begin{equation}
+		O(m) = 2(m^2 - m)
+	\end{equation}
+	
+	\subsubsection{Kod}
+	\begin{verbatim}
+		clock_start();
+		powers[0] = (float) n;
+		powers[1] = 0;
+		for (int i = 0; i < n; ++i) {
+			const float x = points[i].x;
+			points_x[i] = x;
+			points_x_powers[i] = x;
+			powers[1] += x;
+		}
+		for (int pow = 2; pow < 2 * m; ++pow) {
+			float total = 0;
+			for (int i = 0; i < n; ++i) {
+				points_x_powers[i] *= points_x[i];
+				total += points_x_powers[i];
+			}
+			powers[pow] = total;
+		}
+		clock_end();
+	\end{verbatim}
+	
+	\subsubsection{Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 23006 & 21384 & 0.006192 & 0.004000 \\\hline
+			2 & 10000 & 23342 & 21276 & 0.006276 & 0.004000 \\\hline
+			3 & 10000 & 23301 & 21456 & 0.006283 & 0.004000 \\\hline
+			4 & 10000 & 23267 & 21312 & 0.006265 & 0.004000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 6546 & 5364 & 0.001625 & 0.000000 \\\hline
+			2 & 10000 & 6418 & 5436 & 0.001594 & 0.000000 \\\hline
+			3 & 10000 & 6423 & 5220 & 0.001588 & 0.000000 \\\hline
+			4 & 10000 & 6315 & 5364 & 0.001559 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Wypełnianie wektora - to samo podejście}
+	Tożsame usprawnienie można zastosować w drugim fragmencie stosującym potęgowanie - wypełnianiu wektora. Tablicę pomocniczą wypełniamy wartościami $y$, a w każdej następnej iteracji mnożymy przez odpowiednie wartości $x$.
+	
+	\subsubsection{Wypełnianie wektora - Kod}
+	\begin{verbatim}
+		clock_start();
+		errors[0] = 0;
+		for (int i = 0; i < n; ++i) {
+			const float y = points[i].y;
+			points_x_powers_y[i] = y;
+			errors[0] += y;
+		}
+		for (int pow = 1; pow < m; ++pow) {
+			float total = 0;
+			for (int i = 0; i < n; ++i) {
+				points_x_powers_y[i] *= points_x[i];
+				total += points_x_powers_y[i];
+			}
+			errors[pow] = total;
+		}
+		clock_end();
+	\end{verbatim}
+	
+	\subsubsection{Wypełnianie wektora - Benchmark}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 13730 & 12312 & 0.003610 & 0.002000 \\\hline
+			2 & 10000 & 14205 & 12636 & 0.003702 & 0.001000 \\\hline
+			3 & 10000 & 13688 & 12636 & 0.003587 & 0.000000 \\\hline
+			4 & 10000 & 13778 & 12492 & 0.003618 & 0.001000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 4839 & 3888 & 0.001150 & 0.000000 \\\hline
+			2 & 10000 & 4755 & 4032 & 0.001135 & 0.000000 \\\hline
+			3 & 10000 & 4782 & 3744 & 0.001139 & 0.000000 \\\hline
+			4 & 10000 & 4807 & 3924 & 0.001144 & 0.000000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Obserwacje i wnioski}
+	Zmiana spowodowała ogromny wzrost wydajności, ponad 10-krotny dla tablicy potęg oraz ponad 3-krotny dla wektora.
+	Przyczynia się od tego redukcja złożoności obliczezniowej oraz rozłożenie danych. Wykonywanie tej samej operacji na wielu niezależnych elementach tablicy bardzo sprzyja wykonywaniu poza kolejnością oraz operacji SIMD.
+	Własna funkcja potęgowanie też nie jest już używana, więc można ją usunąć. 
+	
+	\pagebreak
+	\subsection{Podsumowanie}
+	\subsubsection{Cały algorytm przed optymalizacją}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 1228592 & 1182240 & 0.340353 & 0.328000 \\\hline
+			2 & 10000 & 1222491 & 1187676 & 0.338560 & 0.329000 \\\hline
+			3 & 10000 & 1221949 & 1184508 & 0.338329 & 0.328000 \\\hline
+			4 & 10000 & 1219704 & 1187136 & 0.337932 & 0.328000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 951561 & 913932 & 0.263545 & 0.253000 \\\hline
+			2 & 10000 & 952509 & 913644 & 0.263831 & 0.253000 \\\hline
+			3 & 10000 & 939618 & 913608 & 0.260251 & 0.252000 \\\hline
+			4 & 10000 & 942651 & 914544 & 0.261089 & 0.253000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
+	\subsubsection{Cały algorytm przed optymalizacją}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Debug} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 227112 & 219996 & 0.062745 & 0.060000 \\\hline
+			2 & 10000 & 226345 & 219816 & 0.062483 & 0.059000 \\\hline
+			3 & 10000 & 226825 & 220788 & 0.062675 & 0.061000 \\\hline
+			4 & 10000 & 226253 & 220104 & 0.062492 & 0.060000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	\begin{center}
+		\begin{tabular}{|c|c|c|c|c|c|} \hline
+			\multicolumn{6}{|c|}{Release} \\\hline
+			Pomiar  & Liczba próbek & Średnia RDTSC & Min RDTSC & Średnia clock [ms] & Min clock [ms] \\\hline
+			\hline
+			1 & 10000 & 20354 & 17460 & 0.005447 & 0.003000 \\\hline
+			2 & 10000 & 19150 & 17244 & 0.005123 & 0.003000 \\\hline
+			3 & 10000 & 19586 & 17424 & 0.005245 & 0.003000 \\\hline
+			4 & 10000 & 19994 & 17568 & 0.005364 & 0.002000 \\\hline
+			
+		\end{tabular}
+	\end{center}
+	
 	\subsubsection{Wnioski}
-	Widać zauważalną różnicę między konfiguracją debug, a release. Wykonanie mieści się poniżej 1 milisekundy, jednak zajmuje dużą ilość czasu w porównaniu do reszty programu oraz powoduje zauważalne spadki liczby klatek na sekundę (z ok. 8000 do ok. 1000).
+	Optymalizacja okazała się bardzo skuteczna, stosując różne techniki udało się poprawić wydajność algorytmu \textbf{45-50-krotnie}.
 	
 	
 \end{document}

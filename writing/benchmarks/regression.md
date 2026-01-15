@@ -234,37 +234,37 @@ ms: 0.257770 avg 0.248000 best
 ## rozwiązanie układu równań
 ```c++
 clock_start();
-    for (int i = 0; i < m - 1; ++i) {
-        float max = fabsf(_get_mat_cell(i, i));
-        int max_row = i;
-        for (int row = i + 1; row < m; ++row) {
-            const float current_abs = fabsf(_get_mat_cell(row, i));
-            if (current_abs > max) {
-                max = current_abs;
-                max_row = row;
-            }
-        }
-        if (max_row != i) swap_rows(swap_table, i, max_row);
-
-        const float cell = _get_mat_cell(i, i);
-        for (int row = i + 1; row < m; ++row) {
-            const float coeff = _get_mat_cell(row, i) / cell;
-            _get_error(row) -= coeff * _get_error(i);
-            for (int col = 0; col < m; ++col) {
-                _get_mat_cell(row, col) -= coeff * _get_mat_cell(i, col);
-            }
+for (int i = 0; i < m - 1; ++i) {
+    float max = fabsf(_get_mat_cell(i, i));
+    int max_row = i;
+    for (int row = i + 1; row < m; ++row) {
+        const float current_abs = fabsf(_get_mat_cell(row, i));
+        if (current_abs > max) {
+            max = current_abs;
+            max_row = row;
         }
     }
+    if (max_row != i) swap_rows(swap_table, i, max_row);
 
-    _get_coeff(m - 1) = _get_error(m - 1) / _get_mat_cell(m - 1, m - 1);
-    for (int i = m - 2; i >= 0; --i) {
-        float sigma = 0;
-        for (int k = i + 1; k < m; ++k) {
-            sigma += _get_mat_cell(i, k) * _get_coeff(k);
+    const float cell = _get_mat_cell(i, i);
+    for (int row = i + 1; row < m; ++row) {
+        const float coeff = _get_mat_cell(row, i) / cell;
+        _get_error(row) -= coeff * _get_error(i);
+        for (int col = 0; col < m; ++col) {
+            _get_mat_cell(row, col) -= coeff * _get_mat_cell(i, col);
         }
-        _get_coeff(i) = (_get_error(i) - sigma) / _get_mat_cell(i, i);
     }
-    clock_end();
+}
+
+_get_coeff(m - 1) = _get_error(m - 1) / _get_mat_cell(m - 1, m - 1);
+for (int i = m - 2; i >= 0; --i) {
+    float sigma = 0;
+    for (int k = i + 1; k < m; ++k) {
+        sigma += _get_mat_cell(i, k) * _get_coeff(k);
+    }
+    _get_coeff(i) = (_get_error(i) - sigma) / _get_mat_cell(i, i);
+}
+clock_end();
 ```
 ### debug
 ```
@@ -312,11 +312,35 @@ curve->start_x = points[0].x;
 curve->end_x = points[point_count - 1].x;
 clock_end();
 ```
+### debug
+```
+samples: 10000
+cycles: 3960 avg 3132 best
+ms: 0.000895 avg 0.000000 best
+samples: 10000
+cycles: 3953 avg 3132 best
+ms: 0.000887 avg 0.000000 best
+samples: 10000
+cycles: 3925 avg 3132 best
+ms: 0.000885 avg 0.000000 best
+samples: 10000
+cycles: 4049 avg 3168 best
+ms: 0.000900 avg 0.000000 best
+```
 ### release
 ```
 samples: 10000
-cycles: 3847 avg 2772 best
-ms: 0.000855 avg 0.000000 best
+cycles: 3809 avg 3168 best
+ms: 0.000859 avg 0.000000 best
+samples: 10000
+cycles: 3921 avg 2844 best
+ms: 0.000870 avg 0.000000 best
+samples: 10000
+cycles: 3844 avg 3096 best
+ms: 0.000854 avg 0.000000 best
+samples: 10000
+cycles: 3712 avg 2880 best
+ms: 0.000842 avg 0.000000 best
 ```
 
 ## mamy hot spot
@@ -326,24 +350,24 @@ Zdecydowana większość czasu spędzana jest na wypełnianiu macierzy i wektora
 ## zmiana funkcji potęgi
 ```c++
 clock_start();
-    for (int row = 0; row < m; ++row) {
-        swap_table[row] = row;
+for (int row = 0; row < m; ++row) {
+    swap_table[row] = row;
 
-        for (int col = 0; col < m; ++col) {
-            float cell = 0;
-            const int power = row + col;
-            for (int i = 0; i < n; ++i) {
-                cell += power_fi(points[i].x, power);
-            }
-            matrix[row * m + col] = cell;
-        }
-        float error = 0;
+    for (int col = 0; col < m; ++col) {
+        float cell = 0;
+        const int power = row + col;
         for (int i = 0; i < n; ++i) {
-            error += power_fi(points[i].x, row) * points[i].y;
+            cell += power_fi(points[i].x, power);
         }
-        errors[row] = error;
+        matrix[row * m + col] = cell;
     }
-    clock_end();
+    float error = 0;
+    for (int i = 0; i < n; ++i) {
+        error += power_fi(points[i].x, row) * points[i].y;
+    }
+    errors[row] = error;
+}
+clock_end();
 ```
 ```c++
 float power_fi(const float x, int pow) {
