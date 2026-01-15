@@ -23,5 +23,6 @@ int get_selected();
 int open_file(const char* filename);
 void close_file(int index);
 void clear_files();
+int file_export_csv(OpenFile* open_file);
 
 #endif //OPEN_FILES_H

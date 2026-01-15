@@ -56,5 +56,10 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
             change |= MOVE_CHANGE_PLOT;
         }
     }
+
+    if (Button((Vector2) {1050, 550}, "Eksportuj CSV", 16, 0) == BUTTON_STATE_CLICKED) {
+        file_export_csv(current_file);
+    }
+
     return change;
 }

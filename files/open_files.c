@@ -89,3 +89,12 @@ void clear_files() {
         free_file(i);
     }
 }
+
+int file_export_csv(OpenFile* open_file) {
+    int bytes_written = 0;
+    for (int i = 0; i < open_file->data_source.count; ++i) {
+        const Vector2 row = open_file->data_source.data[i];
+        bytes_written += printf("%f,%f\n", row.x, row.y);
+    }
+    return bytes_written;
+}
