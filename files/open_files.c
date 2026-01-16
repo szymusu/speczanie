@@ -90,11 +90,29 @@ void clear_files() {
     }
 }
 
-int file_export_csv(OpenFile* open_file) {
-    int bytes_written = 0;
+int file_export_csv(const OpenFile* open_file) {
+    const size_t filepath_size = strlen(open_file->filepath);
+    char* csv_name = malloc(filepath_size + 5);
+    strcpy(csv_name, open_file->filepath);
+    csv_name[filepath_size    ] = '.';
+    csv_name[filepath_size + 1] = 'c';
+    csv_name[filepath_size + 2] = 's';
+    csv_name[filepath_size + 3] = 'v';
+    csv_name[filepath_size + 4] = '\0';
+
+    FILE* csv_file = fopen(csv_name, "w");
+    printf("Exporting to %s\n", csv_name);
+    free(csv_name);
+    if (!csv_file) {
+        puts("Cannot open file");
+        return 0;
+    }
+    int bytes_written = fprintf(csv_file, "time,load\n");
     for (int i = 0; i < open_file->data_source.count; ++i) {
         const Vector2 row = open_file->data_source.data[i];
-        bytes_written += printf("%f,%f\n", row.x, row.y);
+        bytes_written += fprintf(csv_file, "%f,%f\n", row.x, row.y);
     }
+    fclose(csv_file);
+    printf("%d\n", bytes_written);
     return bytes_written;
 }

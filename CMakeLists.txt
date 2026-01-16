@@ -58,6 +58,8 @@ add_executable(${PROJECT_NAME} main.c
         diagnostics/components/BenchmarkProgress.h
         util/swapback_array.c
         util/swapback_array.h
+        util/string.c
+        util/string.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)
