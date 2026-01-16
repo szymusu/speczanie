@@ -60,6 +60,8 @@ add_executable(${PROJECT_NAME} main.c
         util/swapback_array.h
         util/string.c
         util/string.h
+        math/line.c
+        math/line.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

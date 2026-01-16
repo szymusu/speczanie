@@ -52,6 +52,8 @@ int main(const int argc, char** argv) {
                 },
                 change, &current_file->data_plot_state);
 
+            data_find_segments(&current_file->data_source, bounds);
+
             change = process_move(&current_file->data_plot_state, bounds);
             change = Controls(current_file, &current_file->data_plot_state, change);
         }

@@ -88,7 +88,7 @@ DataPlotState DataPlotState_create(const int data_count) {
         .selected_second_point = -1,
         .is_selected_flags = calloc(data_count, sizeof(bool)),
         .zoom = 1.f,
-        .scale_x = 1.f,
+        .scale_x = 100.f,
         .regression_points = malloc(sizeof(Vector2) * data_count),
         .curve_polynomial = {.coefficients = malloc(sizeof(float) * data_count)}
     };

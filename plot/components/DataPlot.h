@@ -35,6 +35,10 @@ typedef struct {
     uint8_t order;
 } CurvePolynomial;
 
+typedef struct Segments {
+
+} Segments;
+
 typedef struct DataPlotState {
     Vector2* point_buffer;
     Vector2* shadow_point_buffer;
