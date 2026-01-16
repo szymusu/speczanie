@@ -18,7 +18,7 @@ int transform_y_to_pixel(double y, double start_y, double end_y) {
 
 Vector2 transform_v_to_pixel(const Vector2 v, const Bounds bounds) {
     return (Vector2){
-        .x = (v.x * 10 - bounds.start_x) / (bounds.end_x - bounds.start_x) * PLOT_WIDTH + PLOT_OFFSET_X,
+        .x = (v.x - bounds.start_x) / (bounds.end_x - bounds.start_x) * PLOT_WIDTH + PLOT_OFFSET_X,
         .y = (-v.y - bounds.start_y) / (bounds.end_y - bounds.start_y) * PLOT_HEIGHT + PLOT_OFFSET_Y,
     };
 }

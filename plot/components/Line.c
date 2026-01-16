@@ -1,6 +1,7 @@
 #include "Line.h"
 
 #include <math.h>
+#include <stdio.h>
 
 #include "../../math/vector2.h"
 
@@ -24,8 +25,9 @@ void Line(DataPlotState* state, const DataSource data_source, const Bounds bound
 
     Vector2 p1 = data_source.data[state->selected_point];
     if (state->selected_second_point == -1) {
-        if (state->input_mode == PLOT_INPUT_SELECT)
+        if (state->input_mode == PLOT_INPUT_SELECT) {
             DrawLineEx(transform_v_to_pixel(p1, bounds), state->mouse_position, 2, ORANGE);
+        }
         return;
     }
     Vector2 p2 = data_source.data[state->selected_second_point];

@@ -100,5 +100,4 @@ void DataPlotState_destroy(DataPlotState* state) {
     free(state->is_selected_flags);
     free(state->regression_points);
     free(state->curve_polynomial.coefficients);
-    // free(state->curve_polynomial.coefficients);
 }
