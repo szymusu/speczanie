@@ -35,7 +35,7 @@ typedef struct {
     uint8_t order;
 } CurvePolynomial;
 
-typedef struct {
+typedef struct DataPlotState {
     Vector2* point_buffer;
     Vector2* shadow_point_buffer;
     VisiblePointsInfo visible;
@@ -44,6 +44,7 @@ typedef struct {
     Vector2 pan;
     Vector2 plot_offset;
     float zoom;
+    float scale_x;
 
     Vector2 mouse_position;
     int selected_point;
@@ -58,7 +59,7 @@ typedef struct {
 
 } DataPlotState;
 
-typedef struct {
+typedef struct DataPlotProps {
     DataSource data_source;
     Bounds bounds;
 } DataPlotProps;

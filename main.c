@@ -39,7 +39,11 @@ int main(const int argc, char** argv) {
         ClearBackground(RAYWHITE);
 
         if (current_file) {
-            const Bounds bounds = compute_bounds(current_file->data_plot_state.zoom, current_file->data_plot_state.pan);
+            const Bounds bounds = compute_bounds(
+                current_file->data_plot_state.zoom,
+                current_file->data_plot_state.pan,
+                current_file->data_plot_state.scale_x
+                );
             Grid(bounds);
             DataPlot(
                 (DataPlotProps) {

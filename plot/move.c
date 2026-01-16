@@ -10,8 +10,14 @@ move_change_t process_move(DataPlotState* state, const Bounds bounds) {
     const float wheel_change = GetMouseWheelMove();
     if (wheel_change != 0.f) {
         change |= MOVE_CHANGE_ZOOM;
-        state->zoom += wheel_change * ZOOM_SPEED * state->zoom;
-        if (state->zoom <= 0.1f) state->zoom = 0.1f;
+        if (IsKeyDown(KEY_LEFT_SHIFT)) {
+            state->scale_x += wheel_change * ZOOM_SPEED * state->scale_x;
+            if (state->scale_x <= 1.f) state->scale_x = 1.f;
+        }
+        else {
+            state->zoom += wheel_change * ZOOM_SPEED * state->zoom;
+            if (state->zoom <= 0.1f) state->zoom = 0.1f;
+        }
     }
 
     const Vector2 mouse_delta = GetMouseDelta();
