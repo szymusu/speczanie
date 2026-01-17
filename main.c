@@ -61,7 +61,7 @@ int main(const int argc, char** argv) {
             change = Controls(current_file, &current_file->data_plot_state, change);
         }
         else {
-            Text("Upuść pliki .W01 aby otworzyć", 200, 200, 20, BLACK);
+            Text("Upuść pliki W01 lub CSV aby otworzyć", 280, PLOT_HEIGHT / 2.f - 40, 40, BLACK);
         }
 
 
