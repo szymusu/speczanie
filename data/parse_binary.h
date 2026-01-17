@@ -41,7 +41,7 @@ enum FileParseErrorType {
 };
 
 typedef struct {
-    int zero;
+    int is_success;
     enum FileParseErrorType error_type;
     uint32_t expected_value;
     uint32_t actual_value;

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 void parse_error_expected(union FileParseResult* res, const enum FileParseErrorType type, const uint32_t expected, const uint32_t actual) {
-    res->error.zero = 0;
+    res->error.is_success = 0;
     res->error.error_type = type;
     res->error.expected_value = expected;
     res->error.actual_value = actual;
@@ -52,7 +52,7 @@ void file_destroy(BinaryFile* file) {
 }
 
 bool is_parsed_error(const union FileParseResult parse_result) {
-    return parse_result.error.zero == 0;
+    return parse_result.error.is_success == 0;
 }
 
 void print_parse_error(const FileParseError error) {

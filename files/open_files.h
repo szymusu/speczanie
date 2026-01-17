@@ -3,14 +3,25 @@
 
 #include "../data/parse_binary.h"
 #include "../data/data_source.h"
+#include "../data/parse_csv.h"
 #include "../plot/components/DataPlot.h"
 
+enum FileType {
+    FILE_TYPE_W01,
+    FILE_TYPE_CSV,
+};
+
 typedef struct {
-    BinaryFile binary_file;
+    union {
+        BinaryFile binary_file;
+        CsvFile csv_file;
+    };
     DataSource data_source;
     DataPlotState data_plot_state;
     char* filename;
     char* filepath;
+
+    enum FileType file_type;
 } OpenFile;
 
 OpenFile* get_files();
