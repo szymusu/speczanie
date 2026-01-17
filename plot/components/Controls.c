@@ -22,12 +22,12 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
         state->plot_offset = VECTOR2_ZERO;
     }
 
-    if (Button((Vector2) {10, 50}, "Odwroc y", 16, 0) == BUTTON_STATE_CLICKED) {
+    if (Button((Vector2) {10, 50}, "Odwróć y", 16, 0) == BUTTON_STATE_CLICKED) {
         data_scale_y(&current_file->data_source, -1);
         change |= MOVE_CHANGE_PLOT;
     }
 
-    if (Button((Vector2) {100, 50}, "Odwroc x", 16, 0) == BUTTON_STATE_CLICKED) {
+    if (Button((Vector2) {100, 50}, "Odwróć x", 16, 0) == BUTTON_STATE_CLICKED) {
         data_flip_x(&current_file->data_source);
         change |= MOVE_CHANGE_PLOT;
     }
@@ -61,7 +61,7 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
         file_export_csv(current_file);
     }
 
-    if (Button((Vector2) {20, 400}, "Napręzenie", 16, 0) == BUTTON_STATE_CLICKED) {
+    if (Button((Vector2) {20, 400}, "Naprężenie", 16, 0) == BUTTON_STATE_CLICKED) {
         float x = 50; // pole przekroju
         float y = 100; // długość początkowa
         if (!current_file->data_plot_state.is_strain) {

@@ -9,6 +9,9 @@ const unsigned char font_bytes[] = {
 };
 #endif
 
+const char charset[] = "ęóąśłżźćń1234567890!@#$%^&*()-=_+QWERTYUIOP{}ASDFGHJKL:\"|~ZXCVBNM<>?qwertyuiop[]asdfghjkl;'\\`zxcvbnm,./";
+
+
 Font default_font;
 
 Font* get_font() {
@@ -25,7 +28,11 @@ void font_init() {
     }
     default_font = LoadFontFromMemory(".ttf", font_bytes, sizeof font_bytes, 32, nullptr, 250);
 #else
-    default_font = LoadFont("resources/JetBrainsMono-SemiBold.ttf");
+    int codepoint_count = 0;
+    int* codepoints = LoadCodepoints(charset, &codepoint_count);
+
+    default_font = LoadFontEx("resources/JetBrainsMono-SemiBold.ttf", 72, codepoints, codepoint_count);
+    UnloadCodepoints(codepoints);
 #endif
 
     if (!IsFontValid(default_font)) {

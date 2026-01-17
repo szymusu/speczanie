@@ -38,7 +38,6 @@ int main(const int argc, char** argv) {
         if (samples < CLOCK_SAMPLE_COUNT && samples != -1) {
             change |= MOVE_CHANGE_BENCHMARK;
         }
-        BenchmarkProgress(samples, CLOCK_SAMPLE_COUNT);
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
