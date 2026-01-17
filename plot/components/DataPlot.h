@@ -40,6 +40,9 @@ typedef struct Segments {
 } Segments;
 
 typedef struct DataPlotState {
+    char* x_label;
+    char* y_label;
+
     Vector2* point_buffer;
     Vector2* shadow_point_buffer;
     VisiblePointsInfo visible;

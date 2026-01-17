@@ -11,6 +11,7 @@
 #include "math/regression.h"
 #include "plot/move.h"
 #include "plot/plot_math.h"
+#include "plot/components/Axes.h"
 #include "plot/components/Controls.h"
 #include "plot/components/DataPlot.h"
 #include "plot/components/Grid.h"
@@ -48,7 +49,8 @@ int main(const int argc, char** argv) {
                 current_file->data_plot_state.pan,
                 current_file->data_plot_state.scale_x
                 );
-            Grid(bounds);
+            Grid(bounds, current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
+            Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
             DataPlot(
                 (DataPlotProps) {
                     .data_source = current_file->data_source,

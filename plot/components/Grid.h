@@ -3,6 +3,6 @@
 
 #include "../plot_math.h"
 
-void Grid(Bounds bounds);
+void Grid(Bounds bounds, const char* x_label, const char* y_label);
 
 #endif //GRID_H

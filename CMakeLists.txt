@@ -64,6 +64,8 @@ add_executable(${PROJECT_NAME} main.c
         math/line.h
         data/parse_csv.c
         data/parse_csv.h
+        plot/components/Axes.c
+        plot/components/Axes.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

@@ -22,7 +22,7 @@ float find_step(const float start, const float end) {
     return step;
 }
 
-void Grid(const Bounds bounds) {
+void Grid(const Bounds bounds, const char* x_label, const char* y_label) {
     const float step_x = find_step(bounds.start_x, bounds.end_x);
     const float step_y = find_step(bounds.start_y, bounds.end_y);
 
@@ -38,18 +38,20 @@ void Grid(const Bounds bounds) {
         );
 
     char number_text[16];
-    const int zero_x = transform_x_to_pixel(0, bounds.start_x, bounds.end_x);
-    const int zero_y = transform_y_to_pixel(0, bounds.start_y, bounds.end_y);
+    const float zero_x = transform_x_to_pixelf(0, bounds.start_x, bounds.end_x);
+    const float zero_y = transform_y_to_pixelf(0, bounds.start_y, bounds.end_y);
+
+    // Text(x_label, zero_x, zero_y, 16, BLACK);
 
     Vector2 start = {.y = PLOT_OFFSET_Y};
     Vector2 end = {.y = PLOT_HEIGHT + PLOT_OFFSET_Y};
-    for (float x = 0.; x <= bounds.end_x; x += step_x) {
+    for (float x = step_x; x <= bounds.end_x; x += step_x) {
         const float px = transform_x_to_pixelf(x, bounds.start_x, bounds.end_x);
         start.x = px;
         end.x = px;
         DrawLineEx(start, end, 1.f, GRAY);
         sprintf(number_text, "%.2f", x);
-        Text(number_text, (int) px, zero_y, 20, BLACK);
+        Text(number_text, px, zero_y, 20, BLACK);
     }
     for (float x = -step_x; x >= bounds.start_x; x -= step_x) {
         const float px = transform_x_to_pixelf(x, bounds.start_x, bounds.end_x);
@@ -57,7 +59,7 @@ void Grid(const Bounds bounds) {
         end.x = px;
         DrawLineEx(start, end, 1.f, GRAY);
         sprintf(number_text, "%.2f", x);
-        Text(number_text, (int) px, zero_y, 20, BLACK);
+        Text(number_text, px, zero_y, 20, BLACK);
     }
     start.x = PLOT_OFFSET_X;
     end.x = PLOT_WIDTH + PLOT_OFFSET_X;
@@ -68,7 +70,7 @@ void Grid(const Bounds bounds) {
         end.y = py;
         DrawLineEx(start, end, 1.f, GRAY);
         sprintf(number_text, "%.2f", y);
-        Text(number_text, zero_x, (int) py, 20, BLACK);
+        Text(number_text, zero_x, py, 20, BLACK);
     }
     for (float y = -step_y;; y -= step_y) {
         const float py = transform_y_to_pixelf(y, bounds.start_y, bounds.end_y);
@@ -77,6 +79,6 @@ void Grid(const Bounds bounds) {
         end.y = py;
         DrawLineEx(start, end, 1.f, GRAY);
         sprintf(number_text, "%.2f", y);
-        Text(number_text, zero_x, (int) py, 20, BLACK);
+        Text(number_text, zero_x, py, 20, BLACK);
     }
 }
