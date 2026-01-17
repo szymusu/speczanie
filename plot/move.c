@@ -52,13 +52,14 @@ move_change_t process_move(DataPlotState* state, const Bounds bounds) {
             change |= MOVE_CHANGE_APPLY_OFFSET + MOVE_CHANGE_PLOT;
         }
         else if (IsKeyReleased(KEY_LEFT_CONTROL)) {
+            state->input_mode = PLOT_INPUT_IDLE;
             change |= MOVE_CHANGE_PLOT;
             state->plot_offset = VECTOR2_ZERO;
         }
         else if (!no_delta || 1) {
             change |= MOVE_CHANGE_PLOT;
-            state->plot_offset.x += plot_delta.x;
-            state->plot_offset.y += plot_delta.y;
+            if (state->movement_lock != MOVEMENT_LOCK_X) state->plot_offset.x += plot_delta.x;
+            if (state->movement_lock != MOVEMENT_LOCK_Y) state->plot_offset.y += plot_delta.y;
         }
         break;
     }

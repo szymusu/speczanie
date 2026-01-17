@@ -32,6 +32,14 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
         change |= MOVE_CHANGE_PLOT;
     }
 
+    if (Button((Vector2) {10, 150}, "Zablokuj y", 16, 0) == BUTTON_STATE_CLICKED) {
+        current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_Y;
+    }
+
+    if (Button((Vector2) {100, 150}, "Zablokuj x", 16, 0) == BUTTON_STATE_CLICKED) {
+        current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_X;
+    }
+
     if (!is_vec2_zero(current_file->data_source.data[0])) {
         if (Button((Vector2) {10, 100}, "Zeruj start", 16, 0) == BUTTON_STATE_CLICKED) {
             data_apply_offset(&current_file->data_source, (Vector2) {
@@ -61,14 +69,14 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
         file_export_csv(current_file);
     }
 
-    if (Button((Vector2) {20, 400}, "Naprężenie", 16, 0) == BUTTON_STATE_CLICKED) {
+    if (Button((Vector2) {20, 400}, "Wykres σ = f(ε)", 16, 0) == BUTTON_STATE_CLICKED) {
         float x = 50; // pole przekroju
         float y = 100; // długość początkowa
         if (!current_file->data_plot_state.is_strain) {
             x = 1 / x;
             y = 1 / y;
-            current_file->data_plot_state.x_label = "Napr";
-            current_file->data_plot_state.y_label = "Odksz";
+            current_file->data_plot_state.x_label = "σ";
+            current_file->data_plot_state.y_label = "ε";
         }
         else {
             current_file->data_plot_state.x_label = "Stroke [mm]";

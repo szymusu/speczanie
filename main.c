@@ -25,7 +25,7 @@ int main(const int argc, char** argv) {
     SetConfigFlags(FLAG_MSAA_4X_HINT);
 #endif
 
-    InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Spęczator 2000");
+    InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Spęczanie");
     font_init();
 
     OpenFile* current_file = get_selected_file();
@@ -33,11 +33,6 @@ int main(const int argc, char** argv) {
     move_change_t change = 0b11;
 
     while (!WindowShouldClose()) {
-
-        const int samples = get_sample_count();
-        if (samples < CLOCK_SAMPLE_COUNT && samples != -1) {
-            change |= MOVE_CHANGE_BENCHMARK;
-        }
 
         BeginDrawing();
         ClearBackground(RAYWHITE);

@@ -21,6 +21,12 @@ enum PlotInputMode {
     PLOT_INPUT_REGRESSION,
 };
 
+enum MovementLock {
+    MOVEMENT_LOCK_NONE,
+    MOVEMENT_LOCK_X,
+    MOVEMENT_LOCK_Y,
+};
+
 typedef struct {
     Vector2 end_point;
     float a;
@@ -59,6 +65,7 @@ typedef struct DataPlotState {
     Vector2* regression_points;
 
     enum PlotInputMode input_mode;
+    enum MovementLock movement_lock;
     bool is_strain;
 
 } DataPlotState;
