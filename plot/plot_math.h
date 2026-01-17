@@ -30,4 +30,6 @@ Vector2 transform_v_to_pixel(Vector2 v, Bounds bounds);
 
 Bounds compute_bounds(float zoom, Vector2 pan, float scale_x);
 
+float fit_scale(float x1, float x2);
+
 #endif //PLOT_MATH_H

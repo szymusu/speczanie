@@ -67,18 +67,18 @@ int main(const int argc, char** argv) {
 
         const int clicked = FileList();
         if (clicked != -1) {
-            float zoom = 1;
-            float scale_x = 1;
-            Vector2 pan = {0,0};
-            if (current_file) {
-                zoom = current_file->data_plot_state.zoom;
-                scale_x = current_file->data_plot_state.scale_x;
-                pan = current_file->data_plot_state.pan;
-            }
+            // float zoom = 1;
+            // float scale_x = 1;
+            // Vector2 pan = {0,0};
+            // if (current_file) {
+            //     zoom = current_file->data_plot_state.zoom;
+            //     scale_x = current_file->data_plot_state.scale_x;
+            //     pan = current_file->data_plot_state.pan;
+            // }
             current_file = select_file(clicked);
-            current_file->data_plot_state.zoom = zoom;
-            current_file->data_plot_state.scale_x = scale_x;
-            current_file->data_plot_state.pan = pan;
+            // current_file->data_plot_state.zoom = zoom;
+            // current_file->data_plot_state.scale_x = scale_x;
+            // current_file->data_plot_state.pan = pan;
             change |= MOVE_CHANGE_PLOT;
         }
 

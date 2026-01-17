@@ -72,6 +72,7 @@ int open_file(const char* filename) {
     files[count].binary_file = parse_result.file;
     files[count].data_source = data_source_columns(&files[count].binary_file, 3, 2);
     files[count].data_plot_state = DataPlotState_create(files[count].data_source.count);
+    files[count].data_plot_state.scale_x = fit_scale(files[count].data_source.data[0].x, files[count].data_source.data[files[count].data_source.count - 1].x);
     set_path_and_name(&files[count], filename);
 
     return count++;
