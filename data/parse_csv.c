@@ -102,6 +102,5 @@ bool is_csv_error(const union CsvParseResult parse_result) {
 }
 
 void csv_destroy(CsvFile* csv_file) {
-    free(csv_file->data);
     free(csv_file->header);
 }
