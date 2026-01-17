@@ -19,6 +19,6 @@ void data_scale_y(DataSource* data_source, float scale_y);
 void data_cut_left(DataSource* data_source, int index);
 void data_cut_right(DataSource* data_source, int index);
 void data_flip_x(DataSource* data_source);
-void data_find_segments(DataSource* data_source, Bounds bounds);
+void data_convert(const DataSource* data_source, float x_factor, float y_factor);
 
 #endif //DATA_SOURCE_H

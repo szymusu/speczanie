@@ -69,69 +69,9 @@ void data_flip_x(DataSource* data_source) {
     }
 }
 
-enum Segment {
-    SEGMENT_STATIC,
-    SEGMENT_CHAOS,
-    SEGMENT_LINEAR,
-    SEGMENT_NONLINEAR,
-};
-
-void data_find_segments(DataSource* data_source, const Bounds bounds) {
-    enum Segment segment = SEGMENT_STATIC;
-    if (data_source->count < 20) {
-        printf("Data source too small: %d\n", data_source->count);
-        return;
+void data_convert(const DataSource* data_source, const float x_factor, const float y_factor) {
+    for (int i = 0; i < data_source->count; ++i) {
+        data_source->data[i].x *= x_factor;
+        data_source->data[i].y *= y_factor;
     }
-    int static_chaos_border = -1;
-    int linear_nonlinear_border = -1;
-    for (int i = 1; i < data_source->count; ++i) {
-        if (fabsf(data_source->data[i].y - data_source->data[i - 1].y) > .05f) {
-            static_chaos_border = i - 1;
-            break;
-        }
-    }
-    if (static_chaos_border == -1) {
-        puts("static_chaos_border NOT FOUND");
-        return;
-    }
-    // printf("static_chaos_border index: %d, x: %f\n", static_chaos_border, data_source->data[static_chaos_border].x);
-    DrawCircleV(transform_v_to_pixel(data_source->data[static_chaos_border], bounds), 10, YELLOW);
-
-    // linia
-    int chaos_linear_border = static_chaos_border + 1;
-    const int falling_curve_middle = (static_chaos_border + data_source->count - 1) / 2;
-    // float last_slope = get_line_slope(data_source->data[falling_curve_middle], data_source->data[falling_curve_middle - 1]);
-    float min_slope = 0;
-    for (int i = falling_curve_middle - 1; i > static_chaos_border + 2; --i) {
-        DrawCircleV(transform_v_to_pixel(data_source->data[i], bounds), 3, GREEN);
-
-        const float slope = get_line_slope(data_source->data[i], data_source->data[i - 1]);
-        if (slope < min_slope) {
-            chaos_linear_border = i - 1;
-            min_slope = slope;
-        }
-    }
-    DrawCircleV(transform_v_to_pixel(data_source->data[chaos_linear_border], bounds), 10, ORANGE);
-
-    linear_nonlinear_border = chaos_linear_border + 1;
-
-    DrawCircleV(transform_v_to_pixel(data_source->data[linear_nonlinear_border], bounds), 10, RED);
-
-    const Vector2 p = data_source->data[linear_nonlinear_border];
-    DrawCurveLinear((CurveLinear) {
-        .end_point = p,
-        .a = min_slope,
-        .b = p.y - p.x * min_slope
-    }, bounds);
-
-    Vector2 point_buffer[1024];
-    float coeff_buffer[32];
-    CurvePolynomial curve = {
-        .point_buffer = point_buffer,
-        .coefficients = coeff_buffer,
-        .start_x = data_source->data[linear_nonlinear_border].x,
-        .end_x = data_source->data[data_source->count - 1].x,
-        .order = 4
-    };
-    Polynomial(&curve, &data_source->data[linear_nonlinear_border], data_source->count - linear_nonlinear_border, 1, bounds);
 }

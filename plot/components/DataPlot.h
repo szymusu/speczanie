@@ -35,10 +35,6 @@ typedef struct {
     uint8_t order;
 } CurvePolynomial;
 
-typedef struct Segments {
-
-} Segments;
-
 typedef struct DataPlotState {
     char* x_label;
     char* y_label;
@@ -63,6 +59,7 @@ typedef struct DataPlotState {
     Vector2* regression_points;
 
     enum PlotInputMode input_mode;
+    bool is_strain;
 
 } DataPlotState;
 

@@ -61,5 +61,23 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
         file_export_csv(current_file);
     }
 
+    if (Button((Vector2) {20, 400}, "Napręzenie", 16, 0) == BUTTON_STATE_CLICKED) {
+        float x = 50; // pole przekroju
+        float y = 100; // długość początkowa
+        if (!current_file->data_plot_state.is_strain) {
+            x = 1 / x;
+            y = 1 / y;
+            current_file->data_plot_state.x_label = "Napr";
+            current_file->data_plot_state.y_label = "Odksz";
+        }
+        else {
+            current_file->data_plot_state.x_label = "Stroke [mm]";
+            current_file->data_plot_state.y_label = "Load [kN]";
+        }
+        data_convert(&current_file->data_source, x, y);
+        current_file->data_plot_state.is_strain = !current_file->data_plot_state.is_strain;
+        change |= MOVE_CHANGE_PLOT;
+    }
+
     return change;
 }
