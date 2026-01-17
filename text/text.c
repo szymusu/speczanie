@@ -19,6 +19,8 @@ Font* get_font() {
 }
 
 void font_init() {
+    int codepoint_count = 0;
+    int* codepoints = LoadCodepoints(charset, &codepoint_count);
 #ifndef __arm64
     constexpr size_t font_size = sizeof font_bytes;
     printf("font byte size %lu\n", font_size);
@@ -26,14 +28,12 @@ void font_init() {
         puts("Font did not embed!");
         exit(1);
     }
-    default_font = LoadFontFromMemory(".ttf", font_bytes, sizeof font_bytes, 32, nullptr, 250);
+    default_font = LoadFontFromMemory(".ttf", font_bytes, sizeof font_bytes, 48, codepoints, codepoint_count);
 #else
-    int codepoint_count = 0;
-    int* codepoints = LoadCodepoints(charset, &codepoint_count);
-
-    default_font = LoadFontEx("resources/JetBrainsMono-SemiBold.ttf", 72, codepoints, codepoint_count);
-    UnloadCodepoints(codepoints);
+    default_font = LoadFontEx("resources/JetBrainsMono-SemiBold.ttf", 48, codepoints, codepoint_count);
 #endif
+
+    UnloadCodepoints(codepoints);
 
     if (!IsFontValid(default_font)) {
         printf("Font %s couldn't load!\n");
