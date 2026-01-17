@@ -76,6 +76,8 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
         }
         data_convert(&current_file->data_source, x, y);
         current_file->data_plot_state.is_strain = !current_file->data_plot_state.is_strain;
+        current_file->data_plot_state.zoom /= x;
+        current_file->data_plot_state.pan = (Vector2) {0, 0};
         change |= MOVE_CHANGE_PLOT;
     }
 
