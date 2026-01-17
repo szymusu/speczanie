@@ -100,3 +100,8 @@ union CsvParseResult csv_parse(const char* filename) {
 bool is_csv_error(const union CsvParseResult parse_result) {
     return parse_result.error.is_success == 0;
 }
+
+void csv_destroy(CsvFile* csv_file) {
+    free(csv_file->data);
+    free(csv_file->header);
+}

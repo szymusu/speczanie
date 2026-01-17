@@ -1,21 +1,31 @@
 #include "FileList.h"
 
+#include "CloseButton.h"
 #include "../open_files.h"
 #include "../../plot/plot_math.h"
 #include "../../text/Button.h"
 
-#define FONT_SIZE 15.f
+#define FONT_SIZE 16.f
+#define CLOSE_BUTTON_WIDTH 50
 
-int FileList() {
+FileListChange FileList() {
     const int count = get_count();
     const OpenFile* files = get_files();
     const int selected = get_selected();
-    int clicked = -1;
+
+    FileListChange result = { -1, -1 };
 
     for (int i = 0; i < count; ++i) {
+        const Vector2 origin = {PLOT_WIDTH - CLOSE_BUTTON_WIDTH, i * 35.f + 5.f};
+
+        const button_state_t close_state = CloseButton(origin, FONT_SIZE);
+        if (close_state == BUTTON_STATE_CLICKED) {
+            result.closed = i;
+        }
+
         if (i == selected) {
             TextBox((TextBoxProps) {
-                .origin = {PLOT_WIDTH - 5, i * 35.f + 5.f},
+                .origin = origin,
                 .padding = {FONT_SIZE, FONT_SIZE / 2},
                 .text = files[i].filename,
                 .font_size = 15,
@@ -29,7 +39,7 @@ int FileList() {
         }
         else {
             const button_state_t button_state = ButtonPro((TextBoxProps) {
-                .origin = {PLOT_WIDTH - 5, i * 35.f + 5.f},
+                .origin = origin,
                 .padding = {FONT_SIZE, FONT_SIZE / 2},
                 .text = files[i].filename,
                 .font_size = 15,
@@ -40,7 +50,7 @@ int FileList() {
                 .align = TEXTBOX_ALIGN_RIGHT
                 },
                 (TextBoxProps) {
-                .origin = {PLOT_WIDTH - 5, i * 35.f + 5.f},
+                .origin = origin,
                 .padding = {FONT_SIZE, FONT_SIZE / 2},
                 .text = files[i].filename,
                 .font_size = 15,
@@ -51,8 +61,8 @@ int FileList() {
                 .align = TEXTBOX_ALIGN_RIGHT
                 }
             );
-            if (button_state == BUTTON_STATE_CLICKED) clicked = i;
+            if (button_state == BUTTON_STATE_CLICKED) result.selected = i;
         }
     }
-    return clicked;
+    return result;
 }

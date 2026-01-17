@@ -66,9 +66,15 @@ int main(const int argc, char** argv) {
         }
 
 
-        const int clicked = FileList();
-        if (clicked != -1) {
-            current_file = select_file(clicked);
+        const FileListChange file_list_change = FileList();
+        if (file_list_change.closed != -1) {
+            printf("closed %d\n", file_list_change.closed);
+            close_file(file_list_change.closed);
+            current_file = get_selected_file();
+            change |= MOVE_CHANGE_PLOT;
+        }
+        if (file_list_change.selected != -1) {
+            current_file = select_file(file_list_change.selected);
             change |= MOVE_CHANGE_PLOT;
         }
 

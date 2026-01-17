@@ -105,10 +105,25 @@ int open_file(const char* filename) {
 }
 
 void free_file(const int index) {
-    file_destroy(&files[index].binary_file);
-    data_source_destroy(&files[index].data_source);
-    DataPlotState_destroy(&files[index].data_plot_state);
-    free(files[index].filepath);
+    OpenFile file = files[index];
+    if (file.file_type == FILE_TYPE_W01) {
+        file_destroy(&file.binary_file);
+    }
+    else {
+        csv_destroy(&file.csv_file);
+    }
+    data_source_destroy(&file.data_source);
+    DataPlotState_destroy(&file.data_plot_state);
+    free(file.filepath);
+}
+
+void close_file(const int index) {
+    free_file(index);
+    for (int i = index + 1; i < count; ++i) {
+        files[i - 1] = files[i];
+    }
+    count--;
+    if (count && selected == count) selected--;
 }
 
 void clear_files() {

@@ -1,6 +1,11 @@
 #ifndef FILELIST_H
 #define FILELIST_H
 
-int FileList();
+typedef struct {
+    int selected;
+    int closed;
+} FileListChange;
+
+FileListChange FileList();
 
 #endif //FILELIST_H

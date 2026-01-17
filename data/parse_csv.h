@@ -30,5 +30,6 @@ union CsvParseResult {
 
 union CsvParseResult csv_parse(const char* filename);
 bool is_csv_error(union CsvParseResult parse_result);
+void csv_destroy(CsvFile* csv_file);
 
 #endif //SPECZANIE_PARSE_CSV_H
