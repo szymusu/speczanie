@@ -32,7 +32,7 @@ void format_number(char* buffer, const float number) {
     }
 }
 
-void Grid(const Bounds bounds, const char* x_label, const char* y_label) {
+void Grid(const Bounds bounds) {
     const float step_x = find_step(bounds.start_x, bounds.end_x);
     const float step_y = find_step(bounds.start_y, bounds.end_y);
 

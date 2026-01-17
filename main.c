@@ -48,7 +48,7 @@ int main(const int argc, char** argv) {
                 current_file->data_plot_state.pan,
                 current_file->data_plot_state.scale_x
                 );
-            Grid(bounds, current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
+            Grid(bounds);
             Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
             DataPlot(
                 (DataPlotProps) {
