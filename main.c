@@ -18,8 +18,11 @@
 int main(const int argc, char** argv) {
     if (process_args(argc, argv)) return -1;
 
+#ifndef __arm64
     // Anty-aliasing mega psuje FPS na Macu
     SetConfigFlags(FLAG_MSAA_4X_HINT);
+#endif
+
     InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Spęczator 2000");
     font_init();
 
@@ -52,7 +55,7 @@ int main(const int argc, char** argv) {
                 },
                 change, &current_file->data_plot_state);
 
-            data_find_segments(&current_file->data_source, bounds);
+            // data_find_segments(&current_file->data_source, bounds);
 
             change = process_move(&current_file->data_plot_state, bounds);
             change = Controls(current_file, &current_file->data_plot_state, change);

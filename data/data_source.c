@@ -6,6 +6,11 @@
 
 #include "../math/line.h"
 #include "../plot/plot_math.h"
+#include "../plot/components/DataPlot.h"
+#include "../plot/components/Polynomial.h"
+
+void DrawCurveLinear(CurveLinear curve_linear, Bounds bounds);
+
 
 DataSource data_source_columns(const BinaryFile* file, const int x_column, const int y_column) {
     const int count = file->header.row_count;
@@ -108,7 +113,25 @@ void data_find_segments(DataSource* data_source, const Bounds bounds) {
     }
     DrawCircleV(transform_v_to_pixel(data_source->data[chaos_linear_border], bounds), 10, ORANGE);
 
-    linear_nonlinear_border = chaos_linear_border + 2;
+    linear_nonlinear_border = chaos_linear_border + 1;
 
     DrawCircleV(transform_v_to_pixel(data_source->data[linear_nonlinear_border], bounds), 10, RED);
+
+    const Vector2 p = data_source->data[linear_nonlinear_border];
+    DrawCurveLinear((CurveLinear) {
+        .end_point = p,
+        .a = min_slope,
+        .b = p.y - p.x * min_slope
+    }, bounds);
+
+    Vector2 point_buffer[1024];
+    float coeff_buffer[32];
+    CurvePolynomial curve = {
+        .point_buffer = point_buffer,
+        .coefficients = coeff_buffer,
+        .start_x = data_source->data[linear_nonlinear_border].x,
+        .end_x = data_source->data[data_source->count - 1].x,
+        .order = 4
+    };
+    Polynomial(&curve, &data_source->data[linear_nonlinear_border], data_source->count - linear_nonlinear_border, 1, bounds);
 }
