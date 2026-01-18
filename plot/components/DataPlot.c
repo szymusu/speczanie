@@ -82,8 +82,8 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
 
 DataPlotState DataPlotState_create(const int data_count) {
     return (DataPlotState) {
-        .x_label = "Stroke [mm]",
-        .y_label = "Load [kN]",
+        .x_label = "",
+        .y_label = "",
         .point_buffer = malloc(sizeof(Vector2) * data_count),
         .shadow_point_buffer = malloc(sizeof(Vector2) * data_count),
         .selected_point = -1,

@@ -46,3 +46,42 @@ button_state_t Button(const Vector2 origin, const char* text, const float font_s
     }
     return BUTTON_STATE_IDLE;
 }
+
+button_state_t ButtonDefault(const Vector2 origin, const char* text, const float font_size, const button_options_t options) {
+    TextBoxProps props = {
+        .origin = origin,
+        .text = text,
+        .padding = {12, 8},
+        .font_size = font_size,
+        .text_color = BLACK,
+        .background_color = WHITE,
+        .border_color = DARKBLUE,
+        .border = 1,
+    };
+    const Rectangle box = box_get_rect(props);
+    if (options & BUTTON_OPTION_ACTIVE) {
+        props.text_color = WHITE;
+        props.background_color = DARKBLUE;
+        DrawTextBox(props, box);
+    }
+    if (options & BUTTON_OPTION_DISABLED) {
+        props.text_color = GRAY;
+        props.background_color = LIGHTGRAY;
+        props.border_color = GRAY;
+        DrawTextBox(props, box);
+        return BUTTON_STATE_IDLE;
+    }
+    if (is_mouse_over(box)) {
+        if (!options) {
+            props.background_color = LIGHTGRAY;
+            props.border = 2;
+        }
+        DrawTextBox(props, box);
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+            return BUTTON_STATE_CLICKED;
+        }
+        return BUTTON_STATE_HOVER;
+    }
+    DrawTextBox(props, box);
+    return BUTTON_STATE_IDLE;
+}

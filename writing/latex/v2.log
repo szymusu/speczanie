@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  16 JAN 2026 18:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  18 JAN 2026 22:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -413,8 +413,14 @@ Rozdzia\PlPrIeC {\l } 1.
 [2
 
 ]
+<images/ZwickHB100a.jpg, id=15, 2007.5pt x 1505.625pt>
+File: images/ZwickHB100a.jpg Graphic file (type jpg)
+<use images/ZwickHB100a.jpg>
+Package pdftex.def Info: images/ZwickHB100a.jpg  used on input line 50.
+(pdftex.def)             Requested size: 364.19667pt x 273.13739pt.
 
-[3]
+
+[3 <./images/ZwickHB100a.jpg>]
 Rozdzia\PlPrIeC {\l } 2.
 
 
@@ -426,27 +432,134 @@ Rozdzia\PlPrIeC {\l } 3.
 
 [5
 
-] (./v2.aux)
+]
+Rozdzia\PlPrIeC {\l } 4.
+LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 
+106.
+(/usr/share/texmf-dist/tex/latex/polski/ot4cmtt.fd
+File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+
+[6
+
+{/usr/share/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr/share/texmf-dist/fonts
+/enc/dvips/pl/pltt.enc}]
+Overfull \hbox (11.74727pt too wide) in paragraph at lines 111--112
+\OT4/cmr/m/n/12 Jako pod-sta-wa ry-so-wa-nia wy-kre-su, zo-sta-ªa wy-ko-rzy-sta
+-na funk-cja Rzy-lib [][]\OT4/cmtt/m/n/12 DrawSplineLinear[]\OT4/cmr/m/n/12 ,
+ []
+
+
+Overfull \hbox (20.23112pt too wide) in paragraph at lines 115--115
+[]  \OT4/cmtt/m/n/12 DrawSplineLinear(state->point_buffer, state->visible.count
+, 2.f, DARKBLUE);[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--136
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 126--136
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 139--148
+
+ []
+
+
+
+[7{/usr/share/texmf-dist/fonts/enc/dvips/pl/plmi.enc}{/usr/share/texmf-dist/fon
+ts/enc/dvips/pl/plms.enc}]
+Overfull \hbox (38.75613pt too wide) in paragraph at lines 164--164
+[]    \OT4/cmtt/m/n/12 .start_y = PLOT_START_Y / zoom / ((float) PLOT_WIDTH / P
+LOT_HEIGHT) + pan.y,[] 
+ []
+
+
+Overfull \hbox (14.05612pt too wide) in paragraph at lines 164--164
+[]    \OT4/cmtt/m/n/12 .end_y = PLOT_END_Y / zoom / ((float) PLOT_WIDTH / PLOT_
+HEIGHT) + pan.y,[] 
+ []
+
+
+
+[8]
+Overfull \hbox (69.63115pt too wide) in paragraph at lines 203--203
+[]  \OT4/cmtt/m/n/12 int find_first_visible(const Vector2* data, const int coun
+t, const float start_x) {[] 
+ []
+
+
+Overfull \hbox (137.55618pt too wide) in paragraph at lines 235--235
+[]  \OT4/cmtt/m/n/12 const DataSource data_source, Vector2* point_buffer, const
+ Bounds bounds, const Vector2 offset[] 
+ []
+
+
+Overfull \hbox (131.38118pt too wide) in paragraph at lines 235--235
+[]    \OT4/cmtt/m/n/12 .start = find_first_visible(data_source.data, data_sourc
+e.count, bounds.start_x - offset.x)[] 
+ []
+
+
+Overfull \hbox (14.05612pt too wide) in paragraph at lines 235--235
+[]   \OT4/cmtt/m/n/12 const float x_factor =  1 / (bounds.end_x - bounds.start_
+x) * PLOT_WIDTH;[] 
+ []
+
+
+Overfull \hbox (20.23112pt too wide) in paragraph at lines 235--235
+[]   \OT4/cmtt/m/n/12 const float y_factor = -1 / (bounds.end_y - bounds.start_
+y) * PLOT_HEIGHT;[] 
+ []
+
+
+Overfull \hbox (51.10614pt too wide) in paragraph at lines 235--235
+[]    \OT4/cmtt/m/n/12 point_buffer[i].x = (data_source.data[i_source].x - boun
+ds.start_x + offset.x)[] 
+ []
+
+
+Overfull \hbox (51.10614pt too wide) in paragraph at lines 235--235
+[]    \OT4/cmtt/m/n/12 point_buffer[i].y = (data_source.data[i_source].y + boun
+ds.start_y - offset.y)[] 
+ []
+
+
+
+[9]
+
+[10]
+
+[11] (./v2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4669 strings out of 475136
- 71407 string characters out of 5766291
- 472447 words of memory out of 5000000
- 27595 multiletter control sequences out of 15000+600000
- 569801 words of font info for 63 fonts, out of 8000000 for 9000
+ 4714 strings out of 475136
+ 72281 string characters out of 5766291
+ 478449 words of memory out of 5000000
+ 27631 multiletter control sequences out of 15000+600000
+ 570636 words of font info for 65 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
- 63i,6n,65p,482b,207s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 63i,10n,65p,803b,345s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/pl/plbx12.pfb></usr/share/texmf-dis
-t/fonts/type1/public/pl/plr12.pfb></usr/share/texmf-dist/fonts/type1/public/pl/
-plr17.pfb>
-Output written on v2.pdf (6 pages, 39231 bytes).
+t/fonts/type1/public/pl/plmi12.pfb></usr/share/texmf-dist/fonts/type1/public/pl
+/plmi8.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plr12.pfb></usr/share/t
+exmf-dist/fonts/type1/public/pl/plr17.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/pl/plr8.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plsy10.pfb></usr/
+share/texmf-dist/fonts/type1/public/pl/plti12.pfb></usr/share/texmf-dist/fonts/
+type1/public/pl/pltt12.pfb>
+Output written on v2.pdf (12 pages, 580777 bytes).
 PDF statistics:
- 39 PDF objects out of 1000 (max. 8388607)
- 24 compressed objects within 1 object stream
+ 94 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

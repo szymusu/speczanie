@@ -16,6 +16,7 @@
 #include "plot/components/Controls.h"
 #include "plot/components/DataPlot.h"
 #include "plot/components/Grid.h"
+#include "plot/components/MultiPlot.h"
 #include "text/text.h"
 
 int main(const int argc, char** argv) {
@@ -30,7 +31,7 @@ int main(const int argc, char** argv) {
     font_init();
 
     OpenFile* current_file = get_selected_file();
-
+    MultiPlotState multi_plot_state = { .enabled = false };
     move_change_t change = 0b11;
 
     while (!WindowShouldClose()) {
@@ -43,22 +44,35 @@ int main(const int argc, char** argv) {
                 ColumnImport(current_file);
             }
             else {
-                const Bounds bounds = compute_bounds(
-                    current_file->data_plot_state.zoom,
-                    current_file->data_plot_state.pan,
-                    current_file->data_plot_state.scale_x
-                );
-                Grid(bounds);
-                Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
-                DataPlot(
+                Bounds bounds;
+                if (multi_plot_state.enabled) {
+                    bounds = compute_bounds(
+                        multi_plot_state.zoom,
+                        multi_plot_state.pan,
+                        multi_plot_state.scale_x
+                    );
+                    Grid(bounds);
+                    Axes("σ", "ε");
+                    MultiPlot(&multi_plot_state, (MultiPlotProps) { bounds });
+                }
+                else {
+                    bounds = compute_bounds(
+                        current_file->data_plot_state.zoom,
+                        current_file->data_plot_state.pan,
+                        current_file->data_plot_state.scale_x
+                    );
+                    Grid(bounds);
+                    Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
+                    DataPlot(
                     (DataPlotProps) {
                         .data_source = current_file->data_source,
                         .bounds = bounds,
                     },
                     change, &current_file->data_plot_state);
+                }
 
                 change = process_move(&current_file->data_plot_state, bounds);
-                change = Controls(current_file, &current_file->data_plot_state, change);
+                change = Controls(current_file, &current_file->data_plot_state, &multi_plot_state, change);
             }
         }
         else {

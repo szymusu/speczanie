@@ -6,21 +6,21 @@
 #include "../../files/image_export.h"
 #include "../../math/vector2.h"
 
-move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change_t change) {
+move_change_t Controls(OpenFile* current_file, DataPlotState* data_plot_state, MultiPlotState* multi_plot_state, move_change_t change) {
     if (IsKeyPressed(KEY_R)) {
-        if (state->input_mode == PLOT_INPUT_REGRESSION)
-            state->input_mode = PLOT_INPUT_IDLE;
+        if (data_plot_state->input_mode == PLOT_INPUT_REGRESSION)
+            data_plot_state->input_mode = PLOT_INPUT_IDLE;
         else
-            state->input_mode = PLOT_INPUT_REGRESSION;
+            data_plot_state->input_mode = PLOT_INPUT_REGRESSION;
     }
 
-    if (state->input_mode == PLOT_INPUT_REGRESSION) {
+    if (data_plot_state->input_mode == PLOT_INPUT_REGRESSION) {
         Text("Wybierz punkty do regresji", 400, 10, 20, BROWN);
     }
 
     if (change & MOVE_CHANGE_APPLY_OFFSET) {
-        data_apply_offset(&current_file->data_source, state->plot_offset);
-        state->plot_offset = VECTOR2_ZERO;
+        data_apply_offset(&current_file->data_source, data_plot_state->plot_offset);
+        data_plot_state->plot_offset = VECTOR2_ZERO;
     }
 
     if (Button((Vector2) {10, 50}, "Odwróć y", 16, 0) == BUTTON_STATE_CLICKED) {
@@ -33,12 +33,16 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
         change |= MOVE_CHANGE_PLOT;
     }
 
-    if (Button((Vector2) {10, 150}, "Zablokuj y", 16, 0) == BUTTON_STATE_CLICKED) {
-        current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_Y;
+    const bool is_lock_y = current_file->data_plot_state.movement_lock == MOVEMENT_LOCK_Y;
+    if (ButtonDefault((Vector2) {10, 150}, "Blokuj y", 16, is_lock_y & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
+        if (is_lock_y)  current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_NONE;
+        else            current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_Y;
     }
 
-    if (Button((Vector2) {100, 150}, "Zablokuj x", 16, 0) == BUTTON_STATE_CLICKED) {
-        current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_X;
+    const bool is_lock_x = current_file->data_plot_state.movement_lock == MOVEMENT_LOCK_X;
+    if (ButtonDefault((Vector2) {100, 150}, "Blokuj x", 16, is_lock_x & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
+        if (is_lock_x)  current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_NONE;
+        else            current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_X;
     }
 
     if (!is_vec2_zero(current_file->data_source.data[0])) {
@@ -47,8 +51,9 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
                 -current_file->data_source.data[0].x,
                 current_file->data_source.data[0].y
             });
-            state->plot_offset = VECTOR2_ZERO;
-            change |= MOVE_CHANGE_PLOT;
+            data_plot_state->plot_offset = VECTOR2_ZERO;
+            data_plot_state->pan = VECTOR2_ZERO;
+            change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
         }
     }
 
@@ -75,22 +80,27 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
     }
 
     if (Button((Vector2) {20, 400}, "Wykres σ = f(ε)", 16, 0) == BUTTON_STATE_CLICKED) {
-        float x = 50; // pole przekroju
-        float y = 100; // długość początkowa
-        if (!current_file->data_plot_state.is_strain) {
-            x = 1 / x;
-            y = 1 / y;
-            current_file->data_plot_state.x_label = "σ";
-            current_file->data_plot_state.y_label = "ε";
-        }
-        else {
-            current_file->data_plot_state.x_label = "Stroke [mm]";
-            current_file->data_plot_state.y_label = "Load [kN]";
-        }
-        data_convert(&current_file->data_source, x, y);
-        current_file->data_plot_state.is_strain = !current_file->data_plot_state.is_strain;
-        current_file->data_plot_state.zoom /= x;
-        current_file->data_plot_state.pan = (Vector2) {0, 0};
+        // float x = 50; // pole przekroju
+        // float y = 100; // długość początkowa
+        // if (!current_file->data_plot_state.is_strain) {
+        //     x = 1 / x;
+        //     y = 1 / y;
+        //     current_file->data_plot_state.x_label = "σ";
+        //     current_file->data_plot_state.y_label = "ε";
+        // }
+        // else {
+        //     current_file->data_plot_state.x_label = "Stroke [mm]";
+        //     current_file->data_plot_state.y_label = "Load [kN]";
+        // }
+        // data_convert(&current_file->data_source, x, y);
+        // current_file->data_plot_state.is_strain = !current_file->data_plot_state.is_strain;
+        // current_file->data_plot_state.zoom /= x;
+        // current_file->data_plot_state.pan = (Vector2) {0, 0};
+
+        multi_plot_state->enabled = !multi_plot_state->enabled;
+        multi_plot_state->pan = data_plot_state->pan;
+        multi_plot_state->scale_x = data_plot_state->scale_x;
+        multi_plot_state->zoom = data_plot_state->zoom;
         change |= MOVE_CHANGE_PLOT;
     }
 

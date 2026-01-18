@@ -5,11 +5,13 @@
 \contentsline {paragraph}{}{2}{}%
 \contentsline {paragraph}{}{2}{}%
 \contentsline {paragraph}{}{2}{}%
-\contentsline {section}{\numberline {1.3}Opis maszyny pomiarowej}{2}{}%
 \contentsline {paragraph}{}{2}{}%
-\contentsline {section}{\numberline {1.4}Aktualne rozwiązania}{2}{}%
-\contentsline {subsection}{\numberline {1.4.1}[nazwa programu]}{2}{}%
 \contentsline {paragraph}{}{2}{}%
+\contentsline {section}{\numberline {1.3}Opis maszyny pomiarowej}{3}{}%
+\contentsline {paragraph}{}{3}{}%
+\contentsline {section}{\numberline {1.4}Aktualne rozwiązania}{3}{}%
+\contentsline {subsection}{\numberline {1.4.1}[nazwa programu]}{3}{}%
+\contentsline {paragraph}{}{3}{}%
 \contentsline {section}{\numberline {1.5}Co zawiera praca}{3}{}%
 \contentsline {paragraph}{}{3}{}%
 \contentsline {chapter}{\numberline {2}Cel i teza pracy}{4}{}%
@@ -22,3 +24,39 @@
 \contentsline {paragraph}{}{5}{}%
 \contentsline {section}{\numberline {3.2}Środowisko graficzne}{5}{}%
 \contentsline {paragraph}{}{5}{}%
+\contentsline {section}{\numberline {3.3}Kompilacja}{5}{}%
+\contentsline {paragraph}{}{5}{}%
+\contentsline {chapter}{\numberline {4}Opis utworzonej aplikacji}{6}{}%
+\contentsline {section}{\numberline {4.1}Architektura aplikacji}{6}{}%
+\contentsline {subsection}{\numberline {4.1.1}Ogólna struktura aplikacji}{6}{}%
+\contentsline {subsubsection}{Komponenty}{6}{}%
+\contentsline {subsubsection}{Zarządzanie stanem}{6}{}%
+\contentsline {paragraph}{Właściwości}{6}{}%
+\contentsline {paragraph}{Stan}{6}{}%
+\contentsline {paragraph}{Stan globalny}{6}{}%
+\contentsline {subsection}{\numberline {4.1.2}Rysowanie wykresu}{7}{}%
+\contentsline {subsubsection}{Poruszanie się w widoku}{7}{}%
+\contentsline {subsubsection}{Transformacja współrzędnych}{7}{}%
+\contentsline {paragraph}{Implementacja}{8}{}%
+\contentsline {paragraph}{Obliczanie granic widocznego fragmentu}{8}{}%
+\contentsline {paragraph}{Transformacja pojedynczego punktu}{8}{}%
+\contentsline {paragraph}{Transformacja wielu punktów jednocześnie}{8}{}%
+\contentsline {subsection}{\numberline {4.1.3}Minimalizacja renderowanych punktów}{9}{}%
+\contentsline {subsubsection}{Opis problemu}{9}{}%
+\contentsline {subsubsection}{Szukanie pierwszego punktu}{9}{}%
+\contentsline {subsubsection}{Transformacja punktów}{9}{}%
+\contentsline {subsection}{\numberline {4.1.4}Wykrywanie zmian}{10}{}%
+\contentsline {paragraph}{}{10}{}%
+\contentsline {section}{\numberline {4.2}Instrukcja opsługi}{10}{}%
+\contentsline {subsection}{\numberline {4.2.1}Wczytywanie plików}{10}{}%
+\contentsline {paragraph}{}{10}{}%
+\contentsline {subsubsection}{Plik binarny W01}{10}{}%
+\contentsline {paragraph}{}{10}{}%
+\contentsline {paragraph}{}{10}{}%
+\contentsline {subsubsection}{Plik tekstowy CSV}{10}{}%
+\contentsline {subsection}{\numberline {4.2.2}Obróbka wykresu}{10}{}%
+\contentsline {subsubsection}{Przesuwanie (translacja)}{11}{}%
+\contentsline {subsubsection}{Blokada przesuwania}{11}{}%
+\contentsline {subsubsection}{Przesuwanie do zera}{11}{}%
+\contentsline {subsubsection}{Odbicie}{11}{}%
+\contentsline {subsubsection}{Podgląd punktu}{11}{}%
