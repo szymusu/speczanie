@@ -18,9 +18,13 @@ DataSource data_source_columns(const BinaryFile* file, const int x_column, const
         .count = count,
         .data = malloc(sizeof(Vector2) * count)
     };
+
+    const bool is_reverse = file->columns[x_column].data[0] > file->columns[x_column].data[count - 1];
+
     for (int i = 0; i < count; ++i) {
-        data_source.data[i].x = file->columns[x_column].data[i];
-        data_source.data[i].y = file->columns[y_column].data[i];
+        const int data_index = is_reverse ? count - i - 1 : i;
+        data_source.data[i].x = file->columns[x_column].data[data_index];
+        data_source.data[i].y = file->columns[y_column].data[data_index];
     }
     return data_source;
 }

@@ -25,7 +25,11 @@ float find_step(const float start, const float end) {
 void format_number(char* buffer, const float number) {
     int len = sprintf(buffer, "%.4f", number);
     for (int i = len - 1; i > 0; --i) {
-        if (buffer[i] == '0' || buffer[i] == '.') {
+        if (buffer[i] == '.') {
+            buffer[i] = 0;
+            return;
+        }
+        if (buffer[i] == '0') {
             buffer[i] = 0;
         }
         else return;
