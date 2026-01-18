@@ -36,8 +36,6 @@ move_change_t process_move(DataPlotState* state, const Bounds bounds) {
         if (IsKeyDown(KEY_LEFT_CONTROL)) {
             change |= MOVE_CHANGE_PLOT;
             state->input_mode = PLOT_INPUT_MOVE;
-            state->plot_offset.x += plot_delta.x;
-            state->plot_offset.y += plot_delta.y;
         }
         else {
             change |= MOVE_CHANGE_PAN;
