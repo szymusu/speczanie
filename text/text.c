@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../resources/JetBrainsMono-Regular.ttf.h"
+#include "../resources/JetBrainsMono-SemiBold.ttf.h"
 
 const char charset[] = "ęóąśłżźćń1234567890!@#$%^&*()-=_+QWERTYUIOP{}ASDFGHJKL:\"|~ZXCVBNM<>?qwertyuiop[]asdfghjkl;'\\`zxcvbnm,./εσ";
 
@@ -17,7 +17,7 @@ Font* get_font() {
 void font_init() {
     int codepoint_count = 0;
     int* codepoints = LoadCodepoints(charset, &codepoint_count);
-#ifndef __arm64
+
     const size_t font_size = sizeof font_bytes;
     printf("font byte size %lu\n", font_size);
     if (!font_size) {
@@ -25,9 +25,6 @@ void font_init() {
         exit(1);
     }
     default_font = LoadFontFromMemory(".ttf", font_bytes, sizeof font_bytes, 48, codepoints, codepoint_count);
-#else
-    default_font = LoadFontEx("resources/JetBrainsMono-SemiBold.ttf", 48, codepoints, codepoint_count);
-#endif
 
     UnloadCodepoints(codepoints);
 
