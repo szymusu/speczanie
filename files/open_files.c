@@ -175,6 +175,8 @@ void import_columns(OpenFile* file, const int x, const int y) {
     file->data_plot_state = DataPlotState_create(file->data_source.count);
     file->data_plot_state.scale_x = fit_scale(file->data_source.data[0].x, file->data_source.data[file->data_source.count - 1].x);
     file->data_plot_state.pan.x = file->data_source.data[0].x;
+    file->data_plot_state.x_label = axis_label_trim(&file->binary_file, x);
+    file->data_plot_state.y_label = axis_label_trim(&file->binary_file, y);
 }
 
 inline bool is_imported(const OpenFile* file) {

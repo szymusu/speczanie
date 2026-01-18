@@ -3,6 +3,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../math/line.h"
 #include "../plot/plot_math.h"
@@ -78,4 +79,26 @@ void data_convert(const DataSource* data_source, const float x_factor, const flo
         data_source->data[i].x *= x_factor;
         data_source->data[i].y *= y_factor;
     }
+}
+
+char* axis_label_trim(const BinaryFile* binary_file, const int column) {
+    char* label = binary_file->columns[column].label;
+    char* spaces = strchr(label, ' ');
+    if (!spaces) return label;
+
+    char* unit = spaces;
+    while (*unit == ' ' && *unit) unit++;
+    if (!*unit) {
+        *spaces = 0;
+        return label;
+    }
+
+    char* second_spaces = strchr(unit, ' ');
+    if (!second_spaces) return label;
+
+    second_spaces[0] = ']';
+    second_spaces[1] = 0;
+    strcpy(spaces + 2, unit);
+    spaces[1] = '[';
+    return label;
 }
