@@ -3,6 +3,7 @@
 #include "../../text/Button.h"
 #include "../../text/text.h"
 #include "../../data/data_source.h"
+#include "../../files/image_export.h"
 #include "../../math/vector2.h"
 
 move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change_t change) {
@@ -67,6 +68,10 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* state, move_change
 
     if (Button((Vector2) {1050, 550}, "Eksportuj CSV", 16, 0) == BUTTON_STATE_CLICKED) {
         file_export_csv(current_file);
+    }
+
+    if (Button((Vector2) {900, 550}, "Eksportuj PNG", 16, 0) == BUTTON_STATE_CLICKED) {
+        image_export(current_file->data_source, "export.png");
     }
 
     if (Button((Vector2) {20, 400}, "Wykres σ = f(ε)", 16, 0) == BUTTON_STATE_CLICKED) {

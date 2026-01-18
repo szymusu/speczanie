@@ -68,6 +68,8 @@ add_executable(${PROJECT_NAME} main.c
         plot/components/Axes.h
         files/components/CloseButton.c
         files/components/CloseButton.h
+        files/image_export.c
+        files/image_export.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)
