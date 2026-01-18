@@ -3,11 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifndef __arm64
-const unsigned char font_bytes[] = {
-#embed "../resources/JetBrainsMono-SemiBold.ttf"
-};
-#endif
+#include "../resources/JetBrainsMono-Regular.ttf.h"
 
 const char charset[] = "ęóąśłżźćń1234567890!@#$%^&*()-=_+QWERTYUIOP{}ASDFGHJKL:\"|~ZXCVBNM<>?qwertyuiop[]asdfghjkl;'\\`zxcvbnm,./εσ";
 
@@ -22,7 +18,7 @@ void font_init() {
     int codepoint_count = 0;
     int* codepoints = LoadCodepoints(charset, &codepoint_count);
 #ifndef __arm64
-    constexpr size_t font_size = sizeof font_bytes;
+    const size_t font_size = sizeof font_bytes;
     printf("font byte size %lu\n", font_size);
     if (!font_size) {
         puts("Font did not embed!");
@@ -36,7 +32,7 @@ void font_init() {
     UnloadCodepoints(codepoints);
 
     if (!IsFontValid(default_font)) {
-        printf("Font %s couldn't load!\n");
+        printf("Font couldn't load!\n");
         default_font = GetFontDefault();
     }
 }
