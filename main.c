@@ -7,6 +7,7 @@
 #include "diagnostics/components/Clock.h"
 #include "diagnostics/components/FpsCounter.h"
 #include "files/open_files.h"
+#include "files/components/ColumnImport.h"
 #include "files/components/FileList.h"
 #include "math/regression.h"
 #include "plot/move.h"
@@ -38,22 +39,27 @@ int main(const int argc, char** argv) {
         ClearBackground(RAYWHITE);
 
         if (current_file) {
-            const Bounds bounds = compute_bounds(
-                current_file->data_plot_state.zoom,
-                current_file->data_plot_state.pan,
-                current_file->data_plot_state.scale_x
+            if (!is_imported(current_file)) {
+                ColumnImport(current_file);
+            }
+            else {
+                const Bounds bounds = compute_bounds(
+                    current_file->data_plot_state.zoom,
+                    current_file->data_plot_state.pan,
+                    current_file->data_plot_state.scale_x
                 );
-            Grid(bounds);
-            Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
-            DataPlot(
-                (DataPlotProps) {
-                    .data_source = current_file->data_source,
-                    .bounds = bounds,
-                },
-                change, &current_file->data_plot_state);
+                Grid(bounds);
+                Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
+                DataPlot(
+                    (DataPlotProps) {
+                        .data_source = current_file->data_source,
+                        .bounds = bounds,
+                    },
+                    change, &current_file->data_plot_state);
 
-            change = process_move(&current_file->data_plot_state, bounds);
-            change = Controls(current_file, &current_file->data_plot_state, change);
+                change = process_move(&current_file->data_plot_state, bounds);
+                change = Controls(current_file, &current_file->data_plot_state, change);
+            }
         }
         else {
             Text("Upuść pliki W01 lub CSV aby otworzyć", 280, PLOT_HEIGHT / 2.f - 40, 40, BLACK);

@@ -32,6 +32,7 @@ union FileParseResult file_parse(const char* filename) {
     res.file.columns = malloc(sizeof(res.file.columns[0]) * res.file.header.column_count);
     for (int i = 0; i < res.file.header.column_count; ++i) {
         fread(&res.file.columns[i], sizeof(res.file.columns[0].pre_data) + sizeof(res.file.columns[0].label), 1, file);
+        res.file.columns[i].label[58] = 0;
         res.file.columns[i].data = malloc(4 * res.file.header.row_count);
         fread(res.file.columns[i].data, 4, res.file.header.row_count, file);
     }

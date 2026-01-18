@@ -12,12 +12,23 @@ enum FileType {
 };
 
 typedef struct {
+    int is_imported;
+    int selected_x;
+    int selected_y;
+} ColumnImportState;
+
+typedef struct {
     union {
         BinaryFile binary_file;
         CsvFile csv_file;
     };
-    DataSource data_source;
-    DataPlotState data_plot_state;
+    union {
+        ColumnImportState column_import_state;
+        struct {
+            DataSource data_source;
+            DataPlotState data_plot_state;
+        };
+    };
     char* filename;
     char* filepath;
 
@@ -35,5 +46,7 @@ int open_file(const char* filename);
 void close_file(int index);
 void clear_files();
 int file_export_csv(const OpenFile* open_file);
+bool is_imported(const OpenFile* file);
+void import_columns(OpenFile* file, int x, int y);
 
 #endif //OPEN_FILES_H

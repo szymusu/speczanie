@@ -70,6 +70,8 @@ add_executable(${PROJECT_NAME} main.c
         files/components/CloseButton.h
         files/image_export.c
         files/image_export.h
+        files/components/ColumnImport.c
+        files/components/ColumnImport.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define OPEN_FILES_MAX_COUNT 10
+#define OPEN_FILES_MAX_COUNT 16
 
 OpenFile files[OPEN_FILES_MAX_COUNT];
 int count = 0;
@@ -70,7 +70,10 @@ enum FileType determine_file_type(const char* filename) {
 
 int open_file(const char* filename) {
     if (count == OPEN_FILES_MAX_COUNT) return -1;
+
+    set_path_and_name(&files[count], filename);
     const enum FileType file_type = determine_file_type(filename);
+    files[count].file_type = file_type;
 
     if (file_type == FILE_TYPE_W01) {
         const union FileParseResult parse_result = file_parse(filename);
@@ -81,7 +84,7 @@ int open_file(const char* filename) {
         }
 
         files[count].binary_file = parse_result.file;
-        files[count].data_source = data_source_columns(&files[count].binary_file, 3, 2);
+        files[count].column_import_state = (ColumnImportState) {0, -1, -1};
     }
     else {
         const union CsvParseResult parse_result = csv_parse(filename);
@@ -95,11 +98,9 @@ int open_file(const char* filename) {
             .data = parse_result.file.data,
             .count = parse_result.file.count
         };
+        files[count].data_plot_state = DataPlotState_create(files[count].data_source.count);
+        files[count].data_plot_state.scale_x = fit_scale(files[count].data_source.data[0].x, files[count].data_source.data[files[count].data_source.count - 1].x);
     }
-    files[count].file_type = file_type;
-    files[count].data_plot_state = DataPlotState_create(files[count].data_source.count);
-    files[count].data_plot_state.scale_x = fit_scale(files[count].data_source.data[0].x, files[count].data_source.data[files[count].data_source.count - 1].x);
-    set_path_and_name(&files[count], filename);
 
     return count++;
 }
@@ -165,4 +166,17 @@ int file_export_csv(const OpenFile* open_file) {
     fclose(csv_file);
     printf("%d\n", bytes_written);
     return bytes_written;
+}
+
+void import_columns(OpenFile* file, const int x, const int y) {
+    if (file->file_type != FILE_TYPE_W01) return;
+
+    file->data_source = data_source_columns(&file->binary_file, x, y);
+    file->data_plot_state = DataPlotState_create(file->data_source.count);
+    file->data_plot_state.scale_x = fit_scale(file->data_source.data[0].x, file->data_source.data[file->data_source.count - 1].x);
+    file->data_plot_state.pan.x = file->data_source.data[0].x;
+}
+
+inline bool is_imported(const OpenFile* file) {
+    return file->column_import_state.is_imported;
 }
