@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  19 JAN 2026 06:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2026.1.12)  19 JAN 2026 07:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -398,39 +398,41 @@ LaTeX Font Info:    External font `plex10' loaded for size
 (Font)              <8> on input line 2.
 LaTeX Font Info:    External font `plex10' loaded for size
 (Font)              <6> on input line 2.
-)
+
+
+[1
+
+])
 \tf@toc=\write3
 \openout3 = `v2.toc'.
 
 
 
-[1
-
-]
+[2]
 Rozdzia\PlPrIeC {\l } 1.
 
 
-[2
+[3
 
 ]
-<images/ZwickHB100a.jpg, id=15, 2007.5pt x 1505.625pt>
+<images/ZwickHB100a.jpg, id=18, 2007.5pt x 1505.625pt>
 File: images/ZwickHB100a.jpg Graphic file (type jpg)
 <use images/ZwickHB100a.jpg>
 Package pdftex.def Info: images/ZwickHB100a.jpg  used on input line 50.
 (pdftex.def)             Requested size: 364.19667pt x 273.13739pt.
 
 
-[3 <./images/ZwickHB100a.jpg>]
+[4 <./images/ZwickHB100a.jpg>]
 Rozdzia\PlPrIeC {\l } 2.
 
 
-[4
+[5
 
 ]
 Rozdzia\PlPrIeC {\l } 3.
 
 
-[5
+[6
 
 ]
 Rozdzia\PlPrIeC {\l } 4.
@@ -440,7 +442,7 @@ LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line
 File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 
-[6
+[7
 
 {/usr/share/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr/share/texmf-dist/fonts
 /enc/dvips/pl/pltt.enc}]
@@ -472,7 +474,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 139--148
 
 
 
-[7{/usr/share/texmf-dist/fonts/enc/dvips/pl/plmi.enc}{/usr/share/texmf-dist/fon
+[8{/usr/share/texmf-dist/fonts/enc/dvips/pl/plmi.enc}{/usr/share/texmf-dist/fon
 ts/enc/dvips/pl/plms.enc}]
 Overfull \hbox (38.75613pt too wide) in paragraph at lines 164--164
 []    \OT4/cmtt/m/n/12 .start_y = PLOT_START_Y / zoom / ((float) PLOT_WIDTH / P
@@ -487,7 +489,7 @@ HEIGHT) + pan.y,[]
 
 
 
-[8]
+[9]
 Overfull \hbox (69.63115pt too wide) in paragraph at lines 203--203
 []  \OT4/cmtt/m/n/12 int find_first_visible(const Vector2* data, const int coun
 t, const float start_x) {[] 
@@ -531,35 +533,319 @@ ds.start_y - offset.y)[]
 
 
 
-[9]
-
 [10]
 
-[11] (./v2.aux)
+[11]
+
+[12]
+
+[13]
+Underfull \hbox (badness 1383) in paragraph at lines 346--346
+[]|\OT4/cmr/m/n/12 nazwa pli-ku wej-±cio-we-go do
+ []
+
+
+Underfull \hbox (badness 2735) in paragraph at lines 346--346
+\OT4/cmr/m/n/12 ma-szy-ny, do-peª-nio-na ze-ra-mi
+ []
+
+
+Overfull \hbox (37.73627pt too wide) in paragraph at lines 330--348
+ [] 
+ []
+
+
+
+[14]
+Overfull \hbox (18.30382pt too wide) in paragraph at lines 354--362
+ [] 
+ []
+
+
+
+[15]
+Overfull \hbox (1.3636pt too wide) in paragraph at lines 382--382
+[]\OT4/cmr/bx/n/17.28 Optymalizacja wy-daj-no-±ci apli-ka-cji - al-go-rytm re-
+ []
+
+
+
+[16{/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 415--416
+
+ []
+
+
+Overfull \hbox (51.10614pt too wide) in paragraph at lines 446--446
+[]    \OT4/cmtt/m/n/12 if (best_cycles == -1 || diff_cycles < best_cycles) best
+_cycles = diff_cycles;[] 
+ []
+
+
+
+[17]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 453--463
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 465--475
+ [] 
+ []
+
+
+
+[18]
+Overfull \hbox (94.33116pt too wide) in paragraph at lines 566--566
+[]  \OT4/cmtt/m/n/12 void regression(CurvePolynomial* curve, const Vector2* poi
+nts, const int point_count) {[] 
+ []
+
+
+Overfull \hbox (20.23112pt too wide) in paragraph at lines 566--566
+[]   \OT4/cmtt/m/n/12 float* matrix = malloc((m*m + 2*m) * sizeof (float)  +  m
+ * sizeof (int));[] 
+ []
+
+
+
+[19]
+
+[20]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 571--581
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 583--593
+ [] 
+ []
+
+
+
+[21]
+Overfull \hbox (14.05612pt too wide) in paragraph at lines 614--614
+[]  \OT4/cmtt/m/n/12 float* matrix = malloc((m*m + 2*m) * sizeof (float)  +  m 
+* sizeof (int));[] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 618--625
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 627--634
+ [] 
+ []
+
+
+
+[22]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 664--674
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 676--686
+ [] 
+ []
+
+
+
+[23]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 729--739
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 741--751
+ [] 
+ []
+
+
+
+[24]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 774--784
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 786--796
+ [] 
+ []
+
+
+
+[25]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 825--832
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 834--844
+ [] 
+ []
+
+
+
+[26]
+
+[27{/usr/share/texmf-dist/fonts/enc/dvips/pl/plme.enc}]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 886--896
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 898--908
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 912--922
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 924--934
+ [] 
+ []
+
+
+
+[28]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 956--963
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 965--972
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 989--996
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 998--1005
+ [] 
+ []
+
+
+
+[29]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1022--1029
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1031--1038
+ [] 
+ []
+
+
+
+[30]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1091--1101
+ [] 
+ []
+
+
+
+[31]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1103--1113
+ [] 
+ []
+
+
+
+[32]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1141--1151
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1153--1163
+ [] 
+ []
+
+
+
+[33]
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1174--1184
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1186--1196
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1200--1210
+ [] 
+ []
+
+
+Overfull \hbox (46.57794pt too wide) in paragraph at lines 1212--1222
+ [] 
+ []
+
+
+
+[34]
+Rozdzia\PlPrIeC {\l } 5.
+
+
+[35
+
+]
+Rozdzia\PlPrIeC {\l } 6.
+
+
+[36
+
+]
+Rozdzia\PlPrIeC {\l } 7.
+
+
+[37
+
+]
+Rozdzia\PlPrIeC {\l } 8.
+
+
+[38
+
+] (./v2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4714 strings out of 475136
- 72281 string characters out of 5766291
- 478449 words of memory out of 5000000
- 27631 multiletter control sequences out of 15000+600000
- 570636 words of font info for 65 fonts, out of 8000000 for 9000
+ 4722 strings out of 475136
+ 72417 string characters out of 5766291
+ 488449 words of memory out of 5000000
+ 27636 multiletter control sequences out of 15000+600000
+ 570973 words of font info for 66 fonts, out of 8000000 for 9000
  34 hyphenation exceptions out of 8191
- 63i,10n,65p,803b,345s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 63i,13n,65p,803b,345s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/pl/plbx12.pfb></usr/share/texmf-dis
-t/fonts/type1/public/pl/plmi12.pfb></usr/share/texmf-dist/fonts/type1/public/pl
-/plmi8.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plr12.pfb></usr/share/t
-exmf-dist/fonts/type1/public/pl/plr17.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/pl/plr8.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plsy10.pfb></usr/
-share/texmf-dist/fonts/type1/public/pl/plti12.pfb></usr/share/texmf-dist/fonts/
-type1/public/pl/pltt12.pfb>
-Output written on v2.pdf (12 pages, 581953 bytes).
+t/fonts/type1/public/pl/plex10.pfb></usr/share/texmf-dist/fonts/type1/public/pl
+/plmi12.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plmi8.pfb></usr/share/
+texmf-dist/fonts/type1/public/pl/plr12.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/pl/plr17.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plr8.pfb></usr/
+share/texmf-dist/fonts/type1/public/pl/plsy10.pfb></usr/share/texmf-dist/fonts/
+type1/public/pl/plsy8.pfb></usr/share/texmf-dist/fonts/type1/public/pl/plti12.p
+fb></usr/share/texmf-dist/fonts/type1/public/pl/pltt12.pfb></usr/share/texmf-di
+st/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on v2.pdf (39 pages, 650945 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
- 60 compressed objects within 1 object stream
+ 200 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
