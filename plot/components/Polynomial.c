@@ -54,7 +54,7 @@ void Polynomial(CurvePolynomial* curve, Vector2* points, const int point_count, 
     }
 
     if (change & MOVE_CHANGE_POLYNOMIAL) {
-        regression(curve, points, point_count, 4);
+        regression(curve, points, point_count, curve->order);
     }
     if (change) {
         DrawRectangle(0, PLOT_HEIGHT - 7, 7, 7, RED);

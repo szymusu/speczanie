@@ -6,6 +6,7 @@
 #include "PointHoverTooltip.h"
 #include "Polynomial.h"
 #include "../../math/vector2.h"
+#include "../../math/regression.h"
 
 
 void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* state) {
@@ -82,6 +83,7 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
             for (int i = start; i <= end; ++i, ++count) {
                 state->regression_points[count] = props.data_source.data[i];
             }
+            state->curve_polynomial.normal_offset_x = normalize(state->regression_points, count);
             state->regression_points_count = count;
             state->selected_point = -1;
             state->selected_second_point = -1;
@@ -107,7 +109,7 @@ DataPlotState DataPlotState_create(const int data_count) {
         .zoom = 1.f,
         .scale_x = 100.f,
         .regression_points = malloc(sizeof(Vector2) * data_count),
-        .curve_polynomial = {.coefficients = malloc(sizeof(float) * data_count)},
+        .curve_polynomial = {.coefficients = malloc(sizeof(float) * data_count), .order = 4},
         .operation_stack = data_operation_stack_init()
     };
 }

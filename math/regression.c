@@ -37,7 +37,7 @@ void swap_rows(int* swap_table, const int row1, const int row2) {
 }
 
 void regression(CurvePolynomial* curve, Vector2* points, const int point_count, const int degree) {
-    curve->normal_offset_x = normalize(points, point_count);
+    // curve->normal_offset_x = normalize(points, point_count);
     clock_start();
     // printf("%f\n", power_fi(2, 3));
     const int n = point_count;
@@ -128,7 +128,6 @@ void regression(CurvePolynomial* curve, Vector2* points, const int point_count, 
     }
     free(matrix);
 
-    curve->order = m;
     curve->start_x = points[0].x;
     curve->end_x = points[point_count - 1].x;
     clock_end();

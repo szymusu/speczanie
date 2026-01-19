@@ -3,6 +3,6 @@
 
 #include "DataPlot.h"
 
-void RegressionControls(enum PlotInputMode* input_mode);
+move_change_t RegressionControls(CurvePolynomial* curve, enum PlotInputMode* input_mode, move_change_t change);
 
 #endif //SPECZANIE_REGRESSIONCONTROLS_H

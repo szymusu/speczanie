@@ -81,7 +81,7 @@ int main(const int argc, char** argv) {
 
                 change = process_move(&current_file->data_plot_state, bounds);
                 if (current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION) {
-                    RegressionControls(&current_file->data_plot_state.input_mode);
+                    change = RegressionControls(&current_file->data_plot_state.curve_polynomial, &current_file->data_plot_state.input_mode, change);
                 }
                 else {
                     change = Controls((ControlsProps) {
