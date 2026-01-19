@@ -36,8 +36,6 @@ add_executable(${PROJECT_NAME} main.c
         text/Button.h
         math/vector2.c
         math/vector2.h
-        plot/components/Arrow.c
-        plot/components/Arrow.h
         state/state.c
         state/state.h
         files/components/FileList.c
@@ -90,6 +88,8 @@ add_executable(${PROJECT_NAME} main.c
         data/operations/op_offset.h
         data/operations/op_replace.c
         data/operations/op_replace.h
+        plot/components/RegressionControls.c
+        plot/components/RegressionControls.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

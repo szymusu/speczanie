@@ -38,6 +38,7 @@ typedef struct {
 typedef struct {
     Vector2* point_buffer;
     float* coefficients;
+    float normal_offset_x;
     float start_x;
     float end_x;
     uint8_t order;
@@ -60,11 +61,11 @@ typedef struct DataPlotState {
     Vector2 mouse_position;
     int selected_point;
     int selected_second_point;
-    bool* is_selected_flags;
 
     CurveLinear curve_linear;
     CurvePolynomial curve_polynomial;
     Vector2* regression_points;
+    int regression_points_count;
 
     enum PlotInputMode input_mode;
     enum MovementLock movement_lock;

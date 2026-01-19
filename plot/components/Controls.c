@@ -166,15 +166,11 @@ move_change_t Controls(ControlsProps props) {
                     replace_operation.op.replace.index = 0;
                     cut_operation.type = OP_CUT_LEFT;
                     cut_operation.op.cut_left.index = cut_index - 1;
-                    // data_cut_left(&props.current_file->data_source, cut_index - 1);
-                    // data_replace(&props.current_file->data_source, 0, VECTOR2_ZERO);
                 }
                 else {
                     replace_operation.op.replace.index = cut_index + 1;
                     cut_operation.type = OP_CUT_RIGHT;
                     cut_operation.op.cut_right.index = cut_index + 1;
-                    // data_cut_right(&props.current_file->data_source, cut_index + 1);
-                    // data_replace(&props.current_file->data_source, cut_index + 1, VECTOR2_ZERO);
                 }
                 data_operation_do(
                     &props.current_file->data_source,

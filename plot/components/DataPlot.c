@@ -2,7 +2,6 @@
 
 #include <stdlib.h>
 
-#include "Arrow.h"
 #include "Line.h"
 #include "PointHoverTooltip.h"
 #include "Polynomial.h"
@@ -25,7 +24,6 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
 
     if (state->shadow_visible.count) {
         DrawSplineLinear(state->shadow_point_buffer, state->shadow_visible.count, 2.f, (Color){150, 150, 150, 200});
-        // Arrow(props.data_source.data[0], state->plot_offset, props.bounds);
     }
 
     const int hover_index = find_hover_point(state->point_buffer, state->visible.count);
@@ -39,7 +37,11 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
         });
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             if (state->input_mode == PLOT_INPUT_REGRESSION) {
-                state->is_selected_flags[hover_absolute_index] = true;
+                state->regression_points_count = 0;
+                if (state->selected_point != -1 && state->selected_point != hover_absolute_index) {
+                    state->selected_second_point = hover_absolute_index;
+                }
+                else state->selected_point = hover_absolute_index;
             }
             else {
                 state->selected_point = hover_absolute_index;
@@ -64,19 +66,33 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
         DrawCircleV(state->point_buffer[state->selected_second_point - state->visible.start], 7, SKYBLUE);
     }
 
-    Line(state, props.data_source, props.bounds);
 
     if (state->input_mode == PLOT_INPUT_REGRESSION) {
-        int selected_count = 0;
-        for (int i = 0; i < props.data_source.count; ++i) {
-            if (state->is_selected_flags[i]) {
-                state->regression_points[selected_count++] = props.data_source.data[i];
+        const int i1 = state->selected_point;
+        const int i2 = state->selected_second_point;
+        if (i1 != -1 && i2 != -1) {
+            int start, end;
+            if (i1 < i2) {
+                start = i1, end = i2;
             }
-        }
-        if (selected_count > 2) {
+            else {
+                start = i2, end = i1;
+            }
+            int count = 0;
+            for (int i = start; i <= end; ++i, ++count) {
+                state->regression_points[count] = props.data_source.data[i];
+            }
+            state->regression_points_count = count;
+            state->selected_point = -1;
+            state->selected_second_point = -1;
             change |= MOVE_CHANGE_POLYNOMIAL;
-            Polynomial(&state->curve_polynomial, state->regression_points, selected_count, change, props.bounds);
         }
+        if (state->regression_points_count) {
+            Polynomial(&state->curve_polynomial, state->regression_points, state->regression_points_count, change, props.bounds);
+        }
+    }
+    else {
+        Line(state, props.data_source, props.bounds);
     }
 }
 
@@ -88,7 +104,6 @@ DataPlotState DataPlotState_create(const int data_count) {
         .shadow_point_buffer = malloc(sizeof(Vector2) * data_count),
         .selected_point = -1,
         .selected_second_point = -1,
-        .is_selected_flags = calloc(data_count, sizeof(bool)),
         .zoom = 1.f,
         .scale_x = 100.f,
         .regression_points = malloc(sizeof(Vector2) * data_count),
@@ -100,7 +115,6 @@ DataPlotState DataPlotState_create(const int data_count) {
 void DataPlotState_destroy(DataPlotState* state) {
     free(state->point_buffer);
     free(state->shadow_point_buffer);
-    free(state->is_selected_flags);
     free(state->regression_points);
     free(state->curve_polynomial.coefficients);
     data_operation_stack_free(&state->operation_stack);

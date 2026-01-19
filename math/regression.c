@@ -22,13 +22,22 @@ void e_matrix_print(const float* matrix, const float* errors, const int* swap_ta
     putchar('\n');
 }
 
+float normalize(Vector2* points, const int count) {
+    const float offset = points[0].x;
+    for (int i = 0; i < count; ++i) {
+        points[i].x -= offset;
+    }
+    return offset;
+}
+
 void swap_rows(int* swap_table, const int row1, const int row2) {
     const int tmp = swap_table[row1];
     swap_table[row1] = swap_table[row2];
     swap_table[row2] = tmp;
 }
 
-void regression(CurvePolynomial* curve, const Vector2* points, const int point_count, const int degree) {
+void regression(CurvePolynomial* curve, Vector2* points, const int point_count, const int degree) {
+    curve->normal_offset_x = normalize(points, point_count);
     clock_start();
     // printf("%f\n", power_fi(2, 3));
     const int n = point_count;

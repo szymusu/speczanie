@@ -17,6 +17,7 @@
 #include "plot/components/DataPlot.h"
 #include "plot/components/Grid.h"
 #include "plot/components/MultiPlot.h"
+#include "plot/components/RegressionControls.h"
 #include "text/text.h"
 
 int main(const int argc, char** argv) {
@@ -44,6 +45,7 @@ int main(const int argc, char** argv) {
             if (!is_imported(current_file)) {
                 if (options.auto_import) {
                     import_columns(current_file, options.auto_import_x, options.auto_import_y);
+                    current_file->data_plot_state.input_mode = PLOT_INPUT_REGRESSION;
                 }
                 else {
                     ColumnImport(current_file);
@@ -78,12 +80,17 @@ int main(const int argc, char** argv) {
                 }
 
                 change = process_move(&current_file->data_plot_state, bounds);
-                change = Controls((ControlsProps) {
-                    .current_file = current_file,
-                    .multi_plot_state = &multi_plot_state,
-                    .bounds = bounds,
-                    .change = change
-                });
+                if (current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION) {
+                    RegressionControls(&current_file->data_plot_state.input_mode);
+                }
+                else {
+                    change = Controls((ControlsProps) {
+                        .current_file = current_file,
+                        .multi_plot_state = &multi_plot_state,
+                        .bounds = bounds,
+                        .change = change
+                    });
+                }
             }
         }
         else {
@@ -103,7 +110,7 @@ int main(const int argc, char** argv) {
             change |= MOVE_CHANGE_PLOT;
         }
 
-        if (GetTime() > .5) FpsCounter();
+        // if (GetTime() > .5) FpsCounter();
         EndDrawing();
 
         if (IsFileDropped()) {
