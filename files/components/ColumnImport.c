@@ -16,8 +16,10 @@ void ColumnImport(OpenFile* file) {
     float y = 70;
     for (int i = 0; i < file->binary_file.header.column_count; ++i) {
         const char* label = file->binary_file.columns[i].label;
-        const bool is_selected = file->column_import_state.selected_x == i;
-        const button_state_t button = ButtonDefault((Vector2) {250, y}, label, FONT_SIZE, is_selected & BUTTON_OPTION_ACTIVE);
+        const button_options_t is_selected = (file->column_import_state.selected_x == i) * BUTTON_OPTION_ACTIVE;
+        const button_options_t is_disabled = (file->column_import_state.selected_y == i) * BUTTON_OPTION_DISABLED;
+
+        const button_state_t button = ButtonDefault((Vector2) {250, y}, label, FONT_SIZE, is_disabled | is_selected);
         if (button == BUTTON_STATE_CLICKED) {
             file->column_import_state.selected_x = i;
         }
@@ -27,8 +29,10 @@ void ColumnImport(OpenFile* file) {
     y = 260;
     for (int i = 0; i < file->binary_file.header.column_count; ++i) {
         const char* label = file->binary_file.columns[i].label;
-        const bool is_selected = file->column_import_state.selected_y == i;
-        const button_state_t button = ButtonDefault((Vector2) {250, y}, label, FONT_SIZE, is_selected & BUTTON_OPTION_ACTIVE);
+        const button_options_t is_selected = (file->column_import_state.selected_y == i) * BUTTON_OPTION_ACTIVE;
+        const button_options_t is_disabled = (file->column_import_state.selected_x == i) * BUTTON_OPTION_DISABLED;
+
+        const button_state_t button = ButtonDefault((Vector2) {250, y}, label, FONT_SIZE, is_disabled | is_selected);
         if (button == BUTTON_STATE_CLICKED) {
             file->column_import_state.selected_y = i;
         }

@@ -2,11 +2,9 @@
 
 #include <ctype.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include "../files/open_files.h"
-
 
 int process_args(const int argc, char** argv, Options* options_out) {
     for (int i = 1; i < argc; ++i) {
