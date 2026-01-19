@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(speczanie)
 
-find_package(raylib 3.0 REQUIRED) # Requires at least version 3.0
+find_package(raylib 5.5 REQUIRED) # Requires at least version 3.0
 
 set(CMAKE_C_STANDARD 11) # Requires C11 standard
 
@@ -54,8 +54,6 @@ add_executable(${PROJECT_NAME} main.c
         math/regression.h
         diagnostics/components/BenchmarkProgress.c
         diagnostics/components/BenchmarkProgress.h
-        util/swapback_array.c
-        util/swapback_array.h
         util/string.c
         util/string.h
         math/line.c

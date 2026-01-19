@@ -2,14 +2,9 @@
 #include <stdio.h>
 
 #include "args/args.h"
-#include "data/parse_csv.h"
-#include "diagnostics/components/BenchmarkProgress.h"
-#include "diagnostics/components/Clock.h"
-#include "diagnostics/components/FpsCounter.h"
 #include "files/open_files.h"
 #include "files/components/ColumnImport.h"
 #include "files/components/FileList.h"
-#include "math/regression.h"
 #include "plot/move.h"
 #include "plot/plot_math.h"
 #include "plot/components/Axes.h"
