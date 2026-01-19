@@ -2,15 +2,22 @@
 #define SPECZANIE_DATA_OPERATION_H
 
 #include "op_cut_left.h"
+#include "op_cut_right.h"
+#include "op_flip_y.h"
 
 enum DataOperationType {
     OP_NONE,
     OP_CUT_LEFT,
+    OP_CUT_RIGHT,
+    OP_FLIP_Y,
+    // OP_FLIP_X,
 };
 
 typedef struct  {
     union {
         OpCutLeft cut_left;
+        OpCutRight cut_right;
+        OpFlipY flip_y;
     } op;
 
     enum DataOperationType type;

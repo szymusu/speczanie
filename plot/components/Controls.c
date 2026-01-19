@@ -30,7 +30,11 @@ move_change_t Controls(ControlsProps props) {
     }
 
     if (Button((Vector2) {10, 50}, "Odwróć y", 16, 0) == BUTTON_STATE_CLICKED) {
-        data_scale_y(&props.current_file->data_source, -1);
+        data_operation_do(
+                &props.current_file->data_source,
+                &props.current_file->data_plot_state.operation_stack,
+                (DataOperation) { .type = OP_FLIP_Y }
+                );
         props.current_file->data_plot_state.curve_linear.end_point.y *= -1;
         props.change |= MOVE_CHANGE_PLOT;
     }
@@ -84,7 +88,13 @@ move_change_t Controls(ControlsProps props) {
             props.change |= MOVE_CHANGE_PLOT;
         }
         if (Button((Vector2) {75, 216}, "Prawo", 16, 0) == BUTTON_STATE_CLICKED) {
-            data_cut_right(&props.current_file->data_source, props.current_file->data_plot_state.selected_point);
+            data_operation_do(
+                &props.current_file->data_source,
+                &props.current_file->data_plot_state.operation_stack,
+                (DataOperation) {
+                    .op = { .cut_right = {.index = props.current_file->data_plot_state.selected_point} },
+                    .type = OP_CUT_RIGHT
+                });
             props.current_file->data_plot_state.selected_point = -1;
             props.change |= MOVE_CHANGE_PLOT;
         }

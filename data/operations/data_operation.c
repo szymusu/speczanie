@@ -37,16 +37,22 @@ DataOperation data_operation_pop(DataOperationStack* stack) {
     return stack->operations[--stack->count];
 }
 
-void data_operation_do(DataSource* data_source, DataOperationStack* stack, const DataOperation operation) {
-    data_operation_push(stack, operation);
-
+void data_operation_do(DataSource* data_source, DataOperationStack* stack, DataOperation operation) {
     switch (operation.type) {
     case OP_NONE:
         break;
     case OP_CUT_LEFT:
-        do_cut_left(data_source, operation.op.cut_left);
+        operation.op.cut_left = do_cut_left(data_source, operation.op.cut_left);
+        break;
+    case OP_CUT_RIGHT:
+        operation.op.cut_right = do_cut_right(data_source, operation.op.cut_right);
+        break;
+    case OP_FLIP_Y:
+        operation.op.flip_y = do_flip_y(data_source, operation.op.flip_y);
         break;
     }
+
+    data_operation_push(stack, operation);
 }
 
 void data_operation_undo(DataSource* data_source, DataOperationStack* stack) {
@@ -59,6 +65,14 @@ void data_operation_undo(DataSource* data_source, DataOperationStack* stack) {
     case OP_CUT_LEFT:
         printf("Undo cut left %d\n", operation.op.cut_left.index);
         undo_cut_left(data_source, operation.op.cut_left);
+        break;
+    case OP_CUT_RIGHT:
+        printf("Undo cut right %d\n", operation.op.cut_left.index);
+        undo_cut_right(data_source, operation.op.cut_right);
+        break;
+    case OP_FLIP_Y:
+        printf("Undo flip Y\n");
+        undo_flip_y(data_source, operation.op.flip_y);
         break;
     }
 }
