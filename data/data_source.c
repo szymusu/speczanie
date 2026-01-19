@@ -1,16 +1,7 @@
 #include "data_source.h"
 
-#include <math.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#include "../math/line.h"
-#include "../plot/plot_math.h"
-#include "../plot/components/DataPlot.h"
-#include "../plot/components/Polynomial.h"
-
-void DrawCurveLinear(CurveLinear curve_linear, Bounds bounds);
 
 
 DataSource data_source_columns(const BinaryFile* file, const int x_column, const int y_column) {
@@ -77,7 +68,7 @@ void data_replace(DataSource* data_source, const int index, const Vector2 with_t
     data_source->data[index] = with_this;
 }
 
-void data_convert(const DataSource* data_source, const float x_factor, const float y_factor) {
+void data_multiply(const DataSource* data_source, const float x_factor, const float y_factor) {
     for (int i = 0; i < data_source->count; ++i) {
         data_source->data[i].x *= x_factor;
         data_source->data[i].y *= y_factor;

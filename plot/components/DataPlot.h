@@ -4,6 +4,7 @@
 #include "../plot_math.h"
 #include "../../data/data_source.h"
 #include "../../data/point_data.h"
+#include "../../data/operations/data_operation.h"
 
 #define MOVE_CHANGE_ZOOM 1
 #define MOVE_CHANGE_PAN 2
@@ -68,6 +69,8 @@ typedef struct DataPlotState {
     enum PlotInputMode input_mode;
     enum MovementLock movement_lock;
     bool is_strain;
+
+    DataOperationStack operation_stack;
 
 } DataPlotState;
 

@@ -76,6 +76,10 @@ add_executable(${PROJECT_NAME} main.c
         plot/components/MultiPlot.h
         plot/components/LineSetZero.c
         plot/components/LineSetZero.h
+        data/operations/data_operation.c
+        data/operations/data_operation.h
+        data/operations/op_cut_left.c
+        data/operations/op_cut_left.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

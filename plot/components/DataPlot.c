@@ -92,7 +92,8 @@ DataPlotState DataPlotState_create(const int data_count) {
         .zoom = 1.f,
         .scale_x = 100.f,
         .regression_points = malloc(sizeof(Vector2) * data_count),
-        .curve_polynomial = {.coefficients = malloc(sizeof(float) * data_count)}
+        .curve_polynomial = {.coefficients = malloc(sizeof(float) * data_count)},
+        .operation_stack = data_operation_stack_init()
     };
 }
 
@@ -102,4 +103,5 @@ void DataPlotState_destroy(DataPlotState* state) {
     free(state->is_selected_flags);
     free(state->regression_points);
     free(state->curve_polynomial.coefficients);
+    data_operation_stack_free(&state->operation_stack);
 }

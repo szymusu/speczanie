@@ -73,7 +73,13 @@ move_change_t Controls(ControlsProps props) {
     if (props.current_file->data_plot_state.selected_point > 0) {
         Text("Utnij", 10, 200, 16, BLACK);
         if (Button((Vector2) {70, 216}, "Lewo", 16, TEXTBOX_ALIGN_RIGHT) == BUTTON_STATE_CLICKED) {
-            data_cut_left(&props.current_file->data_source, props.current_file->data_plot_state.selected_point);
+            data_operation_do(
+                &props.current_file->data_source,
+                &props.current_file->data_plot_state.operation_stack,
+                (DataOperation) {
+                    .op = { .cut_left = {.index = props.current_file->data_plot_state.selected_point} },
+                    .type = OP_CUT_LEFT
+                });
             props.current_file->data_plot_state.selected_point = -1;
             props.change |= MOVE_CHANGE_PLOT;
         }
@@ -93,23 +99,6 @@ move_change_t Controls(ControlsProps props) {
     }
 
     if (Button((Vector2) {20, 400}, "Wykres σ = f(ε)", 16, 0) == BUTTON_STATE_CLICKED) {
-        // float x = 50; // pole przekroju
-        // float y = 100; // długość początkowa
-        // if (!current_file->data_plot_state.is_strain) {
-        //     x = 1 / x;
-        //     y = 1 / y;
-        //     current_file->data_plot_state.x_label = "σ";
-        //     current_file->data_plot_state.y_label = "ε";
-        // }
-        // else {
-        //     current_file->data_plot_state.x_label = "Stroke [mm]";
-        //     current_file->data_plot_state.y_label = "Load [kN]";
-        // }
-        // data_convert(&current_file->data_source, x, y);
-        // current_file->data_plot_state.is_strain = !current_file->data_plot_state.is_strain;
-        // current_file->data_plot_state.zoom /= x;
-        // current_file->data_plot_state.pan = (Vector2) {0, 0};
-
         props.multi_plot_state->enabled = !props.multi_plot_state->enabled;
         props.multi_plot_state->pan = props.current_file->data_plot_state.pan;
         props.multi_plot_state->scale_x = props.current_file->data_plot_state.scale_x;
@@ -143,6 +132,11 @@ move_change_t Controls(ControlsProps props) {
             props.current_file->data_plot_state.selected_point = -1;
             props.current_file->data_plot_state.selected_second_point = -1;
         }
+    }
+
+    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_Z)) {
+        data_operation_undo(&props.current_file->data_source, &props.current_file->data_plot_state.operation_stack);
+        props.change |= MOVE_CHANGE_PLOT;
     }
 
     return props.change;

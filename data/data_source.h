@@ -4,7 +4,6 @@
 #include <raylib.h>
 
 #include "parse_binary.h"
-#include "../plot/plot_math.h"
 
 typedef struct {
     Vector2* data;
@@ -21,7 +20,7 @@ void data_cut_left(DataSource* data_source, int index);
 void data_cut_right(DataSource* data_source, int index);
 void data_flip_x(DataSource* data_source);
 void data_replace(DataSource* data_source, int index, Vector2 with_this);
-void data_convert(const DataSource* data_source, float x_factor, float y_factor);
+void data_multiply(const DataSource* data_source, float x_factor, float y_factor);
 char* axis_label_trim(const BinaryFile* binary_file, int column);
 
 #endif //DATA_SOURCE_H
