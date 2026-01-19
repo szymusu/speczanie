@@ -3,14 +3,19 @@
 
 #include "op_cut_left.h"
 #include "op_cut_right.h"
+#include "op_flip_x.h"
 #include "op_flip_y.h"
+#include "op_offset.h"
+#include "op_replace.h"
 
 enum DataOperationType {
     OP_NONE,
     OP_CUT_LEFT,
     OP_CUT_RIGHT,
     OP_FLIP_Y,
-    // OP_FLIP_X,
+    OP_FLIP_X,
+    OP_OFFSET,
+    OP_REPLACE,
 };
 
 typedef struct  {
@@ -18,6 +23,9 @@ typedef struct  {
         OpCutLeft cut_left;
         OpCutRight cut_right;
         OpFlipY flip_y;
+        OpFlipX flip_x;
+        OpOffset offset;
+        OpReplace replace;
     } op;
 
     enum DataOperationType type;

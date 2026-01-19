@@ -25,22 +25,34 @@ move_change_t Controls(ControlsProps props) {
     }
 
     if (props.change & MOVE_CHANGE_APPLY_OFFSET) {
-        data_apply_offset(&props.current_file->data_source, props.current_file->data_plot_state.plot_offset);
+        data_operation_do(
+            &props.current_file->data_source,
+            &props.current_file->data_plot_state.operation_stack,
+            (DataOperation) {
+                .type = OP_OFFSET,
+                .op = { .offset = { .offset = props.current_file->data_plot_state.plot_offset } }
+            }
+            );
         props.current_file->data_plot_state.plot_offset = VECTOR2_ZERO;
     }
 
     if (Button((Vector2) {10, 50}, "Odwróć y", 16, 0) == BUTTON_STATE_CLICKED) {
         data_operation_do(
-                &props.current_file->data_source,
-                &props.current_file->data_plot_state.operation_stack,
-                (DataOperation) { .type = OP_FLIP_Y }
-                );
+            &props.current_file->data_source,
+            &props.current_file->data_plot_state.operation_stack,
+            (DataOperation) { .type = OP_FLIP_Y }
+            );
         props.current_file->data_plot_state.curve_linear.end_point.y *= -1;
         props.change |= MOVE_CHANGE_PLOT;
     }
 
     if (Button((Vector2) {100, 50}, "Odwróć x", 16, 0) == BUTTON_STATE_CLICKED) {
-        data_flip_x(&props.current_file->data_source);
+        data_operation_do(
+            &props.current_file->data_source,
+            &props.current_file->data_plot_state.operation_stack,
+            (DataOperation) { .type = OP_FLIP_X }
+            );
+
         const int count = props.current_file->data_source.count;
         point_index_flip(&props.current_file->data_plot_state.selected_point, count);
         point_index_flip(&props.current_file->data_plot_state.selected_second_point, count);
@@ -64,10 +76,17 @@ move_change_t Controls(ControlsProps props) {
 
     if (!is_vec2_zero(props.current_file->data_source.data[0])) {
         if (Button((Vector2) {10, 100}, "Zeruj start", 16, 0) == BUTTON_STATE_CLICKED) {
-            data_apply_offset(&props.current_file->data_source, (Vector2) {
-                -props.current_file->data_source.data[0].x,
-                props.current_file->data_source.data[0].y
-            });
+            data_operation_do(
+                &props.current_file->data_source,
+                &props.current_file->data_plot_state.operation_stack,
+                (DataOperation) {
+                    .type = OP_OFFSET,
+                    .op = { .offset = { .offset = {
+                        .x = -props.current_file->data_source.data[0].x,
+                        .y = props.current_file->data_source.data[0].y
+                    } } }
+                }
+                );
             props.current_file->data_plot_state.plot_offset = VECTOR2_ZERO;
             props.current_file->data_plot_state.pan = VECTOR2_ZERO;
             props.change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
@@ -120,7 +139,18 @@ move_change_t Controls(ControlsProps props) {
     if (line_ready) {
         const float applied_x = LineSetZero(props.current_file->data_plot_state.curve_linear, props.bounds);
         if (applied_x != 0) {
-            data_apply_offset(&props.current_file->data_source, (Vector2) { -applied_x, 0 });
+            data_operation_do(
+                &props.current_file->data_source,
+                &props.current_file->data_plot_state.operation_stack,
+                (DataOperation) {
+                    .type = OP_OFFSET,
+                    .op = { .offset = { .offset = {
+                        .x = -applied_x,
+                        .y = 0
+                    } } }
+                }
+                );
+
             props.current_file->data_plot_state.plot_offset = VECTOR2_ZERO;
             props.current_file->data_plot_state.pan = VECTOR2_ZERO;
             props.change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
@@ -129,14 +159,33 @@ move_change_t Controls(ControlsProps props) {
 
             const int cut_index = props.current_file->data_plot_state.curve_linear.end_point_index;
             if (cut_index != 0 && cut_index != props.current_file->data_source.count) {
+                DataOperation cut_operation;
+                DataOperation replace_operation = { .type = OP_REPLACE, .op = { .replace = { .point = VECTOR2_ZERO } } };
+
                 if (props.current_file->data_plot_state.curve_linear.end_point.x > 0) {
-                    data_cut_left(&props.current_file->data_source, cut_index - 1);
-                    data_replace(&props.current_file->data_source, 0, VECTOR2_ZERO);
+                    replace_operation.op.replace.index = 0;
+                    cut_operation.type = OP_CUT_LEFT;
+                    cut_operation.op.cut_left.index = cut_index - 1;
+                    // data_cut_left(&props.current_file->data_source, cut_index - 1);
+                    // data_replace(&props.current_file->data_source, 0, VECTOR2_ZERO);
                 }
                 else {
-                    data_cut_right(&props.current_file->data_source, cut_index + 1);
-                    data_replace(&props.current_file->data_source, cut_index + 1, VECTOR2_ZERO);
+                    replace_operation.op.replace.index = cut_index + 1;
+                    cut_operation.type = OP_CUT_RIGHT;
+                    cut_operation.op.cut_right.index = cut_index + 1;
+                    // data_cut_right(&props.current_file->data_source, cut_index + 1);
+                    // data_replace(&props.current_file->data_source, cut_index + 1, VECTOR2_ZERO);
                 }
+                data_operation_do(
+                    &props.current_file->data_source,
+                    &props.current_file->data_plot_state.operation_stack,
+                    cut_operation
+                    );
+                data_operation_do(
+                    &props.current_file->data_source,
+                    &props.current_file->data_plot_state.operation_stack,
+                    replace_operation
+                    );
             }
             props.current_file->data_plot_state.curve_linear = (CurveLinear) {0};
             props.current_file->data_plot_state.selected_point = -1;

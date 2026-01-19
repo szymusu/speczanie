@@ -84,6 +84,12 @@ add_executable(${PROJECT_NAME} main.c
         data/operations/op_cut_right.h
         data/operations/op_flip_y.c
         data/operations/op_flip_y.h
+        data/operations/op_flip_x.c
+        data/operations/op_flip_x.h
+        data/operations/op_offset.c
+        data/operations/op_offset.h
+        data/operations/op_replace.c
+        data/operations/op_replace.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

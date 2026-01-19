@@ -26,55 +26,6 @@ void data_source_destroy(DataSource* data_source) {
     free(data_source->base);
 }
 
-void data_apply_offset(DataSource* data_source, const Vector2 offset) {
-    for (int i = 0; i < data_source->count; ++i) {
-        data_source->data[i].x += offset.x;
-        data_source->data[i].y -= offset.y;
-    }
-}
-
-void data_scale_y(DataSource* data_source, const float scale_y) {
-    for (int i = 0; i < data_source->count; ++i) {
-        data_source->data[i].y *= scale_y;
-    }
-}
-
-void data_cut_left(DataSource* data_source, const int index) {
-    data_source->count -= index;
-    data_source->data += index;
-}
-
-void data_cut_right(DataSource* data_source, const int index) {
-    if (index + 1 >= data_source->count) return;
-    data_source->count = index + 1;
-}
-
-void data_flip_x(DataSource* data_source) {
-    const int mid_i = data_source->count / 2;
-    for (int i = 0; i < mid_i; ++i) {
-        const int j = data_source->count - i - 1;
-        const Vector2 tmp = data_source->data[i];
-        data_source->data[i] = data_source->data[j];
-        data_source->data[j] = tmp;
-        data_source->data[i].x = -data_source->data[i].x;
-        data_source->data[j].x = -data_source->data[j].x;
-    }
-    if (data_source->count & 1) {
-        data_source->data[mid_i].x = -data_source->data[mid_i].x;
-    }
-}
-
-void data_replace(DataSource* data_source, const int index, const Vector2 with_this) {
-    data_source->data[index] = with_this;
-}
-
-void data_multiply(const DataSource* data_source, const float x_factor, const float y_factor) {
-    for (int i = 0; i < data_source->count; ++i) {
-        data_source->data[i].x *= x_factor;
-        data_source->data[i].y *= y_factor;
-    }
-}
-
 char* axis_label_trim(const BinaryFile* binary_file, const int column) {
     char* label = binary_file->columns[column].label;
     char* spaces = strchr(label, ' ');

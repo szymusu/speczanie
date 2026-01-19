@@ -50,6 +50,15 @@ void data_operation_do(DataSource* data_source, DataOperationStack* stack, DataO
     case OP_FLIP_Y:
         operation.op.flip_y = do_flip_y(data_source, operation.op.flip_y);
         break;
+    case OP_FLIP_X:
+        operation.op.flip_x = do_flip_x(data_source, operation.op.flip_x);
+        break;
+    case OP_OFFSET:
+        operation.op.offset = do_offset(data_source, operation.op.offset);
+        break;
+    case OP_REPLACE:
+        operation.op.replace = do_replace(data_source, operation.op.replace);
+        break;
     }
 
     data_operation_push(stack, operation);
@@ -73,6 +82,18 @@ void data_operation_undo(DataSource* data_source, DataOperationStack* stack) {
     case OP_FLIP_Y:
         printf("Undo flip Y\n");
         undo_flip_y(data_source, operation.op.flip_y);
+        break;
+    case OP_FLIP_X:
+        printf("Undo flip X\n");
+        undo_flip_x(data_source, operation.op.flip_x);
+        break;
+    case OP_OFFSET:
+        printf("Undo offset (%f, %f)\n", operation.op.offset.offset.x, operation.op.offset.offset.y);
+        undo_offset(data_source, operation.op.offset);
+        break;
+    case OP_REPLACE:
+        printf("Undo replace (%f, %f) at %d\n", operation.op.replace.point.x, operation.op.replace.point.y, operation.op.replace.index);
+        undo_replace(data_source, operation.op.replace);
         break;
     }
 }
