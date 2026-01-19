@@ -249,10 +249,10 @@
 	\paragraph{}
 	Jest to plik produkowany przez oprogramowanie maszyny Zwick HB100 i zawiera serie danych z pomiaru. Dokładny opis formatu tego pliku znajduje się w sekcji 4.3.
 	\paragraph{}
-	Podczas wczytywania tego pliku, użytkownik jest pytany o wybranie kolumn odpowiadającym osiom X i Y.
+	Podczas wczytywania tego pliku, użytkownik jest pytany o wybranie kolumn odpowiadającym osiom X i Y. Dokładna struktura tego pliku znajduje się w sekcji 4.2.3.
 	
 	\subsubsection{Plik tekstowy CSV}
-	Wykres wyeksportowany do pliku CSV, może zostać otwarty ponownie w aplikacji.
+	Wykres wyeksportowany do pliku CSV, może zostać otwarty ponownie w aplikacji. 
 	
 	\subsection{Obróbka wykresu}
 	Po załadowaniu wykresu, do dyspozycji użytkownika są dostępne następujące operacje:
@@ -271,5 +271,14 @@
 	
 	\subsubsection{Podgląd punktu}
 	Najeżdżając kursorem myszy na punkt wyświetla się nad nim okienko z dokładnymi wartościami współrzędnych tego punktu.
+	
+	
+	\subsection{Eksport}
+	\subsubsection{Eksport do CSV}
+	Przycisk "Eksport CSV" zapisuje obecne wartości punktów w pliku tekstowym w formacie CSV. Plik zapisywany jest pod w tej samej ścieżce, gdzie źródłowy plik \textit{W01} z dopisanym rozszerzeniem \verb|.csv|. Jeśli źródłowym plikiem dla danych jest plik CSV, przy ekporcie jest on nadpisywany.
+	
+	\subsubsection{Struktura eksportowanego pliku}
+	
+	
 	
 \end{document}

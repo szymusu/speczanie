@@ -1,82 +1,83 @@
 #include "Controls.h"
 
+#include "LineSetZero.h"
 #include "../../text/Button.h"
 #include "../../text/text.h"
 #include "../../data/data_source.h"
 #include "../../files/image_export.h"
 #include "../../math/vector2.h"
 
-move_change_t Controls(OpenFile* current_file, DataPlotState* data_plot_state, MultiPlotState* multi_plot_state, move_change_t change) {
+move_change_t Controls(ControlsProps props) {
     if (IsKeyPressed(KEY_R)) {
-        if (data_plot_state->input_mode == PLOT_INPUT_REGRESSION)
-            data_plot_state->input_mode = PLOT_INPUT_IDLE;
+        if (props.current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION)
+            props.current_file->data_plot_state.input_mode = PLOT_INPUT_IDLE;
         else
-            data_plot_state->input_mode = PLOT_INPUT_REGRESSION;
+            props.current_file->data_plot_state.input_mode = PLOT_INPUT_REGRESSION;
     }
 
-    if (data_plot_state->input_mode == PLOT_INPUT_REGRESSION) {
+    if (props.current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION) {
         Text("Wybierz punkty do regresji", 400, 10, 20, BROWN);
     }
 
-    if (change & MOVE_CHANGE_APPLY_OFFSET) {
-        data_apply_offset(&current_file->data_source, data_plot_state->plot_offset);
-        data_plot_state->plot_offset = VECTOR2_ZERO;
+    if (props.change & MOVE_CHANGE_APPLY_OFFSET) {
+        data_apply_offset(&props.current_file->data_source, props.current_file->data_plot_state.plot_offset);
+        props.current_file->data_plot_state.plot_offset = VECTOR2_ZERO;
     }
 
     if (Button((Vector2) {10, 50}, "Odwróć y", 16, 0) == BUTTON_STATE_CLICKED) {
-        data_scale_y(&current_file->data_source, -1);
-        change |= MOVE_CHANGE_PLOT;
+        data_scale_y(&props.current_file->data_source, -1);
+        props.change |= MOVE_CHANGE_PLOT;
     }
 
     if (Button((Vector2) {100, 50}, "Odwróć x", 16, 0) == BUTTON_STATE_CLICKED) {
-        data_flip_x(&current_file->data_source);
-        change |= MOVE_CHANGE_PLOT;
+        data_flip_x(&props.current_file->data_source);
+        props.change |= MOVE_CHANGE_PLOT;
     }
 
-    const bool is_lock_y = current_file->data_plot_state.movement_lock == MOVEMENT_LOCK_Y;
+    const bool is_lock_y = props.current_file->data_plot_state.movement_lock == MOVEMENT_LOCK_Y;
     if (ButtonDefault((Vector2) {10, 150}, "Blokuj y", 16, is_lock_y & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
-        if (is_lock_y)  current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_NONE;
-        else            current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_Y;
+        if (is_lock_y)  props.current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_NONE;
+        else            props.current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_Y;
     }
 
-    const bool is_lock_x = current_file->data_plot_state.movement_lock == MOVEMENT_LOCK_X;
+    const bool is_lock_x = props.current_file->data_plot_state.movement_lock == MOVEMENT_LOCK_X;
     if (ButtonDefault((Vector2) {100, 150}, "Blokuj x", 16, is_lock_x & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
-        if (is_lock_x)  current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_NONE;
-        else            current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_X;
+        if (is_lock_x)  props.current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_NONE;
+        else            props.current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_X;
     }
 
-    if (!is_vec2_zero(current_file->data_source.data[0])) {
+    if (!is_vec2_zero(props.current_file->data_source.data[0])) {
         if (Button((Vector2) {10, 100}, "Zeruj start", 16, 0) == BUTTON_STATE_CLICKED) {
-            data_apply_offset(&current_file->data_source, (Vector2) {
-                -current_file->data_source.data[0].x,
-                current_file->data_source.data[0].y
+            data_apply_offset(&props.current_file->data_source, (Vector2) {
+                -props.current_file->data_source.data[0].x,
+                props.current_file->data_source.data[0].y
             });
-            data_plot_state->plot_offset = VECTOR2_ZERO;
-            data_plot_state->pan = VECTOR2_ZERO;
-            change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
+            props.current_file->data_plot_state.plot_offset = VECTOR2_ZERO;
+            props.current_file->data_plot_state.pan = VECTOR2_ZERO;
+            props.change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
         }
     }
 
-    if (current_file->data_plot_state.selected_point > 0) {
+    if (props.current_file->data_plot_state.selected_point > 0) {
         Text("Utnij", 10, 200, 16, BLACK);
         if (Button((Vector2) {70, 216}, "Lewo", 16, TEXTBOX_ALIGN_RIGHT) == BUTTON_STATE_CLICKED) {
-            data_cut_left(&current_file->data_source, current_file->data_plot_state.selected_point);
-            current_file->data_plot_state.selected_point = -1;
-            change |= MOVE_CHANGE_PLOT;
+            data_cut_left(&props.current_file->data_source, props.current_file->data_plot_state.selected_point);
+            props.current_file->data_plot_state.selected_point = -1;
+            props.change |= MOVE_CHANGE_PLOT;
         }
         if (Button((Vector2) {75, 216}, "Prawo", 16, 0) == BUTTON_STATE_CLICKED) {
-            data_cut_right(&current_file->data_source, current_file->data_plot_state.selected_point);
-            current_file->data_plot_state.selected_point = -1;
-            change |= MOVE_CHANGE_PLOT;
+            data_cut_right(&props.current_file->data_source, props.current_file->data_plot_state.selected_point);
+            props.current_file->data_plot_state.selected_point = -1;
+            props.change |= MOVE_CHANGE_PLOT;
         }
     }
 
     if (Button((Vector2) {1050, 550}, "Eksportuj CSV", 16, 0) == BUTTON_STATE_CLICKED) {
-        file_export_csv(current_file);
+        file_export_csv(props.current_file);
     }
 
     if (Button((Vector2) {900, 550}, "Eksportuj PNG", 16, 0) == BUTTON_STATE_CLICKED) {
-        image_export(current_file->data_source, "export.png");
+        image_export(props.current_file->data_source, "export.png");
     }
 
     if (Button((Vector2) {20, 400}, "Wykres σ = f(ε)", 16, 0) == BUTTON_STATE_CLICKED) {
@@ -97,12 +98,26 @@ move_change_t Controls(OpenFile* current_file, DataPlotState* data_plot_state, M
         // current_file->data_plot_state.zoom /= x;
         // current_file->data_plot_state.pan = (Vector2) {0, 0};
 
-        multi_plot_state->enabled = !multi_plot_state->enabled;
-        multi_plot_state->pan = data_plot_state->pan;
-        multi_plot_state->scale_x = data_plot_state->scale_x;
-        multi_plot_state->zoom = data_plot_state->zoom;
-        change |= MOVE_CHANGE_PLOT;
+        props.multi_plot_state->enabled = !props.multi_plot_state->enabled;
+        props.multi_plot_state->pan = props.current_file->data_plot_state.pan;
+        props.multi_plot_state->scale_x = props.current_file->data_plot_state.scale_x;
+        props.multi_plot_state->zoom = props.current_file->data_plot_state.zoom;
+        props.change |= MOVE_CHANGE_PLOT;
     }
 
-    return change;
+    const bool line_ready = props.current_file->data_plot_state.curve_linear.a && props.current_file->data_plot_state.input_mode != PLOT_INPUT_SELECT;
+    if (line_ready) {
+        const float applied_x = LineSetZero(props.current_file->data_plot_state.curve_linear, props.bounds);
+        if (applied_x != 0) {
+            data_apply_offset(&props.current_file->data_source, (Vector2) { -applied_x, 0 });
+            props.current_file->data_plot_state.plot_offset = VECTOR2_ZERO;
+            props.current_file->data_plot_state.pan = VECTOR2_ZERO;
+            props.change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
+
+            props.current_file->data_plot_state.curve_linear.b = 0;
+            props.current_file->data_plot_state.curve_linear.end_point.x = 0;
+        }
+    }
+
+    return props.change;
 }

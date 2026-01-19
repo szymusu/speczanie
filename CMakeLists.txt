@@ -74,6 +74,8 @@ add_executable(${PROJECT_NAME} main.c
         files/components/ColumnImport.h
         plot/components/MultiPlot.c
         plot/components/MultiPlot.h
+        plot/components/LineSetZero.c
+        plot/components/LineSetZero.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

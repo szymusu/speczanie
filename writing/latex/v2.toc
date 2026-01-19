@@ -60,3 +60,6 @@
 \contentsline {subsubsection}{Przesuwanie do zera}{11}{}%
 \contentsline {subsubsection}{Odbicie}{11}{}%
 \contentsline {subsubsection}{Podgląd punktu}{11}{}%
+\contentsline {subsection}{\numberline {4.2.3}Eksport}{11}{}%
+\contentsline {subsubsection}{Eksport do CSV}{11}{}%
+\contentsline {subsubsection}{Struktura eksportowanego pliku}{11}{}%

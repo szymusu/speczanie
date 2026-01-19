@@ -41,7 +41,8 @@ int main(const int argc, char** argv) {
 
         if (current_file) {
             if (!is_imported(current_file)) {
-                ColumnImport(current_file);
+                import_columns(current_file, 1, 0);
+                // ColumnImport(current_file);
             }
             else {
                 Bounds bounds;
@@ -72,7 +73,12 @@ int main(const int argc, char** argv) {
                 }
 
                 change = process_move(&current_file->data_plot_state, bounds);
-                change = Controls(current_file, &current_file->data_plot_state, &multi_plot_state, change);
+                change = Controls((ControlsProps) {
+                    .current_file = current_file,
+                    .multi_plot_state = &multi_plot_state,
+                    .bounds = bounds,
+                    .change = change
+                });
             }
         }
         else {

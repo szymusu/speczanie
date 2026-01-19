@@ -1,7 +1,7 @@
 #include "Line.h"
 
 #include <math.h>
-#include <stdio.h>
+#include "../../text/TextBox.h"
 
 #include "../../math/vector2.h"
 
