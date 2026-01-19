@@ -20,7 +20,8 @@
 #include "text/text.h"
 
 int main(const int argc, char** argv) {
-    if (process_args(argc, argv)) return -1;
+    Options options;
+    if (process_args(argc, argv, &options)) return -1;
 
 #ifndef __arm64
     // Anty-aliasing mega psuje FPS na Macu
@@ -41,8 +42,12 @@ int main(const int argc, char** argv) {
 
         if (current_file) {
             if (!is_imported(current_file)) {
-                import_columns(current_file, 1, 0);
-                // ColumnImport(current_file);
+                if (options.auto_import) {
+                    import_columns(current_file, options.auto_import_x, options.auto_import_y);
+                }
+                else {
+                    ColumnImport(current_file);
+                }
             }
             else {
                 Bounds bounds;

@@ -115,7 +115,9 @@ void free_file(const int index) {
     else {
         csv_destroy(&file.csv_file);
     }
-    data_source_destroy(&file.data_source);
+    if (is_imported(&file)) {
+        data_source_destroy(&file.data_source);
+    }
     DataPlotState_destroy(&file.data_plot_state);
     free(file.filepath);
 }
