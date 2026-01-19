@@ -69,7 +69,26 @@ union CsvParseResult csv_parse(const char* filename) {
             memcpy(res.file.header, line_buffer, MAX_LINE_LENGTH);
             continue;
         }
-        if (line_number == 2) continue;
+        if (line_number == 2) {
+            char* comma = strchr(line_buffer, ',');
+            if (!comma || comma - line_buffer > MAX_LINE_LENGTH - 2) continue;
+
+            *comma = 0;
+            res.file.x_label = malloc(comma - line_buffer + 1);
+            strcpy(res.file.x_label, line_buffer);
+
+            char* y_label = comma + 1;
+            char* newline = strchr(y_label, '\n');
+            if (!newline) continue;
+
+            if (newline[-1] == '\r') newline[-1] = 0;
+            else                     newline[ 0] = 0;
+
+            res.file.y_label = malloc(newline - y_label);
+            strcpy(res.file.y_label, y_label);
+
+            continue;
+        }
 
         char* end_of_first;
         const float x = strtof(line_buffer, &end_of_first);
@@ -103,4 +122,6 @@ bool is_csv_error(const union CsvParseResult parse_result) {
 
 void csv_destroy(CsvFile* csv_file) {
     free(csv_file->header);
+    if (csv_file->x_label) free(csv_file->x_label);
+    if (csv_file->y_label) free(csv_file->y_label);
 }

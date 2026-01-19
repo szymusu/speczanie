@@ -6,6 +6,8 @@
 
 typedef struct  {
     char* header;
+    char* x_label;
+    char* y_label;
     Vector2* data;
     int count;
 } CsvFile;

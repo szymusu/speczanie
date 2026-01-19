@@ -100,6 +100,8 @@ int open_file(const char* filename) {
         };
         files[count].data_plot_state = DataPlotState_create(files[count].data_source.count);
         files[count].data_plot_state.scale_x = fit_scale(files[count].data_source.data[0].x, files[count].data_source.data[files[count].data_source.count - 1].x);
+        if (parse_result.file.x_label) files[count].data_plot_state.x_label = parse_result.file.x_label;
+        if (parse_result.file.y_label) files[count].data_plot_state.y_label = parse_result.file.y_label;
     }
 
     return count++;
@@ -158,10 +160,10 @@ int file_export_csv(const OpenFile* open_file) {
         puts("Cannot open file");
         return 0;
     }
-    int bytes_written = fprintf(csv_file, "a\ntime,load\n");
+    int bytes_written = fprintf(csv_file, "a\r\n%s,%s\r\n", open_file->data_plot_state.x_label, open_file->data_plot_state.y_label);
     for (int i = 0; i < open_file->data_source.count; ++i) {
         const Vector2 row = open_file->data_source.data[i];
-        bytes_written += fprintf(csv_file, "%f,%f\n", row.x, row.y);
+        bytes_written += fprintf(csv_file, "%f,%f\r\n", row.x, row.y);
     }
     fclose(csv_file);
     printf("%d\n", bytes_written);
