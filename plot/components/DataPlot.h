@@ -29,6 +29,7 @@ enum MovementLock {
 
 typedef struct {
     Vector2 end_point;
+    int end_point_index;
     float a;
     float b;
 } CurveLinear;

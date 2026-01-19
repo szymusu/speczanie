@@ -7,6 +7,11 @@
 #include "../../files/image_export.h"
 #include "../../math/vector2.h"
 
+void point_index_flip(int* index, const int count) {
+    if (*index == -1) return;
+    *index = count - *index - 1;
+}
+
 move_change_t Controls(ControlsProps props) {
     if (IsKeyPressed(KEY_R)) {
         if (props.current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION)
@@ -26,11 +31,18 @@ move_change_t Controls(ControlsProps props) {
 
     if (Button((Vector2) {10, 50}, "Odwróć y", 16, 0) == BUTTON_STATE_CLICKED) {
         data_scale_y(&props.current_file->data_source, -1);
+        props.current_file->data_plot_state.curve_linear.end_point.y *= -1;
         props.change |= MOVE_CHANGE_PLOT;
     }
 
     if (Button((Vector2) {100, 50}, "Odwróć x", 16, 0) == BUTTON_STATE_CLICKED) {
         data_flip_x(&props.current_file->data_source);
+        const int count = props.current_file->data_source.count;
+        point_index_flip(&props.current_file->data_plot_state.selected_point, count);
+        point_index_flip(&props.current_file->data_plot_state.selected_second_point, count);
+        point_index_flip(&props.current_file->data_plot_state.curve_linear.end_point_index, count);
+        props.current_file->data_plot_state.curve_linear.end_point.x *= -1;
+
         props.change |= MOVE_CHANGE_PLOT;
     }
 
@@ -115,7 +127,21 @@ move_change_t Controls(ControlsProps props) {
             props.change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
 
             props.current_file->data_plot_state.curve_linear.b = 0;
-            props.current_file->data_plot_state.curve_linear.end_point.x = 0;
+
+            const int cut_index = props.current_file->data_plot_state.curve_linear.end_point_index;
+            if (cut_index != 0 && cut_index != props.current_file->data_source.count) {
+                if (props.current_file->data_plot_state.curve_linear.end_point.x > 0) {
+                    data_cut_left(&props.current_file->data_source, cut_index - 1);
+                    props.current_file->data_source.data[cut_index - 1] = VECTOR2_ZERO;
+                }
+                else {
+                    data_cut_right(&props.current_file->data_source, cut_index + 1);
+                    props.current_file->data_source.data[cut_index + 1] = VECTOR2_ZERO;
+                }
+            }
+            props.current_file->data_plot_state.curve_linear = (CurveLinear) {0};
+            props.current_file->data_plot_state.selected_point = -1;
+            props.current_file->data_plot_state.selected_second_point = -1;
         }
     }
 

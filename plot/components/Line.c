@@ -30,12 +30,14 @@ void Line(DataPlotState* state, const DataSource data_source, const Bounds bound
         }
         return;
     }
-    Vector2 p2 = data_source.data[state->selected_second_point];
+    int point_index = state->selected_second_point;
+    Vector2 p2 = data_source.data[point_index];
 
     if (fabsf(p1.x) > fabsf(p2.x)) {
         const Vector2 tmp = p1;
         p1 = p2;
         p2 = tmp;
+        point_index = state->selected_point;
     }
 
     const Vector2 d = vec2_subtract(p1, p2);
@@ -48,6 +50,7 @@ void Line(DataPlotState* state, const DataSource data_source, const Bounds bound
     const float b = p1.y - p1.x*a;
     state->curve_linear = (CurveLinear) {
         .end_point = p2,
+        .end_point_index = point_index,
         .a = a,
         .b = b
     };
