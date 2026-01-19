@@ -109,8 +109,12 @@ DataPlotState DataPlotState_create(const int data_count) {
         .zoom = 1.f,
         .scale_x = 100.f,
         .regression_points = malloc(sizeof(Vector2) * data_count),
-        .curve_polynomial = {.coefficients = malloc(sizeof(float) * data_count), .order = 4},
-        .operation_stack = data_operation_stack_init()
+        .operation_stack = data_operation_stack_init(),
+        .curve_polynomial = {
+            .order = 4,
+            .coefficients = malloc(sizeof(float) * POLYNOMIAL_MAX_DEGREE),
+            .point_buffer = malloc(sizeof (Vector2) * POLYNOMIAL_POINT_COUNT),
+        },
     };
 }
 
@@ -119,5 +123,6 @@ void DataPlotState_destroy(DataPlotState* state) {
     free(state->shadow_point_buffer);
     free(state->regression_points);
     free(state->curve_polynomial.coefficients);
+    free(state->curve_polynomial.point_buffer);
     data_operation_stack_free(&state->operation_stack);
 }

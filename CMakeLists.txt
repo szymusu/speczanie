@@ -36,8 +36,6 @@ add_executable(${PROJECT_NAME} main.c
         text/Button.h
         math/vector2.c
         math/vector2.h
-        state/state.c
-        state/state.h
         files/components/FileList.c
         files/components/FileList.h
         files/open_files.c
