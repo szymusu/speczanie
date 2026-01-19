@@ -15,10 +15,11 @@ void DrawCurveLinear(CurveLinear curve_linear, Bounds bounds);
 
 DataSource data_source_columns(const BinaryFile* file, const int x_column, const int y_column) {
     const int count = file->header.row_count;
-    const DataSource data_source = {
+    DataSource data_source = {
         .count = count,
         .data = malloc(sizeof(Vector2) * count)
     };
+    data_source.base = data_source.data;
 
     const bool is_reverse = file->columns[x_column].data[0] > file->columns[x_column].data[count - 1];
 
@@ -31,7 +32,7 @@ DataSource data_source_columns(const BinaryFile* file, const int x_column, const
 }
 
 void data_source_destroy(DataSource* data_source) {
-    free(data_source->data);
+    free(data_source->base);
 }
 
 void data_apply_offset(DataSource* data_source, const Vector2 offset) {
@@ -49,9 +50,7 @@ void data_scale_y(DataSource* data_source, const float scale_y) {
 
 void data_cut_left(DataSource* data_source, const int index) {
     data_source->count -= index;
-    for (int i = 0; i < data_source->count; ++i) {
-        data_source->data[i] = data_source->data[i + index];
-    }
+    data_source->data += index;
 }
 
 void data_cut_right(DataSource* data_source, const int index) {
@@ -72,6 +71,10 @@ void data_flip_x(DataSource* data_source) {
     if (data_source->count & 1) {
         data_source->data[mid_i].x = -data_source->data[mid_i].x;
     }
+}
+
+void data_replace(DataSource* data_source, const int index, const Vector2 with_this) {
+    data_source->data[index] = with_this;
 }
 
 void data_convert(const DataSource* data_source, const float x_factor, const float y_factor) {

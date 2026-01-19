@@ -132,11 +132,11 @@ move_change_t Controls(ControlsProps props) {
             if (cut_index != 0 && cut_index != props.current_file->data_source.count) {
                 if (props.current_file->data_plot_state.curve_linear.end_point.x > 0) {
                     data_cut_left(&props.current_file->data_source, cut_index - 1);
-                    props.current_file->data_source.data[0] = VECTOR2_ZERO;
+                    data_replace(&props.current_file->data_source, 0, VECTOR2_ZERO);
                 }
                 else {
                     data_cut_right(&props.current_file->data_source, cut_index + 1);
-                    props.current_file->data_source.data[cut_index + 1] = VECTOR2_ZERO;
+                    data_replace(&props.current_file->data_source, cut_index + 1, VECTOR2_ZERO);
                 }
             }
             props.current_file->data_plot_state.curve_linear = (CurveLinear) {0};
