@@ -6,6 +6,7 @@
 #include "files/open_files.h"
 #include "files/components/ColumnImport.h"
 #include "files/components/FileList.h"
+#include "plot/input_mode.h"
 #include "plot/move.h"
 #include "plot/plot_math.h"
 #include "plot/components/Axes.h"
@@ -71,13 +72,11 @@ int main(const int argc, char** argv) {
                 change = process_move((MoveProps) {
                     .view_move = view_move,
                     .plot_move = multi ? NULL : &current_file->data_plot_state.plot_move,
-                    .input_mode = &current_file->data_plot_state.input_mode,
                     .bounds = bounds
                 });
-                if (current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION) {
+                if (is_input_mode(INPUT_MODE_REGRESSION)) {
                     change = RegressionControls((RegressionControlProps) {
                         .curve = &current_file->data_plot_state.curve_polynomial,
-                        .input_mode = &current_file->data_plot_state.input_mode,
                         .regression_point_count = current_file->data_plot_state.regression_points_count,
                         .change = change
                     });

@@ -93,6 +93,8 @@ add_executable(${PROJECT_NAME} main.c
         plot/components/MultiControls.h
         plot/components/ConstantsInput.c
         plot/components/ConstantsInput.h
+        plot/input_mode.c
+        plot/input_mode.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

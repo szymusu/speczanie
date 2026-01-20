@@ -1,5 +1,6 @@
 #include "move.h"
 
+#include "input_mode.h"
 #include "../math/vector2.h"
 
 #define ZOOM_SPEED .08f
@@ -26,15 +27,15 @@ move_change_t process_move(const MoveProps props) {
         .y = mouse_delta.y * (props.bounds.end_y - props.bounds.start_y) / PLOT_HEIGHT
     };
 
-    switch (*props.input_mode) {
+    switch (get_input_mode()) {
 
-    case PLOT_INPUT_IDLE:
-    case PLOT_INPUT_REGRESSION: {
+    case INPUT_MODE_IDLE:
+    case INPUT_MODE_REGRESSION: {
         if (no_delta || IsMouseButtonUp(MOUSE_BUTTON_LEFT)) break;
 
         if (IsKeyDown(KEY_LEFT_CONTROL)) {
             change |= MOVE_CHANGE_PLOT;
-            *props.input_mode = PLOT_INPUT_MOVE;
+            set_input_mode(INPUT_MODE_MOVE);
         }
         else {
             change |= MOVE_CHANGE_PAN;
@@ -43,15 +44,15 @@ move_change_t process_move(const MoveProps props) {
         }
         break;
     }
-    case PLOT_INPUT_MOVE: {
+    case INPUT_MODE_MOVE: {
         if (!props.plot_move) break;
 
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-            *props.input_mode = PLOT_INPUT_IDLE;
+            set_input_mode(INPUT_MODE_IDLE);
             change |= MOVE_CHANGE_APPLY_OFFSET + MOVE_CHANGE_PLOT;
         }
         else if (IsKeyReleased(KEY_LEFT_CONTROL)) {
-            *props.input_mode = PLOT_INPUT_IDLE;
+            set_input_mode(INPUT_MODE_IDLE);
             change |= MOVE_CHANGE_PLOT;
             props.plot_move->plot_offset = VECTOR2_ZERO;
         }
@@ -62,13 +63,15 @@ move_change_t process_move(const MoveProps props) {
         }
         break;
     }
-    case PLOT_INPUT_SELECT: {
+    case INPUT_MODE_SELECT: {
         props.view_move->mouse_position = GetMousePosition();
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
-            *props.input_mode = PLOT_INPUT_IDLE;
+            set_input_mode(INPUT_MODE_IDLE);
         }
         break;
     }
+    case INPUT_MODE_TEXT:
+        break;
     }
 
     return change;

@@ -25,8 +25,6 @@ typedef struct DataPlotState {
     Vector2* regression_points;
     int regression_points_count;
 
-    enum PlotInputMode input_mode;
-
     DataOperationStack operation_stack;
 
 } DataPlotState;

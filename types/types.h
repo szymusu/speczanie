@@ -32,14 +32,6 @@ typedef struct {
 
 } PlotMove;
 
-
-enum PlotInputMode {
-    PLOT_INPUT_IDLE,
-    PLOT_INPUT_MOVE,
-    PLOT_INPUT_SELECT,
-    PLOT_INPUT_REGRESSION,
-};
-
 typedef struct {
     Vector2 end_point;
     int end_point_index;

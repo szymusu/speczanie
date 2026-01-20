@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #include "Polynomial.h"
+#include "../input_mode.h"
 #include "../../text/text.h"
 #include "../../files/components/CloseButton.h"
 #include "../../util/format_polynomial.h"
@@ -11,7 +12,7 @@
 move_change_t RegressionControls(RegressionControlProps props) {
     const button_state_t close_state = CloseButton((Vector2) {10, 10}, 16);
     if (close_state == BUTTON_STATE_CLICKED || IsKeyPressed(KEY_ESCAPE)) {
-        *props.input_mode = PLOT_INPUT_IDLE;
+        set_input_mode(INPUT_MODE_IDLE);
         return props.change;
     }
     Text("Regresja", 60, 12, 26, BLACK);

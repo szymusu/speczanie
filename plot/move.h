@@ -7,7 +7,6 @@
 typedef struct {
     ViewMove* view_move;
     PlotMove* plot_move;
-    enum PlotInputMode* input_mode;
     Bounds bounds;
 
 } MoveProps;

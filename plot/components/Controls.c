@@ -1,6 +1,7 @@
 #include "Controls.h"
 
 #include "LineSetZero.h"
+#include "../input_mode.h"
 #include "../../text/Button.h"
 #include "../../text/text.h"
 #include "../../data/data_source.h"
@@ -14,17 +15,18 @@ void point_index_flip(int* index, const int count) {
 
 move_change_t Controls(ControlsProps props) {
     if (IsKeyPressed(KEY_R)) {
-        if (props.current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION)
-            props.current_file->data_plot_state.input_mode = PLOT_INPUT_IDLE;
+        if (is_input_mode(INPUT_MODE_REGRESSION)) {
+            set_input_mode(INPUT_MODE_IDLE);
+        }
         else {
-            props.current_file->data_plot_state.input_mode = PLOT_INPUT_REGRESSION;
+            set_input_mode(INPUT_MODE_REGRESSION);
             props.current_file->data_plot_state.regression_points_count = 0;
             props.current_file->data_plot_state.selected_point = -1;
             props.current_file->data_plot_state.selected_second_point = -1;
         }
     }
 
-    if (props.current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION) {
+    if (is_input_mode(INPUT_MODE_REGRESSION)) {
         Text("Wybierz punkty do regresji", 400, 10, 20, BROWN);
     }
 
@@ -142,7 +144,7 @@ move_change_t Controls(ControlsProps props) {
         props.change |= MOVE_CHANGE_PLOT;
     }
 
-    const bool line_ready = props.current_file->data_plot_state.curve_linear.a && props.current_file->data_plot_state.input_mode != PLOT_INPUT_SELECT;
+    const bool line_ready = props.current_file->data_plot_state.curve_linear.a && !is_input_mode(INPUT_MODE_SELECT);
     if (line_ready) {
         const float applied_x = LineSetZero(props.current_file->data_plot_state.curve_linear, props.bounds);
         if (applied_x != 0) {

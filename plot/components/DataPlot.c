@@ -6,6 +6,7 @@
 #include "PointHoverTooltip.h"
 #include "Polynomial.h"
 #include "Spline.h"
+#include "../input_mode.h"
 #include "../../math/vector2.h"
 #include "../../math/regression.h"
 
@@ -40,7 +41,7 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
         .color = props.color
     });
     if (hover_index != -1 && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-        if (state->input_mode == PLOT_INPUT_REGRESSION) {
+        if (is_input_mode(INPUT_MODE_REGRESSION)) {
             state->regression_points_count = 0;
             if (state->selected_point != -1 && state->selected_point != hover_index) {
                 state->selected_second_point = hover_index;
@@ -51,10 +52,10 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
             state->selected_point = hover_index;
             state->selected_second_point = -1;
             state->curve_linear = (CurveLinear) {0};
-            state->input_mode = PLOT_INPUT_SELECT;
+            set_input_mode(INPUT_MODE_SELECT);
         }
     }
-    if (state->input_mode == PLOT_INPUT_SELECT) {
+    if (is_input_mode(INPUT_MODE_SELECT)) {
         const int second_point = hover_index;
         if (second_point == state->selected_point || hover_index == -1) {
             state->selected_second_point = -1;
@@ -72,7 +73,7 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
     }
 
 
-    if (state->input_mode == PLOT_INPUT_REGRESSION) {
+    if (is_input_mode(INPUT_MODE_REGRESSION)) {
         const int i1 = state->selected_point;
         const int i2 = state->selected_second_point;
         if (i1 != -1 && i2 != -1) {

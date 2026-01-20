@@ -1,6 +1,8 @@
 #include "Line.h"
 
 #include <math.h>
+
+#include "../input_mode.h"
 #include "../../text/TextBox.h"
 
 #include "../../math/vector2.h"
@@ -17,7 +19,7 @@ void DrawCurveLinear(const CurveLinear curve_linear, const Bounds bounds) {
 }
 
 void Line(DataPlotState* state, const DataSource data_source, const Bounds bounds) {
-    if (state->curve_linear.a && state->input_mode != PLOT_INPUT_SELECT) {
+    if (state->curve_linear.a && !is_input_mode(INPUT_MODE_SELECT)) {
         DrawCurveLinear(state->curve_linear, bounds);
     }
 
@@ -25,7 +27,7 @@ void Line(DataPlotState* state, const DataSource data_source, const Bounds bound
 
     Vector2 p1 = data_source.data[state->selected_point];
     if (state->selected_second_point == -1) {
-        if (state->input_mode == PLOT_INPUT_SELECT) {
+        if (is_input_mode(INPUT_MODE_SELECT)) {
             DrawLineEx(transform_v_to_pixel(p1, bounds), state->view_move.mouse_position, 2, ORANGE);
         }
         return;
