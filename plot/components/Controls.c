@@ -30,10 +30,10 @@ move_change_t Controls(ControlsProps props) {
             &props.current_file->data_plot_state.operation_stack,
             (DataOperation) {
                 .type = OP_OFFSET,
-                .op = { .offset = { .offset = props.current_file->data_plot_state.plot_offset } }
+                .op = { .offset = { .offset = props.current_file->data_plot_state.plot_move.plot_offset } }
             }
             );
-        props.current_file->data_plot_state.plot_offset = VECTOR2_ZERO;
+        props.current_file->data_plot_state.plot_move.plot_offset = VECTOR2_ZERO;
     }
 
     if (Button((Vector2) {10, 50}, "Odwróć y", 16, 0) == BUTTON_STATE_CLICKED) {
@@ -62,16 +62,16 @@ move_change_t Controls(ControlsProps props) {
         props.change |= MOVE_CHANGE_PLOT;
     }
 
-    const bool is_lock_y = props.current_file->data_plot_state.movement_lock == MOVEMENT_LOCK_Y;
+    const bool is_lock_y = props.current_file->data_plot_state.plot_move.movement_lock == MOVEMENT_LOCK_Y;
     if (ButtonDefault((Vector2) {10, 150}, "Blokuj y", 16, is_lock_y & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
-        if (is_lock_y)  props.current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_NONE;
-        else            props.current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_Y;
+        if (is_lock_y)  props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_NONE;
+        else            props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_Y;
     }
 
-    const bool is_lock_x = props.current_file->data_plot_state.movement_lock == MOVEMENT_LOCK_X;
+    const bool is_lock_x = props.current_file->data_plot_state.plot_move.movement_lock == MOVEMENT_LOCK_X;
     if (ButtonDefault((Vector2) {100, 150}, "Blokuj x", 16, is_lock_x & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
-        if (is_lock_x)  props.current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_NONE;
-        else            props.current_file->data_plot_state.movement_lock = MOVEMENT_LOCK_X;
+        if (is_lock_x)  props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_NONE;
+        else            props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_X;
     }
 
     if (!is_vec2_zero(props.current_file->data_source.data[0])) {
@@ -87,8 +87,8 @@ move_change_t Controls(ControlsProps props) {
                     } } }
                 }
                 );
-            props.current_file->data_plot_state.plot_offset = VECTOR2_ZERO;
-            props.current_file->data_plot_state.pan = VECTOR2_ZERO;
+            props.current_file->data_plot_state.plot_move.plot_offset = VECTOR2_ZERO;
+            props.current_file->data_plot_state.view_move.pan = VECTOR2_ZERO;
             props.change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
         }
     }
@@ -129,9 +129,6 @@ move_change_t Controls(ControlsProps props) {
 
     if (Button((Vector2) {20, 400}, "Wykres σ = f(ε)", 16, 0) == BUTTON_STATE_CLICKED) {
         props.multi_plot_state->enabled = !props.multi_plot_state->enabled;
-        props.multi_plot_state->pan = props.current_file->data_plot_state.pan;
-        props.multi_plot_state->scale_x = props.current_file->data_plot_state.scale_x;
-        props.multi_plot_state->zoom = props.current_file->data_plot_state.zoom;
         props.change |= MOVE_CHANGE_PLOT;
     }
 
@@ -151,8 +148,8 @@ move_change_t Controls(ControlsProps props) {
                 }
                 );
 
-            props.current_file->data_plot_state.plot_offset = VECTOR2_ZERO;
-            props.current_file->data_plot_state.pan = VECTOR2_ZERO;
+            props.current_file->data_plot_state.plot_move.plot_offset = VECTOR2_ZERO;
+            props.current_file->data_plot_state.view_move.pan = VECTOR2_ZERO;
             props.change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
 
             props.current_file->data_plot_state.curve_linear.b = 0;

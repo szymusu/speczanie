@@ -12,8 +12,13 @@
 void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* state) {
     if (change) {
         state->visible = compute_visible_points(props.data_source, state->point_buffer, props.bounds);
-        if (!is_vec2_zero(state->plot_offset)) {
-            state->shadow_visible = compute_visible_points_offset(props.data_source, state->shadow_point_buffer, props.bounds, state->plot_offset);
+        if (!is_vec2_zero(state->plot_move.plot_offset)) {
+            state->shadow_visible = compute_visible_points_offset(
+                props.data_source,
+                state->shadow_point_buffer,
+                props.bounds,
+                state->plot_move.plot_offset
+                );
         }
         else {
             state->shadow_visible.count = 0;
@@ -108,8 +113,7 @@ DataPlotState DataPlotState_create(const int data_count) {
         .shadow_point_buffer = malloc(sizeof(Vector2) * data_count),
         .selected_point = -1,
         .selected_second_point = -1,
-        .zoom = 1.f,
-        .scale_x = 100.f,
+        .view_move = { .scale_x = 100, .zoom = 1 },
         .regression_points = malloc(sizeof(Vector2) * data_count),
         .operation_stack = data_operation_stack_init(),
         .curve_polynomial = {

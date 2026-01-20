@@ -86,6 +86,7 @@ add_executable(${PROJECT_NAME} main.c
         plot/components/RegressionControls.h
         util/format_polynomial.c
         util/format_polynomial.h
+        types/types.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

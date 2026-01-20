@@ -49,21 +49,13 @@ int main(const int argc, char** argv) {
             else {
                 Bounds bounds;
                 if (multi_plot_state.enabled) {
-                    bounds = compute_bounds(
-                        multi_plot_state.zoom,
-                        multi_plot_state.pan,
-                        multi_plot_state.scale_x
-                    );
+                    bounds = compute_bounds(multi_plot_state.view_move);
                     Grid(bounds);
                     Axes("σ", "ε");
                     MultiPlot(&multi_plot_state, (MultiPlotProps) { bounds });
                 }
                 else {
-                    bounds = compute_bounds(
-                        current_file->data_plot_state.zoom,
-                        current_file->data_plot_state.pan,
-                        current_file->data_plot_state.scale_x
-                    );
+                    bounds = compute_bounds(current_file->data_plot_state.view_move);
                     Grid(bounds);
                     Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
                     DataPlot(
@@ -74,7 +66,12 @@ int main(const int argc, char** argv) {
                     change, &current_file->data_plot_state);
                 }
 
-                change = process_move(&current_file->data_plot_state, bounds);
+                change = process_move((MoveProps) {
+                    .view_move = &current_file->data_plot_state.view_move,
+                    .plot_move = &current_file->data_plot_state.plot_move,
+                    .input_mode = &current_file->data_plot_state.input_mode,
+                    .bounds = bounds
+                });
                 if (current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION) {
                     change = RegressionControls((RegressionControlProps) {
                         .curve = &current_file->data_plot_state.curve_polynomial,

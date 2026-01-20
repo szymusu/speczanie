@@ -4,10 +4,7 @@
 #include "../plot_math.h"
 
 typedef struct {
-    Vector2 pan;
-    float zoom;
-    float scale_x;
-
+    ViewMove view_move;
     bool enabled;
 } MultiPlotState;
 

@@ -99,7 +99,7 @@ int open_file(const char* filename) {
             .count = parse_result.file.count
         };
         files[count].data_plot_state = DataPlotState_create(files[count].data_source.count);
-        files[count].data_plot_state.scale_x = fit_scale(files[count].data_source.data[0].x, files[count].data_source.data[files[count].data_source.count - 1].x);
+        files[count].data_plot_state.view_move.scale_x = fit_scale(files[count].data_source.data[0].x, files[count].data_source.data[files[count].data_source.count - 1].x);
         if (parse_result.file.x_label) files[count].data_plot_state.x_label = parse_result.file.x_label;
         if (parse_result.file.y_label) files[count].data_plot_state.y_label = parse_result.file.y_label;
     }
@@ -177,8 +177,8 @@ void import_columns(OpenFile* file, const int x, const int y) {
 
     file->data_source = data_source_columns(&file->binary_file, x, y);
     file->data_plot_state = DataPlotState_create(file->data_source.count);
-    file->data_plot_state.scale_x = fit_scale(file->data_source.data[0].x, file->data_source.data[file->data_source.count - 1].x);
-    file->data_plot_state.pan.x = file->data_source.data[0].x;
+    file->data_plot_state.view_move.scale_x = fit_scale(file->data_source.data[0].x, file->data_source.data[file->data_source.count - 1].x);
+    file->data_plot_state.view_move.pan.x = file->data_source.data[0].x;
     file->data_plot_state.x_label = axis_label_trim(&file->binary_file, x);
     file->data_plot_state.y_label = axis_label_trim(&file->binary_file, y);
 }

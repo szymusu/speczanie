@@ -25,12 +25,12 @@ Vector2 transform_v_to_pixel(const Vector2 v, const Bounds bounds) {
     };
 }
 
-Bounds compute_bounds(const float zoom, const Vector2 pan, const float scale_x) {
+Bounds compute_bounds(const ViewMove view_move) {
     return (Bounds) {
-        .start_x = PLOT_START_X / zoom / scale_x + pan.x,
-        .end_x = PLOT_END_X / zoom / scale_x + pan.x,
-        .start_y = PLOT_START_Y / zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
-        .end_y = PLOT_END_Y / zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
+        .start_x = PLOT_START_X / view_move.zoom / view_move.scale_x + view_move.pan.x,
+        .end_x = PLOT_END_X / view_move.zoom / view_move.scale_x + view_move.pan.x,
+        .start_y = PLOT_START_Y / view_move.zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + view_move.pan.y,
+        .end_y = PLOT_END_Y / view_move.zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + view_move.pan.y,
     };
 }
 

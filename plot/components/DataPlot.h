@@ -5,45 +5,7 @@
 #include "../../data/data_source.h"
 #include "../../data/point_data.h"
 #include "../../data/operations/data_operation.h"
-
-#define MOVE_CHANGE_ZOOM 1
-#define MOVE_CHANGE_PAN 2
-#define MOVE_CHANGE_PLOT 4
-#define MOVE_CHANGE_APPLY_OFFSET 8
-#define MOVE_CHANGE_POLYNOMIAL 16
-#define MOVE_CHANGE_BENCHMARK 32
-
-typedef unsigned char move_change_t;
-
-enum PlotInputMode {
-    PLOT_INPUT_IDLE,
-    PLOT_INPUT_MOVE,
-    PLOT_INPUT_SELECT,
-    PLOT_INPUT_REGRESSION,
-};
-
-enum MovementLock {
-    MOVEMENT_LOCK_NONE,
-    MOVEMENT_LOCK_X,
-    MOVEMENT_LOCK_Y,
-};
-
-typedef struct {
-    Vector2 end_point;
-    int end_point_index;
-    float a;
-    float b;
-} CurveLinear;
-
-typedef struct {
-    Vector2* point_buffer;
-    float* coefficients;
-    char* equation;
-    float normal_offset_x;
-    float start_x;
-    float end_x;
-    uint8_t order;
-} CurvePolynomial;
+#include "../../types/types.h"
 
 typedef struct DataPlotState {
     char* x_label;
@@ -54,12 +16,9 @@ typedef struct DataPlotState {
     VisiblePointsInfo visible;
     VisiblePointsInfo shadow_visible;
 
-    Vector2 pan;
-    Vector2 plot_offset;
-    float zoom;
-    float scale_x;
+    ViewMove view_move;
+    PlotMove plot_move;
 
-    Vector2 mouse_position;
     int selected_point;
     int selected_second_point;
 
@@ -69,8 +28,6 @@ typedef struct DataPlotState {
     int regression_points_count;
 
     enum PlotInputMode input_mode;
-    enum MovementLock movement_lock;
-    bool is_strain;
 
     DataOperationStack operation_stack;
 
