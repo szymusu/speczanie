@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define START_CAPACITY 1
+#define START_CAPACITY 256
 #define OPERATION_SIZE (sizeof (DataOperation))
 
 DataOperationStack data_operation_stack_init() {
