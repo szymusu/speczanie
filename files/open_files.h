@@ -6,6 +6,8 @@
 #include "../data/parse_csv.h"
 #include "../plot/components/DataPlot.h"
 
+extern const Color COLORS[8];
+
 enum FileType {
     FILE_TYPE_W01,
     FILE_TYPE_CSV,

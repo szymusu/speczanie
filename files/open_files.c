@@ -6,6 +6,8 @@
 
 #define OPEN_FILES_MAX_COUNT 16
 
+const Color COLORS[8] = { DARKBLUE, DARKPURPLE, MAROON, DARKGREEN, BROWN, GOLD, PINK, RED };
+
 OpenFile files[OPEN_FILES_MAX_COUNT];
 int count = 0;
 int selected = 0;

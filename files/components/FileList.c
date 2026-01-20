@@ -30,7 +30,7 @@ FileListChange FileList() {
                 .text = files[i].filename,
                 .font_size = 15,
                 .background_color = DARKBLUE,
-                .border_color = DARKBLUE,
+                .border_color = COLORS[i & 7],
                 .text_color = WHITE,
                 .border = 1,
                 .align = TEXTBOX_ALIGN_RIGHT
@@ -44,9 +44,9 @@ FileListChange FileList() {
                 .text = files[i].filename,
                 .font_size = 15,
                 .background_color = RAYWHITE,
-                .border_color = DARKBLUE,
+                .border_color = COLORS[i & 7],
                 .text_color = BLACK,
-                .border = 1,
+                .border = 2,
                 .align = TEXTBOX_ALIGN_RIGHT
                 },
                 (TextBoxProps) {
@@ -55,9 +55,9 @@ FileListChange FileList() {
                 .text = files[i].filename,
                 .font_size = 15,
                 .background_color = LIGHTGRAY,
-                .border_color = DARKBLUE,
+                .border_color = COLORS[i & 7],
                 .text_color = BLACK,
-                .border = 1,
+                .border = 2,
                 .align = TEXTBOX_ALIGN_RIGHT
                 }
             );

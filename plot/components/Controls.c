@@ -128,7 +128,15 @@ move_change_t Controls(ControlsProps props) {
     }
 
     if (Button((Vector2) {20, 400}, "Wykres σ = f(ε)", 16, 0) == BUTTON_STATE_CLICKED) {
-        props.multi_plot_state->enabled = !props.multi_plot_state->enabled;
+        const bool enabled = props.multi_plot_state->enabled;
+        if (enabled) {
+            props.multi_plot_state->enabled = false;
+            props.current_file->data_plot_state.view_move = props.multi_plot_state->view_move;
+        }
+        else {
+            props.multi_plot_state->enabled = true;
+            props.multi_plot_state->view_move = props.current_file->data_plot_state.view_move;
+        }
         props.change |= MOVE_CHANGE_PLOT;
     }
 

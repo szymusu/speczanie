@@ -7,7 +7,7 @@
 typedef struct {
     Vector2* data;
     Vector2* points;
-    VisiblePointsInfo visible;
+    VisibleWindow visible;
     int index;
 
 } PointHoverTooltipProps;

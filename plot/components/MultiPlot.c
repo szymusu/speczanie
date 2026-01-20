@@ -12,7 +12,8 @@ void MultiPlot(MultiPlotState* state, MultiPlotProps props) {
         DataPlot(
             (DataPlotProps) {
                 .data_source = files[i].data_source,
-                .bounds = props.bounds
+                .bounds = props.bounds,
+                .color = COLORS[i & 7]
             },
             1, &files[i].data_plot_state);
     }

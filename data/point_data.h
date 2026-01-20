@@ -9,10 +9,10 @@
 typedef struct {
     int count;
     int start;
-} VisiblePointsInfo;
+} VisibleWindow;
 
-VisiblePointsInfo compute_visible_points(DataSource data_source, Vector2* point_buffer, Bounds bounds);
-VisiblePointsInfo compute_visible_points_offset(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
-bool is_in_view(int point_index, VisiblePointsInfo visible);
+VisibleWindow compute_visible_points(DataSource data_source, Vector2* point_buffer, Bounds bounds);
+VisibleWindow compute_visible_points_offset(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);
+bool is_in_view(int point_index, VisibleWindow visible);
 
 #endif //POINT_DATA_H

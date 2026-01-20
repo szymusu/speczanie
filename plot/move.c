@@ -44,6 +44,8 @@ move_change_t process_move(const MoveProps props) {
         break;
     }
     case PLOT_INPUT_MOVE: {
+        if (!props.plot_move) break;
+
         if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
             *props.input_mode = PLOT_INPUT_IDLE;
             change |= MOVE_CHANGE_APPLY_OFFSET + MOVE_CHANGE_PLOT;

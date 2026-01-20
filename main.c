@@ -40,35 +40,34 @@ int main(const int argc, char** argv) {
             if (!is_imported(current_file)) {
                 if (options.auto_import) {
                     import_columns(current_file, options.auto_import_x, options.auto_import_y);
-                    current_file->data_plot_state.input_mode = PLOT_INPUT_REGRESSION;
                 }
                 else {
                     ColumnImport(current_file);
                 }
             }
             else {
-                Bounds bounds;
+                const bool multi = multi_plot_state.enabled;
+                ViewMove* view_move = multi ? &multi_plot_state.view_move : &current_file->data_plot_state.view_move;
+                const Bounds bounds = compute_bounds(*view_move);
+                Grid(bounds);
+
                 if (multi_plot_state.enabled) {
-                    bounds = compute_bounds(multi_plot_state.view_move);
-                    Grid(bounds);
                     Axes("σ", "ε");
                     MultiPlot(&multi_plot_state, (MultiPlotProps) { bounds });
                 }
                 else {
-                    bounds = compute_bounds(current_file->data_plot_state.view_move);
-                    Grid(bounds);
                     Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
-                    DataPlot(
-                    (DataPlotProps) {
+                    DataPlot((DataPlotProps) {
                         .data_source = current_file->data_source,
                         .bounds = bounds,
+                        .color = DARKBLUE
                     },
                     change, &current_file->data_plot_state);
                 }
 
                 change = process_move((MoveProps) {
-                    .view_move = &current_file->data_plot_state.view_move,
-                    .plot_move = &current_file->data_plot_state.plot_move,
+                    .view_move = view_move,
+                    .plot_move = multi ? NULL : &current_file->data_plot_state.plot_move,
                     .input_mode = &current_file->data_plot_state.input_mode,
                     .bounds = bounds
                 });

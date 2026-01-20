@@ -24,9 +24,11 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
             state->shadow_visible.count = 0;
         }
     }
-    DrawSplineLinear(state->point_buffer, state->visible.count, 2.f, DARKBLUE);
-    DrawCircleV(state->point_buffer[0], 6, RED);
-    DrawCircleV(state->point_buffer[state->visible.count - 1], 6, ORANGE);
+    DrawSplineLinear(state->point_buffer, state->visible.count, 2.f, props.color);
+    if (state->visible.count) {
+        DrawCircleV(state->point_buffer[0], 6, RED);
+        DrawCircleV(state->point_buffer[state->visible.count - 1], 6, ORANGE);
+    }
 
     if (state->shadow_visible.count) {
         DrawSplineLinear(state->shadow_point_buffer, state->shadow_visible.count, 2.f, (Color){150, 150, 150, 200});

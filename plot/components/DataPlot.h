@@ -13,8 +13,8 @@ typedef struct DataPlotState {
 
     Vector2* point_buffer;
     Vector2* shadow_point_buffer;
-    VisiblePointsInfo visible;
-    VisiblePointsInfo shadow_visible;
+    VisibleWindow visible;
+    VisibleWindow shadow_visible;
 
     ViewMove view_move;
     PlotMove plot_move;
@@ -36,6 +36,8 @@ typedef struct DataPlotState {
 typedef struct DataPlotProps {
     DataSource data_source;
     Bounds bounds;
+    Color color;
+
 } DataPlotProps;
 
 void DataPlot(DataPlotProps props, move_change_t change, DataPlotState* state);
