@@ -12,8 +12,8 @@ Rectangle box_get_rect(const TextBoxProps props) {
 }
 
 void DrawTextBox(const TextBoxProps props, const Rectangle box) {
-    DrawRectangleRec(box, props.background_color);
-    DrawRectangleLinesEx(box, props.border, props.border_color);
+    DrawRectangleGradientEx(box, props.background_color, (Color) {230,230,255,255}, props.background_color, props.background_color);
+    DrawRectangleRoundedLinesEx(box, .05f, 0, props.border / 2, props.border_color);
     Text(props.text, box.x + props.padding.x, box.y + props.padding.y, props.font_size, props.text_color);
 }
 
