@@ -9,7 +9,7 @@ move_change_t MultiControls(MultiControlProps props) {
         *props.plot_move = MultiPlot_disable(props.state);
         return props.change | MOVE_CHANGE_PLOT;
     }
-    Text("f(σ) = ε", 60, 12, 26, BLACK);
+    Text("σ = f(ε)", 60, 12, 26, BLACK);
 
     return props.change;
 }

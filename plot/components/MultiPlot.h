@@ -12,8 +12,8 @@ typedef struct {
 typedef struct {
     SinglePlot* plots;
     int plot_count;
-
     ViewMove view_move;
+    float S0, L0;
     bool enabled;
 
 } MultiPlotState;

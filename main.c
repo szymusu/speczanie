@@ -55,7 +55,7 @@ int main(const int argc, char** argv) {
                 Grid(bounds);
 
                 if (multi) {
-                    Axes("σ", "  ε");
+                    Axes("ε", "σ [MPa]");
                     MultiPlot((MultiPlotProps) { bounds }, &multi_plot_state, change);
                 }
                 else {

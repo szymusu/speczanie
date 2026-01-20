@@ -1,12 +1,33 @@
 #include "MultiPlot.h"
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
+#include "ConstantsInput.h"
 #include "PointHoverTooltip.h"
 #include "Spline.h"
 #include "../../files/open_files.h"
 
-void MultiPlot(const MultiPlotProps props, MultiPlotState* state, const move_change_t change) {
+void MultiPlot_set(MultiPlotState* state) {
+    for (int i = 0; i < state->plot_count; ++i) {
+        const DataSource* source = &state->plots[i].data_source;
+        for (int j = 0; j < source->count; ++j) {
+            source->data[j].x /= state->L0;
+            source->data[j].y /= state->S0 / 1000.f; // GPa -> MPa
+        }
+    }
+}
+
+void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t change) {
+    if (!state->S0 || !state->L0) {
+        if (ConstantsInput(&state->S0, &state->L0)) {
+            MultiPlot_set(state);
+            change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_ZOOM;
+        }
+        else return;
+    }
+
     for (int i = 0; i < state->plot_count; ++i) {
         const Color color = COLORS[i & 7];
         const DataSource source = state->plots[i].data_source;
@@ -30,7 +51,6 @@ void MultiPlot(const MultiPlotProps props, MultiPlotState* state, const move_cha
 
 void MultiPlot_enable(MultiPlotState* state, const ViewMove view_move) {
     const int count = get_count();
-    const float xx = 2, yy = 3;
 
     state->plots = malloc(count * sizeof(SinglePlot));
     state->plot_count = 0;
@@ -48,10 +68,7 @@ void MultiPlot_enable(MultiPlotState* state, const ViewMove view_move) {
             .data_source = { .data = malloc(source.count * sizeof(Vector2)), .count = source.count }
         };
 
-        for (int j = 0; j < source.count; ++j) {
-            plot.data_source.data[j].x = source.data[j].x / xx;
-            plot.data_source.data[j].y = source.data[j].y / yy;
-        }
+        memcpy(plot.data_source.data, source.data, source.count * sizeof source.data[0]);
         state->plots[state->plot_count++] = plot;
     }
 }
