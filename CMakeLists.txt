@@ -52,8 +52,6 @@ add_executable(${PROJECT_NAME} main.c
         math/regression.h
         diagnostics/components/BenchmarkProgress.c
         diagnostics/components/BenchmarkProgress.h
-        util/string.c
-        util/string.h
         math/line.c
         math/line.h
         data/parse_csv.c
@@ -86,6 +84,8 @@ add_executable(${PROJECT_NAME} main.c
         data/operations/op_replace.h
         plot/components/RegressionControls.c
         plot/components/RegressionControls.h
+        util/format_polynomial.c
+        util/format_polynomial.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

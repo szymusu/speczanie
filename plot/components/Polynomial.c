@@ -1,8 +1,5 @@
 #include "Polynomial.h"
 
-#include <math.h>
-#include <stdlib.h>
-
 #include "../../math/regression.h"
 
 float f(const float x, const float* coefficients, const uint8_t order) {

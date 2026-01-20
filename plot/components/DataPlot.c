@@ -99,6 +99,8 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
 }
 
 DataPlotState DataPlotState_create(const int data_count) {
+    char* equation = malloc(256);
+    equation[0] = 0;
     return (DataPlotState) {
         .x_label = "",
         .y_label = "",
@@ -114,6 +116,7 @@ DataPlotState DataPlotState_create(const int data_count) {
             .order = 4,
             .coefficients = malloc(sizeof(float) * POLYNOMIAL_MAX_DEGREE),
             .point_buffer = malloc(sizeof (Vector2) * POLYNOMIAL_POINT_COUNT),
+            .equation = equation
         },
     };
 }
@@ -124,5 +127,6 @@ void DataPlotState_destroy(DataPlotState* state) {
     free(state->regression_points);
     free(state->curve_polynomial.coefficients);
     free(state->curve_polynomial.point_buffer);
+    free(state->curve_polynomial.equation);
     data_operation_stack_free(&state->operation_stack);
 }

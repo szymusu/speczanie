@@ -3,6 +3,14 @@
 
 #include "DataPlot.h"
 
-move_change_t RegressionControls(CurvePolynomial* curve, enum PlotInputMode* input_mode, move_change_t change);
+typedef struct {
+    CurvePolynomial* curve;
+    enum PlotInputMode* input_mode;
+    int regression_point_count;
+    move_change_t change;
+
+} RegressionControlProps;
+
+move_change_t RegressionControls(RegressionControlProps props);
 
 #endif //SPECZANIE_REGRESSIONCONTROLS_H

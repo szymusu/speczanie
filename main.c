@@ -76,7 +76,12 @@ int main(const int argc, char** argv) {
 
                 change = process_move(&current_file->data_plot_state, bounds);
                 if (current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION) {
-                    change = RegressionControls(&current_file->data_plot_state.curve_polynomial, &current_file->data_plot_state.input_mode, change);
+                    change = RegressionControls((RegressionControlProps) {
+                        .curve = &current_file->data_plot_state.curve_polynomial,
+                        .input_mode = &current_file->data_plot_state.input_mode,
+                        .regression_point_count = current_file->data_plot_state.regression_points_count,
+                        .change = change
+                    });
                 }
                 else {
                     change = Controls((ControlsProps) {

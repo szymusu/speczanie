@@ -38,6 +38,7 @@ typedef struct {
 typedef struct {
     Vector2* point_buffer;
     float* coefficients;
+    char* equation;
     float normal_offset_x;
     float start_x;
     float end_x;
