@@ -5,44 +5,41 @@
 #include "Line.h"
 #include "PointHoverTooltip.h"
 #include "Polynomial.h"
+#include "Spline.h"
 #include "../../math/vector2.h"
 #include "../../math/regression.h"
 
 
 void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* state) {
     if (change) {
-        state->visible = compute_visible_points(props.data_source, state->point_buffer, props.bounds);
+        state->point_cache.visible = compute_visible_points(props.data_source, state->point_cache.buffer, props.bounds);
         if (!is_vec2_zero(state->plot_move.plot_offset)) {
-            state->shadow_visible = compute_visible_points_offset(
+            state->shadow_cache.visible = compute_visible_points_offset(
                 props.data_source,
-                state->shadow_point_buffer,
+                state->shadow_cache.buffer,
                 props.bounds,
                 state->plot_move.plot_offset
                 );
         }
         else {
-            state->shadow_visible.count = 0;
+            state->shadow_cache.visible.count = 0;
         }
     }
-    DrawSplineLinear(state->point_buffer, state->visible.count, 2.f, props.color);
-    if (state->visible.count) {
-        Color ends_color = props.color;
-        ends_color.a = 127;
-        DrawCircleV(state->point_buffer[0], 4, ends_color);
-        DrawCircleV(state->point_buffer[state->visible.count - 1], 4, ends_color);
+    if (state->point_cache.visible.count) {
+        Spline(state->point_cache.buffer, state->point_cache.visible.count, props.color);
     }
 
-    if (state->shadow_visible.count) {
-        DrawSplineLinear(state->shadow_point_buffer, state->shadow_visible.count, 2.f, (Color){150, 150, 150, 200});
+    if (state->shadow_cache.visible.count) {
+        DrawSplineLinear(state->shadow_cache.buffer, state->shadow_cache.visible.count, 2.f, (Color){150, 150, 150, 200});
     }
 
-    const int hover_index = find_hover_point(state->point_buffer, state->visible.count);
-    const int hover_absolute_index = hover_index + state->visible.start;
+    const int hover_index = find_hover_point(state->point_cache.buffer, state->point_cache.visible.count);
+    const int hover_absolute_index = hover_index + state->point_cache.visible.start;
     if (hover_index != -1) {
         PointHoverTooltip((PointHoverTooltipProps){
             .data = props.data_source.data,
-            .points = state->point_buffer,
-            .visible = state->visible,
+            .points = state->point_cache.buffer,
+            .visible = state->point_cache.visible,
             .index = hover_index,
             .color = props.color
         });
@@ -70,11 +67,11 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
         }
     }
 
-    if (is_in_view(state->selected_point, state->visible)) {
-        DrawCircleV(state->point_buffer[state->selected_point - state->visible.start], 7, BLUE);
+    if (is_in_view(state->selected_point, state->point_cache.visible)) {
+        DrawCircleV(state->point_cache.buffer[state->selected_point - state->point_cache.visible.start], 7, BLUE);
     }
-    if (is_in_view(state->selected_second_point, state->visible)) {
-        DrawCircleV(state->point_buffer[state->selected_second_point - state->visible.start], 7, SKYBLUE);
+    if (is_in_view(state->selected_second_point, state->point_cache.visible)) {
+        DrawCircleV(state->point_cache.buffer[state->selected_second_point - state->point_cache.visible.start], 7, SKYBLUE);
     }
 
 
@@ -114,8 +111,8 @@ DataPlotState DataPlotState_create(const int data_count) {
     return (DataPlotState) {
         .x_label = "",
         .y_label = "",
-        .point_buffer = malloc(sizeof(Vector2) * data_count),
-        .shadow_point_buffer = malloc(sizeof(Vector2) * data_count),
+        .point_cache = { .buffer = malloc(sizeof(Vector2) * data_count) },
+        .shadow_cache = { .buffer = malloc(sizeof(Vector2) * data_count) },
         .selected_point = -1,
         .selected_second_point = -1,
         .view_move = { .scale_x = 100, .zoom = 1 },
@@ -131,8 +128,8 @@ DataPlotState DataPlotState_create(const int data_count) {
 }
 
 void DataPlotState_destroy(DataPlotState* state) {
-    free(state->point_buffer);
-    free(state->shadow_point_buffer);
+    free(state->point_cache.buffer);
+    free(state->shadow_cache.buffer);
     free(state->regression_points);
     free(state->curve_polynomial.coefficients);
     free(state->curve_polynomial.point_buffer);

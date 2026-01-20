@@ -11,10 +11,8 @@ typedef struct DataPlotState {
     char* x_label;
     char* y_label;
 
-    Vector2* point_buffer;
-    Vector2* shadow_point_buffer;
-    VisibleWindow visible;
-    VisibleWindow shadow_visible;
+    PointCache point_cache;
+    PointCache shadow_cache;
 
     ViewMove view_move;
     PlotMove plot_move;

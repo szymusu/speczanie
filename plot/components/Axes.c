@@ -25,7 +25,7 @@ void Axes(const char* x_label, const char* y_label) {
         (Vector2) {PLOT_OFFSET_X + PADDING + LINE_LEN - ARROW, PLOT_HEIGHT - PADDING - ARROW},
         3, BLACK
     );
-    Text(x_label, PLOT_OFFSET_X + PADDING + LINE_LEN + ARROW, PLOT_HEIGHT - PADDING - 7, 16, BLACK);
+    Text(x_label, PLOT_OFFSET_X + PADDING + LINE_LEN + ARROW, PLOT_HEIGHT - PADDING - 8, 16, BLACK);
 
 
     DrawLineEx(

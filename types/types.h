@@ -64,4 +64,14 @@ typedef struct {
     float end_y;
 } Bounds;
 
+typedef struct {
+    int count;
+    int start;
+} VisibleWindow;
+
+typedef struct {
+    Vector2* buffer;
+    VisibleWindow visible;
+} PointCache;
+
 #endif //SPECZANIE_TYPES_H

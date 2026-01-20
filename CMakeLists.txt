@@ -87,6 +87,8 @@ add_executable(${PROJECT_NAME} main.c
         util/format_polynomial.c
         util/format_polynomial.h
         types/types.h
+        plot/components/Spline.c
+        plot/components/Spline.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

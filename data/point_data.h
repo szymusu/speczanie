@@ -5,11 +5,7 @@
 
 #include "data_source.h"
 #include "../plot/plot_math.h"
-
-typedef struct {
-    int count;
-    int start;
-} VisibleWindow;
+#include "../types/types.h"
 
 VisibleWindow compute_visible_points(DataSource data_source, Vector2* point_buffer, Bounds bounds);
 VisibleWindow compute_visible_points_offset(DataSource data_source, Vector2* point_buffer, Bounds bounds, Vector2 offset);

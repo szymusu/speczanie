@@ -53,8 +53,8 @@ int main(const int argc, char** argv) {
                 Grid(bounds);
 
                 if (multi) {
-                    Axes("σ", "ε");
-                    MultiPlot(&multi_plot_state, (MultiPlotProps) { bounds });
+                    Axes("σ", "  ε");
+                    MultiPlot((MultiPlotProps) { bounds }, &multi_plot_state, change);
                 }
                 else {
                     Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);
@@ -107,7 +107,7 @@ int main(const int argc, char** argv) {
             change |= MOVE_CHANGE_PLOT;
         }
 
-        if (GetTime() > .5) FpsCounter();
+        // if (GetTime() > .5) FpsCounter();
         EndDrawing();
 
         if (IsFileDropped()) {
