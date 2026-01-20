@@ -89,6 +89,8 @@ add_executable(${PROJECT_NAME} main.c
         types/types.h
         plot/components/Spline.c
         plot/components/Spline.h
+        plot/components/MultiControls.c
+        plot/components/MultiControls.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

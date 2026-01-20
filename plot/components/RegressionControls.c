@@ -10,7 +10,7 @@
 
 move_change_t RegressionControls(RegressionControlProps props) {
     const button_state_t close_state = CloseButton((Vector2) {10, 10}, 16);
-    if (close_state == BUTTON_STATE_CLICKED) {
+    if (close_state == BUTTON_STATE_CLICKED || IsKeyPressed(KEY_ESCAPE)) {
         *props.input_mode = PLOT_INPUT_IDLE;
         return props.change;
     }

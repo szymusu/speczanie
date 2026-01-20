@@ -12,6 +12,7 @@
 #include "plot/components/Controls.h"
 #include "plot/components/DataPlot.h"
 #include "plot/components/Grid.h"
+#include "plot/components/MultiControls.h"
 #include "plot/components/MultiPlot.h"
 #include "plot/components/RegressionControls.h"
 #include "text/text.h"
@@ -26,6 +27,7 @@ int main(const int argc, char** argv) {
 #endif
 
     InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Spęczanie");
+    SetExitKey(KEY_NULL);
     font_init();
 
     OpenFile* current_file = get_selected_file();
@@ -77,6 +79,13 @@ int main(const int argc, char** argv) {
                         .curve = &current_file->data_plot_state.curve_polynomial,
                         .input_mode = &current_file->data_plot_state.input_mode,
                         .regression_point_count = current_file->data_plot_state.regression_points_count,
+                        .change = change
+                    });
+                }
+                else if (multi) {
+                    change = MultiControls((MultiControlProps) {
+                        .state = &multi_plot_state,
+                        .plot_move = &current_file->data_plot_state.view_move,
                         .change = change
                     });
                 }

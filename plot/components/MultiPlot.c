@@ -1,17 +1,13 @@
 #include "MultiPlot.h"
 
-#include <stdio.h>
 #include <stdlib.h>
 
+#include "PointHoverTooltip.h"
 #include "Spline.h"
 #include "../../files/open_files.h"
 
 void MultiPlot(const MultiPlotProps props, MultiPlotState* state, const move_change_t change) {
-    OpenFile* files = get_files();
-    const int count = get_count();
-
-    for (int i = 0; i < count; ++i) {
-        if (!is_imported(&files[i])) continue;
+    for (int i = 0; i < state->plot_count; ++i) {
         const Color color = COLORS[i & 7];
         const DataSource source = state->plots[i].data_source;
         PointCache* cache = &state->plots[i].point_cache;
@@ -23,6 +19,12 @@ void MultiPlot(const MultiPlotProps props, MultiPlotState* state, const move_cha
         if (cache->visible.count) {
             Spline(cache->buffer, cache->visible.count, color);
         }
+        const int hover_index = PointHoverTooltip((PointHoverTooltipProps) {
+            .data = source.data,
+            .points = cache->buffer,
+            .visible = cache->visible,
+            .color = color
+        });
     }
 }
 

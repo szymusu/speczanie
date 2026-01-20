@@ -9,11 +9,10 @@ typedef struct {
     Vector2* points;
     VisibleWindow visible;
     Color color;
-    int index;
 
 } PointHoverTooltipProps;
 
-void PointHoverTooltip(PointHoverTooltipProps props);
+int PointHoverTooltip(PointHoverTooltipProps props);
 int find_hover_point(const Vector2* points, int count);
 
 #endif //POINTHOVERTOOLTIP_H

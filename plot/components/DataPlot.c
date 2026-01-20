@@ -33,32 +33,29 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
         DrawSplineLinear(state->shadow_cache.buffer, state->shadow_cache.visible.count, 2.f, (Color){150, 150, 150, 200});
     }
 
-    const int hover_index = find_hover_point(state->point_cache.buffer, state->point_cache.visible.count);
-    const int hover_absolute_index = hover_index + state->point_cache.visible.start;
-    if (hover_index != -1) {
-        PointHoverTooltip((PointHoverTooltipProps){
-            .data = props.data_source.data,
-            .points = state->point_cache.buffer,
-            .visible = state->point_cache.visible,
-            .index = hover_index,
-            .color = props.color
-        });
-        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            if (state->input_mode == PLOT_INPUT_REGRESSION) {
-                state->regression_points_count = 0;
-                if (state->selected_point != -1 && state->selected_point != hover_absolute_index) {
-                    state->selected_second_point = hover_absolute_index;
-                }
-                else state->selected_point = hover_absolute_index;
+    const int hover_index = PointHoverTooltip((PointHoverTooltipProps){
+        .data = props.data_source.data,
+        .points = state->point_cache.buffer,
+        .visible = state->point_cache.visible,
+        .color = props.color
+    });
+    if (hover_index != -1 && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        if (state->input_mode == PLOT_INPUT_REGRESSION) {
+            state->regression_points_count = 0;
+            if (state->selected_point != -1 && state->selected_point != hover_index) {
+                state->selected_second_point = hover_index;
             }
-            else {
-                state->selected_point = hover_absolute_index;
-                state->input_mode = PLOT_INPUT_SELECT;
-            }
+            else state->selected_point = hover_index;
+        }
+        else {
+            state->selected_point = hover_index;
+            state->selected_second_point = -1;
+            state->curve_linear = (CurveLinear) {0};
+            state->input_mode = PLOT_INPUT_SELECT;
         }
     }
     if (state->input_mode == PLOT_INPUT_SELECT) {
-        const int second_point = hover_absolute_index;
+        const int second_point = hover_index;
         if (second_point == state->selected_point || hover_index == -1) {
             state->selected_second_point = -1;
         }

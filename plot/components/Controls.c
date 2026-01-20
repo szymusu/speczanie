@@ -16,8 +16,12 @@ move_change_t Controls(ControlsProps props) {
     if (IsKeyPressed(KEY_R)) {
         if (props.current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION)
             props.current_file->data_plot_state.input_mode = PLOT_INPUT_IDLE;
-        else
+        else {
             props.current_file->data_plot_state.input_mode = PLOT_INPUT_REGRESSION;
+            props.current_file->data_plot_state.regression_points_count = 0;
+            props.current_file->data_plot_state.selected_point = -1;
+            props.current_file->data_plot_state.selected_second_point = -1;
+        }
     }
 
     if (props.current_file->data_plot_state.input_mode == PLOT_INPUT_REGRESSION) {

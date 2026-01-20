@@ -17,9 +17,14 @@ int find_hover_point(const Vector2* points, const int count) {
     return -1;
 }
 
-void PointHoverTooltip(const PointHoverTooltipProps props) {
-    const Vector2 data_point = props.data[props.index + props.visible.start];
-    const Vector2 pixel_point = props.points[props.index];
+int PointHoverTooltip(const PointHoverTooltipProps props) {
+    const int hover_index = find_hover_point(props.points, props.visible.count);
+    if (hover_index == -1) return -1;
+
+    const int hover_absolute_index = hover_index + props.visible.start;
+
+    const Vector2 data_point = props.data[hover_absolute_index];
+    const Vector2 pixel_point = props.points[hover_index];
     DrawCircleV(pixel_point, 6.f, props.color);
 
     char text[32];
@@ -35,4 +40,5 @@ void PointHoverTooltip(const PointHoverTooltipProps props) {
         .border = 1,
         .text_color = BLACK
     });
+    return hover_absolute_index;
 }
