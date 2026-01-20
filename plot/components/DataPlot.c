@@ -26,8 +26,10 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
     }
     DrawSplineLinear(state->point_buffer, state->visible.count, 2.f, props.color);
     if (state->visible.count) {
-        DrawCircleV(state->point_buffer[0], 6, RED);
-        DrawCircleV(state->point_buffer[state->visible.count - 1], 6, ORANGE);
+        Color ends_color = props.color;
+        ends_color.a = 127;
+        DrawCircleV(state->point_buffer[0], 4, ends_color);
+        DrawCircleV(state->point_buffer[state->visible.count - 1], 4, ends_color);
     }
 
     if (state->shadow_visible.count) {
@@ -41,7 +43,8 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
             .data = props.data_source.data,
             .points = state->point_buffer,
             .visible = state->visible,
-            .index = hover_index
+            .index = hover_index,
+            .color = props.color
         });
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             if (state->input_mode == PLOT_INPUT_REGRESSION) {

@@ -20,7 +20,7 @@ int find_hover_point(const Vector2* points, const int count) {
 void PointHoverTooltip(const PointHoverTooltipProps props) {
     const Vector2 data_point = props.data[props.index + props.visible.start];
     const Vector2 pixel_point = props.points[props.index];
-    DrawCircleV(pixel_point, 6.f, DARKBLUE);
+    DrawCircleV(pixel_point, 6.f, props.color);
 
     char text[32];
     sprintf(text, "x: %.3f\ny: %.3f", data_point.x, data_point.y);
@@ -31,7 +31,7 @@ void PointHoverTooltip(const PointHoverTooltipProps props) {
         .padding = {5, 2},
         .align = TEXTBOX_ALIGN_BOTTOM,
         .background_color = WHITE,
-        .border_color = BLUE,
+        .border_color = props.color,
         .border = 1,
         .text_color = BLACK
     });

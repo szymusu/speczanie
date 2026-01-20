@@ -2,6 +2,7 @@
 #include <stdio.h>
 
 #include "args/args.h"
+#include "diagnostics/components/FpsCounter.h"
 #include "files/open_files.h"
 #include "files/components/ColumnImport.h"
 #include "files/components/FileList.h"
@@ -36,6 +37,7 @@ int main(const int argc, char** argv) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
 
+        const bool multi = multi_plot_state.enabled;
         if (current_file) {
             if (!is_imported(current_file)) {
                 if (options.auto_import) {
@@ -46,12 +48,11 @@ int main(const int argc, char** argv) {
                 }
             }
             else {
-                const bool multi = multi_plot_state.enabled;
                 ViewMove* view_move = multi ? &multi_plot_state.view_move : &current_file->data_plot_state.view_move;
                 const Bounds bounds = compute_bounds(*view_move);
                 Grid(bounds);
 
-                if (multi_plot_state.enabled) {
+                if (multi) {
                     Axes("σ", "ε");
                     MultiPlot(&multi_plot_state, (MultiPlotProps) { bounds });
                 }
@@ -94,7 +95,7 @@ int main(const int argc, char** argv) {
         }
 
 
-        const FileListChange file_list_change = FileList();
+        const FileListChange file_list_change = FileList(multi);
         if (file_list_change.closed != -1) {
             printf("closed %d\n", file_list_change.closed);
             close_file(file_list_change.closed);
@@ -106,7 +107,7 @@ int main(const int argc, char** argv) {
             change |= MOVE_CHANGE_PLOT;
         }
 
-        // if (GetTime() > .5) FpsCounter();
+        if (GetTime() > .5) FpsCounter();
         EndDrawing();
 
         if (IsFileDropped()) {

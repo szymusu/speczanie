@@ -8,6 +8,7 @@ typedef struct {
     Vector2* data;
     Vector2* points;
     VisibleWindow visible;
+    Color color;
     int index;
 
 } PointHoverTooltipProps;

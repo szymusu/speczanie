@@ -8,7 +8,7 @@
 #define FONT_SIZE 16.f
 #define CLOSE_BUTTON_WIDTH 50
 
-FileListChange FileList() {
+FileListChange FileList(const bool show_colors) {
     const int count = get_count();
     const OpenFile* files = get_files();
     const int selected = get_selected();
@@ -17,6 +17,7 @@ FileListChange FileList() {
 
     for (int i = 0; i < count; ++i) {
         const Vector2 origin = {PLOT_WIDTH - CLOSE_BUTTON_WIDTH, i * 35.f + 5.f};
+        const Color color = show_colors ? COLORS[i & 7] : COLORS[0];
 
         const button_state_t close_state = CloseButton(origin, FONT_SIZE);
         if (close_state == BUTTON_STATE_CLICKED) {
@@ -30,7 +31,7 @@ FileListChange FileList() {
                 .text = files[i].filename,
                 .font_size = 15,
                 .background_color = DARKBLUE,
-                .border_color = COLORS[i & 7],
+                .border_color = color,
                 .text_color = WHITE,
                 .border = 1,
                 .align = TEXTBOX_ALIGN_RIGHT
@@ -44,7 +45,7 @@ FileListChange FileList() {
                 .text = files[i].filename,
                 .font_size = 15,
                 .background_color = RAYWHITE,
-                .border_color = COLORS[i & 7],
+                .border_color = color,
                 .text_color = BLACK,
                 .border = 2,
                 .align = TEXTBOX_ALIGN_RIGHT
@@ -55,7 +56,7 @@ FileListChange FileList() {
                 .text = files[i].filename,
                 .font_size = 15,
                 .background_color = LIGHTGRAY,
-                .border_color = COLORS[i & 7],
+                .border_color = color,
                 .text_color = BLACK,
                 .border = 2,
                 .align = TEXTBOX_ALIGN_RIGHT
