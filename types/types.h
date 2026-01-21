@@ -37,6 +37,7 @@ typedef struct {
     int end_point_index;
     float a;
     float b;
+    char text[32];
 } CurveLinear;
 
 typedef struct {

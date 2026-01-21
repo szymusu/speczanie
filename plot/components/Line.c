@@ -1,11 +1,13 @@
 #include "Line.h"
 
 #include <math.h>
+#include <stdio.h>
 
 #include "../input_mode.h"
 #include "../../text/TextBox.h"
 
 #include "../../math/vector2.h"
+#include "../../text/text.h"
 
 void DrawLineWithTransform(Vector2 p1, Vector2 p2, const Bounds bounds, const Color color) {
     p1 = transform_v_to_pixel(p1, bounds);
@@ -15,6 +17,8 @@ void DrawLineWithTransform(Vector2 p1, Vector2 p2, const Bounds bounds, const Co
 
 void DrawCurveLinear(const CurveLinear curve_linear, const Bounds bounds) {
     const Vector2 p0 = { -curve_linear.b / curve_linear.a, 0 };
+    const Vector2 mid = transform_v_to_pixel((Vector2){ (p0.x + curve_linear.end_point.x) / 2,  (p0.y + curve_linear.end_point.y) / 2 }, bounds);
+    Text(curve_linear.text, mid.x, mid.y, 20, DARKGREEN);
     DrawLineWithTransform(p0, curve_linear.end_point, bounds, GREEN);
 }
 
@@ -56,5 +60,6 @@ void Line(DataPlotState* state, const DataSource data_source, const Bounds bound
         .a = a,
         .b = b
     };
+    snprintf(state->curve_linear.text, 32, "%.3fx + %.3f", a, b);
     DrawCurveLinear(state->curve_linear, bounds);
 }
