@@ -19,8 +19,9 @@
 #include "text/text.h"
 
 int main(const int argc, char** argv) {
-    Options options;
-    if (process_args(argc, argv, &options)) return -1;
+    Options options = options_default();
+    int exit_code = process_args(argc, argv, &options);
+    if (exit_code) return exit_code;
 
 #ifndef __arm64
     // Anty-aliasing mega psuje FPS na Macu
@@ -115,7 +116,7 @@ int main(const int argc, char** argv) {
             change |= MOVE_CHANGE_PLOT;
         }
 
-        // if (GetTime() > .5) FpsCounter();
+        if (options.show_fps && GetTime() > 1) FpsCounter();
         EndDrawing();
 
         if (IsFileDropped()) {

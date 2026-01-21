@@ -101,6 +101,10 @@ add_executable(${PROJECT_NAME} main.c
         util/clicked_rect.h
         plot/components/BottomHelp.c
         plot/components/BottomHelp.h
+        args/autoimport.c
+        args/autoimport.h
+        args/options.c
+        args/options.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)
