@@ -19,6 +19,7 @@ void MultiPlot_set(MultiPlotState* state) {
             source->data[j].y /= state->S0 / 1000.f; // GPa -> MPa
         }
     }
+    snprintf(state->constants_text, 64, "S₀ = %f\nL₀ = %f", state->S0, state->L0);
 }
 
 void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t change) {
@@ -34,9 +35,7 @@ void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t 
         else return;
     }
 
-    char constants[32];
-    snprintf(constants, 32, "S₀ = %f\nL₀ = %f", state->S0, state->L0);
-    Text(constants, 10, 150, 20, BLACK);
+    Text(state->constants_text, 10, 50, 20, BLACK);
 
     for (int i = 0; i < state->plot_count; ++i) {
         const Color color = COLORS[i & 7];

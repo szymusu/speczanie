@@ -19,6 +19,7 @@ typedef struct {
     int text_max_len;
     int text_lengths[2];
     unsigned char input_focus;
+    char constants_text[64];
     bool enabled;
 
 } MultiPlotState;
