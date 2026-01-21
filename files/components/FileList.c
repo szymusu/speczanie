@@ -6,7 +6,7 @@
 #include "../../text/Button.h"
 
 #define FONT_SIZE 16.f
-#define CLOSE_BUTTON_WIDTH 50
+#define CLOSE_BUTTON_WIDTH 40
 
 FileListChange FileList(const bool show_colors) {
     const int count = get_count();
@@ -16,12 +16,15 @@ FileListChange FileList(const bool show_colors) {
     FileListChange result = { -1, -1 };
 
     for (int i = 0; i < count; ++i) {
-        const Vector2 origin = {PLOT_WIDTH - CLOSE_BUTTON_WIDTH, i * 35.f + 5.f};
+        Vector2 origin = {PLOT_WIDTH - 5, i * 35.f + 5.f};
         const Color color = show_colors ? COLORS[i & 7] : COLORS[0];
 
-        const button_state_t close_state = CloseButton(origin, FONT_SIZE);
-        if (close_state == BUTTON_STATE_CLICKED) {
-            result.closed = i;
+        if (!show_colors) {
+            origin.x -= CLOSE_BUTTON_WIDTH;
+            const button_state_t close_state = CloseButton(origin, FONT_SIZE);
+            if (close_state == BUTTON_STATE_CLICKED) {
+                result.closed = i;
+            }
         }
 
         if (i == selected) {

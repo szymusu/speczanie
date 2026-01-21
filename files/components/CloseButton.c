@@ -17,9 +17,9 @@ button_state_t CloseButton(const Vector2 origin, const float font_size) {
             .text = "x",
             .font_size = font_size,
             .background_color = { 220, 150, 150, 255 },
-            .border_color = { 220, 110, 110, 255 },
+            .border_color = { 220, 80, 80, 255 },
             .text_color = BLACK,
-            .border = 4,
+            .border = 6,
         }
     );
 }

@@ -22,6 +22,8 @@ void MultiPlot_set(MultiPlotState* state) {
 }
 
 void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t change) {
+    if (!get_count()) MultiPlot_disable(state);
+
     if (!state->S0 || !state->L0) {
         set_input_mode(INPUT_MODE_TEXT);
         if (ConstantsInput(state)) {

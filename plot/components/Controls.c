@@ -1,5 +1,6 @@
 #include "Controls.h"
 
+#include "BottomHelp.h"
 #include "LineSetZero.h"
 #include "../input_mode.h"
 #include "../../text/Button.h"
@@ -202,6 +203,8 @@ move_change_t Controls(ControlsProps props) {
         data_operation_undo(&props.current_file->data_source, &props.current_file->data_plot_state.operation_stack);
         props.change |= MOVE_CHANGE_PLOT;
     }
+
+    BottomHelp("CTRL + Z -> Cofnij     CTRL + Mysz -> Przesuń", 330);
 
     return props.change;
 }

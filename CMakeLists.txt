@@ -99,6 +99,8 @@ add_executable(${PROJECT_NAME} main.c
         text/TextInput.h
         util/clicked_rect.c
         util/clicked_rect.h
+        plot/components/BottomHelp.c
+        plot/components/BottomHelp.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

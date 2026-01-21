@@ -12,7 +12,7 @@
 bool ConstantsInput(MultiPlotState* state) {
     DrawRectangle(0, 0, PLOT_WIDTH, PLOT_HEIGHT, (Color) {0,0,0, 50});
 
-    Text("Pole przekroju S₀ [mm²]", 500, 170, 20, BLACK);
+    Text("Pole przekroju S₀ [mm²]"   , 500, 170, 20, BLACK);
     Text("Długość początkowa L₀ [mm]", 500, 270, 20, BLACK);
     text_change_t l0_change = TextInput(500, 200, state->text_buffers[0], &state->text_lengths[0], state->text_max_len, state->input_focus == 1);
     text_change_t s0_change = TextInput(500, 300, state->text_buffers[1], &state->text_lengths[1], state->text_max_len, state->input_focus == 2);
