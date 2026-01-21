@@ -1,7 +1,6 @@
 #ifndef MOVE_H
 #define MOVE_H
 
-#include "plot_math.h"
 #include "../types/types.h"
 
 typedef struct {

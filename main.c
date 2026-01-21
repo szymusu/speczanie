@@ -32,7 +32,7 @@ int main(const int argc, char** argv) {
     font_init();
 
     OpenFile* current_file = get_selected_file();
-    MultiPlotState multi_plot_state = { .enabled = false };
+    MultiPlotState multi_plot_state = { 0 };
     move_change_t change = 0b11;
 
     while (!WindowShouldClose()) {

@@ -2,6 +2,8 @@
 #define SPECZANIE_CONSTANTSINPUT_H
 #include <stdbool.h>
 
-bool ConstantsInput(float* S0, float* L0);
+#include "MultiPlot.h"
+
+bool ConstantsInput(MultiPlotState* state);
 
 #endif //SPECZANIE_CONSTANTSINPUT_H

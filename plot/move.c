@@ -2,6 +2,7 @@
 
 #include "input_mode.h"
 #include "../math/vector2.h"
+#include "plot_math.h"
 
 #define ZOOM_SPEED .08f
 

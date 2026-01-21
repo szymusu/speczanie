@@ -10,10 +10,15 @@ typedef struct {
 } SinglePlot;
 
 typedef struct {
+    char* text_buffers[2];
     SinglePlot* plots;
     int plot_count;
     ViewMove view_move;
     float S0, L0;
+    float S0_tmp, L0_tmp;
+    int text_max_len;
+    int text_lengths[2];
+    unsigned char input_focus;
     bool enabled;
 
 } MultiPlotState;

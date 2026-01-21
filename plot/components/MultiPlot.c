@@ -7,7 +7,9 @@
 #include "ConstantsInput.h"
 #include "PointHoverTooltip.h"
 #include "Spline.h"
+#include "../input_mode.h"
 #include "../../files/open_files.h"
+#include "../../text/text.h"
 
 void MultiPlot_set(MultiPlotState* state) {
     for (int i = 0; i < state->plot_count; ++i) {
@@ -21,12 +23,18 @@ void MultiPlot_set(MultiPlotState* state) {
 
 void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t change) {
     if (!state->S0 || !state->L0) {
-        if (ConstantsInput(&state->S0, &state->L0)) {
+        set_input_mode(INPUT_MODE_TEXT);
+        if (ConstantsInput(state)) {
+            set_input_mode(INPUT_MODE_IDLE);
             MultiPlot_set(state);
             change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_ZOOM;
         }
         else return;
     }
+
+    char constants[32];
+    snprintf(constants, 32, "S₀ = %f\nL₀ = %f", state->S0, state->L0);
+    Text(constants, 10, 150, 20, BLACK);
 
     for (int i = 0; i < state->plot_count; ++i) {
         const Color color = COLORS[i & 7];
@@ -49,8 +57,20 @@ void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t 
     }
 }
 
+#define TEXT_MAX_LEN 14 // max length of one (of 2) text buffers, excluding cursor and null terminator
 void MultiPlot_enable(MultiPlotState* state, const ViewMove view_move) {
     const int count = get_count();
+
+    char* text_buffer = calloc((TEXT_MAX_LEN + 2) * 2, 1);
+    state->text_max_len = TEXT_MAX_LEN;
+    state->text_buffers[0] = text_buffer;
+    state->text_buffers[1] = &text_buffer[TEXT_MAX_LEN + 2];
+    state->text_lengths[0] = 0;
+    state->text_lengths[1] = 0;
+    state->text_buffers[0][0] = '_';
+    state->text_buffers[1][0] = '_';
+
+    state->input_focus = 1;
 
     state->plots = malloc(count * sizeof(SinglePlot));
     state->plot_count = 0;
@@ -79,6 +99,7 @@ ViewMove MultiPlot_disable(MultiPlotState* state) {
         free(state->plots[i].data_source.data);
     }
     free(state->plots);
+    free(state->text_buffers[0]);
 
     state->enabled = false;
     return state->view_move;
