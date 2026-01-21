@@ -25,6 +25,8 @@ bool ConstantsInput(MultiPlotState* state) {
     }
     if (l0_change == TEXT_CHANGE_UNFOCUS) state->input_focus = 2;
     if (s0_change == TEXT_CHANGE_UNFOCUS) state->input_focus = 1;
+    if (l0_change == TEXT_CHANGE_FOCUS) state->input_focus = 1;
+    if (s0_change == TEXT_CHANGE_FOCUS) state->input_focus = 2;
 
     const button_options_t disabled = BUTTON_OPTION_DISABLED * (state->S0_tmp == 0 || state->L0_tmp == 0);
     if (ButtonDefault((Vector2) {600, 400}, "OK", 20, disabled) == BUTTON_STATE_CLICKED) {

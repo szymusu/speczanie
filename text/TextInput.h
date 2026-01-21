@@ -4,7 +4,8 @@
 #define TEXT_CHANGE_NONE 0
 #define TEXT_CHANGE_INPUT 1
 #define TEXT_CHANGE_UNFOCUS 2
-#define TEXT_CHANGE_ENTER 4
+#define TEXT_CHANGE_FOCUS 4
+#define TEXT_CHANGE_ENTER 8
 
 #include <stdbool.h>
 

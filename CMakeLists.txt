@@ -97,6 +97,8 @@ add_executable(${PROJECT_NAME} main.c
         plot/input_mode.h
         text/TextInput.c
         text/TextInput.h
+        util/clicked_rect.c
+        util/clicked_rect.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)
