@@ -30,6 +30,19 @@ float normalize(Vector2* points, const int count) {
     return offset;
 }
 
+int prepare_points_between(const int i1, const int i2, const DataSource data_source, Vector2* regression_points, CurvePolynomial* curve) {
+    int start, end;
+    if (i1 < i2) start = i1, end = i2;
+    else         start = i2, end = i1;
+
+    int count = 0;
+    for (int i = start; i <= end; ++i, ++count) {
+        regression_points[count] = data_source.data[i];
+    }
+    curve->normal_offset_x = normalize(regression_points, count);
+    return count;
+}
+
 void swap_rows(int* swap_table, const int row1, const int row2) {
     const int tmp = swap_table[row1];
     swap_table[row1] = swap_table[row2];

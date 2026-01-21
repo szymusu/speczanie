@@ -14,6 +14,13 @@ move_change_t MultiControls(MultiControlProps props) {
     }
     Text("σ = f(ε)", 60, 12, 26, BLACK);
 
+    if (props.state->S0 && props.state->L0) {
+        Text(props.state->constants_text, 10, 50, 20, BLACK);
+        if (ButtonDefault((Vector2) {170, 10}, "Regresja", 16, 0) == BUTTON_STATE_CLICKED) {
+            set_input_mode(INPUT_MODE_REGRESSION);
+        }
+    }
+
     BottomHelp("SHIFT + Scroll -> Skaluj oś X", 460);
 
     return props.change;

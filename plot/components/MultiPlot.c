@@ -35,8 +35,6 @@ void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t 
         else return;
     }
 
-    Text(state->constants_text, 10, 50, 20, BLACK);
-
     for (int i = 0; i < state->plot_count; ++i) {
         const Color color = COLORS[i & 7];
         const DataSource source = state->plots[i].data_source;

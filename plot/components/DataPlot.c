@@ -76,25 +76,13 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
     if (is_input_mode(INPUT_MODE_REGRESSION)) {
         const int i1 = state->selected_point;
         const int i2 = state->selected_second_point;
-        if (i1 != -1 && i2 != -1) {
-            int start, end;
-            if (i1 < i2) {
-                start = i1, end = i2;
-            }
-            else {
-                start = i2, end = i1;
-            }
-            int count = 0;
-            for (int i = start; i <= end; ++i, ++count) {
-                state->regression_points[count] = props.data_source.data[i];
-            }
-            state->curve_polynomial.normal_offset_x = normalize(state->regression_points, count);
-            state->regression_points_count = count;
+        if (i1 != -1 && i2 != -1 && i1 != i2) {
+            state->regression_points_count = prepare_points_between(i1, i2, props.data_source, state->regression_points, &state->curve_polynomial);
+        }
+        if (state->regression_points_count) {
             state->selected_point = -1;
             state->selected_second_point = -1;
             change |= MOVE_CHANGE_POLYNOMIAL;
-        }
-        if (state->regression_points_count) {
             Polynomial(&state->curve_polynomial, state->regression_points, state->regression_points_count, change, props.bounds);
         }
     }
