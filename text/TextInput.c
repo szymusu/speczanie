@@ -43,6 +43,9 @@ text_change_t TextInput(const float x, const float y, char* buffer, int* len, co
     else if (IsKeyPressed(KEY_TAB)) {
         change |= TEXT_CHANGE_UNFOCUS;
     }
+    else if (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_KP_ENTER)) {
+        change |= TEXT_CHANGE_ENTER;
+    }
 
     if (*len < max_len) buffer[*len] = '_';
 

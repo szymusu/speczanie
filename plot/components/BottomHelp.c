@@ -3,7 +3,7 @@
 #include "../plot_math.h"
 #include "../../text/TextBox.h"
 
-#define FONT_SIZE 22
+#define FONT_SIZE 18
 
 void BottomHelp(const char* text, const float left) {
     TextBox((TextBoxProps) {

@@ -42,7 +42,7 @@ void set_path_and_name(OpenFile* file, const char* filepath) {
             length = i;
             break;
         }
-        if (filepath[i] == '/') {
+        if (filepath[i] == '/' || filepath[i] == '\\') {
             last_slash = i;
         }
     }

@@ -204,7 +204,7 @@ move_change_t Controls(ControlsProps props) {
         props.change |= MOVE_CHANGE_PLOT;
     }
 
-    BottomHelp("CTRL + Z -> Cofnij     CTRL + Mysz -> Przesuń", 330);
+    BottomHelp("CTRL + Z -> Cofnij | CTRL + Mysz -> Przesuń | SHIFT + Scroll -> Skaluj oś X", 240);
 
     return props.change;
 }

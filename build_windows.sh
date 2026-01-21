@@ -7,6 +7,7 @@ i686-w64-mingw32-gcc main.c \
     plot/*.c plot/components/*.c \
     text/*.c \
     util/*.c \
+    -O3 \
     -o ./build/speczanie.exe \
     ./lib/raylib/raylib-5.5_win32_mingw-w64/lib/libraylib.a \
     -I./lib/raylib/raylib-5.5_win32_mingw-w64/include \

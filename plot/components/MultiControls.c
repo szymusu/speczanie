@@ -1,5 +1,6 @@
 #include "MultiControls.h"
 
+#include "BottomHelp.h"
 #include "../input_mode.h"
 #include "../../text/text.h"
 #include "../../files/components/CloseButton.h"
@@ -12,6 +13,8 @@ move_change_t MultiControls(MultiControlProps props) {
         return props.change | MOVE_CHANGE_PLOT;
     }
     Text("σ = f(ε)", 60, 12, 26, BLACK);
+
+    BottomHelp("SHIFT + Scroll -> Skaluj oś X", 460);
 
     return props.change;
 }
