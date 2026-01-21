@@ -22,6 +22,12 @@ typedef struct {
     char constants_text[64];
     bool enabled;
 
+    CurvePolynomial curve;
+    Vector2* regression_points;
+    int regression_points_count;
+    int selected1, selected2;
+    int selected_plot;
+
 } MultiPlotState;
 
 typedef struct {

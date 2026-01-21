@@ -78,11 +78,11 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
         const int i2 = state->selected_second_point;
         if (i1 != -1 && i2 != -1 && i1 != i2) {
             state->regression_points_count = prepare_points_between(i1, i2, props.data_source, state->regression_points, &state->curve_polynomial);
-        }
-        if (state->regression_points_count) {
             state->selected_point = -1;
             state->selected_second_point = -1;
             change |= MOVE_CHANGE_POLYNOMIAL;
+        }
+        if (state->regression_points_count) {
             Polynomial(&state->curve_polynomial, state->regression_points, state->regression_points_count, change, props.bounds);
         }
     }
@@ -92,8 +92,6 @@ void DataPlot(const DataPlotProps props, move_change_t change, DataPlotState* st
 }
 
 DataPlotState DataPlotState_create(const int data_count) {
-    char* equation = malloc(256);
-    equation[0] = 0;
     return (DataPlotState) {
         .x_label = "",
         .y_label = "",
@@ -106,9 +104,6 @@ DataPlotState DataPlotState_create(const int data_count) {
         .operation_stack = data_operation_stack_init(),
         .curve_polynomial = {
             .order = 4,
-            .coefficients = malloc(sizeof(float) * POLYNOMIAL_MAX_DEGREE),
-            .point_buffer = malloc(sizeof (Vector2) * POLYNOMIAL_POINT_COUNT),
-            .equation = equation
         },
     };
 }
@@ -117,8 +112,5 @@ void DataPlotState_destroy(DataPlotState* state) {
     free(state->point_cache.buffer);
     free(state->shadow_cache.buffer);
     free(state->regression_points);
-    free(state->curve_polynomial.coefficients);
-    free(state->curve_polynomial.point_buffer);
-    free(state->curve_polynomial.equation);
     data_operation_stack_free(&state->operation_stack);
 }

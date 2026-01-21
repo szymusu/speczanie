@@ -76,9 +76,12 @@ int main(const int argc, char** argv) {
                     .bounds = bounds
                 });
                 if (is_input_mode(INPUT_MODE_REGRESSION)) {
+                    CurvePolynomial* curve = multi ? &multi_plot_state.curve : &current_file->data_plot_state.curve_polynomial;
+                    const int point_count = multi ? multi_plot_state.regression_points_count : current_file->data_plot_state.regression_points_count;
+
                     change = RegressionControls((RegressionControlProps) {
-                        .curve = &current_file->data_plot_state.curve_polynomial,
-                        .regression_point_count = current_file->data_plot_state.regression_points_count,
+                        .curve = curve,
+                        .regression_point_count = point_count,
                         .change = change
                     });
                 }
@@ -106,7 +109,6 @@ int main(const int argc, char** argv) {
 
         const FileListChange file_list_change = FileList(multi);
         if (file_list_change.closed != -1) {
-            printf("closed %d\n", file_list_change.closed);
             close_file(file_list_change.closed);
             current_file = get_selected_file();
             change |= MOVE_CHANGE_PLOT;

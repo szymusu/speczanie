@@ -40,10 +40,13 @@ typedef struct {
     char text[32];
 } CurveLinear;
 
+#define POLYNOMIAL_POINT_COUNT 100
+#define POLYNOMIAL_MAX_DEGREE 30
+
 typedef struct {
-    Vector2* point_buffer;
-    float* coefficients;
-    char* equation;
+    Vector2 point_buffer[POLYNOMIAL_POINT_COUNT];
+    float coefficients[POLYNOMIAL_MAX_DEGREE];
+    char equation[256];
     float normal_offset_x;
     float start_x;
     float end_x;
