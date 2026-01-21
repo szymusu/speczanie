@@ -128,11 +128,11 @@ move_change_t Controls(ControlsProps props) {
         props.change |= MOVE_CHANGE_PLOT;
     }
 
-    if (Button((Vector2) {1050, 550}, "Eksportuj CSV", 16, 0) == BUTTON_STATE_CLICKED) {
+    if (ButtonDefault((Vector2) {1050, 550}, "Eksportuj CSV", 16, 0) == BUTTON_STATE_CLICKED) {
         file_export_csv(props.current_file);
     }
 
-    if (Button((Vector2) {900, 550}, "Eksportuj PNG", 16, 0) == BUTTON_STATE_CLICKED) {
+    if (ButtonDefault((Vector2) {900, 550}, "Eksportuj PNG", 16, 0) == BUTTON_STATE_CLICKED) {
         image_export(props.current_file->data_source, "export.png");
     }
 

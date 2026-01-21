@@ -18,14 +18,17 @@ move_change_t RegressionControls(RegressionControlProps props) {
     Text("Regresja", 60, 12, 26, BLACK);
 
     char degree_text[32];
-    sprintf(degree_text, "Stopień wielomianu: %d", props.curve->order - 1);
-    Text(degree_text, 10, 45, 20, BLACK);
+    const int d = props.curve->order - 1;
+    snprintf(degree_text, 32, "%d", d);
 
-    if (ButtonDefault((Vector2){10, 80}, "<", 16, 0) == BUTTON_STATE_CLICKED && props.curve->order > 1) {
+    Text("Stopień wielomianu", 8, 60, 16, BLACK);
+    Text(degree_text, d > 9 ? 50 : 55, 83, 22, BLACK);
+
+    if (ButtonDefault((Vector2){10, 80}, "<", 12, 0) == BUTTON_STATE_CLICKED && props.curve->order > 1) {
         props.curve->order--;
         props.change |= MOVE_CHANGE_POLYNOMIAL;
     }
-    if (ButtonDefault((Vector2){60, 80}, ">", 16, 0) == BUTTON_STATE_CLICKED && props.curve->order < POLYNOMIAL_MAX_DEGREE) {
+    if (ButtonDefault((Vector2){80, 80}, ">", 12, 0) == BUTTON_STATE_CLICKED && props.curve->order < POLYNOMIAL_MAX_DEGREE) {
         props.curve->order++;
         props.change |= MOVE_CHANGE_POLYNOMIAL;
     }
