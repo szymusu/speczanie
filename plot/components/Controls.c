@@ -15,22 +15,6 @@ void point_index_flip(int* index, const int count) {
 }
 
 move_change_t Controls(ControlsProps props) {
-    if (IsKeyPressed(KEY_R)) {
-        if (is_input_mode(INPUT_MODE_REGRESSION)) {
-            set_input_mode(INPUT_MODE_IDLE);
-        }
-        else {
-            set_input_mode(INPUT_MODE_REGRESSION);
-            props.current_file->data_plot_state.regression_points_count = 0;
-            props.current_file->data_plot_state.selected_point = -1;
-            props.current_file->data_plot_state.selected_second_point = -1;
-        }
-    }
-
-    if (is_input_mode(INPUT_MODE_REGRESSION)) {
-        Text("Wybierz punkty do regresji", 400, 10, 20, BROWN);
-    }
-
     if (props.change & MOVE_CHANGE_APPLY_OFFSET) {
         data_operation_do(
             &props.current_file->data_source,
@@ -43,17 +27,45 @@ move_change_t Controls(ControlsProps props) {
         props.current_file->data_plot_state.plot_move.plot_offset = VECTOR2_ZERO;
     }
 
-    if (Button((Vector2) {10, 50}, "Odwróć y", 16, 0) == BUTTON_STATE_CLICKED) {
+
+    if (ButtonDefault((Vector2) {10, 10}, "Wykres σ = f(ε)", 16, 0) == BUTTON_STATE_CLICKED) {
+        const bool enabled = props.multi_plot_state->enabled;
+        if (enabled) {
+            props.current_file->data_plot_state.view_move = MultiPlot_disable(props.multi_plot_state);
+        }
+        else {
+            MultiPlot_enable(props.multi_plot_state, props.current_file->data_plot_state.view_move);
+        }
+        props.change |= MOVE_CHANGE_PLOT;
+    }
+    if (ButtonDefault((Vector2) {150, 10}, "Regresja", 16, 0) == BUTTON_STATE_CLICKED) {
+        set_input_mode(INPUT_MODE_REGRESSION);
+        props.current_file->data_plot_state.regression_points_count = 0;
+        props.current_file->data_plot_state.selected_point = -1;
+        props.current_file->data_plot_state.selected_second_point = -1;
+    }
+
+
+    if (ButtonDefault((Vector2) {10, 52}, "Wyeruj start", 16, is_vec2_zero(props.current_file->data_source.data[0]) * BUTTON_OPTION_DISABLED) == BUTTON_STATE_CLICKED) {
         data_operation_do(
             &props.current_file->data_source,
             &props.current_file->data_plot_state.operation_stack,
-            (DataOperation) { .type = OP_FLIP_Y }
+            (DataOperation) {
+                .type = OP_OFFSET,
+                .op = { .offset = { .offset = {
+                    .x = -props.current_file->data_source.data[0].x,
+                    .y = props.current_file->data_source.data[0].y
+                } } }
+            }
             );
-        props.current_file->data_plot_state.curve_linear.end_point.y *= -1;
-        props.change |= MOVE_CHANGE_PLOT;
+        props.current_file->data_plot_state.plot_move.plot_offset = VECTOR2_ZERO;
+        props.current_file->data_plot_state.view_move.pan = VECTOR2_ZERO;
+        props.change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
     }
 
-    if (Button((Vector2) {100, 50}, "Odwróć x", 16, 0) == BUTTON_STATE_CLICKED) {
+
+    Text("Odwróć współrzędne", 10, 89, 16, BLACK);
+    if (ButtonDefault((Vector2) {10, 106}, " X ", 16, 0) == BUTTON_STATE_CLICKED) {
         data_operation_do(
             &props.current_file->data_source,
             &props.current_file->data_plot_state.operation_stack,
@@ -65,65 +77,55 @@ move_change_t Controls(ControlsProps props) {
         point_index_flip(&props.current_file->data_plot_state.selected_second_point, count);
         point_index_flip(&props.current_file->data_plot_state.curve_linear.end_point_index, count);
         props.current_file->data_plot_state.curve_linear.end_point.x *= -1;
-
+        props.change |= MOVE_CHANGE_PLOT;
+    }
+    if (ButtonDefault((Vector2) {64, 106}, " Y ", 16, 0) == BUTTON_STATE_CLICKED) {
+        data_operation_do(
+            &props.current_file->data_source,
+            &props.current_file->data_plot_state.operation_stack,
+            (DataOperation) { .type = OP_FLIP_Y }
+            );
+        props.current_file->data_plot_state.curve_linear.end_point.y *= -1;
         props.change |= MOVE_CHANGE_PLOT;
     }
 
+
+    Text("Zablokuj oś", 10, 143, 16, BLACK);
+    const bool is_lock_x = props.current_file->data_plot_state.plot_move.movement_lock == MOVEMENT_LOCK_X;
+    if (ButtonDefault((Vector2) {10, 160}, " X ", 16, is_lock_x & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
+        if (is_lock_x)  props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_NONE;
+        else            props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_X;
+    }
     const bool is_lock_y = props.current_file->data_plot_state.plot_move.movement_lock == MOVEMENT_LOCK_Y;
-    if (ButtonDefault((Vector2) {10, 150}, "Blokuj y", 16, is_lock_y & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
+    if (ButtonDefault((Vector2) {64, 160}, " Y ", 16, is_lock_y & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
         if (is_lock_y)  props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_NONE;
         else            props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_Y;
     }
 
-    const bool is_lock_x = props.current_file->data_plot_state.plot_move.movement_lock == MOVEMENT_LOCK_X;
-    if (ButtonDefault((Vector2) {100, 150}, "Blokuj x", 16, is_lock_x & BUTTON_OPTION_ACTIVE) & BUTTON_STATE_CLICKED) {
-        if (is_lock_x)  props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_NONE;
-        else            props.current_file->data_plot_state.plot_move.movement_lock = MOVEMENT_LOCK_X;
-    }
 
-    if (!is_vec2_zero(props.current_file->data_source.data[0])) {
-        if (Button((Vector2) {10, 100}, "Zeruj start", 16, 0) == BUTTON_STATE_CLICKED) {
-            data_operation_do(
-                &props.current_file->data_source,
-                &props.current_file->data_plot_state.operation_stack,
-                (DataOperation) {
-                    .type = OP_OFFSET,
-                    .op = { .offset = { .offset = {
-                        .x = -props.current_file->data_source.data[0].x,
-                        .y = props.current_file->data_source.data[0].y
-                    } } }
-                }
-                );
-            props.current_file->data_plot_state.plot_move.plot_offset = VECTOR2_ZERO;
-            props.current_file->data_plot_state.view_move.pan = VECTOR2_ZERO;
-            props.change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_PAN;
-        }
+    const int selected = props.current_file->data_plot_state.selected_point;
+    Text("Utnij", 10, 197, 16, BLACK);
+    if (ButtonDefault((Vector2) {10, 214}, "Lewo", 16, BUTTON_OPTION_DISABLED * (selected <= 0)) == BUTTON_STATE_CLICKED) {
+        data_operation_do(
+            &props.current_file->data_source,
+            &props.current_file->data_plot_state.operation_stack,
+            (DataOperation) {
+                .op = { .cut_left = {.index = props.current_file->data_plot_state.selected_point} },
+                .type = OP_CUT_LEFT
+            });
+        props.current_file->data_plot_state.selected_point = -1;
+        props.change |= MOVE_CHANGE_PLOT;
     }
-
-    if (props.current_file->data_plot_state.selected_point > 0) {
-        Text("Utnij", 10, 200, 16, BLACK);
-        if (Button((Vector2) {70, 216}, "Lewo", 16, TEXTBOX_ALIGN_RIGHT) == BUTTON_STATE_CLICKED) {
-            data_operation_do(
-                &props.current_file->data_source,
-                &props.current_file->data_plot_state.operation_stack,
-                (DataOperation) {
-                    .op = { .cut_left = {.index = props.current_file->data_plot_state.selected_point} },
-                    .type = OP_CUT_LEFT
-                });
-            props.current_file->data_plot_state.selected_point = -1;
-            props.change |= MOVE_CHANGE_PLOT;
-        }
-        if (Button((Vector2) {75, 216}, "Prawo", 16, 0) == BUTTON_STATE_CLICKED) {
-            data_operation_do(
-                &props.current_file->data_source,
-                &props.current_file->data_plot_state.operation_stack,
-                (DataOperation) {
-                    .op = { .cut_right = {.index = props.current_file->data_plot_state.selected_point} },
-                    .type = OP_CUT_RIGHT
-                });
-            props.current_file->data_plot_state.selected_point = -1;
-            props.change |= MOVE_CHANGE_PLOT;
-        }
+    if (ButtonDefault((Vector2) {75, 214}, "Prawo", 16, BUTTON_OPTION_DISABLED * (selected <= 1)) == BUTTON_STATE_CLICKED) {
+        data_operation_do(
+            &props.current_file->data_source,
+            &props.current_file->data_plot_state.operation_stack,
+            (DataOperation) {
+                .op = { .cut_right = {.index = props.current_file->data_plot_state.selected_point} },
+                .type = OP_CUT_RIGHT
+            });
+        props.current_file->data_plot_state.selected_point = -1;
+        props.change |= MOVE_CHANGE_PLOT;
     }
 
     if (Button((Vector2) {1050, 550}, "Eksportuj CSV", 16, 0) == BUTTON_STATE_CLICKED) {
@@ -132,17 +134,6 @@ move_change_t Controls(ControlsProps props) {
 
     if (Button((Vector2) {900, 550}, "Eksportuj PNG", 16, 0) == BUTTON_STATE_CLICKED) {
         image_export(props.current_file->data_source, "export.png");
-    }
-
-    if (Button((Vector2) {20, 400}, "Wykres σ = f(ε)", 16, 0) == BUTTON_STATE_CLICKED) {
-        const bool enabled = props.multi_plot_state->enabled;
-        if (enabled) {
-            props.current_file->data_plot_state.view_move = MultiPlot_disable(props.multi_plot_state);
-        }
-        else {
-            MultiPlot_enable(props.multi_plot_state, props.current_file->data_plot_state.view_move);
-        }
-        props.change |= MOVE_CHANGE_PLOT;
     }
 
     const bool line_ready = props.current_file->data_plot_state.curve_linear.a && !is_input_mode(INPUT_MODE_SELECT);
@@ -199,7 +190,7 @@ move_change_t Controls(ControlsProps props) {
         }
     }
 
-    if (IsKeyDown(KEY_LEFT_CONTROL) && IsKeyPressed(KEY_Z)) {
+    if (IsKeyDown(KEY_LEFT_CONTROL) && (IsKeyPressed(KEY_Z) || IsKeyPressedRepeat(KEY_Z))) {
         data_operation_undo(&props.current_file->data_source, &props.current_file->data_plot_state.operation_stack);
         props.change |= MOVE_CHANGE_PLOT;
     }
