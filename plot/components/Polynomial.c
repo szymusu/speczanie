@@ -1,6 +1,7 @@
 #include "Polynomial.h"
 
 #include "../../math/regression.h"
+#include "../../util/format_polynomial.h"
 
 float f(const float x, const float* coefficients, const uint8_t order) {
     float y = 0;
@@ -25,6 +26,8 @@ void compute_points(CurvePolynomial* curve, const Bounds bounds) {
 void Polynomial(CurvePolynomial* curve, Vector2* points, const int point_count, move_change_t change, const Bounds bounds) {
     if (change & MOVE_CHANGE_POLYNOMIAL) {
         regression(curve, points, point_count, curve->order);
+        format_polynomial(curve->equation, 255, curve);
+        curve->copied = false;
     }
     if (change) {
         DrawRectangle(0, PLOT_HEIGHT - 7, 7, 7, RED);

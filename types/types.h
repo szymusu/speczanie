@@ -51,6 +51,7 @@ typedef struct {
     float start_x;
     float end_x;
     uint8_t order;
+    bool copied;
 } CurvePolynomial;
 
 typedef struct {
