@@ -91,7 +91,7 @@ int open_file(const char* filename) {
     else {
         const union CsvParseResult parse_result = csv_parse(filename);
         if (is_csv_error(parse_result)) {
-            printf("Error %s: ", filename);
+            printf("Error %s: %d\n", filename, parse_result.error.error_type);
             return -1;
         }
 
@@ -155,7 +155,7 @@ int file_export_csv(const OpenFile* open_file) {
         csv_name[filepath_size + 4] = '\0';
     }
 
-    FILE* csv_file = fopen(csv_name, "w");
+    FILE* csv_file = fopen(csv_name, "wb");
     printf("Exporting to %s\n", csv_name);
 
     if (open_file->file_type != FILE_TYPE_CSV) free(csv_name);

@@ -46,7 +46,7 @@ void csv_error(union CsvParseResult* res, const enum CsvParseErrorType type) {
 
 union CsvParseResult csv_parse(const char* filename) {
     union CsvParseResult res = {0};
-    FILE* file = fopen(filename, "r");
+    FILE* file = fopen(filename, "rb");
     if (file == NULL) {
         csv_error(&res, CSV_INVALID_HANDLE);
         return res;
@@ -59,7 +59,7 @@ union CsvParseResult csv_parse(const char* filename) {
     while (fgets(line_buffer, MAX_LINE_LENGTH, file)) {
         line_number++;
         const char last_char = line_buffer[MAX_LINE_LENGTH - 2];
-        if (last_char != '\0' && last_char != '\n') {
+        if (last_char != '\0' && last_char != '\n' && last_char != '\r') {
             csv_error(&res, LINE_TOO_LONG);
             free(data.data);
             return res;

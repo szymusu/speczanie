@@ -1,7 +1,14 @@
 cmake_minimum_required(VERSION 3.15)
 project(speczanie)
 
-find_package(raylib 5.5 REQUIRED) # Requires at least version 3.0
+#find_package(raylib 5.5 REQUIRED) # Requires at least version 3.0
+
+add_library(raylib STATIC IMPORTED)
+
+set_target_properties(raylib PROPERTIES
+        IMPORTED_LOCATION "/home/_m/code/speczanie/lib/raylib/raylib-5.5_win32_mingw-w64/src/build/raylib/libraylib.a"
+        INTERFACE_INCLUDE_DIRECTORIES "/home/_m/code/speczanie/lib/raylib/raylib-5.5_win32_mingw-w64/src/build/raylib/include/"
+)
 
 set(CMAKE_C_STANDARD 11) # Requires C11 standard
 
@@ -111,6 +118,7 @@ add_executable(${PROJECT_NAME} main.c
 
 target_link_libraries(${PROJECT_NAME} raylib)
 target_link_libraries(${PROJECT_NAME} m)
+target_link_libraries(${PROJECT_NAME} GL pthread dl X11)
 
 # Checks if OSX and links appropriate frameworks (only required on MacOS)
 if (APPLE)
