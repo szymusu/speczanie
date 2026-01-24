@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 void format_polynomial(char* dest, int max_length, const CurvePolynomial* curve) {
+    // return;
     for (int i = curve->order - 1; i > 0; --i) {
         const int written = snprintf(dest, max_length, "%.2fx^%d + ", curve->coefficients[i], i);
         dest += written;

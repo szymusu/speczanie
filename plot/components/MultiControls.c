@@ -2,6 +2,7 @@
 
 #include "BottomHelp.h"
 #include "../input_mode.h"
+#include "../multi_export.h"
 #include "../../text/text.h"
 #include "../../files/components/CloseButton.h"
 
@@ -18,7 +19,12 @@ move_change_t MultiControls(MultiControlProps props) {
         Text(props.state->constants_text, 10, 50, 20, BLACK);
         if (ButtonDefault((Vector2) {170, 10}, "Regresja", 16, 0) == BUTTON_STATE_CLICKED) {
             set_input_mode(INPUT_MODE_REGRESSION);
+
         }
+    }
+
+    if (ButtonDefault((Vector2) {1050, 550}, "Eksportuj CSV", 16, 0) == BUTTON_STATE_CLICKED) {
+        multi_export(props.state->plots, props.state->plot_count);
     }
 
     BottomHelp("SHIFT + Scroll -> Skaluj oś X", 460);

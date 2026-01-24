@@ -1,5 +1,6 @@
 #include "MultiPlot.h"
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -13,17 +14,27 @@
 #include "../../math/regression.h"
 
 void MultiPlot_set(MultiPlotState* state) {
+    float min_x = INFINITY, max_x = -INFINITY;
+
     for (int i = 0; i < state->plot_count; ++i) {
         const DataSource* source = &state->plots[i].data_source;
         for (int j = 0; j < source->count; ++j) {
-            source->data[j].x /= state->L0;
+            const float x = source->data[j].x / state->L0;
+            source->data[j].x = x;
             source->data[j].y /= state->S0 / 1000.f; // GPa -> MPa
+
+            if (x < min_x) min_x = x;
+            if (x > max_x) max_x = x;
         }
     }
+    printf("min %f, max %f\n", min_x, max_x);
+    state->view_move.scale_x = fit_scale(min_x, max_x) * 1000.f / state->S0;
+    state->view_move.pan = (Vector2){0,0};
+    state->view_move.zoom /= 1000.f / state->S0;
     snprintf(state->constants_text, 64, "S₀ = %f\nL₀ = %f", state->S0, state->L0);
 }
 
-void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t change) {
+void MultiPlot(MultiPlotProps props, MultiPlotState* state, move_change_t* change) {
     if (!get_count()) MultiPlot_disable(state);
 
     if (!state->S0 || !state->L0) {
@@ -31,7 +42,8 @@ void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t 
         if (ConstantsInput(state)) {
             set_input_mode(INPUT_MODE_IDLE);
             MultiPlot_set(state);
-            change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_ZOOM;
+            *change |= MOVE_CHANGE_PLOT | MOVE_CHANGE_ZOOM | MOVE_CHANGE_PAN;
+            props.bounds = compute_bounds(state->view_move);
         }
         else return;
     }
@@ -43,7 +55,7 @@ void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t 
         const DataSource source = state->plots[i].data_source;
         PointCache* cache = &state->plots[i].point_cache;
 
-        if (change) {
+        if (*change) {
             cache->visible = compute_visible_points(source, cache->buffer, props.bounds);
         }
 
@@ -97,10 +109,10 @@ void MultiPlot(const MultiPlotProps props, MultiPlotState* state, move_change_t 
                 state->regression_points_count = prepare_points_between(i1, i2, source, state->regression_points, &state->curve);
                 state->selected1 = -1;
                 state->selected2 = -1;
-                change |= MOVE_CHANGE_POLYNOMIAL;
+                *change |= MOVE_CHANGE_POLYNOMIAL;
             }
             if (state->regression_points_count) {
-                Polynomial(&state->curve, state->regression_points, state->regression_points_count, change, props.bounds);
+                Polynomial(&state->curve, state->regression_points, state->regression_points_count, *change, props.bounds);
             }
         }
     }
@@ -114,10 +126,17 @@ void MultiPlot_enable(MultiPlotState* state, const ViewMove view_move) {
     state->text_max_len = TEXT_MAX_LEN;
     state->text_buffers[0] = text_buffer;
     state->text_buffers[1] = &text_buffer[TEXT_MAX_LEN + 2];
-    state->text_lengths[0] = 0;
-    state->text_lengths[1] = 0;
-    state->text_buffers[0][0] = '_';
-    state->text_buffers[1][0] = '_';
+
+    if (state->S0_tmp != 0 && state->L0_tmp != 0) {
+        state->text_lengths[0] = snprintf(state->text_buffers[0], TEXT_MAX_LEN, "%f", state->S0_tmp) - 1;
+        state->text_lengths[1] = snprintf(state->text_buffers[1], TEXT_MAX_LEN, "%f", state->L0_tmp) - 1;
+    }
+    else {
+        state->text_lengths[0] = 0;
+        state->text_lengths[1] = 0;
+        state->text_buffers[0][0] = '_';
+        state->text_buffers[1][0] = '_';
+    }
 
     state->input_focus = 1;
     state->selected1 = -1;
@@ -160,5 +179,7 @@ ViewMove MultiPlot_disable(MultiPlotState* state) {
     free(state->regression_points);
 
     state->enabled = false;
+    state->S0 = 0;
+    state->L0 = 0;
     return state->view_move;
 }

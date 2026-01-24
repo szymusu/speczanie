@@ -25,7 +25,7 @@ int main(const int argc, char** argv) {
 
 #ifndef __arm64
     // Anty-aliasing mega psuje FPS na Macu
-    SetConfigFlags(FLAG_MSAA_4X_HINT);
+    // SetConfigFlags(FLAG_MSAA_4X_HINT);
 #endif
 
     InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Spęczanie");
@@ -58,7 +58,7 @@ int main(const int argc, char** argv) {
 
                 if (multi) {
                     Axes("ε", "σ [MPa]");
-                    MultiPlot((MultiPlotProps) { bounds }, &multi_plot_state, change);
+                    MultiPlot((MultiPlotProps) { bounds }, &multi_plot_state, &change);
                 }
                 else {
                     Axes(current_file->data_plot_state.x_label, current_file->data_plot_state.y_label);

@@ -5,6 +5,7 @@
 #include "plot_math.h"
 
 #define ZOOM_SPEED .08f
+#define MIN_ZOOM .002f
 
 move_change_t process_move(const MoveProps props) {
     move_change_t change = 0;
@@ -17,7 +18,7 @@ move_change_t process_move(const MoveProps props) {
         }
         else {
             props.view_move->zoom += wheel_change * ZOOM_SPEED * props.view_move->zoom;
-            if (props.view_move->zoom <= 0.1f) props.view_move->zoom = 0.1f;
+            if (props.view_move->zoom <= MIN_ZOOM) props.view_move->zoom = MIN_ZOOM;
         }
     }
 

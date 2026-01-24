@@ -19,7 +19,7 @@
 	\tableofcontents
 	
 	\chapter{Wstęp}
-	\section{Czego dotyczy praca}
+	\section{W pracy}
 	\paragraph{}
 	Praca obejmuje stworzenie aplikacji komputerowej do graficznej i komputerowej analizy wyników pomiarowych z prób spęczania.
 	
@@ -52,17 +52,18 @@
 	\end{figure}
 	
 	\section{Aktualne rozwiązania}
-	\subsection{[nazwa programu]}
+	\subsection{Workshop - moduł data manager}
 	\paragraph{}
 	Program służy do wyświetlania danych na wykresie. Posiada opcje importu danych z formatu W01, zmiany osi i serii danych oraz eksportu do pliku tekstowego CSV. Program ten jednak jest trudniejszy w obsłudze oraz przydatne funkcjonalności wymagają repetytywnych czynności ze strony użytkownika.
 	
-	\section{Co zawiera praca}
+	\section{Zawartość pracy}
 	\paragraph{}
+	Co mieści się w poszczególnych rozdziałach. (wszystko w jednym akapicie, liczby słownie (pierwszy, drugi))
 	Ten dokument zawiera opis problemu, cel i założenia, napotkane przeszkody, ogólną strukturę i sposób działania aplikacji oraz niektóre szczegóły implementacji.
 	
 	
 	\chapter{Cel i teza pracy}
-	\section{Cel}
+	\subsubsection{Cel}
 	\paragraph{}
 	Celem projektu jest stworzenie kompatybilnego i wydajnego programu, który usprawni
 	pracę z wynikami pomiarowymi z prób spęczania. Główny nacisk kładziony jest na maksy-
@@ -75,7 +76,7 @@
 	jak i starszymi systemami operacyjnymi oraz wysoka wydajność nawet na starym sprzęcie
 	komputerowym.
 	
-	\section{Teza}
+	\subsubsection{Teza}
 	Stwierdzono brak powszechnego występowania prostych i darmowych aplikacji umożliwiających obróbkę danych pomiarowych z wykorzystaniem interaktywnych wykresów. W związku z powyższym sformułowano tezę, że analiza wyników pomiarowych jest możliwa dzięki takiemu podejściu, co wykazano w niniejszej pracy.
 	
 	\chapter{Opis narzędzi wykorzystanych do realizacji pracy}
@@ -240,6 +241,11 @@
 	Transformacja wszystkich widocznych punktów jest mimo wszystko kosztowną operacją, dlatego wykonywana jest jedynie gdy reprezentacja punktów na wykresie powinna ulec zmianie. Odpowiada za to zmienna \textit{change}, zawierająca flagi sterujące rekalkulacją elementów wykresu, ustawiana przez funkcję odpowiadającą za obsługę wejścia.
 	
 	
+	\subsection{Cofanie operacji}
+	\paragraph{}
+	Operacje zmieniające dane, takie jak przesuwanie, odbijanie, ucinanie, dodawane są do stosu wykonanych operacji. Każda z operacji na stosie zawiera informacje o typie oraz parametrach. Każdy typ operacji posiada odpowiadającą jej funkcję cofania, dzięki czemu możliwe jest odwrócenie działania każdej z nich i powrót do każdego z poprzednich stanów danych.
+	
+	
 	\pagebreak
 	\section{Instrukcja opsługi}
 	\subsection{Wczytywanie plików}
@@ -255,6 +261,19 @@
 	\subsubsection{Plik tekstowy CSV}
 	\paragraph{}
 	Wykres wyeksportowany do pliku CSV, może zostać otwarty ponownie w aplikacji. Dokładna struktura tego pliku znajduje się w sekcji 4.2.3.
+	
+	\subsection{Zmiana widoku}
+	\subsubsection{Przesuwanie}
+	\paragraph{}
+	Program pozwala na swobodne poruszanie się po układzie współrzędnych. Aby to zrobić, należy przytrzymać lewy przycisk myszy i przeciągnąć kursor w odpowiednią stronę.
+	
+	\subsubsection{Przybliżanie i oddalanie}
+	\paragraph{}
+	Widok wykresu można przybiżać i oddalać używając kółka myszy. Operacja ta zmienia skale wyświetlania i dostosowuje przedziałkę na osiach.
+	
+	\subsubsection{Skalowanie osi X}
+	\paragraph{}
+	Trzymając klawisz Lewy Shift podczas przybliżania i oddalania, skalowaniu poddana zostanie jedynie oś X. Jest to przydatne w momencie, kiedy różnica współrzędnych $x$ lub $y$ w punktach jest bardzo mała, przez co w normalnej skali wydają się tworzyć pionową lub poziomą linię.
 	
 	\subsection{Obróbka wykresu}
 	\paragraph{}
@@ -275,6 +294,12 @@
 	\subsubsection{Odbicie}
 	\paragraph{}
 	Przyciski "Odwróć X" i "Odwróć Y" odbijają daną współrzędną każdego z punktów względem zera. Odbijanie współrzędnych $x$ dodatkowo odwraca kolejność punktów, aby zachować zasadę rosnącej współrzędnej $x$.
+	
+	\subsubsection{Cofanie zmian}
+	\paragraph{}
+	Naciskając kombinację klawiszy Lewy Ctrl + Z, cofana jest ostatnia wykonana operacja. Ponowne naciskanie, lub dłuższe przytrzymanie tej kombinacji cofnie każdą wykonaną operację w kolejności odwrotnej do tej, w której zostały wykonane.
+	\paragraph{}
+	Uwaga: historia zmian nie jest zapisywana w pliku przy eksporcie, więc zamknięcie obecnego pliku i otwarcie wyeksportowanej kopii spowoduje utratę historii zmian.
 	
 	\subsubsection{Podgląd punktu}
 	\paragraph{}
@@ -304,12 +329,38 @@
 		\end{tabular}
 	\end{center}
 	
-	\subsection{Wyznaczanie prostych i krzywych}
-	\subsubsection{Wyznaczanie prostej}
+	\subsection{Wyznaczanie prostej}
 	\paragraph{}
-	Użytkownik może wyznaczyć prostą przchodzącą przez dwa punkty wykresu. Aby to zrobić należy nacisnąć i przytrzymać lewy przycisk myszy na pierwszym punkcie, a  następnie trzymając nadal lewy przycisk myszy najechać kursorem myszy na drugi punkt. Jeżeli prosta nie jest równoległa do osi X, zostanie wyświetlony zielony odcinek przechodzący przez oba punkty i miejsce zerowe prostej.
+	Użytkownik może wyznaczyć prostą przchodzącą przez dwa punkty wykresu. Aby to zrobić należy nacisnąć i przytrzymać lewy przycisk myszy na pierwszym punkcie, a  następnie trzymając nadal lewy przycisk myszy najechać kursorem myszy na drugi punkt. Jeżeli prosta nie jest równoległa do osi X, zostanie wyświetlone jej równanie oraz zielony odcinek przechodzący przez oba punkty i miejsce zerowe prostej.
 	\paragraph{}
 	Miejsce zerowye zostanie zaznaczone punktem, którego kliknięcie spowoduje przesunięcie wykresu wzdłuż osi X o wartość przeciwną współrzędnej $x$ miejsca zerowego. W efekcie, po tej operacji nachylenie prostej pozostanie niezmienne, a miejsce zerowe będzie w punkcie (0,0).
+	
+	\pagebreak
+	\subsection{Wykres odkształcenie-naprężenie}
+	\paragraph{}
+	Funkcję aktywuje się przez przycisk \textit{Wykres $\sigma = f(\epsilon)$}. Pojawi się formularz do wpisania pola przekroju $S_0$ i długości początkowej $L_0$. Wpisane wartości parametrów będą zastosowane do każdego z otwartych plików. Na układzie współrzędnych pojawi się jedna krzywa dla każdego zaimportowanego pliku.
+	
+	\subsection{Regresja wyników pomiarowych}
+	\subsubsection{Aktywacja}
+	\paragraph{}
+	Moduł regresji aktywuje się przyciskiem \textit{Regresja}.
+	
+	\subsubsection{Zakres punktów}
+	\paragraph{}
+	Aby wybrać zakres punktów, które będą poddane regresji nieliniowej, należy wybrać dwa punkty leżące na wykresie. Po zaznaczeniu druguego, regresja wykona się automatycznie.
+	
+	\subsubsection{Zmiana stopnia wielomianu}
+	\paragraph{}
+	Do zmiany stopnia wielomianu służą przyciski $<$ oraz $>$, znajdujące się przy obecnej liczbie stopnia. Zakres stopni możliwych do wyboru to od 0 do 29. Jeśli zakres punktów jest wybrany, zmiana stopnia spowoduje automatyczne przeliczenie regresji.
+	
+	\subsubsection{Regresja na wykresie odkształcenie-naprężenie}
+	\paragraph{}
+	Moduł regresji można uruchomić w widoku wykresu odkształcenie-naprężenie, lecz może on działać na tylko jednej krzywej jednocześnie. Zaznaczenie punktu na danej krzywej aktywuje tę krzywą i zmienia kolor pozostałych na szary. W tym momencie jedynie zaznaczenie drugiego punktu na tej samej krzywej aktywuje regresję.
+	
+	\subsubsection{Wzór krzywej}
+	\paragraph{}
+	Jeśli moduł regresji wyświetla krzywą, najechanie kursorem na przycisk "$f{x}$" wyświetli okienko ze wzorem wielomianu wyznaczonej krzywej. Kliknięcie go spowoduje skopiowanie wzoru do schowka.
+	
 	
 	\pagebreak
 		\section{Format pliku wejściowego}
@@ -1195,7 +1246,7 @@
 		\end{tabular}
 	\end{center}
 	
-	\subsubsection{Cały algorytm przed optymalizacją}
+	\subsubsection{Cały algorytm po optymalizacji}
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
 			\multicolumn{6}{|c|}{Debug} \\\hline
@@ -1224,9 +1275,215 @@
 	\subsubsection{Wnioski}
 	Optymalizacja okazała się bardzo skuteczna, stosując różne techniki udało się poprawić wydajność algorytmu \textbf{45-50-krotnie}.
 	
-	\chapter{Przykłady zastosowania aplikacji do kompleksowej analizy trzech wyników pomiarowych}
+	\chapter{Przykłady zastosowania aplikacji do kompleksowej analizy wyników pomiarowych}
+	\section{Analiza prób spęczania próbek stopu BA1032}
+	\subsection{Właściwości próbki}
+	\begin{itemize}
+		\item Stop - BA1032
+		\item Kształt - cylinder
+		\item Średnica podstawy - 4 mm
+		\item Wysokość - 7 mm
+	\end{itemize}
+	
+	\pagebreak
+	\subsection{Próba 1}
+	\subsubsection{Parametry próby}
+	\begin{itemize}
+		\item Temperatura - temperatura otoczenia
+		\item Prędkość - 10 $\frac{mm}{s}$
+	\end{itemize}
+	
+	\subsubsection{Wykres po wczytaniu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/19_v10-1.png}
+		\caption{Wykres próbki 1 po zaimportowaniu}
+	\end{figure}
+	
+	\subsubsection{Obróbka wykresu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/19_v10-2.png}
+		\caption{Wykres próbki 1 przy ekstrapolacji}
+	\end{figure}
+	
+	
+	\subsection{Próba 2}
+	\subsubsection{Parametry próby}
+	\begin{itemize}
+		\item Temperatura - temperatura otoczenia
+		\item Prędkość - 50 $\frac{mm}{s}$
+	\end{itemize}
+	
+	\subsubsection{Wykres po wczytaniu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/20_v50-1.png}
+		\caption{Wykres próbki 2 po zaimportowaniu}
+	\end{figure}
+	
+	\subsubsection{Obróbka wykresu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/20_v50-2.png}
+		\caption{Wykres próbki 2 przy ekstrapolacji}
+	\end{figure}
+	
+	\subsection{Zestawienie wykresów $\sigma = f(\epsilon)$}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/BA1032.png}
+		\caption{Wykres naprężenie-odkształcenie próbek 1 i 2}
+	\end{figure}
+	
+	
+	\section{Analiza prób spęczania próbek stopu CuSn6 w temperaturze otoczenia}
+	\subsection{Właściwości próbki}
+	\begin{itemize}
+		\item Stop - CuSn6
+		\item Kształt - cylinder
+		\item Średnica podstawy - 3,2 mm
+		\item Wysokość - 5 mm
+	\end{itemize}
+	
+	\pagebreak
+	\subsection{Próba 1}
+	\subsubsection{Parametry próby}
+	\begin{itemize}
+		\item Temperatura - temperatura otoczenia
+		\item Prędkość - 0,1 $\frac{mm}{s}$
+	\end{itemize}
+	
+	\subsubsection{Wykres po wczytaniu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v0p1-1.png}
+		\caption{Wykres próbki 1 po zaimportowaniu}
+	\end{figure}
+	
+	\subsubsection{Obróbka wykresu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v0p1-2.png}
+		\caption{Wykres próbki 1 przy ekstrapolacji}
+	\end{figure}
+	
+	
+	\subsection{Próba 2}
+	\subsubsection{Parametry próby}
+	\begin{itemize}
+		\item Temperatura - temperatura otoczenia
+		\item Prędkość - 10 $\frac{mm}{s}$
+	\end{itemize}
+	
+	\subsubsection{Wykres po wczytaniu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v10-1.png}
+		\caption{Wykres próbki 2 po zaimportowaniu}
+	\end{figure}
+	
+	\subsubsection{Obróbka wykresu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v10-2.png}
+		\caption{Wykres próbki 2 przy ekstrapolacji}
+	\end{figure}
+	
+		\subsection{Próba 3}
+	\subsubsection{Parametry próby}
+	\begin{itemize}
+		\item Temperatura - temperatura otoczenia
+		\item Prędkość - 50 $\frac{mm}{s}$
+	\end{itemize}
+	
+	\subsubsection{Wykres po wczytaniu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v50-1.png}
+		\caption{Wykres próbki 3 po zaimportowaniu}
+	\end{figure}
+	
+	\subsubsection{Obróbka wykresu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v50-2.png}
+		\caption{Wykres próbki 3 przy ekstrapolacji}
+	\end{figure}
+	
+	\subsection{Zestawienie wykresów $\sigma = f(\epsilon)$}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz-2.png}
+		\caption{Wykres naprężenie-odkształcenie próbek 1, 2 i 3}
+	\end{figure}
+	
+
+	\section{Analiza prób spęczania próbek stopu CuSn6 w stanie stałociekłym}
+	\subsection{Właściwości próbki}
+	\begin{itemize}
+		\item Stop - CuSn6
+		\item Kształt - cylinder
+		\item Średnica podstawy - 4 mm
+		\item Wysokość - 3,5 mm
+	\end{itemize}
+	
+	\pagebreak
+	\subsection{Próba 1}
+	\subsubsection{Parametry próby}
+	\begin{itemize}
+		\item Temperatura - 880 $^{\circ}$C
+		\item Prędkość - 0,01 $\frac{mm}{s}$
+	\end{itemize}
+	
+	\subsubsection{Wykres po wczytaniu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/T880-1.png}
+		\caption{Wykres próbki 1 po zaimportowaniu}
+	\end{figure}
+	
+	\subsubsection{Obróbka wykresu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/T880-2.png}
+		\caption{Wykres próbki 1 przy ekstrapolacji}
+	\end{figure}
+	
+	
+	\subsection{Próba 2}
+	\subsubsection{Parametry próby}
+	\begin{itemize}
+		\item Temperatura - 960 $^{\circ}$C
+		\item Prędkość - 0,1 $\frac{mm}{s}$
+	\end{itemize}
+	
+	\subsubsection{Wykres po wczytaniu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/T960-1.png}
+		\caption{Wykres próbki 2 po zaimportowaniu}
+	\end{figure}
+	
+	\subsubsection{Obróbka wykresu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/T960-2.png}
+		\caption{Wykres próbki 2 przy ekstrapolacji}
+	\end{figure}
+	
+	\subsection{Próba 3}
+	\subsubsection{Parametry próby}
+	\begin{itemize}
+		\item Temperatura - 1000 $^{\circ}$C
+		\item Prędkość - 0,1 $\frac{mm}{s}$
+	\end{itemize}
+	
+	\subsubsection{Wykres po wczytaniu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/T1000-1.png}
+		\caption{Wykres próbki 3 po zaimportowaniu}
+	\end{figure}
+	
+	\subsubsection{Obróbka wykresu}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/T1000-2.png}
+		\caption{Wykres próbki 3 przy ekstrapolacji}
+	\end{figure}
+	
+	\subsection{Zestawienie wykresów $\sigma = f(\epsilon)$}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/proby/Tixo-2.png}
+		\caption{Wykres naprężenie-odkształcenie próbek 1, 2 i 3}
+	\end{figure}
+	
 	
 	\chapter{Podsumowanie}
+	tutaj zalety mojego programu nad poprzednim
 	
 	\chapter{Oświadczenie - wykorzystanie narzędzi GenAI}
 	\section{Oświadczeine}

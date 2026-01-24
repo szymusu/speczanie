@@ -7,6 +7,6 @@ typedef struct {
     int closed;
 } FileListChange;
 
-FileListChange FileList(bool show_colors);
+FileListChange FileList(bool is_multi);
 
 #endif //FILELIST_H

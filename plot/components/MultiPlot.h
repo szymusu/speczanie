@@ -34,7 +34,7 @@ typedef struct {
     Bounds bounds;
 } MultiPlotProps;
 
-void MultiPlot(MultiPlotProps props, MultiPlotState* state, move_change_t change);
+void MultiPlot(MultiPlotProps props, MultiPlotState* state, move_change_t* change);
 
 void MultiPlot_enable(MultiPlotState* state, ViewMove view_move);
 ViewMove MultiPlot_disable(MultiPlotState* state);

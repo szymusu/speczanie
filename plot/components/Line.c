@@ -47,7 +47,7 @@ void Line(DataPlotState* state, const DataSource data_source, const Bounds bound
     }
 
     const Vector2 d = vec2_subtract(p1, p2);
-    if (fabsf(d.y) < .01) {
+    if (fabsf(d.y) < .0005) {
         DrawLineWithTransform(p1, p2, bounds, RED);
         return;
     }

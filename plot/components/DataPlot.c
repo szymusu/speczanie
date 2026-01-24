@@ -103,7 +103,7 @@ DataPlotState DataPlotState_create(const int data_count) {
         .regression_points = malloc(sizeof(Vector2) * data_count),
         .operation_stack = data_operation_stack_init(),
         .curve_polynomial = {
-            .order = 4,
+            .order = 22,
         },
     };
 }
