@@ -46,7 +46,7 @@ typedef struct {
 typedef struct {
     Vector2 point_buffer[POLYNOMIAL_POINT_COUNT];
     float coefficients[POLYNOMIAL_MAX_DEGREE];
-    char equation[256];
+    char equation[512];
     float normal_offset_x;
     float start_x;
     float end_x;
