@@ -9,6 +9,8 @@ typedef struct {
     bool auto_import;
 
     bool show_fps;
+    bool enable_vsync;
+    bool enable_msaa;
 } Options;
 
 Options options_default();

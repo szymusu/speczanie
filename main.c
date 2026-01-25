@@ -6,6 +6,7 @@
 #include "files/open_files.h"
 #include "files/components/ColumnImport.h"
 #include "files/components/FileList.h"
+#include "init/init.h"
 #include "plot/input_mode.h"
 #include "plot/move.h"
 #include "plot/plot_math.h"
@@ -23,14 +24,8 @@ int main(const int argc, char** argv) {
     int exit_code = process_args(argc, argv, &options);
     if (exit_code) return exit_code;
 
-#ifndef __arm64
-    // Anty-aliasing mega psuje FPS na Macu
-    // SetConfigFlags(FLAG_MSAA_4X_HINT);
-#endif
-
-    InitWindow(PLOT_WIDTH, PLOT_HEIGHT, "Spęczanie");
-    SetExitKey(KEY_NULL);
-    font_init();
+    exit_code = init(options);
+    if (exit_code) return exit_code;
 
     OpenFile* current_file = get_selected_file();
     MultiPlotState multi_plot_state = { 0 };
@@ -136,7 +131,5 @@ int main(const int argc, char** argv) {
         }
     }
 
-    font_unload();
-    CloseWindow();
-    clear_files();
+    standard_exit();
 }

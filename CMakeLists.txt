@@ -114,6 +114,10 @@ add_executable(${PROJECT_NAME} main.c
         args/options.h
         plot/multi_export.c
         plot/multi_export.h
+        args/help.c
+        args/help.h
+        init/init.c
+        init/init.h
 )
 
 target_link_libraries(${PROJECT_NAME} raylib)

@@ -7,6 +7,7 @@ i686-w64-mingw32-gcc main.c \
     plot/*.c plot/components/*.c \
     text/*.c \
     util/*.c \
+    init/*.c \
     -O3 \
     -o ./build/speczanie.exe \
     /home/_m/code/raylib/cmake-build-release/raylib/libraylib.a \
