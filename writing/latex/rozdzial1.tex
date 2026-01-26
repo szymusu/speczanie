@@ -34,7 +34,7 @@
 	Wielkości mierzone przez maszynę, zawarte w pliku wyjściowym pomiaru to: czas, obciążenie, przesunięcie oraz zadany sygnał.
 	
 	\paragraph{}
-	Po przeliczeniu wartości sił i przemieszczenia na zależność naprężenia od odkształcenia możliwe jest wyznaczenie granicy plastyczności i wytrzymałości na spęczanie.
+	Po przeliczeniu wartości sił i przemieszczenia na zależność naprężenia od odkształcenia możliwe jest wyznaczenie granicy plastyczności i cdwytrzymałości na spęczanie.
 	
 	\paragraph{}
 	Przeprowadzone spęczania w stanie stałociekłym pozwalają również na wyznaczenie wartości lepkości badanego materiału w funkcji prędkości ścinania. (wzory jutro) 
@@ -42,16 +42,90 @@
 	\pagebreak
 	\section{Opis maszyny pomiarowej}
 	\paragraph{}
+	Maszyna pomiarowa to hydrauliczna maszyna wytrzymałościowa z piecem Zwick HB100.
 	
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, angle=-90, center]{images/ZwickHB100a.jpg}
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/cała.jpeg}
 		\caption{Maszyna do przeprowadzania prób spęczania Zwick HB100}
 	\end{figure}
 	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/1.trawersa.jpeg}
+		\caption{Górna trawersa z siłownikiem hyrdaulicznym}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/2.zasilacz.jpeg}
+		\caption{Zasilacz do pieca wysokotemperaturowego}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/4.siłownik.jpeg}
+		\caption{Siłownik hytrauliczny osiągający siły do 100 kN}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/5.tensometr.jpeg}
+		\caption{Tensometr}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/6.piec.jpeg}
+		\caption{Piec z zakresem temperatur od pokojowej do 1400 $^{\circ}$C}
+	\end{figure}
+	
+	\pagebreak
 	\section{Aktualne rozwiązania}
-	\subsection{Workshop - moduł data manager}
+	\subsection{Opis}
 	\paragraph{}
-	Program służy do wyświetlania danych na wykresie. Posiada opcje importu danych z formatu W01, zmiany osi i serii danych oraz eksportu do pliku tekstowego CSV. Program ten jednak jest trudniejszy w obsłudze oraz przydatne funkcjonalności wymagają repetytywnych czynności ze strony użytkownika.
+	Program \textbf{Workshop - moduł data manager} służy do wyświetlania danych na wykresie. Posiada opcje importu danych z formatu W01, zmiany osi i serii danych oraz eksportu do pliku tekstowego CSV. Program ten jednak jest trudniejszy w obsłudze oraz przydatne funkcjonalności wymagają repetytywnych czynności ze strony użytkownika.
+	
+	\subsection{Funkcjonalności}
+	\subsubsection{Wczytanie pliku}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/screeny-xp/3 wczytany.jpeg}
+		\caption{Wczytany plik w programie}
+	\end{figure}
+	
+	\subsubsection{Skala i przesunięcie}
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/4 scale offset.jpeg}
+		\caption{Menu skalowania i przesuwanie}
+	\end{figure}
+	
+	\subsubsection{Ucinanie}
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/5 truncate.jpeg}
+		\caption{Menu ucinania}
+	\end{figure}
+	
+	\subsubsection{Przybliżanie widoku}
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/6 zoom.jpeg}
+		\caption{Menu przybliżania widoku}
+	\end{figure}
+	
+	\subsubsection{Regresja}
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/7 regresja.jpeg}
+		\caption{Menu regresji}
+	\end{figure}
+	
+	\subsubsection{Wygładzanie}
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/8 wygładzanie.jpeg}
+		\caption{Menu wygładzania danych}
+	\end{figure}
+	
+	\subsection{Wady}
+	\subsubsection{Skomplikowana i powolna obsługa}
+	\paragraph{}
+	Większość operacji w programie wymaga wykonania wielu kliknięć. Funkcje schowane są w rozwijanych menu, a po aktywacji dane trzba wprowadzić do wyskakującego w innym miejscu ekranu okienka. Operacje takie jak przesuwanie, wymagają wprowadzenia przesunięcia jako wartośli liczbowej z klawiatury, co zmusza użytkownika do prowadzenia obliczeń "na oko" w głowie.
+	
+	\subsubsection{Restrykcyjna licencja}
+	\paragraph{}
+	Licencja oprogramowania nie pozwala na skopiowanie go i korzystanie poza stanowiskiem roboczym, zatem cała analiza musi odbywać się na komputerze w laboratorium.
+	
 	
 	\section{Zawartość pracy}
 	\paragraph{}
