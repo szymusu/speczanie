@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.1.22)  26 JAN 2026 11:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.1.22)  26 JAN 2026 13:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**rozdzial1.tex
-(./rozdzial1.tex
+**format-W01.tex
+(./format-W01.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/report.cls
@@ -287,25 +287,25 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count291
 \l__pdf_internal_box=\box60
 )
-(./rozdzial1.aux)
-\openout1 = `rozdzial1.aux'.
+(./format-W01.aux)
+\openout1 = `format-W01.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
-LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 17.
-LaTeX Font Info:    ... okay on input line 17.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -363,166 +363,83 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Rozdzia\PlPrIeC {\l } 1.
-
-
-[1
-
-
-{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
-al/texlive/2025/texmf-dist/fonts/enc/dvips/pl/plrm.enc}]
-Overfull \hbox (2.72961pt too wide) in paragraph at lines 45--46
- [] \OT4/cmr/m/n/12 Ma-szy-na po-mia-ro-wa to hy-drau-licz-na ma-szy-na wy-trzy
--ma-�o-�cio-wa z pie-cem Zwick HB100. 
- []
-
-<images/maszyna/cała.jpeg, id=8, 963.6pt x 1284.8pt>
-File: images/maszyna/cała.jpeg Graphic file (type jpg)
-<use images/maszyna/cała.jpeg>
-Package pdftex.def Info: images/maszyna/cała.jpeg  used on input line 48.
-(pdftex.def)             Requested size: 364.19667pt x 485.58247pt.
-<images/maszyna/1.trawersa.jpeg, id=9, 1284.8pt x 963.6pt>
-File: images/maszyna/1.trawersa.jpeg Graphic file (type jpg)
-<use images/maszyna/1.trawersa.jpeg>
-Package pdftex.def Info: images/maszyna/1.trawersa.jpeg  used on input line 53.
-
-(pdftex.def)             Requested size: 364.19667pt x 273.14381pt.
-
-
-[2 <./images/maszyna/cała.jpeg>]
-<images/maszyna/2.zasilacz.jpeg, id=13, 1284.8pt x 963.6pt>
-File: images/maszyna/2.zasilacz.jpeg Graphic file (type jpg)
-<use images/maszyna/2.zasilacz.jpeg>
-Package pdftex.def Info: images/maszyna/2.zasilacz.jpeg  used on input line 58.
-
-(pdftex.def)             Requested size: 364.19667pt x 273.14381pt.
-<images/maszyna/4.siłownik.jpeg, id=14, 963.6pt x 1284.8pt>
-File: images/maszyna/4.siłownik.jpeg Graphic file (type jpg)
-<use images/maszyna/4.siłownik.jpeg>
-Package pdftex.def Info: images/maszyna/4.siłownik.jpeg  used on input line 63
-.
-(pdftex.def)             Requested size: 364.19667pt x 485.58247pt.
-
-
-[3 <./images/maszyna/1.trawersa.jpeg> <./images/maszyna/2.zasilacz.jpeg>]
-<images/maszyna/5.tensometr.jpeg, id=18, 963.6pt x 1284.8pt>
-File: images/maszyna/5.tensometr.jpeg Graphic file (type jpg)
-<use images/maszyna/5.tensometr.jpeg>
-Package pdftex.def Info: images/maszyna/5.tensometr.jpeg  used on input line 68
-.
-(pdftex.def)             Requested size: 364.19667pt x 485.58247pt.
-
-
-[4 <./images/maszyna/4.siłownik.jpeg>]
-<images/maszyna/6.piec.jpeg, id=22, 1284.8pt x 963.6pt>
-File: images/maszyna/6.piec.jpeg Graphic file (type jpg)
-<use images/maszyna/6.piec.jpeg>
-Package pdftex.def Info: images/maszyna/6.piec.jpeg  used on input line 73.
-(pdftex.def)             Requested size: 364.19667pt x 273.14381pt.
-LaTeX Font Info:    Trying to load font information for OML+plm on input line 7
-4.
+LaTeX Font Info:    Trying to load font information for OML+plm on input line 2
+5.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/polski/omlplm.fd
 File: omlplm.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Trying to load font information for OMS+plsy on input line 
-74.
+25.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/polski/omsplsy.fd
 File: omsplsy.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Trying to load font information for OMX+plex on input line 
-74.
+25.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/polski/omxplex.fd
 File: omxplex.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <12> on input line 74.
+(Font)              <12> on input line 25.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <8> on input line 74.
+(Font)              <8> on input line 25.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <6> on input line 74.
+(Font)              <6> on input line 25.
+
+Underfull \hbox (badness 1383) in paragraph at lines 41--41
+[]|\OT4/cmr/m/n/12 nazwa pli-ku wej-�cio-we-go do
+ []
 
 
-[5 <./images/maszyna/5.tensometr.jpeg>]
-
-[6{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/pl/plms.enc} <./images/ma
-szyna/6.piec.jpeg>]
-<images/screeny-xp/3 wczytany.jpeg, id=30, 1284.8pt x 1027.84pt>
-File: images/screeny-xp/3 wczytany.jpeg Graphic file (type jpg)
-<use images/screeny-xp/3 wczytany.jpeg>
-Package pdftex.def Info: images/screeny-xp/3 wczytany.jpeg  used on input line 
-86.
-(pdftex.def)             Requested size: 364.19667pt x 291.35341pt.
-<images/screeny-xp/4 scale offset.jpeg, id=31, 1284.8pt x 1027.84pt>
-File: images/screeny-xp/4 scale offset.jpeg Graphic file (type jpg)
-<use images/screeny-xp/4 scale offset.jpeg>
-Package pdftex.def Info: images/screeny-xp/4 scale offset.jpeg  used on input l
-ine 92.
-(pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
+Underfull \hbox (badness 2735) in paragraph at lines 41--41
+\OT4/cmr/m/n/12 ma-szy-ny, do-pe�-nio-na ze-ra-mi
+ []
 
 
-[7 <./images/screeny-xp/3 wczytany.jpeg>]
-<images/screeny-xp/5 truncate.jpeg, id=36, 1284.8pt x 1027.84pt>
-File: images/screeny-xp/5 truncate.jpeg Graphic file (type jpg)
-<use images/screeny-xp/5 truncate.jpeg>
-Package pdftex.def Info: images/screeny-xp/5 truncate.jpeg  used on input line 
-98.
-(pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
-<images/screeny-xp/6 zoom.jpeg, id=37, 1284.8pt x 1027.84pt>
-File: images/screeny-xp/6 zoom.jpeg Graphic file (type jpg)
-<use images/screeny-xp/6 zoom.jpeg>
-Package pdftex.def Info: images/screeny-xp/6 zoom.jpeg  used on input line 104.
-
-(pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
+Overfull \hbox (37.73627pt too wide) in paragraph at lines 25--43
+ [] 
+ []
 
 
-[8 <./images/screeny-xp/4 scale offset.jpeg> <./images/screeny-xp/5 truncate.jp
-eg>]
-<images/screeny-xp/7 regresja.jpeg, id=41, 1284.8pt x 1027.84pt>
-File: images/screeny-xp/7 regresja.jpeg Graphic file (type jpg)
-<use images/screeny-xp/7 regresja.jpeg>
-Package pdftex.def Info: images/screeny-xp/7 regresja.jpeg  used on input line 
-110.
-(pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
-<images/screeny-xp/8 wygładzanie.jpeg, id=42, 1284.8pt x 1027.84pt>
-File: images/screeny-xp/8 wygładzanie.jpeg Graphic file (type jpg)
-<use images/screeny-xp/8 wygładzanie.jpeg>
-Package pdftex.def Info: images/screeny-xp/8 wygładzanie.jpeg  used on input l
-ine 116.
-(pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
+
+[1
+
+{/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
+al/texlive/2025/texmf-dist/fonts/enc/dvips/pl/plrm.enc}{/usr/local/texlive/2025
+/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr/local/texlive/2025/texmf-dist/fon
+ts/enc/dvips/pl/plmi.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/pl
+/plms.enc}]
+Overfull \hbox (18.30382pt too wide) in paragraph at lines 51--59
+ [] 
+ []
 
 
-[9 <./images/screeny-xp/6 zoom.jpeg> <./images/screeny-xp/7 regresja.jpeg>]
 
-[10 <./images/screeny-xp/8 wygładzanie.jpeg>]
-Rozdzia\PlPrIeC {\l } 2.
-
-
-[11
-
-] (./rozdzial1.aux)
+[2] (./format-W01.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4728 strings out of 473190
- 75677 string characters out of 5715800
- 478544 words of memory out of 5000000
- 27914 multiletter control sequences out of 15000+600000
- 566327 words of font info for 54 fonts, out of 8000000 for 9000
+ 4646 strings out of 473190
+ 72529 string characters out of 5715800
+ 486437 words of memory out of 5000000
+ 27829 multiletter control sequences out of 15000+600000
+ 565865 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,8n,65p,810b,326s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 63i,13n,65p,308b,213s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/pl/plbx12.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/pl/plr12.pfb></usr/local/texlive
-/2025/texmf-dist/fonts/type1/public/pl/plsy8.pfb>
-Output written on rozdzial1.pdf (11 pages, 2882907 bytes).
+cal/texlive/2025/texmf-dist/fonts/type1/public/pl/plmi12.pfb></usr/local/texliv
+e/2025/texmf-dist/fonts/type1/public/pl/plr12.pfb></usr/local/texlive/2025/texm
+f-dist/fonts/type1/public/pl/plsy10.pfb></usr/local/texlive/2025/texmf-dist/fon
+ts/type1/public/pl/plti12.pfb>
+Output written on format-W01.pdf (2 pages, 44321 bytes).
 PDF statistics:
- 69 PDF objects out of 1000 (max. 8388607)
- 37 compressed objects within 1 object stream
+ 40 PDF objects out of 1000 (max. 8388607)
+ 25 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

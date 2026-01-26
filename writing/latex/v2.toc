@@ -19,6 +19,7 @@
 \contentsline {paragraph}{}{5}{}%
 \contentsline {paragraph}{}{5}{}%
 \contentsline {subsubsection}{Teza}{5}{}%
+\contentsline {paragraph}{}{5}{}%
 \contentsline {chapter}{\numberline {3}Opis narzędzi wykorzystanych do realizacji pracy}{6}{}%
 \contentsline {section}{\numberline {3.1}Język programowania}{6}{}%
 \contentsline {paragraph}{}{6}{}%
@@ -30,21 +31,32 @@
 \contentsline {section}{\numberline {4.1}Architektura aplikacji}{7}{}%
 \contentsline {subsection}{\numberline {4.1.1}Ogólna struktura aplikacji}{7}{}%
 \contentsline {subsubsection}{Komponenty}{7}{}%
+\contentsline {paragraph}{}{7}{}%
 \contentsline {subsubsection}{Zarządzanie stanem}{7}{}%
+\contentsline {paragraph}{}{7}{}%
 \contentsline {paragraph}{Właściwości}{7}{}%
 \contentsline {paragraph}{Stan}{7}{}%
 \contentsline {paragraph}{Stan globalny}{7}{}%
 \contentsline {subsection}{\numberline {4.1.2}Rysowanie wykresu}{8}{}%
+\contentsline {paragraph}{}{8}{}%
 \contentsline {subsubsection}{Poruszanie się w widoku}{8}{}%
+\contentsline {paragraph}{}{8}{}%
 \contentsline {subsubsection}{Transformacja współrzędnych}{8}{}%
+\contentsline {paragraph}{}{8}{}%
 \contentsline {paragraph}{Implementacja}{9}{}%
+\contentsline {paragraph}{}{9}{}%
 \contentsline {paragraph}{Obliczanie granic widocznego fragmentu}{9}{}%
 \contentsline {paragraph}{Transformacja pojedynczego punktu}{9}{}%
-\contentsline {paragraph}{Transformacja wielu punktów jednocześnie}{9}{}%
+\contentsline {paragraph}{Wiele punktów jednocześnie}{9}{}%
+\contentsline {paragraph}{}{9}{}%
 \contentsline {subsection}{\numberline {4.1.3}Minimalizacja renderowanych punktów}{10}{}%
 \contentsline {subsubsection}{Opis problemu}{10}{}%
+\contentsline {paragraph}{}{10}{}%
 \contentsline {subsubsection}{Szukanie pierwszego punktu}{10}{}%
+\contentsline {paragraph}{}{10}{}%
 \contentsline {subsubsection}{Transformacja punktów}{10}{}%
+\contentsline {paragraph}{}{10}{}%
+\contentsline {paragraph}{}{11}{}%
 \contentsline {subsection}{\numberline {4.1.4}Wykrywanie zmian}{11}{}%
 \contentsline {paragraph}{}{11}{}%
 \contentsline {subsection}{\numberline {4.1.5}Cofanie operacji}{11}{}%
@@ -62,12 +74,12 @@
 \contentsline {paragraph}{}{12}{}%
 \contentsline {subsubsection}{Przybliżanie i oddalanie}{12}{}%
 \contentsline {paragraph}{}{12}{}%
-\contentsline {subsubsection}{Skalowanie osi X}{12}{}%
-\contentsline {paragraph}{}{12}{}%
-\contentsline {subsection}{\numberline {4.2.3}Obróbka wykresu}{12}{}%
-\contentsline {paragraph}{}{12}{}%
-\contentsline {subsubsection}{Przesuwanie (translacja)}{12}{}%
-\contentsline {paragraph}{}{12}{}%
+\contentsline {subsubsection}{Skalowanie osi X}{13}{}%
+\contentsline {paragraph}{}{13}{}%
+\contentsline {subsection}{\numberline {4.2.3}Obróbka wykresu}{13}{}%
+\contentsline {paragraph}{}{13}{}%
+\contentsline {subsubsection}{Przesuwanie (translacja)}{13}{}%
+\contentsline {paragraph}{}{13}{}%
 \contentsline {subsubsection}{Blokada przesuwania}{13}{}%
 \contentsline {paragraph}{}{13}{}%
 \contentsline {subsubsection}{Przesuwanie do zera}{13}{}%
@@ -79,141 +91,129 @@
 \contentsline {paragraph}{}{13}{}%
 \contentsline {subsubsection}{Podgląd punktu}{13}{}%
 \contentsline {paragraph}{}{13}{}%
-\contentsline {subsection}{\numberline {4.2.4}Eksport}{13}{}%
-\contentsline {subsubsection}{Eksport do CSV}{13}{}%
-\contentsline {paragraph}{}{13}{}%
-\contentsline {subsubsection}{Struktura eksportowanego pliku}{13}{}%
-\contentsline {paragraph}{}{13}{}%
+\contentsline {subsection}{\numberline {4.2.4}Eksport}{14}{}%
+\contentsline {subsubsection}{Eksport do CSV}{14}{}%
+\contentsline {paragraph}{}{14}{}%
+\contentsline {subsubsection}{Struktura eksportowanego pliku}{14}{}%
 \contentsline {paragraph}{}{14}{}%
 \contentsline {subsection}{\numberline {4.2.5}Wyznaczanie prostej}{14}{}%
 \contentsline {paragraph}{}{14}{}%
-\contentsline {paragraph}{}{14}{}%
+\contentsline {paragraph}{}{15}{}%
 \contentsline {subsection}{\numberline {4.2.6}Wykres odkształcenie-naprężenie}{15}{}%
 \contentsline {paragraph}{}{15}{}%
-\contentsline {subsection}{\numberline {4.2.7}Regresja wyników pomiarowych}{15}{}%
-\contentsline {subsubsection}{Aktywacja}{15}{}%
-\contentsline {paragraph}{}{15}{}%
-\contentsline {subsubsection}{Zakres punktów}{15}{}%
-\contentsline {paragraph}{}{15}{}%
-\contentsline {subsubsection}{Zmiana stopnia wielomianu}{15}{}%
-\contentsline {paragraph}{}{15}{}%
-\contentsline {subsubsection}{Regresja na wykresie odkształcenie-naprężenie}{15}{}%
-\contentsline {paragraph}{}{15}{}%
-\contentsline {subsubsection}{Wzór krzywej}{15}{}%
-\contentsline {paragraph}{}{15}{}%
-\contentsline {section}{\numberline {4.3}Format pliku wejściowego}{16}{}%
-\contentsline {subsection}{\numberline {4.3.1}Nieznany format binarny}{16}{}%
-\contentsline {subsection}{\numberline {4.3.2}Inżynieria wsteczna formatu}{16}{}%
-\contentsline {subsubsection}{Pierwsze spojrzenie na plik}{16}{}%
-\contentsline {subsubsection}{Nagłówek}{16}{}%
-\contentsline {subsubsection}{Kolumny (serie danych)}{17}{}%
-\contentsline {subsubsection}{Struktura całego pliku}{17}{}%
-\contentsline {section}{\numberline {4.4}Optymalizacja wydajności aplikacji - algorytm regresji wielomianowej}{18}{}%
-\contentsline {subsection}{\numberline {4.4.1}Wstęp}{18}{}%
-\contentsline {subsection}{\numberline {4.4.2}Dane wejściowe, sprzęt i środowisko}{18}{}%
-\contentsline {subsection}{\numberline {4.4.3}Sposób pomiarów}{18}{}%
-\contentsline {subsubsection}{Realny benchmark}{18}{}%
-\contentsline {subsubsection}{RDTSC}{18}{}%
-\contentsline {subsubsection}{Implementacja pomiaru}{18}{}%
+\contentsline {subsection}{\numberline {4.2.7}Regresja wyników pomiarowych}{16}{}%
+\contentsline {subsubsection}{Zakres punktów}{16}{}%
+\contentsline {paragraph}{}{16}{}%
+\contentsline {subsubsection}{Zmiana stopnia wielomianu}{16}{}%
+\contentsline {paragraph}{}{16}{}%
+\contentsline {subsubsection}{Regresja na wykresie odkształcenie-naprężenie}{17}{}%
+\contentsline {paragraph}{}{17}{}%
+\contentsline {subsubsection}{Wzór krzywej}{17}{}%
+\contentsline {paragraph}{}{17}{}%
+\contentsline {section}{\numberline {4.3}Algorytm regresji wielomianowej - optymalizacja wydajności aplikacji}{18}{}%
+\contentsline {subsection}{\numberline {4.3.1}Wstęp}{18}{}%
+\contentsline {paragraph}{}{18}{}%
+\contentsline {subsection}{\numberline {4.3.2}Model matematyczny}{18}{}%
+\contentsline {paragraph}{}{18}{}%
+\contentsline {subsection}{\numberline {4.3.3}Dane wejściowe, sprzęt i środowisko}{18}{}%
+\contentsline {paragraph}{}{18}{}%
+\contentsline {subsection}{\numberline {4.3.4}Sposób pomiarów}{19}{}%
+\contentsline {subsubsection}{Realny benchmark}{19}{}%
+\contentsline {paragraph}{}{19}{}%
+\contentsline {subsubsection}{RDTSC}{19}{}%
+\contentsline {paragraph}{}{19}{}%
+\contentsline {subsubsection}{Implementacja pomiaru}{19}{}%
+\contentsline {paragraph}{}{19}{}%
 \contentsline {paragraph}{Rozpoczęcie pomiaru}{19}{}%
+\contentsline {paragraph}{}{19}{}%
 \contentsline {paragraph}{Zakończenie pomiaru}{19}{}%
+\contentsline {paragraph}{}{20}{}%
 \contentsline {subsubsection}{Narzut pomiaru}{20}{}%
-\contentsline {subsection}{\numberline {4.4.4}Pierwotny algorytm}{21}{}%
+\contentsline {paragraph}{}{20}{}%
+\contentsline {paragraph}{}{20}{}%
+\contentsline {subsection}{\numberline {4.3.5}Pierwotny algorytm}{21}{}%
+\contentsline {paragraph}{}{21}{}%
 \contentsline {subsubsection}{Całość}{21}{}%
 \contentsline {paragraph}{Kod}{21}{}%
 \contentsline {paragraph}{Benchmark}{23}{}%
 \contentsline {paragraph}{Komentarz}{23}{}%
-\contentsline {subsubsection}{Fragment 1 - Alokacja i przygotowanie pamięci}{24}{}%
-\contentsline {paragraph}{Kod}{24}{}%
-\contentsline {paragraph}{Benchmark}{24}{}%
-\contentsline {subsubsection}{Fragment 2 - Wypełnianie macierzy i wektora błędów}{25}{}%
-\contentsline {paragraph}{Kod}{25}{}%
-\contentsline {paragraph}{Benchmark}{25}{}%
-\contentsline {subsubsection}{Fragment 3 - Rozwiązanie układu równań}{26}{}%
-\contentsline {paragraph}{Kod}{26}{}%
-\contentsline {paragraph}{Benchmark}{26}{}%
-\contentsline {subsubsection}{Fragment 4 - Przepisywanie wyniku i zwalnianie pamięci}{27}{}%
-\contentsline {paragraph}{Kod}{27}{}%
-\contentsline {paragraph}{Benchmark}{27}{}%
+\contentsline {paragraph}{}{23}{}%
+\contentsline {subsubsection}{Fragment 1 - Alokacja i przygotowanie pamięci}{23}{}%
+\contentsline {subsubsection}{Fragment 2 - Wypełnianie macierzy i wektora błędów}{23}{}%
+\contentsline {subsubsection}{Fragment 3 - Rozwiązanie układu równań}{24}{}%
+\contentsline {subsubsection}{Fragment 4 - Przepisywanie wyniku i zwalnianie pamięci}{24}{}%
+\contentsline {subsubsection}{Obserwacje i wnioski}{24}{}%
+\contentsline {paragraph}{}{24}{}%
+\contentsline {subsection}{\numberline {4.3.6}Zmiana funkcji potęgi}{25}{}%
+\contentsline {subsubsection}{Idea}{25}{}%
+\contentsline {paragraph}{}{25}{}%
+\contentsline {subsubsection}{Kod}{25}{}%
+\contentsline {paragraph}{}{25}{}%
+\contentsline {subsubsection}{Benchmark}{25}{}%
+\contentsline {paragraph}{}{25}{}%
+\contentsline {subsubsection}{Obserwacje i wnioski}{25}{}%
+\contentsline {paragraph}{}{25}{}%
+\contentsline {subsection}{\numberline {4.3.7}Usuwanie redundancji}{26}{}%
+\contentsline {subsubsection}{Idea}{26}{}%
+\contentsline {paragraph}{}{26}{}%
+\contentsline {subsubsection}{Kod}{26}{}%
+\contentsline {subsubsection}{Benchmark - z pownf}{27}{}%
+\contentsline {subsubsection}{Benchmark - z własną funkcją potęgi}{27}{}%
 \contentsline {subsubsection}{Obserwacje i wnioski}{27}{}%
-\contentsline {subsection}{\numberline {4.4.5}Zmiana funkcji potęgi}{28}{}%
-\contentsline {subsubsection}{Idea}{28}{}%
-\contentsline {subsubsection}{Kod}{28}{}%
-\contentsline {subsubsection}{Benchmark}{28}{}%
+\contentsline {paragraph}{}{27}{}%
+\contentsline {subsection}{\numberline {4.3.8}Wypełnianie macierzy i wektora - pomiar fragmentów}{28}{}%
+\contentsline {subsubsection}{Fragment 1 - Obliczanie sum}{28}{}%
+\contentsline {subsubsection}{Fragment 2 - Kopiowanie sum do macierzy}{28}{}%
+\contentsline {subsubsection}{Fragment 3 - Wypełnianie wektora}{28}{}%
 \contentsline {subsubsection}{Obserwacje i wnioski}{28}{}%
-\contentsline {subsection}{\numberline {4.4.6}Usuwanie redundancji}{29}{}%
+\contentsline {paragraph}{}{28}{}%
+\contentsline {subsection}{\numberline {4.3.9}Eliminacja potęgowania - podejście iteracyjne}{29}{}%
 \contentsline {subsubsection}{Idea}{29}{}%
+\contentsline {paragraph}{}{29}{}%
+\contentsline {paragraph}{}{29}{}%
+\contentsline {paragraph}{}{29}{}%
+\contentsline {paragraph}{}{29}{}%
 \contentsline {subsubsection}{Kod}{29}{}%
-\contentsline {subsubsection}{Benchmark - z pownf}{30}{}%
-\contentsline {subsubsection}{Benchmark - z własną funkcją potęgi}{30}{}%
-\contentsline {subsubsection}{Obserwacje i wnioski}{30}{}%
-\contentsline {subsection}{\numberline {4.4.7}Wypełnianie macierzy i wektora - pomiar fragmentów}{31}{}%
-\contentsline {subsubsection}{Fragment 1 - Obliczanie sum}{31}{}%
-\contentsline {paragraph}{Kod}{31}{}%
-\contentsline {paragraph}{Benchmark}{31}{}%
-\contentsline {subsubsection}{Fragment 2 - Kopiowanie sum do macierzy}{31}{}%
-\contentsline {paragraph}{Kod}{31}{}%
-\contentsline {paragraph}{Benchmark}{31}{}%
-\contentsline {subsubsection}{Fragment 3 - Wypełnianie wektora}{32}{}%
-\contentsline {paragraph}{Kod}{32}{}%
-\contentsline {paragraph}{Benchmark}{32}{}%
-\contentsline {subsubsection}{Obserwacje i wnioski}{32}{}%
-\contentsline {subsection}{\numberline {4.4.8}Eliminacja potęgowania - podejście iteracyjne}{33}{}%
-\contentsline {subsubsection}{Idea}{33}{}%
-\contentsline {subsubsection}{Kod}{33}{}%
-\contentsline {subsubsection}{Benchmark}{34}{}%
-\contentsline {subsubsection}{Wypełnianie wektora - to samo podejście}{34}{}%
-\contentsline {subsubsection}{Wypełnianie wektora - Kod}{34}{}%
-\contentsline {subsubsection}{Wypełnianie wektora - Benchmark}{35}{}%
-\contentsline {subsubsection}{Obserwacje i wnioski}{35}{}%
-\contentsline {subsection}{\numberline {4.4.9}Podsumowanie}{36}{}%
-\contentsline {subsubsection}{Cały algorytm przed optymalizacją}{36}{}%
-\contentsline {subsubsection}{Cały algorytm po optymalizacji}{36}{}%
-\contentsline {subsubsection}{Wnioski}{36}{}%
-\contentsline {chapter}{\numberline {5}Przykłady zastosowania aplikacji do kompleksowej analizy wyników pomiarowych}{37}{}%
-\contentsline {section}{\numberline {5.1}Analiza prób spęczania próbek stopu BA1032}{37}{}%
-\contentsline {subsection}{\numberline {5.1.1}Właściwości próbki}{37}{}%
-\contentsline {subsection}{\numberline {5.1.2}Próba 1}{38}{}%
+\contentsline {subsubsection}{Benchmark}{30}{}%
+\contentsline {subsubsection}{Wypełnianie wektora - to samo podejście}{30}{}%
+\contentsline {paragraph}{}{30}{}%
+\contentsline {subsubsection}{Wypełnianie wektora - Kod}{30}{}%
+\contentsline {subsubsection}{Wypełnianie wektora - Benchmark}{31}{}%
+\contentsline {subsubsection}{Obserwacje i wnioski}{31}{}%
+\contentsline {paragraph}{}{31}{}%
+\contentsline {subsection}{\numberline {4.3.10}Podsumowanie}{32}{}%
+\contentsline {subsubsection}{Cały algorytm przed optymalizacją}{32}{}%
+\contentsline {subsubsection}{Cały algorytm po optymalizacji}{32}{}%
+\contentsline {subsubsection}{Wnioski}{32}{}%
+\contentsline {paragraph}{}{32}{}%
+\contentsline {chapter}{\numberline {5}Przykłady zastosowania aplikacji do kompleksowej analizy wyników pomiarowych}{33}{}%
+\contentsline {section}{\numberline {5.1}Analiza prób spęczania próbek stopu BA1032}{33}{}%
+\contentsline {subsection}{\numberline {5.1.1}Właściwości próbki}{33}{}%
+\contentsline {subsection}{\numberline {5.1.2}Próba 1}{34}{}%
+\contentsline {subsubsection}{Parametry próby}{34}{}%
+\contentsline {subsection}{\numberline {5.1.3}Próba 2}{34}{}%
+\contentsline {subsubsection}{Parametry próby}{34}{}%
+\contentsline {subsection}{\numberline {5.1.4}Zestawienie wykresów $\sigma = f(\epsilon )$}{35}{}%
+\contentsline {section}{\numberline {5.2}Analiza prób spęczania próbek stopu CuSn6 w temperaturze otoczenia}{36}{}%
+\contentsline {subsection}{\numberline {5.2.1}Właściwości próbki}{36}{}%
+\contentsline {subsection}{\numberline {5.2.2}Próba 1}{36}{}%
+\contentsline {subsubsection}{Parametry próby}{36}{}%
+\contentsline {subsection}{\numberline {5.2.3}Próba 2}{37}{}%
+\contentsline {subsubsection}{Parametry próby}{37}{}%
+\contentsline {subsection}{\numberline {5.2.4}Próba 3}{38}{}%
 \contentsline {subsubsection}{Parametry próby}{38}{}%
-\contentsline {subsubsection}{Wykres po wczytaniu}{38}{}%
-\contentsline {subsubsection}{Obróbka wykresu}{38}{}%
-\contentsline {subsection}{\numberline {5.1.3}Próba 2}{39}{}%
-\contentsline {subsubsection}{Parametry próby}{39}{}%
-\contentsline {subsubsection}{Wykres po wczytaniu}{39}{}%
-\contentsline {subsubsection}{Obróbka wykresu}{39}{}%
-\contentsline {subsection}{\numberline {5.1.4}Zestawienie wykresów $\sigma = f(\epsilon )$}{40}{}%
-\contentsline {section}{\numberline {5.2}Analiza prób spęczania próbek stopu CuSn6 w temperaturze otoczenia}{40}{}%
-\contentsline {subsection}{\numberline {5.2.1}Właściwości próbki}{40}{}%
-\contentsline {subsection}{\numberline {5.2.2}Próba 1}{41}{}%
+\contentsline {subsection}{\numberline {5.2.5}Zestawienie wykresów $\sigma = f(\epsilon )$}{39}{}%
+\contentsline {section}{\numberline {5.3}Analiza prób spęczania próbek stopu CuSn6 w stanie stałociekłym}{39}{}%
+\contentsline {subsection}{\numberline {5.3.1}Właściwości próbki}{39}{}%
+\contentsline {subsection}{\numberline {5.3.2}Próba 1}{40}{}%
+\contentsline {subsubsection}{Parametry próby}{40}{}%
+\contentsline {subsection}{\numberline {5.3.3}Próba 2}{41}{}%
 \contentsline {subsubsection}{Parametry próby}{41}{}%
-\contentsline {subsubsection}{Wykres po wczytaniu}{41}{}%
-\contentsline {subsubsection}{Obróbka wykresu}{41}{}%
-\contentsline {subsection}{\numberline {5.2.3}Próba 2}{42}{}%
-\contentsline {subsubsection}{Parametry próby}{42}{}%
-\contentsline {subsubsection}{Wykres po wczytaniu}{42}{}%
-\contentsline {subsubsection}{Obróbka wykresu}{42}{}%
-\contentsline {subsection}{\numberline {5.2.4}Próba 3}{43}{}%
-\contentsline {subsubsection}{Parametry próby}{43}{}%
-\contentsline {subsubsection}{Wykres po wczytaniu}{43}{}%
-\contentsline {subsubsection}{Obróbka wykresu}{43}{}%
-\contentsline {subsection}{\numberline {5.2.5}Zestawienie wykresów $\sigma = f(\epsilon )$}{44}{}%
-\contentsline {section}{\numberline {5.3}Analiza prób spęczania próbek stopu CuSn6 w stanie stałociekłym}{44}{}%
-\contentsline {subsection}{\numberline {5.3.1}Właściwości próbki}{44}{}%
-\contentsline {subsection}{\numberline {5.3.2}Próba 1}{45}{}%
-\contentsline {subsubsection}{Parametry próby}{45}{}%
-\contentsline {subsubsection}{Wykres po wczytaniu}{45}{}%
-\contentsline {subsubsection}{Obróbka wykresu}{45}{}%
-\contentsline {subsection}{\numberline {5.3.3}Próba 2}{46}{}%
-\contentsline {subsubsection}{Parametry próby}{46}{}%
-\contentsline {subsubsection}{Wykres po wczytaniu}{46}{}%
-\contentsline {subsubsection}{Obróbka wykresu}{46}{}%
-\contentsline {subsection}{\numberline {5.3.4}Próba 3}{47}{}%
-\contentsline {subsubsection}{Parametry próby}{47}{}%
-\contentsline {subsubsection}{Wykres po wczytaniu}{47}{}%
-\contentsline {subsubsection}{Obróbka wykresu}{47}{}%
-\contentsline {subsection}{\numberline {5.3.5}Zestawienie wykresów $\sigma = f(\epsilon )$}{48}{}%
-\contentsline {chapter}{\numberline {6}Podsumowanie}{49}{}%
-\contentsline {chapter}{\numberline {7}Oświadczenie - wykorzystanie narzędzi GenAI}{50}{}%
-\contentsline {section}{\numberline {7.1}Oświadczeine}{50}{}%
-\contentsline {paragraph}{}{50}{}%
-\contentsline {chapter}{\numberline {8}Literatura}{51}{}%
+\contentsline {subsection}{\numberline {5.3.4}Próba 3}{41}{}%
+\contentsline {subsubsection}{Parametry próby}{41}{}%
+\contentsline {subsection}{\numberline {5.3.5}Zestawienie wykresów $\sigma = f(\epsilon )$}{42}{}%
+\contentsline {chapter}{\numberline {6}Podsumowanie}{43}{}%
+\contentsline {chapter}{\numberline {7}Oświadczenie - wykorzystanie narzędzi GenAI}{44}{}%
+\contentsline {section}{\numberline {7.1}Oświadczeine}{44}{}%
+\contentsline {paragraph}{}{44}{}%
+\contentsline {chapter}{\numberline {8}Literatura}{45}{}%

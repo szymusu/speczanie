@@ -27,7 +27,7 @@
 	\paragraph{}
 	Próba spęczania polega na ściskaniu próbki wzdłuż jednej osi (pionowej) przez maszynę
 	badawczą z zadaną prędkością. Podczas próby materiał odkształca się, zmniejszając swoją
-	wysokość w kierunku działania siły oraz - zgodnie z zasadą zachowania objętości - zwiększając swoją szerokość w pozostałych kierunkach. Próby mogą być wykonywane w piecu oraz w temperaturze otoczenia - tzn. poza piecem.
+	wysokość w kierunku działania siły oraz - zgodnie z zasadą zachowania objętości - zwiększając swoją szerokość w pozostałych kierunkach. Próby mogą być wykonywane w nagrzanym piecu, jak i w temperaturze otoczenia.
 	
 	\paragraph{}
 	Podczas tego procesu, materiał wewnątrz płynie, wypychając materiał na ścianach bocznych na zewnątrz, a materiał przy podstawach trze o górną i dolną ścianę maszyny, co
@@ -46,10 +46,6 @@
 	\section{Opis maszyny pomiarowej}
 	\paragraph{}
 	
-	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, angle=-90, center]{images/ZwickHB100a.jpg}
-		\caption{Maszyna do przeprowadzania prób spęczania Zwick HB100}
-	\end{figure}
 	
 	\section{Aktualne rozwiązania}
 	\subsection{Workshop - moduł data manager}
@@ -77,6 +73,7 @@
 	komputerowym.
 	
 	\subsubsection{Teza}
+	\paragraph{}
 	Stwierdzono brak powszechnego występowania prostych i darmowych aplikacji umożliwiających obróbkę danych pomiarowych z wykorzystaniem interaktywnych wykresów. W związku z powyższym sformułowano tezę, że analiza wyników pomiarowych jest możliwa dzięki takiemu podejściu, co wykazano w niniejszej pracy.
 	
 	\chapter{Opis narzędzi wykorzystanych do realizacji pracy}
@@ -97,11 +94,13 @@
 	\section{Architektura aplikacji}
 	\subsection{Ogólna struktura aplikacji}
 	\subsubsection{Komponenty}
+	\paragraph{}
 	Interfejs graficzny aplikacji podzielony jest na "komponenty" - funkcje zawierające logikę kontrolną oraz rysujące pewien element interfejsu. Wywołanie tej funkcji oznacza, że komponent istnieje w obecnej klatce.
 	Funkcje te mogą wywoływać inne funkcje komponentów, co tworzy swego rodzaju strukturę drzewa komponentów, rozpoczynającą się w głównej pętli programu. Pozycja w strukturze drzewa nie ma jednak wpływu na rozmieszczenie elementu, pozycja jest statyczna, lub określana poprzez podane parametry.
 	
 	\subsubsection{Zarządzanie stanem}
-	Inspirowane działaniem innego drzewiastego systemu komponentów graficznych - webowym Reactem - komponenty, jeśli to konieczne, operują na dwóch rodzajach danych: właściwości (\textit{props}) i stan (\textit{state}).
+	\paragraph{}
+	Zarządzanie stanem jest w części Inspirowane działaniem innego drzewiastego systemu komponentów graficznych - webowym Reactem. Komponenty, jeśli to konieczne, operują na dwóch rodzajach danych: właściwości (\textit{props}) i stan (\textit{state}).
 	\paragraph{Właściwości} są podawane do funkcji komponentu jako kopia (pass by value), bądź stały wskaźnik, mają za zadanie sterować zachowaniem i wyglądem komponentu.
 	\paragraph{Stan} jest podawany jako wskaźnik do pamięci zarządzanej przez rodzica (komponent wywołujuący), ma za zadanie przechowywanie stanu komponentu między wywołaniami, jest modyfikowany głównie przez sam komponent oraz jego dzieci (jeśli zostanie podany do nich jako ich stan).
 	\paragraph{Stan globalny} jest wykorzystywany w niektórych komponentach, które z założenia mają istnieć tylko w jednej sztuce jednocześnie, jak lista otwartych plików lub narzędzia diagnostyczne \verb|FPSCounter| i \verb|Clock|, jako zmienne globalne w jednostce translacyjnej (niewidoczna poza obecnym plikiem .c), lub statyczne zmienne lokalne w funkcji komponentu.
@@ -109,23 +108,23 @@
 	
 	\pagebreak
 	\subsection{Rysowanie wykresu}
+	\paragraph{}
 	Jako podstawa rysowania wykresu, została wykorzystana funkcja Rzylib \verb|DrawSplineLinear|, łącząca podane współrzędne pikseli prostymi odcinkami. To wydajny sposób narysowania wielu prostych jednocześnie, co przy wystarczającej gęstości punktów daje iluzję krzywej.
-	
-	\begin{verbatim}
-		DrawSplineLinear(state->point_buffer, state->visible.count, 2.f, DARKBLUE);
-	\end{verbatim}
+
 	
 	\subsubsection{Poruszanie się w widoku}
+	\paragraph{}
 	Aby zwiększyć interaktywność, użytkownik może się poruszać po płaszczyźnie XY, przeciągając płaszczyznę myszką, oraz przybliżając i oddalając kółkiem myszy. Manipulowane są w ten sposób zmienne skali oraz przesunięcia uwzględnione w przekształceniu punktów ze współrzędnych kartezjańskich na współrzędne ekranu.
 	
 	\subsubsection{Transformacja współrzędnych}
 	
+	\paragraph{}
 	Punkt podlega przekształceniu liniowemu:
 	
 	\begin{equation}
 		x = \frac{z(x_p - x_v) - x_{S}}{x_{E} - x_{S}} * W + x_O
 	\end{equation}
-	gdzie \\
+	gdzie: \\
 	$z$ - współczynnik skali \\
 	$x_p$ - współrzędna $x$ punktu w układzie kartezjańskim \\
 	$x_v$ - przesunięcie $x$ w układzie kartezjańskim \\
@@ -138,7 +137,7 @@
 	\begin{equation}
 		y = \frac{-z(y_p + y_v) - y_{S}}{y_{E} - y_{S}} * H + y_O
 	\end{equation}
-	gdzie \\
+	gdzie: \\
 	$z$ - współczynnik skali \\
 	$y_p$ - współrzędna $y$ punktu w układzie kartezjańskim \\
 	$y_v$ - przesunięcie $y$ w układzie kartezjańskim \\
@@ -151,6 +150,7 @@
 	
 	\pagebreak
 	\paragraph{Implementacja}
+	\paragraph{}
 	W kodzie programu zaimplementowane jest to dwuetapowo.
 	\paragraph{Obliczanie granic widocznego fragmentu}
 	\begin{verbatim}
@@ -179,14 +179,18 @@
 		}
 	\end{verbatim}
 	
-	\paragraph{Transformacja wielu punktów jednocześnie} jest zoptymalizowana pod kątem ilości niepotrzebnych operacji.
+	\paragraph{Wiele punktów jednocześnie}
+	\paragraph{}
+	Transformacja wielu punktów jednocześnie jest zoptymalizowana pod kątem ilości niepotrzebnych operacji, co jest opisane szerzej w punkcie 4.1.3.
 	
 	\pagebreak
 	\subsection{Minimalizacja renderowanych punktów}
 	\subsubsection{Opis problemu}
+	\paragraph{}
 	Podczas przegladania wykresu, nie każdy punkt będzie widoczny jednocześnie. Chcąc zminimalizować ilość punktów podlegających transformacji oraz rysowaniu, należy znaleźć zakres punktów widocznych na ekranie.
 	
 	\subsubsection{Szukanie pierwszego punktu}
+	\paragraph{}
 	Zakładając, że współrzędna $x$ w zestawie danych jest niemalejąca, możemy potraktować zbiór $X$ jako posortowany zbiór danych i użyć wydajnego algorytmu \textbf{wyszukiwania binarnego}, o złożoności obliczeniowej $O(\log_2n)$.
 	
 	\begin{verbatim}
@@ -204,14 +208,17 @@
 	\end{verbatim}
 	
 	\subsubsection{Transformacja punktów}
+	\paragraph{}
 	Po znalezieniu pierwszego elementu zbioru wyjściowego, współrzędne są przekształcane i zapisywane w tablicy wyjściwej aż do napotkania punktu znajdującego się za prawą krawędzią widoku lub końca tablicy wejściowej. Wyszukiwanie binarne nie ma tutaj zastosowania, ponieważ i tak każdy widoczny punkt musi zostać przekształcony, co wiąże się z liniowym algorytmem.
 	
 	\begin{verbatim}
 		VisiblePointsInfo compute_visible_points_offset(
-		const DataSource data_source, Vector2* point_buffer, const Bounds bounds, const Vector2 offset
+				const DataSource data_source, Vector2* point_buffer,
+				const Bounds bounds, const Vector2 offset
 		) {
 			VisiblePointsInfo res = {
-				.start = find_first_visible(data_source.data, data_source.count, bounds.start_x - offset.x)
+				.start = find_first_visible(data_source.data,
+							data_source.count, bounds.start_x - offset.x)
 			};
 			if (res.start == -1) return res;
 			
@@ -234,6 +241,7 @@
 			return res;
 		}
 	\end{verbatim}
+	\paragraph{}
 	Algorytm nie używa funkcji do transformacji pojedynczego punktu, co pozwala na obliczenie niezmiennych współczynników poza pętlą, unikając zbędnych operacji.
 	
 	\subsection{Wykrywanie zmian}
@@ -254,9 +262,13 @@
 	
 	\subsubsection{Plik binarny W01}
 	\paragraph{}
-	Jest to plik produkowany przez oprogramowanie maszyny Zwick HB100 i zawiera serie danych z pomiaru. Dokładny opis formatu tego pliku znajduje się w sekcji 4.3.
+	Jest to plik generowany przez oprogramowanie maszyny Zwick HB100 i zawiera serie danych z pomiaru. Dokładny opis formatu tego pliku znajduje się w sekcji 4.3.
 	\paragraph{}
 	Podczas wczytywania tego pliku, użytkownik jest pytany o wybranie kolumn odpowiadającym osiom X i Y.
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/instrukcja/import.png}
+		\caption{Interfejs importowania kolumn z pliku W01}
+	\end{figure}
 	
 	\subsubsection{Plik tekstowy CSV}
 	\paragraph{}
@@ -281,7 +293,7 @@
 	
 	\subsubsection{Przesuwanie (translacja)}
 	\paragraph{}
-	Trzymając klawisz Lewy Ctrl i lewy przycisk myszy, wykres przesuwany jest zgodnie z ruchem kursora myszy. Podczas przesuwania pojawi się "cień" wykresu, odpowiadający miejscu w którym będzie znajdował się wykres po przesunięciu. Puszczenie leweko przycisku myszy zatwierdza przesunięcie, a puszczenie klawisza Lewy Ctrl anuluje przesunięcie.
+	Trzymając klawisz Lewy Ctrl i lewy przycisk myszy, wykres przesuwany jest zgodnie z ruchem kursora myszy. Podczas przesuwania pojawi się "cień" wykresu, odpowiadający miejscu w którym będzie znajdował się wykres po przesunięciu. Puszczenie lewego przycisku myszy zatwierdza przesunięcie, a puszczenie klawisza Lewy Ctrl anuluje przesunięcie.
 	
 	\subsubsection{Blokada przesuwania}
 	\paragraph{}
@@ -304,6 +316,10 @@
 	\subsubsection{Podgląd punktu}
 	\paragraph{}
 	Najeżdżając kursorem myszy na punkt wyświetla się nad nim okienko z dokładnymi wartościami współrzędnych tego punktu.
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/instrukcja/podglad.png}
+		\caption{Interfejs przeglądania i obróbki wykresu z podglądem jednego punktów}
+	\end{figure}
 	
 	
 	\subsection{Eksport}
@@ -313,9 +329,7 @@
 	
 	\subsubsection{Struktura eksportowanego pliku}
 	\paragraph{}
-	CSV (\textit{Comma-Separated Values}) jest luźnym formatem tekstowym przeznaczonym do tabelarycznych danych. Składa się z opcjonalnego nagłówka, oraz wierszy oddzielonych CRLF. W każdym wierszu znajduje się identyczna ilość pól oddzielonych separatorem (zazwyczaj \verb|,| lub \verb|;|). Plik taki można zaimportować jako tabelę we wielu aplikacjach do obsługi danych np. arkusz kalkulacyjny.
-	\paragraph{}
-	W naszym przypadku pierszy wiersz zawiera metadane wykresu, drugi zawiera nazwy kolumn, a każdy kolejny współrzędne jednego punktu.
+	CSV (\textit{Comma-Separated Values}) jest luźnym formatem tekstowym przeznaczonym do tabelarycznych danych. Składa się z opcjonalnego nagłówka, oraz wierszy oddzielonych sekwencją znaków \verb|\r\n| (CRLF). W każdym wierszu znajduje się identyczna ilość pól oddzielonych separatorem (zazwyczaj \verb|,| lub \verb|;|). Plik taki można zaimportować jako tabelę we wielu aplikacjach do obsługi danych np. arkusz kalkulacyjny.
 	
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|} \hline
@@ -334,106 +348,96 @@
 	Użytkownik może wyznaczyć prostą przchodzącą przez dwa punkty wykresu. Aby to zrobić należy nacisnąć i przytrzymać lewy przycisk myszy na pierwszym punkcie, a  następnie trzymając nadal lewy przycisk myszy najechać kursorem myszy na drugi punkt. Jeżeli prosta nie jest równoległa do osi X, zostanie wyświetlone jej równanie oraz zielony odcinek przechodzący przez oba punkty i miejsce zerowe prostej.
 	\paragraph{}
 	Miejsce zerowye zostanie zaznaczone punktem, którego kliknięcie spowoduje przesunięcie wykresu wzdłuż osi X o wartość przeciwną współrzędnej $x$ miejsca zerowego. W efekcie, po tej operacji nachylenie prostej pozostanie niezmienne, a miejsce zerowe będzie w punkcie (0,0).
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/instrukcja/prosta.png}
+		\caption{Wyznaczanie prostej przechodzącej przez dwa punkty}
+	\end{figure}
 	
-	\pagebreak
 	\subsection{Wykres odkształcenie-naprężenie}
 	\paragraph{}
 	Funkcję aktywuje się przez przycisk \textit{Wykres $\sigma = f(\epsilon)$}. Pojawi się formularz do wpisania pola przekroju $S_0$ i długości początkowej $L_0$. Wpisane wartości parametrów będą zastosowane do każdego z otwartych plików. Na układzie współrzędnych pojawi się jedna krzywa dla każdego zaimportowanego pliku.
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/instrukcja/stale.png}
+		\caption{Okno do wpisywania stałych parametrów}
+	\end{figure}
 	
 	\subsection{Regresja wyników pomiarowych}
-	\subsubsection{Aktywacja}
-	\paragraph{}
-	Moduł regresji aktywuje się przyciskiem \textit{Regresja}.
-	
 	\subsubsection{Zakres punktów}
 	\paragraph{}
 	Aby wybrać zakres punktów, które będą poddane regresji nieliniowej, należy wybrać dwa punkty leżące na wykresie. Po zaznaczeniu druguego, regresja wykona się automatycznie.
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/instrukcja/regresja1.png}
+		\caption{Krzywa wyznaczona przez regresję}
+	\end{figure}
 	
 	\subsubsection{Zmiana stopnia wielomianu}
 	\paragraph{}
 	Do zmiany stopnia wielomianu służą przyciski $<$ oraz $>$, znajdujące się przy obecnej liczbie stopnia. Zakres stopni możliwych do wyboru to od 0 do 29. Jeśli zakres punktów jest wybrany, zmiana stopnia spowoduje automatyczne przeliczenie regresji.
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/instrukcja/regresja2.png}
+		\caption{Wielomian o zmienionym stopniu}
+	\end{figure}
 	
 	\subsubsection{Regresja na wykresie odkształcenie-naprężenie}
 	\paragraph{}
 	Moduł regresji można uruchomić w widoku wykresu odkształcenie-naprężenie, lecz może on działać na tylko jednej krzywej jednocześnie. Zaznaczenie punktu na danej krzywej aktywuje tę krzywą i zmienia kolor pozostałych na szary. W tym momencie jedynie zaznaczenie drugiego punktu na tej samej krzywej aktywuje regresję.
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/instrukcja/regresja3.png}
+		\caption{Regresja jednej z wyświetlanych krzywych}
+	\end{figure}
 	
 	\subsubsection{Wzór krzywej}
 	\paragraph{}
 	Jeśli moduł regresji wyświetla krzywą, najechanie kursorem na przycisk "$f{x}$" wyświetli okienko ze wzorem wielomianu wyznaczonej krzywej. Kliknięcie go spowoduje skopiowanie wzoru do schowka.
-	
-	
-	\pagebreak
-		\section{Format pliku wejściowego}
-	\subsection{Nieznany format binarny}
-	Pliki wejściowe z danymi pomiarowymi z rozszerzeniem \textit{.W01}, zapisane są w nieudokumentowanym formacie binarnym. Wpisywanie w wyszukiwarce \textit{.W01} lub magic number z pliku - pierwsze cztery bajty \textit{66 66 86 3f} nie daje istotnych rezultatów. Aby zczytać dane z plików i stworzyć algorytm importujący do programu, należy więc przeprowadzić inżynierię wsteczną formatu.
-	
-	\subsection{Inżynieria wsteczna formatu}
-	W inżynierii wstecznej nie ma jednego poprawnego przepisu na znalezienie rozwiązania. Każde zadanie jest osobną łamigłówką, do której musimy użyć narzędzi, doświadczenia, wiedzy informatycznej, wiedzy dziedzinowej oraz czasu.
-	Podczas analizy od dyspozycji miałem dwa pliki: \textit{19\_.v10.W01} oraz \textit{20\_.v50.W01}, gdzie \textit{v10} i \textit{v50} odpowiadają prędkości procesu spęczania.
-	
-	\subsubsection{Pierwsze spojrzenie na plik}
-	Rzut okiem w \textit{hex-edytorze} ujawnia kilka stringów i sporo zer na początku pliku, a w dalszej części powtarzający się czterokrotnie wzór: napis i blok nieczytelnych danych.
-	
-	\subsubsection{Nagłówek}
-	W nagłówgu pliku, który znajduje się na początku, przed właściwymi danymi liczbowymi znajdują się metadane, informacje o rozmiarze, godzina utworzenia oraz nazwa programu wejściowego do maszyny badawczej. Cały nagłówek ma stały rozmiar 208 bajtów.
-	
-	\begin{center}
-		\begin{tabular}{|c|c|c|c|p{5.5cm}|} \hline
-			\multicolumn{5}{|c|}{Struktura nagłówku pliku} \\\hline
-			offset & rozmiar & wartość/typ & nazwa & komentarz \\\hline
-			\hline
-			0 &  4 & 0x3f866666 & magic & stała wartość określająca format \\\hline
-			4 &  4 & 1 & wersja? & najpewniej wersja formatu \\\hline
-			8 &  4 & $rozmiar\_pliku + 1$ & rozmiar & \\\hline
-			12 &  4 & 0 & nieznana & zawsze 0 \\\hline
-			16 &  8 & "ScriptPl" & stały napis & 8 znaków, bez null terminatora \\\hline
-			24 &  4 & $rozmiar\_pliku - 16$ & rozmiar2 & wygląda jak zbędna informacja, może oznaczać "rozmiar począwszy od napisu" \\\hline
-			28 &  4 & liczba wierszy & liczba wierszy & ilość liczb w każdej kolumnie danych \\\hline
-			32 &  4 & liczba kolumn & liczba kolumn & ilość kolumn z danymi \\\hline
-			36 &  4 & 1 & nieznane & \\\hline
-			40 &  4 & 1 & nieznane & \\\hline
-			44 & 18 & "dd-MM-yyyyhh:mm:ss" & czas utworzenia & napis bez null terminatora \\\hline
-			62 & 42 & nieznana & nieznane & 42 bajty, głównie zera \\\hline
-			104 & 104 & nazwa pliku & plik badania & nazwa pliku wejściowego do maszyny, dopełniona zerami do 104 bajtów \\\hline
-		\end{tabular}
-	\end{center}
-	
-	\subsubsection{Kolumny (serie danych)}
-	Kolumny mają zmienny rozmiar, zależnie od pliku, jednak zawsze taki sam w obrębie jednego pliku.
-	
-	\begin{center}
-		\begin{tabular}{|c|c|c|c|p{6.5cm}|} \hline
-			\multicolumn{5}{|c|}{Struktura kolumny} \\\hline
-			offset & rozmiar & wartość/typ & nazwa & komentarz \\\hline
-			\hline
-			0 & 4 & int & nieznane & 1 lub 16385  \\\hline
-			4 & 59 & napis & nazwa & nazwa i jednostka kolumny, oddzielone spacjami \\\hline
-			63 & $4 * liczba\_wierszy$ & float & dane & tablica 32-bitowych liczb zmiennoprzecinkowych \\\hline
-		\end{tabular}
-	\end{center}
-	
-	\subsubsection{Struktura całego pliku}
-	Plik składa się z nagłówka o stałym rozmiarze i zmiennej liczby kolumn zmiennej długości, które zawierają swój nagłówek oraz danych liczbowych.
-	
-	\begin{center}
-		\begin{tabular}{|p{5cm}|p{5cm}|} \hline
-			\multicolumn{2}{|c|}{Struktura pliku} \\\hline
-			rozmiar  & element \\\hline
-			\hline
-			208 & nagłówek  \\\hline
-			$63+4*liczba\_wierszy$  & kolumna 1 \\\hline
-			$63+4*liczba\_wierszy$  & kolumna 2 \\\hline
-			...  & ... \\\hline
-			$63+4*liczba\_wierszy$  & kolumna $n$ \\\hline
-		\end{tabular}
-	\end{center}
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/instrukcja/regresja4.png}
+		\caption{Wyświetlenie wzoru wielomianu}
+	\end{figure}
 	
 	\pagebreak
 	
-	\section{Optymalizacja wydajności aplikacji - algorytm regresji wielomianowej}
+	
+	\section{Algorytm regresji wielomianowej - optymalizacja wydajności aplikacji}
 	\subsection{Wstęp}
+	\paragraph{}
 	Ten rozdział opisuje proces opytmalizacji algorytmu wykonującego regresję wielomianową podanego stopnia dla podanych punktów. Udokumentowane są użyte techniki oraz pomiary czasowe. Przed opytmalizacją, algorytm ten był zdecydowanie najbardziej czasochłonną operacją w całym programie.
+	
+	\subsection{Model matematyczny}
+	\paragraph{}
+	Regresja wielomianowa polega na minimalizacji funkcji błędu, zdefiniowanej jako kwadrat różnicy między współrzędną $y$ danego punktu, a wartością wyznaczonej funkcji dla $x$ odpowiadającemu współrzędnej $x$ tego punktu. Dla znanego stopnia wielomianu, sprowadza się to do rozwiązania układu równań liniowych.
+	\begin{equation}
+		\begin{bmatrix}
+			n & \sum_{i=0}^{n} x_i & \sum_{i=0}^{n} x_i^2 & \cdots & \sum_{i=0}^{n} x_i^m \\
+			\sum_{i=0}^{n} x_i & \sum_{i=0}^{n} x_i^2 & \sum_{i=0}^{n} x_i^3 & \cdots & \sum_{i=0}^{n} x_i^{m+1} \\
+			\sum_{i=0}^{n} x_i^2 & \sum_{i=0}^{n} x_i^3 & \sum_{i=0}^{n} x_i^4 & \cdots & \sum_{i=0}^{n} x_i^{m+2} \\
+			\vdots & \vdots & \vdots & \ddots & \vdots \\
+			\sum_{i=0}^{n} x_i^m & \sum_{i=0}^{n} x_i^{m+1} & \sum_{i=0}^{n} x_i^{m+2} & \cdots & \sum_{i=0}^{n} x_i^{2m}
+		\end{bmatrix}
+		\begin{bmatrix}
+			c_0 \\
+			c_1 \\
+			c_2 \\
+			\vdots \\
+			c_m
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+			\sum_{i=0}^{n} y_i \\
+			\sum_{i=0}^{n} x_i y_i \\
+			\sum_{i=0}^{n} x_i^2 y_i \\
+			\vdots \\
+			\sum_{i=0}^{n} x_i^m y_i
+		\end{bmatrix}
+	\end{equation}
+	gdzie: \\
+	$c_0 \cdots c_m$ - współczynniki wielomianu \\
+	$m$ - stopnień wielomianu \\
+	$n$ - liczba punktów \\
+	
+	Zaimplementowany algorytm wypełnia macierz i wektor odpowiednimi wartościami, a następnie rozwiązuje układ równań metodą eliminacji Gaussa.
+	
 	\subsection{Dane wejściowe, sprzęt i środowisko}
+	\paragraph{}
 	Podczas testowania przyjęto następujące parametry:
 	\begin{itemize}
 		\item \textbf{Punkty wejściowe}: 29 punktów na krzywej $2\sin x+2$, dla $x$ od -5, co 0.3
@@ -446,12 +450,15 @@
 	
 	\subsection{Sposób pomiarów}
 	\subsubsection{Realny benchmark}
+	\paragraph{}
 	Pomiary algorytmu oraz jego fragmentów miały miejsce jako mierzenie części całego działającego programu, maksymalnie raz na klatkę, przy zachowaniu całej jego pozostałej funkcjonalności. Rezultat był wykorzystany do wyświetlenia na żywo wykresu wyznaczonej funkcji, nie ma mowy więc o pomijaniu przez kompilator operacji, których wynik nie jest używany. Dodatkowo w syntetycznym benchmarku, wywołującym w pętli funkcję wiele razy, korzystniej mogłaby być zapełniona pamięć cache oraz bardziej dokładny predyktor skoków, dlatego wplecenie pomiarów w standardowy przepływ programu lepiej oddaje wydajność w realnych warunkach.
 	
 	\subsubsection{RDTSC}
+	\paragraph{}
 	Architektura x86 implementuje instrukcję \textbf{RDTSC} (\textit{Read Time-Stamp Counter}), zwracającą obecną wartość licznika cykli. Licznik służy do precyzyjnego pomiaru czasu i jest inkrementowany co stałą jednostkę czasu, odpowiadającą częstotliwości procesora. Dynamiczne taktowanie obecne we współczesnych rdzeniach nie ma wpływu na częstotliwość tego licznika. W przypadku sprzętu pomiarowego jest to 3.6GHz.
 	
 	\subsubsection{Implementacja pomiaru}
+	\paragraph{}
 	W momencie uruchomienia benchmarku ustawiana jest flaga (pkt. 6.4), zapewniająca że komponent wielomianu otrzyma zmianę w każdej klatce, co wywoła pożądaną funkcję. Flaga będzie ustawiana, dopóki benchmark nie zbierze 10000 pomiarów.
 	
 	\paragraph{Rozpoczęcie pomiaru}
@@ -463,6 +470,7 @@
 			start = clock();
 		}
 	\end{verbatim}
+	\paragraph{}
 	Funkcja ustawia zmienne globalne licznika cykli używając funkcji wewnętrznej \verb|__rdtsc| oraz drugiego licznika używając kanonicznego \verb|clock|. Użycie \verb|__rdtsc| jest wyłączone na platformie ARM, gdzie instrukcja \verb|RDTSC| nie jest dostępna.\\
 	
 	
@@ -495,9 +503,11 @@
 			}
 		}
 	\end{verbatim}
+	\paragraph{}
 	Liczona jest różnica w z obecnym a poprzednim stanem licznika. Wartość -1 dla \verb|samples| oznacza wyłącony benchmark, a dla \verb|best| i \verb|best_cycles| - brak wartości.
 	
 	\subsubsection{Narzut pomiaru}
+	\paragraph{}
 	Aby móc wyciagnąć wnioski z pomiarów sekcji kodu, należy najpierw zmierzyć czas wykonania samego kodu pomiarowego. Wszelkie wyniki zbliżone do narzutu powiaru są niemiarodajne.
 	
 	\begin{center}
@@ -524,13 +534,14 @@
 			
 		\end{tabular}
 	\end{center}
+	\paragraph{}
 	Czas jest na tyle mały, że \verb|clock| wskazuje 0 - jest za mało precyzyjny.
 	Co ciekawe, wygląda na to, sam narzut w konfiguracji release jest nieco wolniejszy niż w debug.
 	
-	\pagebreak
 	
 	\subsection{Pierwotny algorytm}
-	Poniższy kod jest pierwszą poprawną wersją naiwnej implementacji algorytmu regresji. W jego skład wchodzi przygotowanie pamięci, wypełnienie macierzy macierzy i wektora sumami, rozwiązanie układu równań eliminacją Gaussa oraz przepisanie i zwrócenie wyniku.
+	\paragraph{}
+	Poniższy kod jest pierwszą poprawną wersją implementacji algorytmu regresji. W jego skład wchodzi przygotowanie pamięci, wypełnienie macierzy i wektora sumami, rozwiązanie układu równań eliminacją Gaussa oraz przepisanie i zwrócenie wyniku.
 	\subsubsection{Całość}
 	\paragraph{Kod}
 	\begin{verbatim}
@@ -615,8 +626,8 @@
 			clock_end();
 		}
 	\end{verbatim}
-	
-	\pagebreak
+
+	\pagebreak	
 	\paragraph{Benchmark}
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
@@ -644,27 +655,12 @@
 	\end{center}
 	
 	\paragraph{Komentarz}
+	\paragraph{}
 	Wykonanie mieści się poniżej 1 milisekundy, jednak zajmuje dużą ilość czasu w porównaniu do reszty programu oraz powoduje zauważalne spadki liczby klatek na sekundę (z ok. 8000 do ok. 1000).
 	
 	
-	\pagebreak
 	\subsubsection{Fragment 1 - Alokacja i przygotowanie pamięci}
-	Alokacja pamięci na stercie jest uważana za powolną operację, więc mimo że wyoknujemy ją tylko raz, należy dla pewności ją zmierzyć. Alokacja jest już wstępnie zoptymalizowana, zamiast czterech osobnych alokacji dla czterech tablic, mamy jeden blok pamięci zdolny zmieścić wszystkie tablice, których wskaźniki ustawiamy z odpowiednim przesunięciem.
-	\paragraph{Kod}
-	\begin{verbatim}
-		clock_start();
-		const int degree = point_count - 1;
-		const int n = point_count;
-		const int m = degree;
-		
-		float* matrix = malloc((m*m + 2*m) * sizeof (float)  +  m * sizeof (int));
-		float* errors = &matrix[m*m];
-		float* coeffs = &errors[m];
-		int* swap_table = (int*) &coeffs[m];
-		clock_end();
-	\end{verbatim}
 	
-	\paragraph{Benchmark}
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
 			\multicolumn{6}{|c|}{Debug} \\\hline
@@ -685,32 +681,8 @@
 	\end{center}
 	
 	
-	\pagebreak
 	\subsubsection{Fragment 2 - Wypełnianie macierzy i wektora błędów}
-	\paragraph{Kod}
-	\begin{verbatim}
-		clock_start();
-		for (int row = 0; row < m; ++row) {
-			swap_table[row] = row;
-			
-			for (int col = 0; col < m; ++col) {
-				float cell = 0;
-				const int power = row + col;
-				for (int i = 0; i < n; ++i) {
-					cell += pownf(points[i].x, power);
-				}
-				_get_mat_cell(row, col) = cell;
-			}
-			float error = 0;
-			for (int i = 0; i < n; ++i) {
-				error += pownf(points[i].x, row) * points[i].y;
-			}
-			_get_error(row) = error;
-		}
-		clock_end();
-	\end{verbatim}
-	
-	\paragraph{Benchmark}
+
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
 			\multicolumn{6}{|c|}{Debug} \\\hline
@@ -736,46 +708,8 @@
 		\end{tabular}
 	\end{center}
 	
-	
-	\pagebreak
 	\subsubsection{Fragment 3 - Rozwiązanie układu równań}
-	\paragraph{Kod}
-	\begin{verbatim}
-		clock_start();
-		for (int i = 0; i < m - 1; ++i) {
-			float max = fabsf(_get_mat_cell(i, i));
-			int max_row = i;
-			for (int row = i + 1; row < m; ++row) {
-				const float current_abs = fabsf(_get_mat_cell(row, i));
-				if (current_abs > max) {
-					max = current_abs;
-					max_row = row;
-				}
-			}
-			if (max_row != i) swap_rows(swap_table, i, max_row);
-			
-			const float cell = _get_mat_cell(i, i);
-			for (int row = i + 1; row < m; ++row) {
-				const float coeff = _get_mat_cell(row, i) / cell;
-				_get_error(row) -= coeff * _get_error(i);
-				for (int col = 0; col < m; ++col) {
-					_get_mat_cell(row, col) -= coeff * _get_mat_cell(i, col);
-				}
-			}
-		}
-		
-		_get_coeff(m - 1) = _get_error(m - 1) / _get_mat_cell(m - 1, m - 1);
-		for (int i = m - 2; i >= 0; --i) {
-			float sigma = 0;
-			for (int k = i + 1; k < m; ++k) {
-				sigma += _get_mat_cell(i, k) * _get_coeff(k);
-			}
-			_get_coeff(i) = (_get_error(i) - sigma) / _get_mat_cell(i, i);
-		}
-		clock_end();
-	\end{verbatim}
-	
-	\paragraph{Benchmark}
+
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
 			\multicolumn{6}{|c|}{Debug} \\\hline
@@ -805,22 +739,7 @@
 	
 
 	\subsubsection{Fragment 4 - Przepisywanie wyniku i zwalnianie pamięci}
-	Wynikowa tablica współczynników musi zostać przepisana, ponieważ zamiana wierszy w eliminacji Gaussa zmienia ich kolejność w pamięci.
-	\paragraph{Kod}
-	\begin{verbatim}
-		clock_start();
-		for (int i = 0; i < m; ++i) {
-			curve->coefficients[i] = _get_coeff(i);
-		}
-		free(matrix);
-		
-		curve->order = m;
-		curve->start_x = points[0].x;
-		curve->end_x = points[point_count - 1].x;
-		clock_end();
-	\end{verbatim}
-	
-	\paragraph{Benchmark}
+
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
 			\multicolumn{6}{|c|}{Debug} \\\hline
@@ -847,7 +766,8 @@
 	\end{center}
 	
 	\subsubsection{Obserwacje i wnioski}
-	Czas zarządzania pamięcią i przepisywania wyniku jest pomijalny.
+	\paragraph{}
+	Zarządzanie pamięcią i przepisywanie wyniku jest pomijalne.
 	Zdecydowana większość czasu jest skoncentrowana we fragmencie nr 2 - wypełnianiu macierzy i wektora. To na nim należy się skupić pod kątem optymalizacji.
 	Rozwiązywanie układu zajmuje zauważalną, lecz dużo mniejszą ilość czasu.
 	
@@ -855,9 +775,11 @@
 	\pagebreak
 	\subsection{Zmiana funkcji potęgi}
 	\subsubsection{Idea}
+	\paragraph{}
 	Pierwotna wersja używa funkcji \verb|pownf| ze standardowej biblioteki C. Funkcja ta przyjmuje jako wykładnik 64-bitową liczbę całkowitą ze znakiem. Ideą za tą zmianą była szansa poprawy wydajności poprzez zignorowanie przypadku dla liczb ujemnych, poniaważ w naszym algorytmie nie występują ujemne wykładniki, oraz zmniejszenie rozmiaru wykładnika, co pozwoli uniknąć konwersji z liczby 32-bitowej na 64-bitową oraz zaoszczędzi miejsce w pamięci cache.
 	
 	\subsubsection{Kod}
+	\paragraph{}
 	Oba wywołania \verb|pownf| zostały zastąpione wywołaniem własnej funkcji potęgi. Jest to prosty algorytm iteracyjny.
 	\begin{verbatim}
 		float power_fi(const float x, int pow) {
@@ -871,6 +793,7 @@
 	\end{verbatim}
 	
 	\subsubsection{Benchmark}
+	\paragraph{}
 	Pomiar obejmuje cały fragment 2 ze zmienioną funkcją potęgi.
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
@@ -895,6 +818,7 @@
 	\end{center}
 	
 	\subsubsection{Obserwacje i wnioski}
+	\paragraph{}
 	W trybie debug zmiana spowodowała ponad 4-krotny spadek wydajności, a w trybie release - ok. 28\% wzrost.
 	Oznacza to, że początkowe założenia były nietrafione i nowy algorytm jest bardzo wolny, jednak kompilator z włączoną optymalizacją zauważył co próbowaliśmy osiągnąć i podmienił na wydajniejszą implementację.
 	
@@ -902,6 +826,7 @@
 	\pagebreak
 	\subsection{Usuwanie redundancji}
 	\subsubsection{Idea}
+	\paragraph{}
 	Wracając do wzoru elementów macierzy, można zauważyć, że jest ona bardzo uporządkowana. Co więcej, większość sum pojawia się w niej więcej niż jeden raz. Jeśli weźmiemy elementy od $a_{1,1}$ do $a_{m,m}$, wartość elementu $a_{2,1}$ pojawi się 2-krotnie, wartość $a_{3,1}$ - 3-krotnie, a wartość $a_{m,1}$ - $m$-krotnie. Aby uniknąć zbędnych obliczeń tej samej wartości, tworzymy tablicę sum od $\sum_{i=1}^{n}x_i^0$ do $\sum_{i=1}^{n}x_i^{2m}$, z której będziemy kopiować wartości w odpowiednie elementy macierzy.
 	
 	\subsubsection{Kod}
@@ -985,24 +910,13 @@
 	\end{center}
 	
 	\subsubsection{Obserwacje i wnioski}
+	\paragraph{}
 	Zapisanie wyniku sum dało bardzo znaczące przyspieszenie. W każdej konfiguracji fragment wykonuje się około 10-krotnie szybciej.
 	
 	\pagebreak
 	\subsection{Wypełnianie macierzy i wektora - pomiar fragmentów}
 	\subsubsection{Fragment 1 - Obliczanie sum}
-	\paragraph{Kod}
-	\begin{verbatim}
-		clock_start();
-		for (int pow = 0; pow < 2*m; ++pow) {
-			float total = 0;
-			for (int i = 0; i < n; ++i) {
-				total += power_fi(points[i].x, pow);
-			}
-			powers[pow] = total;
-		}
-		clock_end();
-	\end{verbatim}
-	\paragraph{Benchmark}
+
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
 			\multicolumn{6}{|c|}{Debug} \\\hline
@@ -1023,19 +937,7 @@
 	\end{center}
 	
 	\subsubsection{Fragment 2 - Kopiowanie sum do macierzy}
-	\paragraph{Kod}
-	\begin{verbatim}
-		clock_start();
-		for (int row = 0; row < m; ++row) {
-			swap_table[row] = row;
-			
-			for (int col = 0; col < m; ++col) {
-				matrix[row * m + col] = sum_of_powers[row + col];
-			}
-		}
-		clock_end();
-	\end{verbatim}
-	\paragraph{Benchmark}
+
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
 			\multicolumn{6}{|c|}{Debug} \\\hline
@@ -1056,19 +958,7 @@
 	\end{center}
 	
 	\subsubsection{Fragment 3 - Wypełnianie wektora}
-	\paragraph{Kod}
-	\begin{verbatim}
-		clock_start();
-		for (int row = 0; row < m; ++row) {
-			float error = 0;
-			for (int i = 0; i < n; ++i) {
-				error += power_fi(points[i].x, row) * points[i].y;
-			}
-			errors[row] = error;
-		}
-		clock_end();
-	\end{verbatim}
-	\paragraph{Benchmark}
+
 	\begin{center}
 		\begin{tabular}{|c|c|c|c|c|c|} \hline
 			\multicolumn{6}{|c|}{Debug} \\\hline
@@ -1089,12 +979,14 @@
 	\end{center}
 	
 	\subsubsection{Obserwacje i wnioski}
+	\paragraph{}
 	Najwięcej czasu zajmuje obliczanie sum potęg. Kilkukrotnie mniej - wypełnianie wektora, a w trybie release wypełnianie macierzy jest pomijalne.
 	
 	
 	\pagebreak
 	\subsection{Eliminacja potęgowania - podejście iteracyjne}
 	\subsubsection{Idea}
+	\paragraph{}
 	Potęgowanie poprzez wielokrotne mnożenie wymaga dużej ilości operacji mnożenia.
 	Dodatkowo, są to operacje liniowo zależne od siebie, więc procesor musi je wykonać w prawidłowej kolejności jedna po drugiej. Niweluje to sposoby przyspieszania obliczeń na współczesnym sprzęcie, takie jak OoO (Out of Order execution) oraz SIMD (Single Instruction, Multiple Data).
 	Złożoność obliczeniowa takiego algorytmu to $O(n) = n$, gdzie $n$ to wykładnik.\\
@@ -1102,14 +994,17 @@
 	\begin{equation}
 		O(m) = 2m^2n = 2(m^3 - m^2)
 	\end{equation}
+	\paragraph{}
 	Rozwiązaniem tego preblemu jest zmiana podejścia z obliczania każdej potęgi osobno:
 	\begin{equation}
 		x^n = x*x*...*x
 	\end{equation}
+	\paragraph{}
 	na obliczanie następnej potęgi na podstawie poprzedniej:
 	\begin{equation}
 		x^n = x^{n-1}*x
 	\end{equation}
+	\paragraph{}
 	Dzięki temu każda następna potęga wymaga jedynie jednej operacji mnożenia i ich ilość w całym algorytmie zmienia się na:
 	\begin{equation}
 		O(m) = 2(m^2 - m)
@@ -1164,6 +1059,7 @@
 	\end{center}
 	
 	\subsubsection{Wypełnianie wektora - to samo podejście}
+	\paragraph{}
 	Tożsame usprawnienie można zastosować w drugim fragmencie stosującym potęgowanie - wypełnianiu wektora. Tablicę pomocniczą wypełniamy wartościami $y$, a w każdej następnej iteracji mnożymy przez odpowiednie wartości $x$.
 	
 	\subsubsection{Wypełnianie wektora - Kod}
@@ -1214,6 +1110,7 @@
 	\end{center}
 	
 	\subsubsection{Obserwacje i wnioski}
+	\paragraph{}
 	Zmiana spowodowała ogromny wzrost wydajności, ponad 10-krotny dla tablicy potęg oraz ponad 3-krotny dla wektora.
 	Przyczynia się od tego redukcja złożoności obliczezniowej oraz rozłożenie danych. Wykonywanie tej samej operacji na wielu niezależnych elementach tablicy bardzo sprzyja wykonywaniu poza kolejnością oraz operacji SIMD.
 	Własna funkcja potęgowanie też nie jest już używana, więc można ją usunąć. 
@@ -1273,6 +1170,7 @@
 	\end{center}
 	
 	\subsubsection{Wnioski}
+	\paragraph{}
 	Optymalizacja okazała się bardzo skuteczna, stosując różne techniki udało się poprawić wydajność algorytmu \textbf{45-50-krotnie}.
 	
 	\chapter{Przykłady zastosowania aplikacji do kompleksowej analizy wyników pomiarowych}
@@ -1293,15 +1191,13 @@
 		\item Prędkość - 10 $\frac{mm}{s}$
 	\end{itemize}
 	
-	\subsubsection{Wykres po wczytaniu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/19_v10-1.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/19_v10-1.png}
 		\caption{Wykres próbki 1 po zaimportowaniu}
 	\end{figure}
 	
-	\subsubsection{Obróbka wykresu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/19_v10-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/19_v10-2.png}
 		\caption{Wykres próbki 1 przy ekstrapolacji}
 	\end{figure}
 	
@@ -1313,21 +1209,19 @@
 		\item Prędkość - 50 $\frac{mm}{s}$
 	\end{itemize}
 	
-	\subsubsection{Wykres po wczytaniu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/20_v50-1.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/20_v50-1.png}
 		\caption{Wykres próbki 2 po zaimportowaniu}
 	\end{figure}
 	
-	\subsubsection{Obróbka wykresu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/20_v50-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/20_v50-2.png}
 		\caption{Wykres próbki 2 przy ekstrapolacji}
 	\end{figure}
 	
 	\subsection{Zestawienie wykresów $\sigma = f(\epsilon)$}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/BA1032.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/BA1032.png}
 		\caption{Wykres naprężenie-odkształcenie próbek 1 i 2}
 	\end{figure}
 	
@@ -1341,7 +1235,6 @@
 		\item Wysokość - 5 mm
 	\end{itemize}
 	
-	\pagebreak
 	\subsection{Próba 1}
 	\subsubsection{Parametry próby}
 	\begin{itemize}
@@ -1349,15 +1242,13 @@
 		\item Prędkość - 0,1 $\frac{mm}{s}$
 	\end{itemize}
 	
-	\subsubsection{Wykres po wczytaniu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v0p1-1.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v0p1-1.png}
 		\caption{Wykres próbki 1 po zaimportowaniu}
 	\end{figure}
 	
-	\subsubsection{Obróbka wykresu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v0p1-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v0p1-2.png}
 		\caption{Wykres próbki 1 przy ekstrapolacji}
 	\end{figure}
 	
@@ -1369,15 +1260,13 @@
 		\item Prędkość - 10 $\frac{mm}{s}$
 	\end{itemize}
 	
-	\subsubsection{Wykres po wczytaniu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v10-1.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v10-1.png}
 		\caption{Wykres próbki 2 po zaimportowaniu}
 	\end{figure}
 	
-	\subsubsection{Obróbka wykresu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v10-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v10-2.png}
 		\caption{Wykres próbki 2 przy ekstrapolacji}
 	\end{figure}
 	
@@ -1388,21 +1277,19 @@
 		\item Prędkość - 50 $\frac{mm}{s}$
 	\end{itemize}
 	
-	\subsubsection{Wykres po wczytaniu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v50-1.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v50-1.png}
 		\caption{Wykres próbki 3 po zaimportowaniu}
 	\end{figure}
 	
-	\subsubsection{Obróbka wykresu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz_v50-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v50-2.png}
 		\caption{Wykres próbki 3 przy ekstrapolacji}
 	\end{figure}
 	
 	\subsection{Zestawienie wykresów $\sigma = f(\epsilon)$}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/Totocz-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz-2.png}
 		\caption{Wykres naprężenie-odkształcenie próbek 1, 2 i 3}
 	\end{figure}
 	
@@ -1424,19 +1311,17 @@
 		\item Prędkość - 0,01 $\frac{mm}{s}$
 	\end{itemize}
 	
-	\subsubsection{Wykres po wczytaniu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/T880-1.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/T880-1.png}
 		\caption{Wykres próbki 1 po zaimportowaniu}
 	\end{figure}
 	
-	\subsubsection{Obróbka wykresu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/T880-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/T880-2.png}
 		\caption{Wykres próbki 1 przy ekstrapolacji}
 	\end{figure}
 	
-	
+	\pagebreak
 	\subsection{Próba 2}
 	\subsubsection{Parametry próby}
 	\begin{itemize}
@@ -1444,15 +1329,13 @@
 		\item Prędkość - 0,1 $\frac{mm}{s}$
 	\end{itemize}
 	
-	\subsubsection{Wykres po wczytaniu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/T960-1.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/T960-1.png}
 		\caption{Wykres próbki 2 po zaimportowaniu}
 	\end{figure}
 	
-	\subsubsection{Obróbka wykresu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/T960-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/T960-2.png}
 		\caption{Wykres próbki 2 przy ekstrapolacji}
 	\end{figure}
 	
@@ -1463,21 +1346,19 @@
 		\item Prędkość - 0,1 $\frac{mm}{s}$
 	\end{itemize}
 	
-	\subsubsection{Wykres po wczytaniu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/T1000-1.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/T1000-1.png}
 		\caption{Wykres próbki 3 po zaimportowaniu}
 	\end{figure}
 	
-	\subsubsection{Obróbka wykresu}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/T1000-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/T1000-2.png}
 		\caption{Wykres próbki 3 przy ekstrapolacji}
 	\end{figure}
 	
 	\subsection{Zestawienie wykresów $\sigma = f(\epsilon)$}
 	\begin{figure}[H]
-		\includegraphics[width=.8\textwidth, center]{images/proby/Tixo-2.png}
+		\includegraphics[width=.7\textwidth, center]{images/proby/Tixo-2.png}
 		\caption{Wykres naprężenie-odkształcenie próbek 1, 2 i 3}
 	\end{figure}
 	
