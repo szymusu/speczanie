@@ -40,6 +40,27 @@
 	Przeprowadzone spęczania w stanie stałociekłym pozwalają również na wyznaczenie wartości lepkości badanego materiału w funkcji prędkości ścinania. (wzory jutro) 
 	
 	\pagebreak
+	Dla próbki spęczanej w stanie stałociekłym mają zastosowanie wzory (1.1) oraz (1.2)
+	\begin{equation}
+		F = -\frac{3\mu\nu^2}{2\pi h^5} \left( \frac{dh}{dt}\right) 
+	\end{equation}
+	gdzie: \\
+	$F$ - siła spęczania \\
+	$\mu$ - lepkość, \\
+	$\nu$ - objętość próbki, \\
+	$h$ - wysokość próbki, \\
+	$t$ - czas.
+	
+	\begin{equation}
+		\dot{\gamma}_{avg} = -\frac{R}{2h^2} \left(  \frac{dh}{dt}  \right) 
+	\end{equation}
+	gdzie: \\
+	$\dot{\gamma}_{avg}$ - średnie ścinanie
+	$R$ - promień próbki, \\
+	$h$ - wysokość próbki, \\
+	$t$ - czas.
+
+	\pagebreak
 	\section{Opis maszyny pomiarowej}
 	\paragraph{}
 	Maszyna pomiarowa to hydrauliczna maszyna wytrzymałościowa z piecem Zwick HB100.
@@ -128,9 +149,14 @@
 	
 	
 	\section{Zawartość pracy}
-	\paragraph{}
-	Co mieści się w poszczególnych rozdziałach. (wszystko w jednym akapicie, liczby słownie (pierwszy, drugi))
-	Ten dokument zawiera opis problemu, cel i założenia, napotkane przeszkody, ogólną strukturę i sposób działania aplikacji oraz niektóre szczegóły implementacji.
+	\paragraph{Rozdział pierwszy} zawiera wstęp do pracy, opis próby spęczania oraz istniejące już rozwiązania.
+	\paragraph{Rozdział drugi} zawiera cele i założenia pracy oraz postawioną tezę.
+	\paragraph{Rozdział trzeci} zawiera wykorzystane narzędzia i technologie wraz z uzasadnieniem ich wyboru.
+	\paragraph{Rozdział czwarty} zawiera opis struktury aplikacji, instrukcję obsługi, szczegóły implementacji niektórych fragmentów i opis rozwiązanych problemów informatycznych. W tym rozdziale znajduje się również proces poprawy wydajności jednego z krytycznych fragmetów programu.
+	\paragraph{Rozdział piąty} zawiera przykład wykorzystania aplikacji w praktyce.
+	\paragraph{Rozdział szósty} zawiera podsumowanie obejmujące wady, zalety i potencjał rozwojowy aplikacji.
+	\paragraph{Rozdział siódmy} zawiera oświadczenie o braku wykorzystania GenAI w sposób niezgodny z regulaminem.
+	\paragraph{Rozdział ósmy} zawiara wykorzystane źródła i literaturę.
 	
 	
 	\chapter{Cel i teza pracy}
@@ -160,9 +186,11 @@
 	\section{Środowisko graficzne}
 	\paragraph{}
 	Do obsługi grafiki oraz urządzeń wejścia (mysz i klawiatura) została wykorzystana \textbf{biblioteka Raylib}, posiadająca łatwe w obsłudze, bogate API kompatybilne z wieloma systemami operacyjnymi. Raylib nie posiada nie posiada zależności, można ją dołączyć statycznie do pliku wykonywalnego i wymaga jedynie obsługi OpenGL w sterowniku graficznym.
+	\paragraph{}
+	Na komputerach z systemem Windows bez zainstalowanych sterowników graficznych wspierających OpenGL, jako warstwa kompatybilności wykorzystany został software renderer \textbf{Mesa3D}, który implementuje API OpenGL.
 	
 	\section{Kompilacja}
 	\paragraph{}
-	Prace programistyczne odbywały się na systemach Linux oraz MacOS (ARM), gdzie użyto domyślnych dla systemu kompilatorów C - odpowiednio GCC oraz Clang. Kompilacja na system Windows odbywała się na systemie Linux z wykorzystaniem MinGW. Projekt używa CMake do zarządania kompilacją.
+	Prace programistyczne odbywały się na systemach Linux oraz MacOS (ARM), gdzie użyto domyślnych dla systemu kompilatorów C - odpowiednio GCC oraz Clang. Kompilacja na system Windows odbywała się na systemie Linux z wykorzystaniem MinGW-w64. Projekt używa CMake do zarządania kompilacją.
 	
 \end{document}

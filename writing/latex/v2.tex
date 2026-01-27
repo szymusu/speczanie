@@ -8,6 +8,7 @@
 \usepackage{xcolor}
 \usepackage{multirow}
 \usepackage{array}
+\usepackage{hyperref}
 
 
 \title{Analiza wyników pomiarowych z prób spęczania z wykorzystaniem aplikacji komputerowej - praca inżynierska}
@@ -54,6 +55,7 @@
 	
 	\section{Zawartość pracy}
 	\paragraph{}
+	
 	Co mieści się w poszczególnych rozdziałach. (wszystko w jednym akapicie, liczby słownie (pierwszy, drugi))
 	Ten dokument zawiera opis problemu, cel i założenia, napotkane przeszkody, ogólną strukturę i sposób działania aplikacji oraz niektóre szczegóły implementacji.
 	
@@ -84,6 +86,8 @@
 	\section{Środowisko graficzne}
 	\paragraph{}
 	Do obsługi grafiki oraz urządzeń wejścia (mysz i klawiatura) została wykorzystana \textbf{biblioteka Raylib}, posiadająca łatwe w obsłudze, bogate API kompatybilne z wieloma systemami operacyjnymi. Raylib nie posiada nie posiada zależności, można ją dołączyć statycznie do pliku wykonywalnego i wymaga jedynie obsługi OpenGL w sterowniku graficznym.
+	\paragraph{}
+	Na komputerach z systemem Windows bez zainstalowanych sterowników graficznych wspierających OpenGL, jako warstwa kompatybilności wykorzystany został software renderer \textbf{Mesa3D}, który implementuje API OpenGL.
 	
 	\section{Kompilacja}
 	\paragraph{}
@@ -1262,13 +1266,61 @@
 	
 	
 	\chapter{Podsumowanie}
-	tutaj zalety mojego programu nad poprzednim
+	\paragraph{}
+	W pracy udało się stworzyć aplikację spełniającą pierwotne założenia.
+	
+	\section{Zalety utworzonego rozwiązania}
+	\paragraph{}
+	Utworzona aplikacja charakteryzuje się wysoką wydajnością zarówno pod względem potrzebnych interakcji użytkownika do ośiągnięcia celu, jak i pod względem szybkości i płynności działania. Zależnie od sprzętu oraz systemu, liczba klatek na sekundę wacha się między 120, a 8000. Aplikacja zapewnia zadowalającą wydajność nawet bez sprzętowej akceleracji grafiki.
+	\paragraph{}
+	Aplikacja w większości przypadków nie wymaga instalacji żadnych dodatkowych zależności i jest kompatybilna zarówno z nowym i starym sprzętem na systemach Windows, Linux i MacOS.
+	
+	\section{Wady i potencjalne problemy}
+	\paragraph{}
+	Brak wykorzystania gotowych narzędzi do tworzenia interfejsów skutkuje wyglądem odstającym od nowoczesnych aplikacji tworzonych w technologiach webowych. Implementacja od podstaw logiki zachowania interfejsu, takiej jak wpisywanie tekstu w pole tekstowe zwiększa również ryzyko występowania błędów, co w połączeniu z językiem bez zabezpieczeń pamięci, jakim jest C, może skutkować nawet zakończeniem działania programu, utratą danych i lukami bezpieczeństwa.
+	
+	\section{Potencjał do rozwoju}
+	\paragraph{}
+	Aplikację można rozszerzyć o większą ilość operacji na wykresie, takich jak filtrowanie, dodawanie i usuwanie dowolnych punktów, całkowanie, różniczkowanie. Można również dodać obsługę nowych formatów plików zarówno do odczytu jak i zapisu, interakcje z systemem operacyjnym takie jak okno dialogowe do odczytu i zapisu plików, dodanie programu jako domyśnej aplikacji do otwierania plików W01.
 	
 	\chapter{Oświadczenie - wykorzystanie narzędzi GenAI}
 	\section{Oświadczeine}
 	\paragraph{}
-	Narzędzie ChatGPT zostało wykorzystane wyłącznie w zakresie korekty językowej oraz stylistycznej tekstu niniejszej pracy. Całość treści merytorycznych oraz kody źródłowe stanowią w pełni autorskie opracowanie dyplomanta.
+	Jakiekolwiek narzędzia generatywnej sztucznej inteligencji oraz duże modele językowe zostały wykorzystane wyłącznie w zakresie:
+	\begin{itemize}
+		\item pomocy z kompilacją i uruchomieniem na Windows XP
+		\item formatowania macierzy i podpisów tabeli w tym dokumencie
+	\end{itemize}
+	
+	\paragraph{}
+	Wszystkie pozostałe aspekty pracy, w tym treści merytoryczne, kody źródłowe, analiza plików, algorytmy oraz ich optymalizacja stanowią w pełni autorskie opracowanie dyplomanta.
 	
 	\chapter{Literatura}
+	\begin{enumerate}
+		\item Dokumentacja biblioteki standardowej C \\
+		\url{https://linux.die.net/man/3/}
+		
+		\item Dokumentacja biblioteki Raylib \\
+		\url{https://www.raylib.com/}
+		
+		\item Polynomial regression fundamentals - Andrew Que \\
+		\url{https://polynomialregression.drque.net/math.html}
+				
+		\item Performance-Aware Programming Series - Casey Muratori \\
+		\url{https://www.computerenhance.com/p/table-of-contents/}
+		
+		\item Dokumentacja Mesa3D \\
+		\url{https://docs.mesa3d.org/}
+		
+		\item Dokumentacja MinGW-w64 \\
+		\url{https://www.mingw-w64.org/}
+		
+		\item Intel® 64 and IA-32 Architectures Software Developer’s Manual
+		
+		\item Solid-liquid structural break-up in M2 tool steel for semi-solid metal processing - M.Z. Omar, H.V. Atkinson, A.A. Howe, E.J. Palmiere, P. Kapranos and M.J. Ghazali
+		
+		\item RFC4180 - Common Format and MIME Type for Comma-Separated Values (CSV) Files \\
+		\url{https://datatracker.ietf.org/doc/html/rfc4180}
+	\end{enumerate}
 	
 \end{document}
