@@ -134,14 +134,9 @@
 \contentsline {subsection}{\numberline {4.3.5}Pierwotny algorytm}{21}{}%
 \contentsline {paragraph}{}{21}{}%
 \contentsline {subsubsection}{Całość}{21}{}%
-\contentsline {paragraph}{Kod}{21}{}%
-\contentsline {paragraph}{Benchmark}{23}{}%
 \contentsline {paragraph}{Komentarz}{23}{}%
 \contentsline {paragraph}{}{23}{}%
-\contentsline {subsubsection}{Fragment 1 - Alokacja i przygotowanie pamięci}{23}{}%
-\contentsline {subsubsection}{Fragment 2 - Wypełnianie macierzy i wektora błędów}{23}{}%
-\contentsline {subsubsection}{Fragment 3 - Rozwiązanie układu równań}{24}{}%
-\contentsline {subsubsection}{Fragment 4 - Przepisywanie wyniku i zwalnianie pamięci}{24}{}%
+\contentsline {subsubsection}{Pomiar fragmentów algorytmu}{23}{}%
 \contentsline {subsubsection}{Obserwacje i wnioski}{24}{}%
 \contentsline {paragraph}{}{24}{}%
 \contentsline {subsection}{\numberline {4.3.6}Zmiana funkcji potęgi}{25}{}%
@@ -157,14 +152,10 @@
 \contentsline {subsubsection}{Idea}{26}{}%
 \contentsline {paragraph}{}{26}{}%
 \contentsline {subsubsection}{Kod}{26}{}%
-\contentsline {subsubsection}{Benchmark - z pownf}{27}{}%
-\contentsline {subsubsection}{Benchmark - z własną funkcją potęgi}{27}{}%
+\contentsline {subsubsection}{Benchmark}{27}{}%
 \contentsline {subsubsection}{Obserwacje i wnioski}{27}{}%
 \contentsline {paragraph}{}{27}{}%
 \contentsline {subsection}{\numberline {4.3.8}Wypełnianie macierzy i wektora - pomiar fragmentów}{28}{}%
-\contentsline {subsubsection}{Fragment 1 - Obliczanie sum}{28}{}%
-\contentsline {subsubsection}{Fragment 2 - Kopiowanie sum do macierzy}{28}{}%
-\contentsline {subsubsection}{Fragment 3 - Wypełnianie wektora}{28}{}%
 \contentsline {subsubsection}{Obserwacje i wnioski}{28}{}%
 \contentsline {paragraph}{}{28}{}%
 \contentsline {subsection}{\numberline {4.3.9}Eliminacja potęgowania - podejście iteracyjne}{29}{}%

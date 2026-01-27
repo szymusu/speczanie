@@ -21,9 +21,10 @@
 	\paragraph{}
 	W nagłówgu pliku, który znajduje się na początku, przed właściwymi danymi liczbowymi znajdują się metadane, informacje o rozmiarze, godzina utworzenia oraz nazwa programu wejściowego do maszyny badawczej. Cały nagłówek ma stały rozmiar 208 bajtów.
 	
-	\begin{center}
+	\begin{table}[H]
+		\centering
+		\caption{Struktura nagłówka pliku}
 		\begin{tabular}{|c|c|c|c|p{5.5cm}|} \hline
-			\multicolumn{5}{|c|}{Struktura nagłówku pliku} \\\hline
 			offset & rozmiar & wartość/typ & nazwa & komentarz \\\hline
 			\hline
 			0 &  4 & 0x3f866666 & magic & stała wartość określająca format \\\hline
@@ -40,31 +41,32 @@
 			62 & 42 & nieznana & nieznane & 42 bajty, głównie zera \\\hline
 			104 & 104 & nazwa pliku & plik badania & nazwa pliku wejściowego do maszyny, dopełniona zerami do 104 bajtów \\\hline
 		\end{tabular}
-	\end{center}
+	\end{table}
 	
-	\pagebreak
 	\subsubsection{Kolumny (serie danych)}
 	\paragraph{}
 	Kolumny mają zmienny rozmiar, zależnie od pliku, jednak zawsze taki sam w obrębie jednego pliku.
 	
-	\begin{center}
+	\begin{table}[H]
+		\centering
+		\caption{Struktura kolumny}
 		\begin{tabular}{|c|c|c|c|p{6.5cm}|} \hline
-			\multicolumn{5}{|c|}{Struktura kolumny} \\\hline
 			offset & rozmiar & wartość/typ & nazwa & komentarz \\\hline
 			\hline
 			0 & 4 & int & nieznane & 1 lub 16385  \\\hline
 			4 & 59 & napis & nazwa & nazwa i jednostka kolumny, oddzielone spacjami \\\hline
 			63 & $4 * liczba\_wierszy$ & float & dane & tablica 32-bitowych liczb zmiennoprzecinkowych \\\hline
 		\end{tabular}
-	\end{center}
+	\end{table}
 	
 	\subsubsection{Struktura całego pliku}
 	\paragraph{}
 	Plik składa się z nagłówka o stałym rozmiarze i zmiennej liczby kolumn zmiennej długości, które zawierają swój nagłówek oraz danych liczbowych.
 	
-	\begin{center}
-		\begin{tabular}{|p{5cm}|p{5cm}|} \hline
-			\multicolumn{2}{|c|}{Struktura pliku} \\\hline
+	\begin{table}[H]
+		\centering
+		\caption{Struktura pliku}
+		\begin{tabular}{|c|c|} \hline
 			rozmiar  & element \\\hline
 			\hline
 			208 & nagłówek  \\\hline
@@ -73,6 +75,6 @@
 			...  & ... \\\hline
 			$63+4*liczba\_wierszy$  & kolumna $n$ \\\hline
 		\end{tabular}
-	\end{center}
+	\end{table}
 	
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.1.22)  26 JAN 2026 11:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.1.22)  27 JAN 2026 00:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -502,6 +502,12 @@ Rozdzia\PlPrIeC {\l } 2.
 
 [11
 
+]
+Rozdzia\PlPrIeC {\l } 3.
+
+
+[12
+
 ] (./rozdzial1.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
@@ -519,10 +525,10 @@ Here is how much of TeX's memory you used:
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/pl/plbx12.pfb></usr/lo
 cal/texlive/2025/texmf-dist/fonts/type1/public/pl/plr12.pfb></usr/local/texlive
 /2025/texmf-dist/fonts/type1/public/pl/plsy8.pfb>
-Output written on rozdzial1.pdf (11 pages, 2882907 bytes).
+Output written on rozdzial1.pdf (12 pages, 2885711 bytes).
 PDF statistics:
- 69 PDF objects out of 1000 (max. 8388607)
- 37 compressed objects within 1 object stream
+ 72 PDF objects out of 1000 (max. 8388607)
+ 39 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -16,9 +16,9 @@
 
 \begin{document}
 	\chapter{Wstęp}
-	\section{W pracy}
+	\section{Cel pracy}
 	\paragraph{}
-	Praca obejmuje stworzenie aplikacji komputerowej do graficznej i komputerowej analizy wyników pomiarowych z prób spęczania.
+	Praca ma na celu utworzenie aplikacji komputerowej do graficznej i analizy wyników pomiarowych z prób spęczania.
 	
 	\section{Opis próby spęczania}
 	\paragraph{}
@@ -148,6 +148,21 @@
 	komputerowym.
 	
 	\subsubsection{Teza}
+	\paragraph{}
 	Stwierdzono brak powszechnego występowania prostych i darmowych aplikacji umożliwiających obróbkę danych pomiarowych z wykorzystaniem interaktywnych wykresów. W związku z powyższym sformułowano tezę, że analiza wyników pomiarowych jest możliwa dzięki takiemu podejściu, co wykazano w niniejszej pracy.
+	
+	
+	\chapter{Opis narzędzi wykorzystanych do realizacji pracy}
+	\section{Język programowania}
+	\paragraph{}
+	Wybranym językiem programowania do stworzenia aplikacji został \textbf{język C} w standardzie C11. Cechuje się on bardzo wysoką kontrolą nad działaniem programu, co pozytywnie wpływa na wydajność oraz minimalną ilością zależności, dzięki czemu łatwiej zachować kompatybilność z większą ilością systemów. Narzędzia do pracy z C pozwalają na stworzenie statycznego pliku wykonywalnego, który nie będzie potrzebować procesu instalacji.
+	
+	\section{Środowisko graficzne}
+	\paragraph{}
+	Do obsługi grafiki oraz urządzeń wejścia (mysz i klawiatura) została wykorzystana \textbf{biblioteka Raylib}, posiadająca łatwe w obsłudze, bogate API kompatybilne z wieloma systemami operacyjnymi. Raylib nie posiada nie posiada zależności, można ją dołączyć statycznie do pliku wykonywalnego i wymaga jedynie obsługi OpenGL w sterowniku graficznym.
+	
+	\section{Kompilacja}
+	\paragraph{}
+	Prace programistyczne odbywały się na systemach Linux oraz MacOS (ARM), gdzie użyto domyślnych dla systemu kompilatorów C - odpowiednio GCC oraz Clang. Kompilacja na system Windows odbywała się na systemie Linux z wykorzystaniem MinGW. Projekt używa CMake do zarządania kompilacją.
 	
 \end{document}
