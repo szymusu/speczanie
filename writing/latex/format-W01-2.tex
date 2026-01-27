@@ -12,10 +12,15 @@
 \begin{document}
 	\section{Format pliku wejściowego}
 	\subsection{Nieznany format binarny}
-	\paragraph{}
-	Pliki wejściowe z danymi pomiarowymi z rozszerzeniem \textit{.W01}, zapisane są w nieudokumentowanym formacie binarnym. Aby zczytać dane z plików i stworzyć algorytm importujący do programu, przeprowadzona została inżynieria wsteczna formatu.
+	Pliki wejściowe z danymi pomiarowymi z rozszerzeniem \textit{.W01}, zapisane są w nieudokumentowanym formacie binarnym. Wpisywanie w wyszukiwarce \textit{.W01} lub magic number z pliku - pierwsze cztery bajty \textit{66 66 86 3f} nie daje istotnych rezultatów. Aby zczytać dane z plików i stworzyć algorytm importujący do programu, należy więc przeprowadzić inżynierię wsteczną formatu.
 	
-	\subsection{Odkryta struktura pliku}
+	\subsection{Inżynieria wsteczna formatu}
+	W inżynierii wstecznej nie ma jednego poprawnego przepisu na znalezienie rozwiązania. Każde zadanie jest osobną łamigłówką, do której musimy użyć narzędzi, doświadczenia, wiedzy informatycznej, wiedzy dziedzinowej oraz czasu.
+	Podczas analizy od dyspozycji miałem dwa pliki: \textit{19\_.v10.W01} oraz \textit{20\_.v50.W01}, gdzie \textit{v10} i \textit{v50} odpowiadają prędkości procesu spęczania.
+	
+	\subsubsection{Pierwsze spojrzenie na plik}
+	Rzut okiem w \textit{hex-edytorze} ujawnia kilka stringów i sporo zer na początku pliku, a w dalszej części powtarzający się czterokrotnie wzór: napis i blok nieczytelnych danych.
+	
 	
 	\subsubsection{Nagłówek}
 	\paragraph{}
@@ -27,17 +32,17 @@
 		\begin{tabular}{|c|c|c|c|p{5.5cm}|} \hline
 			offset & rozmiar & wartość/typ & nazwa & komentarz \\\hline
 			\hline
-			0 &  4 & 0x3f866666 & magic & stała wartość charakteryzująca format \\\hline
-			4 &  4 & 1 & nieznane & najpewniej wersja formatu \\\hline
+			0 &  4 & 0x3f866666 & magic & stała wartość określająca format \\\hline
+			4 &  4 & 1 & wersja? & najpewniej wersja formatu \\\hline
 			8 &  4 & $rozmiar\_pliku + 1$ & rozmiar & \\\hline
-			12 &  4 & 0 & nieznana &  \\\hline
-			16 &  8 & "ScriptPl" & stały napis & 8 znaków, bez \verb|\0| \\\hline
+			12 &  4 & 0 & nieznana & zawsze 0 \\\hline
+			16 &  8 & "ScriptPl" & stały napis & 8 znaków, bez null terminatora \\\hline
 			24 &  4 & $rozmiar\_pliku - 16$ & rozmiar2 & wygląda jak zbędna informacja, może oznaczać "rozmiar począwszy od napisu" \\\hline
 			28 &  4 & liczba wierszy & liczba wierszy & ilość liczb w każdej kolumnie danych \\\hline
 			32 &  4 & liczba kolumn & liczba kolumn & ilość kolumn z danymi \\\hline
 			36 &  4 & 1 & nieznane & \\\hline
 			40 &  4 & 1 & nieznane & \\\hline
-			44 & 18 & "dd-MM-yyyyhh:mm:ss" & czas utworzenia & napis bez \verb|\0| \\\hline
+			44 & 18 & "dd-MM-yyyyhh:mm:ss" & czas utworzenia & napis bez null terminatora \\\hline
 			62 & 42 & nieznana & nieznane & 42 bajty, głównie zera \\\hline
 			104 & 104 & nazwa pliku & plik badania & nazwa pliku wejściowego do maszyny, dopełniona zerami do 104 bajtów \\\hline
 		\end{tabular}

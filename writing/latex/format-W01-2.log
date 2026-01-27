@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.1.22)  27 JAN 2026 18:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.1.22)  27 JAN 2026 18:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**format-W01.tex
-(./format-W01.tex
+**format-W01-2.tex
+(./format-W01-2.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
 (/usr/local/texlive/2025/texmf-dist/tex/latex/base/report.cls
@@ -287,8 +287,8 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count291
 \l__pdf_internal_box=\box60
 )
-(./format-W01.aux)
-\openout1 = `format-W01.aux'.
+(./format-W01-2.aux)
+\openout1 = `format-W01-2.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
 LaTeX Font Info:    ... okay on input line 12.
@@ -363,47 +363,42 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Trying to load font information for OML+plm on input line 2
-7.
+LaTeX Font Info:    Trying to load font information for OML+plm on input line 3
+2.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/polski/omlplm.fd
 File: omlplm.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Trying to load font information for OMS+plsy on input line 
-27.
+32.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/polski/omsplsy.fd
 File: omsplsy.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Trying to load font information for OMX+plex on input line 
-27.
+32.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/polski/omxplex.fd
 File: omxplex.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <12> on input line 27.
+(Font)              <12> on input line 32.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <8> on input line 27.
+(Font)              <8> on input line 32.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <6> on input line 27.
-LaTeX Font Info:    Trying to load font information for OT4+cmtt on input line 
-34.
+(Font)              <6> on input line 32.
 
-(/usr/local/texlive/2025/texmf-dist/tex/latex/polski/ot4cmtt.fd
-File: ot4cmtt.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
-)
-Underfull \hbox (badness 1383) in paragraph at lines 42--42
+Underfull \hbox (badness 1383) in paragraph at lines 47--47
 []|\OT4/cmr/m/n/12 nazwa pli-ku wej-±cio-we-go do
  []
 
 
-Underfull \hbox (badness 2735) in paragraph at lines 42--42
+Underfull \hbox (badness 2735) in paragraph at lines 47--47
 \OT4/cmr/m/n/12 ma-szy-ny, do-peª-nio-na ze-ra-mi
  []
 
 
-Overfull \hbox (37.73627pt too wide) in paragraph at lines 27--44
+Overfull \hbox (37.73627pt too wide) in paragraph at lines 32--49
  [][] 
  []
 
@@ -413,39 +408,39 @@ Overfull \hbox (37.73627pt too wide) in paragraph at lines 27--44
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2025/texmf-dist/fonts/enc/dvips/pl/plrm.enc}{/usr/local/texlive/2025
-/texmf-dist/fonts/enc/dvips/pl/plit.enc}{/usr/local/texlive/2025/texmf-dist/fon
-ts/enc/dvips/pl/plmi.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/pl
-/pltt.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/pl/plms.enc}]
-Overfull \hbox (18.30382pt too wide) in paragraph at lines 54--61
+/texmf-dist/fonts/enc/dvips/pl/plit.enc}]
+
+[2{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/pl/plmi.enc}{/usr/local/t
+exlive/2025/texmf-dist/fonts/enc/dvips/pl/plms.enc}]
+Overfull \hbox (18.30382pt too wide) in paragraph at lines 59--66
  [][] 
  []
 
 
 
-[2] (./format-W01.aux)
+[3] (./format-W01-2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 4673 strings out of 473190
- 73002 string characters out of 5715800
- 486437 words of memory out of 5000000
- 27851 multiletter control sequences out of 15000+600000
- 566162 words of font info for 54 fonts, out of 8000000 for 9000
+ 4648 strings out of 473190
+ 72574 string characters out of 5715800
+ 484441 words of memory out of 5000000
+ 27831 multiletter control sequences out of 15000+600000
+ 565865 words of font info for 53 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,13n,65p,308b,386s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 63i,13n,65p,438b,244s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/pl/plbx12.pfb></usr/lo
 cal/texlive/2025/texmf-dist/fonts/type1/public/pl/plmi12.pfb></usr/local/texliv
 e/2025/texmf-dist/fonts/type1/public/pl/plr12.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/public/pl/plsy10.pfb></usr/local/texlive/2025/texmf-dist/fon
-ts/type1/public/pl/plti12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/p
-ublic/pl/pltt12.pfb>
-Output written on format-W01.pdf (2 pages, 48586 bytes).
+ts/type1/public/pl/plti12.pfb>
+Output written on format-W01-2.pdf (3 pages, 50287 bytes).
 PDF statistics:
- 46 PDF objects out of 1000 (max. 8388607)
- 29 compressed objects within 1 object stream
+ 43 PDF objects out of 1000 (max. 8388607)
+ 27 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
