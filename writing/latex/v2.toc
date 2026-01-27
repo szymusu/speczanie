@@ -37,6 +37,7 @@
 \contentsline {paragraph}{Właściwości}{7}{}%
 \contentsline {paragraph}{Stan}{7}{}%
 \contentsline {paragraph}{Stan globalny}{7}{}%
+\contentsline {paragraph}{}{7}{}%
 \contentsline {subsection}{\numberline {4.1.2}Rysowanie wykresu}{8}{}%
 \contentsline {paragraph}{}{8}{}%
 \contentsline {subsubsection}{Poruszanie się w widoku}{8}{}%
@@ -61,7 +62,7 @@
 \contentsline {paragraph}{}{11}{}%
 \contentsline {subsection}{\numberline {4.1.5}Cofanie operacji}{11}{}%
 \contentsline {paragraph}{}{11}{}%
-\contentsline {section}{\numberline {4.2}Instrukcja opsługi}{12}{}%
+\contentsline {section}{\numberline {4.2}Instrukcja obsługi}{12}{}%
 \contentsline {subsection}{\numberline {4.2.1}Wczytywanie plików}{12}{}%
 \contentsline {paragraph}{}{12}{}%
 \contentsline {subsubsection}{Plik binarny W01}{12}{}%
@@ -178,31 +179,33 @@
 \contentsline {subsubsection}{Wnioski}{32}{}%
 \contentsline {paragraph}{}{32}{}%
 \contentsline {chapter}{\numberline {5}Przykłady zastosowania aplikacji do kompleksowej analizy wyników pomiarowych}{33}{}%
-\contentsline {section}{\numberline {5.1}Analiza prób spęczania próbek stopu BA1032}{33}{}%
-\contentsline {subsection}{\numberline {5.1.1}Właściwości próbki}{33}{}%
-\contentsline {subsection}{\numberline {5.1.2}Próba 1}{34}{}%
-\contentsline {subsubsection}{Parametry próby}{34}{}%
-\contentsline {subsection}{\numberline {5.1.3}Próba 2}{34}{}%
-\contentsline {subsubsection}{Parametry próby}{34}{}%
-\contentsline {subsection}{\numberline {5.1.4}Zestawienie wykresów $\sigma = f(\epsilon )$}{35}{}%
-\contentsline {section}{\numberline {5.2}Analiza prób spęczania próbek stopu CuSn6 w temperaturze otoczenia}{36}{}%
-\contentsline {subsection}{\numberline {5.2.1}Właściwości próbki}{36}{}%
-\contentsline {subsection}{\numberline {5.2.2}Próba 1}{36}{}%
-\contentsline {subsubsection}{Parametry próby}{36}{}%
-\contentsline {subsection}{\numberline {5.2.3}Próba 2}{37}{}%
-\contentsline {subsubsection}{Parametry próby}{37}{}%
-\contentsline {subsection}{\numberline {5.2.4}Próba 3}{38}{}%
-\contentsline {subsubsection}{Parametry próby}{38}{}%
-\contentsline {subsection}{\numberline {5.2.5}Zestawienie wykresów $\sigma = f(\epsilon )$}{39}{}%
-\contentsline {section}{\numberline {5.3}Analiza prób spęczania próbek stopu CuSn6 w stanie stałociekłym}{39}{}%
-\contentsline {subsection}{\numberline {5.3.1}Właściwości próbki}{39}{}%
-\contentsline {subsection}{\numberline {5.3.2}Próba 1}{40}{}%
-\contentsline {subsubsection}{Parametry próby}{40}{}%
-\contentsline {subsection}{\numberline {5.3.3}Próba 2}{41}{}%
-\contentsline {subsubsection}{Parametry próby}{41}{}%
-\contentsline {subsection}{\numberline {5.3.4}Próba 3}{41}{}%
-\contentsline {subsubsection}{Parametry próby}{41}{}%
-\contentsline {subsection}{\numberline {5.3.5}Zestawienie wykresów $\sigma = f(\epsilon )$}{42}{}%
+\contentsline {section}{\numberline {5.1}Wstęp}{33}{}%
+\contentsline {paragraph}{}{33}{}%
+\contentsline {section}{\numberline {5.2}Analiza prób spęczania próbek stopu BA1032}{33}{}%
+\contentsline {paragraph}{}{33}{}%
+\contentsline {paragraph}{}{33}{}%
+\contentsline {paragraph}{}{34}{}%
+\contentsline {paragraph}{}{34}{}%
+\contentsline {paragraph}{}{35}{}%
+\contentsline {paragraph}{}{35}{}%
+\contentsline {section}{\numberline {5.3}Analiza prób spęczania próbek stopu CuSn6 w temperaturze otoczenia}{36}{}%
+\contentsline {paragraph}{}{36}{}%
+\contentsline {paragraph}{}{36}{}%
+\contentsline {paragraph}{}{36}{}%
+\contentsline {paragraph}{}{37}{}%
+\contentsline {paragraph}{}{37}{}%
+\contentsline {paragraph}{}{38}{}%
+\contentsline {paragraph}{}{38}{}%
+\contentsline {paragraph}{}{39}{}%
+\contentsline {section}{\numberline {5.4}Analiza prób spęczania próbek stopu CuSn6 w stanie stałociekłym}{39}{}%
+\contentsline {paragraph}{}{39}{}%
+\contentsline {paragraph}{}{39}{}%
+\contentsline {paragraph}{}{40}{}%
+\contentsline {paragraph}{}{40}{}%
+\contentsline {paragraph}{}{41}{}%
+\contentsline {paragraph}{}{41}{}%
+\contentsline {paragraph}{}{42}{}%
+\contentsline {paragraph}{}{42}{}%
 \contentsline {chapter}{\numberline {6}Podsumowanie}{43}{}%
 \contentsline {chapter}{\numberline {7}Oświadczenie - wykorzystanie narzędzi GenAI}{44}{}%
 \contentsline {section}{\numberline {7.1}Oświadczeine}{44}{}%

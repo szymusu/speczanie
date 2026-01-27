@@ -96,20 +96,22 @@
 	\subsubsection{Komponenty}
 	\paragraph{}
 	Interfejs graficzny aplikacji podzielony jest na "komponenty" - funkcje zawierające logikę kontrolną oraz rysujące pewien element interfejsu. Wywołanie tej funkcji oznacza, że komponent istnieje w obecnej klatce.
-	Funkcje te mogą wywoływać inne funkcje komponentów, co tworzy swego rodzaju strukturę drzewa komponentów, rozpoczynającą się w głównej pętli programu. Pozycja w strukturze drzewa nie ma jednak wpływu na rozmieszczenie elementu, pozycja jest statyczna, lub określana poprzez podane parametry.
+	Funkcje te mogą wywoływać inne funkcje komponentów, co tworzy swego rodzaju strukturę drzewa komponentów, rozpoczynającą się w głównej pętli programu. Pozycja w strukturze drzewa nie ma jednak wpływu na rozmieszczenie elementu, lokalizacja elementu jest statyczna, lub określana poprzez podane parametry.
 	
 	\subsubsection{Zarządzanie stanem}
 	\paragraph{}
-	Zarządzanie stanem jest w części Inspirowane działaniem innego drzewiastego systemu komponentów graficznych - webowym Reactem. Komponenty, jeśli to konieczne, operują na dwóch rodzajach danych: właściwości (\textit{props}) i stan (\textit{state}).
-	\paragraph{Właściwości} są podawane do funkcji komponentu jako kopia (pass by value), bądź stały wskaźnik, mają za zadanie sterować zachowaniem i wyglądem komponentu.
+	Zarządzanie stanem jest w części inspirowane działaniem innego drzewiastego systemu komponentów graficznych - webowym Reactem. Komponenty, jeśli to konieczne, operują na dwóch rodzajach danych: właściwości (\textit{props}) i stan (\textit{state}).
+	\paragraph{Właściwości} są podawane do funkcji komponentu jako kopia, bądź stały wskaźnik i mają za zadanie sterować zachowaniem i wyglądem komponentu.
 	\paragraph{Stan} jest podawany jako wskaźnik do pamięci zarządzanej przez rodzica (komponent wywołujuący), ma za zadanie przechowywanie stanu komponentu między wywołaniami, jest modyfikowany głównie przez sam komponent oraz jego dzieci (jeśli zostanie podany do nich jako ich stan).
 	\paragraph{Stan globalny} jest wykorzystywany w niektórych komponentach, które z założenia mają istnieć tylko w jednej sztuce jednocześnie, jak lista otwartych plików lub narzędzia diagnostyczne \verb|FPSCounter| i \verb|Clock|, jako zmienne globalne w jednostce translacyjnej (niewidoczna poza obecnym plikiem .c), lub statyczne zmienne lokalne w funkcji komponentu.
+	\paragraph{}
+	Są to luźle wzorce, pomagające uporządkować duża ilość zmiennych. Język, biblioteka Raylib, ani architektura programu nie wymusza stosowania się do tych zasad.
 	
 	
 	\pagebreak
 	\subsection{Rysowanie wykresu}
 	\paragraph{}
-	Jako podstawa rysowania wykresu, została wykorzystana funkcja Rzylib \verb|DrawSplineLinear|, łącząca podane współrzędne pikseli prostymi odcinkami. To wydajny sposób narysowania wielu prostych jednocześnie, co przy wystarczającej gęstości punktów daje iluzję krzywej.
+	Jako podstawa rysowania wykresu, została wykorzystana funkcja Raylib \verb|DrawSplineLinear|, łącząca podane współrzędne pikseli prostymi odcinkami. To wydajny sposób narysowania wielu prostych jednocześnie, co przy wystarczającej gęstości punktów daje iluzję krzywej.
 
 	
 	\subsubsection{Poruszanie się w widoku}
@@ -122,31 +124,32 @@
 	Punkt podlega przekształceniu liniowemu:
 	
 	\begin{equation}
-		x = \frac{z(x_p - x_v) - x_{S}}{x_{E} - x_{S}} * W + x_O
+		x = \frac{zs_x(x_p - x_v) - x_{S}}{x_{E} - x_{S}} * W + x_O
 	\end{equation}
 	gdzie: \\
-	$z$ - współczynnik skali \\
-	$x_p$ - współrzędna $x$ punktu w układzie kartezjańskim \\
-	$x_v$ - przesunięcie $x$ w układzie kartezjańskim \\
-	$x_S$ - współrzędna $x$ lewej krawędzi układu kartezjańskiego przy zerowym przesunięciu \\
-	$x_E$ - współrzędna $x$ prawej krawędzi układu kartezjańskiego przy zerowym przesunięciu \\
-	$W$ - szerokość wykresu w pikselach \\
-	$x_O$ - odległość prawej krawędzi wykresu od prawej krawędzi ekranu
+	$z$ - współczynnik skali, \\
+	$s_x$ - współczynnik skali osi X, \\
+	$x_p$ - współrzędna $x$ punktu w układzie kartezjańskim, \\
+	$x_v$ - przesunięcie $x$ w układzie kartezjańskim, \\
+	$x_S$ - współrzędna $x$ lewej krawędzi układu kartezjańskiego przy zerowym przesunięciu, \\
+	$x_E$ - współrzędna $x$ prawej krawędzi układu kartezjańskiego przy zerowym przesunięciu, \\
+	$W$ - szerokość wykresu w pikselach, \\
+	$x_O$ - odległość prawej krawędzi wykresu od prawej krawędzi ekranu.
 	\\\\
 	
 	\begin{equation}
 		y = \frac{-z(y_p + y_v) - y_{S}}{y_{E} - y_{S}} * H + y_O
 	\end{equation}
 	gdzie: \\
-	$z$ - współczynnik skali \\
-	$y_p$ - współrzędna $y$ punktu w układzie kartezjańskim \\
-	$y_v$ - przesunięcie $y$ w układzie kartezjańskim \\
-	$y_S$ - współrzędna $y$ dolnej krawędzi układu kartezjańskiego przy zerowym przesunięciu \\
-	$y_E$ - współrzędna $y$ górnej krawędzi układu kartezjańskiego przy zerowym przesunięciu \\
-	$H$ - wysokość wykresu w pikselach \\
-	$y_O$ - odległość górnej krawędzi wykresu od górnej krawędzi ekranu \\
+	$z$ - współczynnik skali, \\
+	$y_p$ - współrzędna $y$ punktu w układzie kartezjańskim, \\
+	$y_v$ - przesunięcie $y$ w układzie kartezjańskim, \\
+	$y_S$ - współrzędna $y$ dolnej krawędzi układu kartezjańskiego przy zerowym przesunięciu, \\
+	$y_E$ - współrzędna $y$ górnej krawędzi układu kartezjańskiego przy zerowym przesunięciu, \\
+	$H$ - wysokość wykresu w pikselach, \\
+	$y_O$ - odległość górnej krawędzi wykresu od górnej krawędzi ekranu. \\
 	
-	Zmiana znaku $y_p$ jest spowodowana, tym że oś +Y we współrzędnych ekranowych skierowana jest w dół.
+	Zmiana znaku $y_p$ jest spowodowana tym, że we współrzędnych ekranowych $y$ rośnie w dół, a w kartezjańskich - w górę.
 	
 	\pagebreak
 	\paragraph{Implementacja}
@@ -154,10 +157,10 @@
 	W kodzie programu zaimplementowane jest to dwuetapowo.
 	\paragraph{Obliczanie granic widocznego fragmentu}
 	\begin{verbatim}
-		Bounds compute_bounds(const float zoom, const Vector2 pan) {
+		Bounds compute_bounds(const float zoom, const float scale_x, const Vector2 pan) {
 			return (Bounds) {
-				.start_x = PLOT_START_X / zoom + pan.x,
-				.end_x = PLOT_END_X / zoom + pan.x,
+				.start_x = PLOT_START_X / zoom / scale_x + pan.x,
+				.end_x = PLOT_END_X / zoom / scale_x + pan.x,
 				.start_y = PLOT_START_Y / zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
 				.end_y = PLOT_END_Y / zoom / ((float) PLOT_WIDTH / PLOT_HEIGHT) + pan.y,
 			};
@@ -255,10 +258,10 @@
 	
 	
 	\pagebreak
-	\section{Instrukcja opsługi}
+	\section{Instrukcja obsługi}
 	\subsection{Wczytywanie plików}
 	\paragraph{}
-	Wczytanie odbywa się poprzez upuszczenie jednego lub wielu plików na okno otwartego programu. Program jest w stanie wczytać dwa rodzaje plików.
+	Wczytanie odbywa się poprzez upuszczenie jednego lub wielu plików na okno otwartego programu. Program jest w stanie wczytać dwa rodzaje plików:
 	
 	\subsubsection{Plik binarny W01}
 	\paragraph{}
@@ -325,15 +328,16 @@
 	\subsection{Eksport}
 	\subsubsection{Eksport do CSV}
 	\paragraph{}
-	Przycisk "Eksport CSV" zapisuje obecne wartości punktów w pliku tekstowym w formacie CSV. Plik zapisywany jest pod w tej samej ścieżce, gdzie źródłowy plik \textit{W01} z dopisanym rozszerzeniem \verb|.csv|. Jeśli źródłowym plikiem dla danych jest plik CSV, przy ekporcie jest on nadpisywany.
+	Przycisk "Eksport CSV" zapisuje obecne wartości punktów w pliku tekstowym w formacie CSV. Plik zapisywany jest pod taką samą nazwą, jak źródłowy plik \textit{W01} z dopisanym rozszerzeniem \verb|.csv|. Jeśli źródłowym plikiem dla danych jest plik CSV, przy ekporcie jest on nadpisywany.
 	
 	\subsubsection{Struktura eksportowanego pliku}
 	\paragraph{}
 	CSV (\textit{Comma-Separated Values}) jest luźnym formatem tekstowym przeznaczonym do tabelarycznych danych. Składa się z opcjonalnego nagłówka, oraz wierszy oddzielonych sekwencją znaków \verb|\r\n| (CRLF). W każdym wierszu znajduje się identyczna ilość pól oddzielonych separatorem (zazwyczaj \verb|,| lub \verb|;|). Plik taki można zaimportować jako tabelę we wielu aplikacjach do obsługi danych np. arkusz kalkulacyjny.
 	
-	\begin{center}
+	\begin{table}[H]
+		\centering
+		\caption{Struktura pliku CSV eksportowanego przez program}
 		\begin{tabular}{|c|c|c|c|} \hline
-			\multicolumn{4}{|c|}{Struktura pliku CSV eksportowanego przez program} \\\hline
 			\multicolumn{3}{|c|}{Metadane} & CRLF \\\hline
 			Nazwa osi X & , & Nazwa osi Y & CRLF \\\hline
 			Punkt 1 x & , & Punkt 1 y & CRLF\\\hline
@@ -341,11 +345,11 @@
 			Punkt n x & , & Punkt n y & CRLF  \\\hline
 			
 		\end{tabular}
-	\end{center}
+	\end{table}
 	
 	\subsection{Wyznaczanie prostej}
 	\paragraph{}
-	Użytkownik może wyznaczyć prostą przchodzącą przez dwa punkty wykresu. Aby to zrobić należy nacisnąć i przytrzymać lewy przycisk myszy na pierwszym punkcie, a  następnie trzymając nadal lewy przycisk myszy najechać kursorem myszy na drugi punkt. Jeżeli prosta nie jest równoległa do osi X, zostanie wyświetlone jej równanie oraz zielony odcinek przechodzący przez oba punkty i miejsce zerowe prostej.
+	Użytkownik może wyznaczyć prostą przechodzącą przez dwa punkty wykresu. Aby to zrobić należy nacisnąć i przytrzymać lewy przycisk myszy na pierwszym punkcie, a  następnie trzymając nadal lewy przycisk myszy najechać kursorem myszy na drugi punkt. Jeżeli prosta nie jest równoległa do osi X, zostanie wyświetlone jej równanie oraz zielony odcinek przechodzący przez oba punkty i miejsce zerowe prostej.
 	\paragraph{}
 	Miejsce zerowye zostanie zaznaczone punktem, którego kliknięcie spowoduje przesunięcie wykresu wzdłuż osi X o wartość przeciwną współrzędnej $x$ miejsca zerowego. W efekcie, po tej operacji nachylenie prostej pozostanie niezmienne, a miejsce zerowe będzie w punkcie (0,0).
 	\begin{figure}[H]
@@ -355,16 +359,16 @@
 	
 	\subsection{Wykres odkształcenie-naprężenie}
 	\paragraph{}
-	Funkcję aktywuje się przez przycisk \textit{Wykres $\sigma = f(\epsilon)$}. Pojawi się formularz do wpisania pola przekroju $S_0$ i długości początkowej $L_0$. Wpisane wartości parametrów będą zastosowane do każdego z otwartych plików. Na układzie współrzędnych pojawi się jedna krzywa dla każdego zaimportowanego pliku.
+	Funkcję aktywuje się przez przycisk \textit{Wykres $\sigma = f(\epsilon)$}. Pojawi się formularz do wpisania pola przekroju $S_0$ i długości początkowej $L_0$. Wpisane wartości parametrów będą zastosowane do każdego z otwartych plików. Na wykresie pojawi się jedna krzywa dla każdego zaimportowanego pliku.
 	\begin{figure}[H]
 		\includegraphics[width=.8\textwidth, center]{images/instrukcja/stale.png}
-		\caption{Okno do wpisywania stałych parametrów}
+		\caption{Okno do wpisywania parametrów geometrycznych testowanej próbki}
 	\end{figure}
 	
 	\subsection{Regresja wyników pomiarowych}
 	\subsubsection{Zakres punktów}
 	\paragraph{}
-	Aby wybrać zakres punktów, które będą poddane regresji nieliniowej, należy wybrać dwa punkty leżące na wykresie. Po zaznaczeniu druguego, regresja wykona się automatycznie.
+	Po aktywacji modułu regresji przyciskiem "Regresja", aby wybrać zakres punktów, które będą poddane regresji nieliniowej, należy wybrać dwa punkty leżące na wykresie. Po zaznaczeniu druguego, regresja wykona się automatycznie.
 	\begin{figure}[H]
 		\includegraphics[width=.8\textwidth, center]{images/instrukcja/regresja1.png}
 		\caption{Krzywa wyznaczona przez regresję}
@@ -380,7 +384,7 @@
 	
 	\subsubsection{Regresja na wykresie odkształcenie-naprężenie}
 	\paragraph{}
-	Moduł regresji można uruchomić w widoku wykresu odkształcenie-naprężenie, lecz może on działać na tylko jednej krzywej jednocześnie. Zaznaczenie punktu na danej krzywej aktywuje tę krzywą i zmienia kolor pozostałych na szary. W tym momencie jedynie zaznaczenie drugiego punktu na tej samej krzywej aktywuje regresję.
+	Moduł regresji można uruchomić w widoku wykresu odkształcenie-naprężenie, lecz może on działać tylko na jednej wybranej krzywej jednocześnie. Zaznaczenie punktu na danej krzywej aktywuje tę krzywą i zmienia kolor pozostałych na szary. W tym momencie jedynie zaznaczenie drugiego punktu na tej samej krzywej aktywuje regresję.
 	\begin{figure}[H]
 		\includegraphics[width=.8\textwidth, center]{images/instrukcja/regresja3.png}
 		\caption{Regresja jednej z wyświetlanych krzywych}
@@ -537,7 +541,7 @@
 	
 	\subsection{Pierwotny algorytm}
 	\paragraph{}
-	Poniższy kod jest pierwszą poprawną wersją implementacji algorytmu regresji. W jego skład wchodzi przygotowanie pamięci, wypełnienie macierzy i wektora sumami, rozwiązanie układu równań eliminacją Gaussa oraz przepisanie i zwrócenie wyniku.
+	Poniższy kod jest pierwotną wersją implementacji algorytmu regresji. W jego skład wchodzi przygotowanie pamięci, wypełnienie macierzy i wektora sumami, rozwiązanie układu równań eliminacją Gaussa oraz przepisanie i zwrócenie wyniku.
 	\subsubsection{Całość}
 	\begin{verbatim}
 		// makra dla przejrzystości
@@ -776,7 +780,7 @@
 	\subsubsection{Obserwacje i wnioski}
 	\paragraph{}
 	W trybie debug zmiana spowodowała ponad 4-krotny spadek wydajności, a w trybie release - ok. 28\% wzrost.
-	Oznacza to, że początkowe założenia były nietrafione i nowy algorytm jest bardzo wolny, jednak kompilator z włączoną optymalizacją zauważył co próbowaliśmy osiągnąć i podmienił na wydajniejszą implementację.
+	Oznacza to, że początkowe założenia były nietrafione i nowy algorytm jest bardzo wolny, jednak kompilator z włączoną optymalizacją zauważył co kod mian na celu osiągnąć i podmienił na wydajniejszą implementację.
 	
 	
 	\pagebreak
@@ -1078,192 +1082,182 @@
 	Optymalizacja okazała się bardzo skuteczna, stosując różne techniki udało się poprawić wydajność algorytmu \textbf{45-50-krotnie}.
 	
 	\chapter{Przykłady zastosowania aplikacji do kompleksowej analizy wyników pomiarowych}
+	\section{Wstęp}
+	\paragraph{}
+	W pracy wykonano analizę wyników spęczania 2 stopów miedzi. Jednym z nich był brąz aluminiowy BA1032, zaś drugim brąz cynowy CuSn6.
+	
 	\section{Analiza prób spęczania próbek stopu BA1032}
-	\subsection{Właściwości próbki}
+	\paragraph{}
+	Podstawowe parametry geometryczne próbki są następujące
 	\begin{itemize}
-		\item Stop - BA1032
 		\item Kształt - cylinder
 		\item Średnica podstawy - 4 mm
 		\item Wysokość - 7 mm
 	\end{itemize}
-	
-	\pagebreak
-	\subsection{Próba 1}
-	\subsubsection{Parametry próby}
-	\begin{itemize}
-		\item Temperatura - temperatura otoczenia
-		\item Prędkość - 10 $\frac{mm}{s}$
-	\end{itemize}
+	\paragraph{}
+	Na rysunku 5.1 przedstawiono zarejestrowane wyniki - krzywa siły w funkcji przemieszczenia dla próby wykonanje w temperaturze otoczenia z prędkością 10 $\frac{mm}{s}$.
 	
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/19_v10-1.png}
-		\caption{Wykres próbki 1 po zaimportowaniu}
+		\caption{Wykres siły w funkcji przemieszczenia}
 	\end{figure}
 	
+	\paragraph{}
+	Na rysunku 5.2 przedstawiono operację usunięcia fragmentu syglału zarejestrowanego przed spęczaniem wraz z przesunięciem pozostałej części wykresu do punktu (0,0).
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/19_v10-2.png}
-		\caption{Wykres próbki 1 przy ekstrapolacji}
+		\caption{Wykres siły w funkcji przemieszczenia w trakcie operacji}
 	\end{figure}
 	
 	
-	\subsection{Próba 2}
-	\subsubsection{Parametry próby}
-	\begin{itemize}
-		\item Temperatura - temperatura otoczenia
-		\item Prędkość - 50 $\frac{mm}{s}$
-	\end{itemize}
+	\paragraph{}
+	Na rysunku 5.3 przedstawiono zarejestrowane wyniki - krzywa siły w funkcji przemieszczenia dla próby wykonanje w temperaturze otoczenia z prędkością 50 $\frac{mm}{s}$.
 	
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/20_v50-1.png}
-		\caption{Wykres próbki 2 po zaimportowaniu}
+		\caption{Wykres siły w funkcji przemieszczenia}
 	\end{figure}
 	
+	\pagebreak
+	\paragraph{}
+	Na rysunku 5.4 przedstawiono operację usunięcia fragmentu syglału zarejestrowanego przed spęczaniem wraz z przesunięciem pozostałej części wykresu do punktu (0,0).
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/20_v50-2.png}
-		\caption{Wykres próbki 2 przy ekstrapolacji}
+		\caption{Wykres siły w funkcji przemieszczenia w trakcie operacji}
 	\end{figure}
 	
-	\subsection{Zestawienie wykresów $\sigma = f(\epsilon)$}
+	\paragraph{}
+	Na rysunku 5.5 przedstawiono zestawienie prób spęczania pokazanych na porzednich rysunkach w układzie $\sigma = f(\epsilon)$.
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/BA1032.png}
-		\caption{Wykres naprężenie-odkształcenie próbek 1 i 2}
+		\caption{Wykres naprężenie-odkształcenie dla próbek BA1032 spęczanych w temperaturze otoczenia}
 	\end{figure}
 	
-	
+	\pagebreak
 	\section{Analiza prób spęczania próbek stopu CuSn6 w temperaturze otoczenia}
-	\subsection{Właściwości próbki}
+	\paragraph{}
+	Podstawowe parametry geometryczne próbki są następujące
 	\begin{itemize}
-		\item Stop - CuSn6
 		\item Kształt - cylinder
 		\item Średnica podstawy - 3,2 mm
 		\item Wysokość - 5 mm
 	\end{itemize}
-	
-	\subsection{Próba 1}
-	\subsubsection{Parametry próby}
-	\begin{itemize}
-		\item Temperatura - temperatura otoczenia
-		\item Prędkość - 0,1 $\frac{mm}{s}$
-	\end{itemize}
-	
+	\paragraph{}
+	Na rysunku 5.6 przedstawiono zarejestrowane wyniki - krzywa siły w funkcji przemieszczenia dla próby wykonanje w temperaturze otoczenia z prędkością 0,1 $\frac{mm}{s}$.
+
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v0p1-1.png}
-		\caption{Wykres próbki 1 po zaimportowaniu}
+		\caption{Wykres siły w funkcji przemieszczenia}
 	\end{figure}
 	
+	\paragraph{}
+	Na rysunku 5.7 przedstawiono operację usunięcia fragmentu syglału zarejestrowanego przed spęczaniem wraz z przesunięciem pozostałej części wykresu do punktu (0,0).
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v0p1-2.png}
-		\caption{Wykres próbki 1 przy ekstrapolacji}
+		\caption{Wykres siły w funkcji przemieszczenia w trakcie operacji}
 	\end{figure}
 	
 	
-	\subsection{Próba 2}
-	\subsubsection{Parametry próby}
-	\begin{itemize}
-		\item Temperatura - temperatura otoczenia
-		\item Prędkość - 10 $\frac{mm}{s}$
-	\end{itemize}
+	\paragraph{}
+	Na rysunku 5.8 przedstawiono zarejestrowane wyniki - krzywa siły w funkcji przemieszczenia dla próby wykonanje w temperaturze otoczenia z prędkością 10 $\frac{mm}{s}$.
 	
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v10-1.png}
-		\caption{Wykres próbki 2 po zaimportowaniu}
+		\caption{Wykres siły w funkcji przemieszczenia}
 	\end{figure}
 	
+	\paragraph{}
+	Na rysunku 5.9 przedstawiono operację usunięcia fragmentu syglału zarejestrowanego przed spęczaniem wraz z przesunięciem pozostałej części wykresu do punktu (0,0).
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v10-2.png}
-		\caption{Wykres próbki 2 przy ekstrapolacji}
+		\caption{Wykres siły w funkcji przemieszczenia w trakcie operacji}
 	\end{figure}
 	
-		\subsection{Próba 3}
-	\subsubsection{Parametry próby}
-	\begin{itemize}
-		\item Temperatura - temperatura otoczenia
-		\item Prędkość - 50 $\frac{mm}{s}$
-	\end{itemize}
+	\pagebreak
+	\paragraph{}
+	Na rysunku 5.10 przedstawiono zarejestrowane wyniki - krzywa siły w funkcji przemieszczenia dla próby wykonanje w temperaturze otoczenia z prędkością 50 $\frac{mm}{s}$.
 	
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v50-1.png}
-		\caption{Wykres próbki 3 po zaimportowaniu}
+		\caption{Wykres siły w funkcji przemieszczenia}
 	\end{figure}
 	
+	\paragraph{}
+	Na rysunku 5.11 przedstawiono operację usunięcia fragmentu syglału zarejestrowanego przed spęczaniem wraz z przesunięciem pozostałej części wykresu do punktu (0,0).
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz_v50-2.png}
-		\caption{Wykres próbki 3 przy ekstrapolacji}
+		\caption{Wykres siły w funkcji przemieszczenia w trakcie operacji}
 	\end{figure}
 	
-	\subsection{Zestawienie wykresów $\sigma = f(\epsilon)$}
+	\pagebreak
+	\paragraph{}
+	Na rysunku 5.12 przedstawiono zestawienie prób spęczania pokazanych na porzednich rysunkach w układzie $\sigma = f(\epsilon)$.
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/Totocz-2.png}
-		\caption{Wykres naprężenie-odkształcenie próbek 1, 2 i 3}
+		\caption{Wykres naprężenie-odkształcenie dla próbek CuSn6 spęczanych w temperaturze otoczenia}
 	\end{figure}
 	
 
 	\section{Analiza prób spęczania próbek stopu CuSn6 w stanie stałociekłym}
-	\subsection{Właściwości próbki}
+	\paragraph{}
+	Podstawowe parametry geometryczne próbki są następujące
 	\begin{itemize}
-		\item Stop - CuSn6
 		\item Kształt - cylinder
 		\item Średnica podstawy - 4 mm
 		\item Wysokość - 3,5 mm
 	\end{itemize}
-	
-	\pagebreak
-	\subsection{Próba 1}
-	\subsubsection{Parametry próby}
-	\begin{itemize}
-		\item Temperatura - 880 $^{\circ}$C
-		\item Prędkość - 0,01 $\frac{mm}{s}$
-	\end{itemize}
+	\paragraph{}
+	Na rysunku 5.13 przedstawiono zarejestrowane wyniki - krzywa siły w funkcji przemieszczenia dla próby wykonanje w temperaturze 880 $^{\circ}$C z prędkością 0,01 $\frac{mm}{s}$.
 	
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/T880-1.png}
-		\caption{Wykres próbki 1 po zaimportowaniu}
+		\caption{Wykres siły w funkcji przemieszczenia}
 	\end{figure}
 	
+	\paragraph{}
+	Na rysunku 5.14 przedstawiono operację usunięcia fragmentu syglału zarejestrowanego przed spęczaniem wraz z przesunięciem pozostałej części wykresu do punktu (0,0).
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/T880-2.png}
-		\caption{Wykres próbki 1 przy ekstrapolacji}
+		\caption{Wykres siły w funkcji przemieszczenia w trakcie operacji}
+	\end{figure}
+	
+	
+	\paragraph{}
+	Na rysunku 5.15 przedstawiono zarejestrowane wyniki - krzywa siły w funkcji przemieszczenia dla próby wykonanje w temperaturze 960 $^{\circ}$C z prędkością 0,1 $\frac{mm}{s}$.
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/proby/T960-1.png}
+		\caption{Wykres siły w funkcji przemieszczenia}
 	\end{figure}
 	
 	\pagebreak
-	\subsection{Próba 2}
-	\subsubsection{Parametry próby}
-	\begin{itemize}
-		\item Temperatura - 960 $^{\circ}$C
-		\item Prędkość - 0,1 $\frac{mm}{s}$
-	\end{itemize}
-	
-	\begin{figure}[H]
-		\includegraphics[width=.7\textwidth, center]{images/proby/T960-1.png}
-		\caption{Wykres próbki 2 po zaimportowaniu}
-	\end{figure}
-	
+	\paragraph{}
+	Na rysunku 5.16 przedstawiono operację usunięcia fragmentu syglału zarejestrowanego przed spęczaniem wraz z przesunięciem pozostałej części wykresu do punktu (0,0).
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/T960-2.png}
-		\caption{Wykres próbki 2 przy ekstrapolacji}
+		\caption{Wykres siły w funkcji przemieszczenia w trakcie operacji}
 	\end{figure}
 	
-	\subsection{Próba 3}
-	\subsubsection{Parametry próby}
-	\begin{itemize}
-		\item Temperatura - 1000 $^{\circ}$C
-		\item Prędkość - 0,1 $\frac{mm}{s}$
-	\end{itemize}
 	
+	\paragraph{}
+	Na rysunku 5.17 przedstawiono zarejestrowane wyniki - krzywa siły w funkcji przemieszczenia dla próby wykonanje w temperaturze 1000 $^{\circ}$C z prędkością 0,1 $\frac{mm}{s}$.
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/T1000-1.png}
-		\caption{Wykres próbki 3 po zaimportowaniu}
+		\caption{Wykres siły w funkcji przemieszczenia}
 	\end{figure}
 	
+	\pagebreak
+	\paragraph{}
+	Na rysunku 5.18 przedstawiono operację usunięcia fragmentu syglału zarejestrowanego przed spęczaniem wraz z przesunięciem pozostałej części wykresu do punktu (0,0).
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/T1000-2.png}
-		\caption{Wykres próbki 3 przy ekstrapolacji}
+		\caption{Wykres siły w funkcji przemieszczenia w trakcie operacji}
 	\end{figure}
 	
-	\subsection{Zestawienie wykresów $\sigma = f(\epsilon)$}
+	\paragraph{}
+	Na rysunku 5.19 przedstawiono zestawienie prób spęczania pokazanych na porzednich rysunkach w układzie $\sigma = f(\epsilon)$.
 	\begin{figure}[H]
 		\includegraphics[width=.7\textwidth, center]{images/proby/Tixo-2.png}
-		\caption{Wykres naprężenie-odkształcenie próbek 1, 2 i 3}
+		\caption{Wykres naprężenie-odkształcenie dla próbek CuSn6 spęczanych w stanie stałociekłym}
 	\end{figure}
 	
 	
