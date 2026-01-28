@@ -11,11 +11,11 @@
 
 \begin{document}
 	\section{Format pliku wejściowego}
-	\subsection{Nieznany format binarny}
+	\subsection{Format binarny}
 	\paragraph{}
-	Pliki wejściowe z danymi pomiarowymi z rozszerzeniem \textit{.W01}, zapisane są w nieudokumentowanym formacie binarnym. Aby zczytać dane z plików i stworzyć algorytm importujący do programu, przeprowadzona została inżynieria wsteczna formatu.
+	Pliki z danymi pomiarowymi generowane przez maszynę wytrzymałościową z rozszerzeniem \textit{.W01}, zapisane są w niestandardowym formacie binarnym. Aby zczytać dane z plików i stworzyć algorytm importujący do programu, przeprowadzona została analiza formatu. Plik zawiera nagłówek z metadanymi i informacjami o rozmiarze oraz zmienną ilość serii danych o zmiennej długości.
 	
-	\subsection{Odkryta struktura pliku}
+	\subsection{Struktura pliku}
 	
 	\subsubsection{Nagłówek}
 	\paragraph{}
@@ -31,13 +31,13 @@
 			4 &  4 & 1 & nieznane & najpewniej wersja formatu \\\hline
 			8 &  4 & $rozmiar\_pliku + 1$ & rozmiar & \\\hline
 			12 &  4 & 0 & nieznana &  \\\hline
-			16 &  8 & "ScriptPl" & stały napis & 8 znaków, bez \verb|\0| \\\hline
-			24 &  4 & $rozmiar\_pliku - 16$ & rozmiar2 & wygląda jak zbędna informacja, może oznaczać "rozmiar począwszy od napisu" \\\hline
+			16 &  8 & "ScriptPl" & stały napis & ciąg znaków bez \verb|\0| \\\hline
+			24 &  4 & $rozmiar\_pliku - 16$ & rozmiar2 &  \\\hline
 			28 &  4 & liczba wierszy & liczba wierszy & ilość liczb w każdej kolumnie danych \\\hline
 			32 &  4 & liczba kolumn & liczba kolumn & ilość kolumn z danymi \\\hline
 			36 &  4 & 1 & nieznane & \\\hline
 			40 &  4 & 1 & nieznane & \\\hline
-			44 & 18 & "dd-MM-yyyyhh:mm:ss" & czas utworzenia & napis bez \verb|\0| \\\hline
+			44 & 18 & "dd-MM-yyyyhh:mm:ss" & czas utworzenia & ciąg znaków bez \verb|\0| \\\hline
 			62 & 42 & nieznana & nieznane & 42 bajty, głównie zera \\\hline
 			104 & 104 & nazwa pliku & plik badania & nazwa pliku wejściowego do maszyny, dopełniona zerami do 104 bajtów \\\hline
 		\end{tabular}
@@ -55,7 +55,7 @@
 			offset & rozmiar & wartość/typ & nazwa & komentarz \\\hline
 			\hline
 			0 & 4 & int & nieznane & 1 lub 16385  \\\hline
-			4 & 59 & napis & nazwa & nazwa i jednostka kolumny, oddzielone spacjami \\\hline
+			4 & 59 & ciąg znaków & nazwa & nazwa i jednostka kolumny, oddzielone spacjami \\\hline
 			63 & $4 * liczba\_wierszy$ & float & dane & tablica 32-bitowych liczb zmiennoprzecinkowych \\\hline
 		\end{tabular}
 	\end{table}
@@ -67,7 +67,7 @@
 	\begin{table}[H]
 		\centering
 		\caption{Struktura pliku}
-		\begin{tabular}{|c|c|} \hline
+		\begin{tabular}{|p{5cm}|p{4cm}|} \hline
 			rozmiar  & element \\\hline
 			\hline
 			208 & nagłówek  \\\hline

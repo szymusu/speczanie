@@ -1,223 +1,249 @@
-\contentsline {chapter}{\numberline {1}Wstęp}{3}{chapter.1}%
-\contentsline {section}{\numberline {1.1}W pracy}{3}{section.1.1}%
-\contentsline {paragraph}{}{3}{section*.2}%
-\contentsline {section}{\numberline {1.2}Opis próby spęczania}{3}{section.1.2}%
-\contentsline {paragraph}{}{3}{section*.3}%
-\contentsline {paragraph}{}{3}{section*.4}%
-\contentsline {paragraph}{}{3}{section*.5}%
-\contentsline {paragraph}{}{3}{section*.6}%
-\contentsline {paragraph}{}{3}{section*.7}%
-\contentsline {section}{\numberline {1.3}Opis maszyny pomiarowej}{4}{section.1.3}%
-\contentsline {paragraph}{}{4}{section*.8}%
-\contentsline {section}{\numberline {1.4}Aktualne rozwiązania}{4}{section.1.4}%
-\contentsline {subsection}{\numberline {1.4.1}Workshop - moduł data manager}{4}{subsection.1.4.1}%
-\contentsline {paragraph}{}{4}{section*.9}%
-\contentsline {section}{\numberline {1.5}Zawartość pracy}{4}{section.1.5}%
-\contentsline {paragraph}{}{4}{section*.10}%
-\contentsline {chapter}{\numberline {2}Cel i teza pracy}{5}{chapter.2}%
-\contentsline {subsubsection}{Cel}{5}{section*.11}%
-\contentsline {paragraph}{}{5}{section*.12}%
-\contentsline {paragraph}{}{5}{section*.13}%
-\contentsline {subsubsection}{Teza}{5}{section*.14}%
-\contentsline {paragraph}{}{5}{section*.15}%
-\contentsline {chapter}{\numberline {3}Opis narzędzi wykorzystanych do realizacji pracy}{6}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Język programowania}{6}{section.3.1}%
-\contentsline {paragraph}{}{6}{section*.16}%
-\contentsline {section}{\numberline {3.2}Środowisko graficzne}{6}{section.3.2}%
-\contentsline {paragraph}{}{6}{section*.17}%
-\contentsline {paragraph}{}{6}{section*.18}%
-\contentsline {section}{\numberline {3.3}Kompilacja}{6}{section.3.3}%
-\contentsline {paragraph}{}{6}{section*.19}%
-\contentsline {chapter}{\numberline {4}Opis utworzonej aplikacji}{7}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Architektura aplikacji}{7}{section.4.1}%
-\contentsline {subsection}{\numberline {4.1.1}Ogólna struktura aplikacji}{7}{subsection.4.1.1}%
-\contentsline {subsubsection}{Komponenty}{7}{section*.20}%
-\contentsline {paragraph}{}{7}{section*.21}%
-\contentsline {subsubsection}{Zarządzanie stanem}{7}{section*.22}%
-\contentsline {paragraph}{}{7}{section*.23}%
-\contentsline {paragraph}{Właściwości}{7}{section*.24}%
-\contentsline {paragraph}{Stan}{7}{section*.25}%
-\contentsline {paragraph}{Stan globalny}{7}{section*.26}%
-\contentsline {paragraph}{}{7}{section*.27}%
-\contentsline {subsection}{\numberline {4.1.2}Rysowanie wykresu}{8}{subsection.4.1.2}%
-\contentsline {paragraph}{}{8}{section*.28}%
-\contentsline {subsubsection}{Poruszanie się w widoku}{8}{section*.29}%
-\contentsline {paragraph}{}{8}{section*.30}%
-\contentsline {subsubsection}{Transformacja współrzędnych}{8}{section*.31}%
-\contentsline {paragraph}{}{8}{section*.32}%
-\contentsline {paragraph}{Implementacja}{9}{section*.33}%
-\contentsline {paragraph}{}{9}{section*.34}%
-\contentsline {paragraph}{Obliczanie granic widocznego fragmentu}{9}{section*.35}%
-\contentsline {paragraph}{Transformacja pojedynczego punktu}{9}{section*.36}%
-\contentsline {paragraph}{Wiele punktów jednocześnie}{9}{section*.37}%
-\contentsline {paragraph}{}{9}{section*.38}%
-\contentsline {subsection}{\numberline {4.1.3}Minimalizacja renderowanych punktów}{10}{subsection.4.1.3}%
-\contentsline {subsubsection}{Opis problemu}{10}{section*.39}%
-\contentsline {paragraph}{}{10}{section*.40}%
-\contentsline {subsubsection}{Szukanie pierwszego punktu}{10}{section*.41}%
-\contentsline {paragraph}{}{10}{section*.42}%
-\contentsline {subsubsection}{Transformacja punktów}{10}{section*.43}%
-\contentsline {paragraph}{}{10}{section*.44}%
-\contentsline {paragraph}{}{11}{section*.45}%
-\contentsline {subsection}{\numberline {4.1.4}Wykrywanie zmian}{11}{subsection.4.1.4}%
-\contentsline {paragraph}{}{11}{section*.46}%
-\contentsline {subsection}{\numberline {4.1.5}Cofanie operacji}{11}{subsection.4.1.5}%
-\contentsline {paragraph}{}{11}{section*.47}%
-\contentsline {section}{\numberline {4.2}Instrukcja obsługi}{12}{section.4.2}%
-\contentsline {subsection}{\numberline {4.2.1}Wczytywanie plików}{12}{subsection.4.2.1}%
-\contentsline {paragraph}{}{12}{section*.48}%
-\contentsline {subsubsection}{Plik binarny W01}{12}{section*.49}%
-\contentsline {paragraph}{}{12}{section*.50}%
-\contentsline {paragraph}{}{12}{section*.51}%
-\contentsline {subsubsection}{Plik tekstowy CSV}{12}{section*.52}%
-\contentsline {paragraph}{}{12}{section*.53}%
-\contentsline {subsection}{\numberline {4.2.2}Zmiana widoku}{12}{subsection.4.2.2}%
-\contentsline {subsubsection}{Przesuwanie}{12}{section*.54}%
-\contentsline {paragraph}{}{12}{section*.55}%
-\contentsline {subsubsection}{Przybliżanie i oddalanie}{12}{section*.56}%
-\contentsline {paragraph}{}{12}{section*.57}%
-\contentsline {subsubsection}{Skalowanie osi X}{13}{section*.58}%
-\contentsline {paragraph}{}{13}{section*.59}%
-\contentsline {subsection}{\numberline {4.2.3}Obróbka wykresu}{13}{subsection.4.2.3}%
-\contentsline {paragraph}{}{13}{section*.60}%
-\contentsline {subsubsection}{Przesuwanie (translacja)}{13}{section*.61}%
-\contentsline {paragraph}{}{13}{section*.62}%
-\contentsline {subsubsection}{Blokada przesuwania}{13}{section*.63}%
-\contentsline {paragraph}{}{13}{section*.64}%
-\contentsline {subsubsection}{Przesuwanie do zera}{13}{section*.65}%
-\contentsline {paragraph}{}{13}{section*.66}%
-\contentsline {subsubsection}{Odbicie}{13}{section*.67}%
-\contentsline {paragraph}{}{13}{section*.68}%
-\contentsline {subsubsection}{Cofanie zmian}{13}{section*.69}%
-\contentsline {paragraph}{}{13}{section*.70}%
-\contentsline {paragraph}{}{13}{section*.71}%
-\contentsline {subsubsection}{Podgląd punktu}{13}{section*.72}%
-\contentsline {paragraph}{}{13}{section*.73}%
-\contentsline {subsection}{\numberline {4.2.4}Eksport}{14}{subsection.4.2.4}%
-\contentsline {subsubsection}{Eksport do CSV}{14}{section*.74}%
-\contentsline {paragraph}{}{14}{section*.75}%
-\contentsline {subsubsection}{Struktura eksportowanego pliku}{14}{section*.76}%
-\contentsline {paragraph}{}{14}{section*.77}%
-\contentsline {subsection}{\numberline {4.2.5}Wyznaczanie prostej}{14}{subsection.4.2.5}%
-\contentsline {paragraph}{}{14}{section*.78}%
-\contentsline {paragraph}{}{15}{section*.79}%
-\contentsline {subsection}{\numberline {4.2.6}Wykres odkształcenie-naprężenie}{15}{subsection.4.2.6}%
-\contentsline {paragraph}{}{15}{section*.80}%
-\contentsline {subsection}{\numberline {4.2.7}Regresja wyników pomiarowych}{16}{subsection.4.2.7}%
-\contentsline {subsubsection}{Zakres punktów}{16}{section*.81}%
-\contentsline {paragraph}{}{16}{section*.82}%
-\contentsline {subsubsection}{Zmiana stopnia wielomianu}{16}{section*.83}%
-\contentsline {paragraph}{}{16}{section*.84}%
-\contentsline {subsubsection}{Regresja na wykresie odkształcenie-naprężenie}{17}{section*.85}%
-\contentsline {paragraph}{}{17}{section*.86}%
-\contentsline {subsubsection}{Wzór krzywej}{17}{section*.87}%
-\contentsline {paragraph}{}{17}{section*.88}%
-\contentsline {section}{\numberline {4.3}Algorytm regresji wielomianowej - optymalizacja wydajności aplikacji}{18}{section.4.3}%
-\contentsline {subsection}{\numberline {4.3.1}Wstęp}{18}{subsection.4.3.1}%
-\contentsline {paragraph}{}{18}{section*.89}%
-\contentsline {subsection}{\numberline {4.3.2}Model matematyczny}{18}{subsection.4.3.2}%
-\contentsline {paragraph}{}{18}{section*.90}%
-\contentsline {subsection}{\numberline {4.3.3}Dane wejściowe, sprzęt i środowisko}{18}{subsection.4.3.3}%
-\contentsline {paragraph}{}{18}{section*.91}%
-\contentsline {subsection}{\numberline {4.3.4}Sposób pomiarów}{19}{subsection.4.3.4}%
-\contentsline {subsubsection}{Realny benchmark}{19}{section*.92}%
-\contentsline {paragraph}{}{19}{section*.93}%
-\contentsline {subsubsection}{RDTSC}{19}{section*.94}%
-\contentsline {paragraph}{}{19}{section*.95}%
-\contentsline {subsubsection}{Implementacja pomiaru}{19}{section*.96}%
-\contentsline {paragraph}{}{19}{section*.97}%
-\contentsline {paragraph}{Rozpoczęcie pomiaru}{19}{section*.98}%
-\contentsline {paragraph}{}{19}{section*.99}%
-\contentsline {paragraph}{Zakończenie pomiaru}{19}{section*.100}%
-\contentsline {paragraph}{}{20}{section*.101}%
-\contentsline {subsubsection}{Narzut pomiaru}{20}{section*.102}%
-\contentsline {paragraph}{}{20}{section*.103}%
-\contentsline {paragraph}{}{20}{section*.104}%
-\contentsline {subsection}{\numberline {4.3.5}Pierwotny algorytm}{21}{subsection.4.3.5}%
-\contentsline {paragraph}{}{21}{section*.105}%
-\contentsline {subsubsection}{Całość}{21}{section*.106}%
-\contentsline {paragraph}{Komentarz}{23}{section*.107}%
-\contentsline {paragraph}{}{23}{section*.108}%
-\contentsline {subsubsection}{Pomiar fragmentów algorytmu}{23}{section*.109}%
-\contentsline {subsubsection}{Obserwacje i wnioski}{24}{section*.110}%
-\contentsline {paragraph}{}{24}{section*.111}%
-\contentsline {subsection}{\numberline {4.3.6}Zmiana funkcji potęgi}{25}{subsection.4.3.6}%
-\contentsline {subsubsection}{Idea}{25}{section*.112}%
-\contentsline {paragraph}{}{25}{section*.113}%
-\contentsline {subsubsection}{Kod}{25}{section*.114}%
-\contentsline {paragraph}{}{25}{section*.115}%
-\contentsline {subsubsection}{Benchmark}{25}{section*.116}%
-\contentsline {paragraph}{}{25}{section*.117}%
-\contentsline {subsubsection}{Obserwacje i wnioski}{25}{section*.118}%
-\contentsline {paragraph}{}{25}{section*.119}%
-\contentsline {subsection}{\numberline {4.3.7}Usuwanie redundancji}{26}{subsection.4.3.7}%
-\contentsline {subsubsection}{Idea}{26}{section*.120}%
-\contentsline {paragraph}{}{26}{section*.121}%
-\contentsline {subsubsection}{Kod}{26}{section*.122}%
-\contentsline {subsubsection}{Benchmark}{27}{section*.123}%
-\contentsline {subsubsection}{Obserwacje i wnioski}{27}{section*.124}%
-\contentsline {paragraph}{}{27}{section*.125}%
-\contentsline {subsection}{\numberline {4.3.8}Wypełnianie macierzy i wektora - pomiar fragmentów}{28}{subsection.4.3.8}%
-\contentsline {subsubsection}{Obserwacje i wnioski}{28}{section*.126}%
-\contentsline {paragraph}{}{28}{section*.127}%
-\contentsline {subsection}{\numberline {4.3.9}Eliminacja potęgowania - podejście iteracyjne}{29}{subsection.4.3.9}%
-\contentsline {subsubsection}{Idea}{29}{section*.128}%
-\contentsline {paragraph}{}{29}{section*.129}%
-\contentsline {paragraph}{}{29}{section*.130}%
-\contentsline {paragraph}{}{29}{section*.131}%
-\contentsline {paragraph}{}{29}{section*.132}%
-\contentsline {subsubsection}{Kod}{29}{section*.133}%
-\contentsline {subsubsection}{Benchmark}{30}{section*.134}%
-\contentsline {subsubsection}{Wypełnianie wektora - to samo podejście}{30}{section*.135}%
-\contentsline {paragraph}{}{30}{section*.136}%
-\contentsline {subsubsection}{Wypełnianie wektora - Kod}{30}{section*.137}%
-\contentsline {subsubsection}{Wypełnianie wektora - Benchmark}{31}{section*.138}%
-\contentsline {subsubsection}{Obserwacje i wnioski}{31}{section*.139}%
-\contentsline {paragraph}{}{31}{section*.140}%
-\contentsline {subsection}{\numberline {4.3.10}Podsumowanie}{32}{subsection.4.3.10}%
-\contentsline {subsubsection}{Cały algorytm przed optymalizacją}{32}{section*.141}%
-\contentsline {subsubsection}{Cały algorytm po optymalizacji}{32}{section*.142}%
-\contentsline {subsubsection}{Wnioski}{32}{section*.143}%
-\contentsline {paragraph}{}{32}{section*.144}%
-\contentsline {chapter}{\numberline {5}Przykłady zastosowania aplikacji do kompleksowej analizy wyników pomiarowych}{33}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Wstęp}{33}{section.5.1}%
-\contentsline {paragraph}{}{33}{section*.145}%
-\contentsline {section}{\numberline {5.2}Analiza prób spęczania próbek stopu BA1032}{33}{section.5.2}%
-\contentsline {paragraph}{}{33}{section*.146}%
-\contentsline {paragraph}{}{33}{section*.147}%
-\contentsline {paragraph}{}{34}{section*.148}%
-\contentsline {paragraph}{}{34}{section*.149}%
-\contentsline {paragraph}{}{35}{section*.150}%
-\contentsline {paragraph}{}{35}{section*.151}%
-\contentsline {section}{\numberline {5.3}Analiza prób spęczania próbek stopu CuSn6 w temperaturze otoczenia}{36}{section.5.3}%
-\contentsline {paragraph}{}{36}{section*.152}%
-\contentsline {paragraph}{}{36}{section*.153}%
-\contentsline {paragraph}{}{36}{section*.154}%
-\contentsline {paragraph}{}{37}{section*.155}%
-\contentsline {paragraph}{}{37}{section*.156}%
-\contentsline {paragraph}{}{38}{section*.157}%
-\contentsline {paragraph}{}{38}{section*.158}%
-\contentsline {paragraph}{}{39}{section*.159}%
-\contentsline {section}{\numberline {5.4}Analiza prób spęczania próbek stopu CuSn6 w stanie stałociekłym}{39}{section.5.4}%
-\contentsline {paragraph}{}{39}{section*.160}%
-\contentsline {paragraph}{}{39}{section*.161}%
-\contentsline {paragraph}{}{40}{section*.162}%
-\contentsline {paragraph}{}{40}{section*.163}%
-\contentsline {paragraph}{}{41}{section*.164}%
-\contentsline {paragraph}{}{41}{section*.165}%
-\contentsline {paragraph}{}{42}{section*.166}%
-\contentsline {paragraph}{}{42}{section*.167}%
-\contentsline {chapter}{\numberline {6}Podsumowanie}{43}{chapter.6}%
-\contentsline {paragraph}{}{43}{section*.168}%
-\contentsline {section}{\numberline {6.1}Zalety utworzonego rozwiązania}{43}{section.6.1}%
-\contentsline {paragraph}{}{43}{section*.169}%
-\contentsline {paragraph}{}{43}{section*.170}%
-\contentsline {section}{\numberline {6.2}Wady i potencjalne problemy}{43}{section.6.2}%
-\contentsline {paragraph}{}{43}{section*.171}%
-\contentsline {section}{\numberline {6.3}Potencjał do rozwoju}{43}{section.6.3}%
-\contentsline {paragraph}{}{43}{section*.172}%
-\contentsline {chapter}{\numberline {7}Oświadczenie - wykorzystanie narzędzi GenAI}{44}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Oświadczeine}{44}{section.7.1}%
-\contentsline {paragraph}{}{44}{section*.173}%
-\contentsline {paragraph}{}{44}{section*.174}%
-\contentsline {chapter}{\numberline {8}Literatura}{45}{chapter.8}%
+\contentsline {chapter}{\numberline {1}Wstęp}{4}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Cel pracy}{4}{section.1.1}%
+\contentsline {paragraph}{}{4}{section*.2}%
+\contentsline {section}{\numberline {1.2}Opis próby spęczania}{4}{section.1.2}%
+\contentsline {paragraph}{}{4}{section*.3}%
+\contentsline {paragraph}{}{4}{section*.4}%
+\contentsline {paragraph}{}{4}{section*.5}%
+\contentsline {paragraph}{}{4}{section*.6}%
+\contentsline {paragraph}{}{4}{section*.7}%
+\contentsline {section}{\numberline {1.3}Opis maszyny pomiarowej}{6}{section.1.3}%
+\contentsline {paragraph}{}{6}{section*.8}%
+\contentsline {section}{\numberline {1.4}Aktualne rozwiązania}{11}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Opis}{11}{subsection.1.4.1}%
+\contentsline {paragraph}{}{11}{section*.9}%
+\contentsline {subsection}{\numberline {1.4.2}Funkcjonalności}{11}{subsection.1.4.2}%
+\contentsline {paragraph}{}{11}{section*.10}%
+\contentsline {paragraph}{}{11}{section*.11}%
+\contentsline {paragraph}{}{12}{section*.12}%
+\contentsline {paragraph}{}{12}{section*.13}%
+\contentsline {paragraph}{}{13}{section*.14}%
+\contentsline {paragraph}{}{13}{section*.15}%
+\contentsline {subsection}{\numberline {1.4.3}Wady}{14}{subsection.1.4.3}%
+\contentsline {subsubsection}{Skomplikowana i powolna obsługa}{14}{section*.16}%
+\contentsline {paragraph}{}{14}{section*.17}%
+\contentsline {subsubsection}{Restrykcyjna licencja}{14}{section*.18}%
+\contentsline {paragraph}{}{14}{section*.19}%
+\contentsline {section}{\numberline {1.5}Zawartość pracy}{14}{section.1.5}%
+\contentsline {paragraph}{Rozdział pierwszy}{14}{section*.20}%
+\contentsline {paragraph}{Rozdział drugi}{14}{section*.21}%
+\contentsline {paragraph}{Rozdział trzeci}{14}{section*.22}%
+\contentsline {paragraph}{Rozdział czwarty}{14}{section*.23}%
+\contentsline {paragraph}{Rozdział piąty}{15}{section*.24}%
+\contentsline {paragraph}{Rozdział szósty}{15}{section*.25}%
+\contentsline {paragraph}{Rozdział siódmy}{15}{section*.26}%
+\contentsline {paragraph}{Rozdział ósmy}{15}{section*.27}%
+\contentsline {chapter}{\numberline {2}Cel i teza pracy}{16}{chapter.2}%
+\contentsline {subsubsection}{Cel}{16}{section*.28}%
+\contentsline {paragraph}{}{16}{section*.29}%
+\contentsline {paragraph}{}{16}{section*.30}%
+\contentsline {subsubsection}{Teza}{16}{section*.31}%
+\contentsline {paragraph}{}{16}{section*.32}%
+\contentsline {chapter}{\numberline {3}Opis narzędzi wykorzystanych do realizacji pracy}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Język programowania}{17}{section.3.1}%
+\contentsline {paragraph}{}{17}{section*.33}%
+\contentsline {section}{\numberline {3.2}Środowisko graficzne}{17}{section.3.2}%
+\contentsline {paragraph}{}{17}{section*.34}%
+\contentsline {paragraph}{}{17}{section*.35}%
+\contentsline {section}{\numberline {3.3}Kompilacja}{17}{section.3.3}%
+\contentsline {paragraph}{}{17}{section*.36}%
+\contentsline {chapter}{\numberline {4}Opis utworzonej aplikacji}{18}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Architektura aplikacji}{18}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Ogólna struktura aplikacji}{18}{subsection.4.1.1}%
+\contentsline {subsubsection}{Komponenty}{18}{section*.37}%
+\contentsline {paragraph}{}{18}{section*.38}%
+\contentsline {subsubsection}{Zarządzanie stanem}{18}{section*.39}%
+\contentsline {paragraph}{}{18}{section*.40}%
+\contentsline {paragraph}{Właściwości}{18}{section*.41}%
+\contentsline {paragraph}{Stan}{18}{section*.42}%
+\contentsline {paragraph}{Stan globalny}{18}{section*.43}%
+\contentsline {paragraph}{}{18}{section*.44}%
+\contentsline {subsection}{\numberline {4.1.2}Rysowanie wykresu}{19}{subsection.4.1.2}%
+\contentsline {paragraph}{}{19}{section*.45}%
+\contentsline {subsubsection}{Poruszanie się w widoku}{19}{section*.46}%
+\contentsline {paragraph}{}{19}{section*.47}%
+\contentsline {subsubsection}{Transformacja współrzędnych}{19}{section*.48}%
+\contentsline {paragraph}{}{19}{section*.49}%
+\contentsline {paragraph}{Implementacja}{20}{section*.50}%
+\contentsline {paragraph}{}{20}{section*.51}%
+\contentsline {paragraph}{Obliczanie granic widocznego fragmentu}{20}{section*.52}%
+\contentsline {paragraph}{Transformacja pojedynczego punktu}{20}{section*.53}%
+\contentsline {paragraph}{Wiele punktów jednocześnie}{20}{section*.54}%
+\contentsline {paragraph}{}{20}{section*.55}%
+\contentsline {subsection}{\numberline {4.1.3}Minimalizacja renderowanych punktów}{21}{subsection.4.1.3}%
+\contentsline {subsubsection}{Opis problemu}{21}{section*.56}%
+\contentsline {paragraph}{}{21}{section*.57}%
+\contentsline {subsubsection}{Szukanie pierwszego punktu}{21}{section*.58}%
+\contentsline {paragraph}{}{21}{section*.59}%
+\contentsline {subsubsection}{Transformacja punktów}{21}{section*.60}%
+\contentsline {paragraph}{}{21}{section*.61}%
+\contentsline {paragraph}{}{22}{section*.62}%
+\contentsline {subsection}{\numberline {4.1.4}Wykrywanie zmian}{22}{subsection.4.1.4}%
+\contentsline {paragraph}{}{22}{section*.63}%
+\contentsline {subsection}{\numberline {4.1.5}Cofanie operacji}{22}{subsection.4.1.5}%
+\contentsline {paragraph}{}{22}{section*.64}%
+\contentsline {section}{\numberline {4.2}Instrukcja obsługi}{23}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Wczytywanie plików}{23}{subsection.4.2.1}%
+\contentsline {paragraph}{}{23}{section*.65}%
+\contentsline {subsubsection}{Plik binarny W01}{23}{section*.66}%
+\contentsline {paragraph}{}{23}{section*.67}%
+\contentsline {paragraph}{}{23}{section*.68}%
+\contentsline {subsubsection}{Plik tekstowy CSV}{23}{section*.69}%
+\contentsline {paragraph}{}{23}{section*.70}%
+\contentsline {subsection}{\numberline {4.2.2}Zmiana widoku}{23}{subsection.4.2.2}%
+\contentsline {subsubsection}{Przesuwanie}{23}{section*.71}%
+\contentsline {paragraph}{}{23}{section*.72}%
+\contentsline {subsubsection}{Przybliżanie i oddalanie}{23}{section*.73}%
+\contentsline {paragraph}{}{23}{section*.74}%
+\contentsline {subsubsection}{Skalowanie osi X}{24}{section*.75}%
+\contentsline {paragraph}{}{24}{section*.76}%
+\contentsline {subsection}{\numberline {4.2.3}Obróbka wykresu}{24}{subsection.4.2.3}%
+\contentsline {paragraph}{}{24}{section*.77}%
+\contentsline {subsubsection}{Przesuwanie (translacja)}{24}{section*.78}%
+\contentsline {paragraph}{}{24}{section*.79}%
+\contentsline {subsubsection}{Blokada przesuwania}{24}{section*.80}%
+\contentsline {paragraph}{}{24}{section*.81}%
+\contentsline {subsubsection}{Przesuwanie do zera}{24}{section*.82}%
+\contentsline {paragraph}{}{24}{section*.83}%
+\contentsline {subsubsection}{Odbicie}{24}{section*.84}%
+\contentsline {paragraph}{}{24}{section*.85}%
+\contentsline {subsubsection}{Cofanie zmian}{24}{section*.86}%
+\contentsline {paragraph}{}{24}{section*.87}%
+\contentsline {paragraph}{}{24}{section*.88}%
+\contentsline {subsubsection}{Podgląd punktu}{24}{section*.89}%
+\contentsline {paragraph}{}{24}{section*.90}%
+\contentsline {subsection}{\numberline {4.2.4}Eksport}{25}{subsection.4.2.4}%
+\contentsline {subsubsection}{Eksport do CSV}{25}{section*.91}%
+\contentsline {paragraph}{}{25}{section*.92}%
+\contentsline {subsubsection}{Struktura eksportowanego pliku}{25}{section*.93}%
+\contentsline {paragraph}{}{25}{section*.94}%
+\contentsline {subsection}{\numberline {4.2.5}Wyznaczanie prostej}{25}{subsection.4.2.5}%
+\contentsline {paragraph}{}{25}{section*.95}%
+\contentsline {paragraph}{}{26}{section*.96}%
+\contentsline {subsection}{\numberline {4.2.6}Wykres odkształcenie-naprężenie}{26}{subsection.4.2.6}%
+\contentsline {paragraph}{}{26}{section*.97}%
+\contentsline {subsection}{\numberline {4.2.7}Regresja wyników pomiarowych}{27}{subsection.4.2.7}%
+\contentsline {subsubsection}{Zakres punktów}{27}{section*.98}%
+\contentsline {paragraph}{}{27}{section*.99}%
+\contentsline {subsubsection}{Zmiana stopnia wielomianu}{27}{section*.100}%
+\contentsline {paragraph}{}{27}{section*.101}%
+\contentsline {subsubsection}{Regresja na wykresie odkształcenie-naprężenie}{28}{section*.102}%
+\contentsline {paragraph}{}{28}{section*.103}%
+\contentsline {subsubsection}{Wzór krzywej}{28}{section*.104}%
+\contentsline {paragraph}{}{28}{section*.105}%
+\contentsline {section}{\numberline {4.3}Format pliku wejściowego}{29}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Format binarny}{29}{subsection.4.3.1}%
+\contentsline {paragraph}{}{29}{section*.106}%
+\contentsline {subsection}{\numberline {4.3.2}Struktura pliku}{29}{subsection.4.3.2}%
+\contentsline {paragraph}{}{29}{section*.107}%
+\contentsline {subsubsection}{Nagłówek}{29}{section*.108}%
+\contentsline {paragraph}{}{29}{section*.109}%
+\contentsline {subsubsection}{Kolumny (serie danych)}{30}{section*.110}%
+\contentsline {paragraph}{}{30}{section*.111}%
+\contentsline {subsubsection}{Struktura całego pliku}{30}{section*.112}%
+\contentsline {paragraph}{}{30}{section*.113}%
+\contentsline {section}{\numberline {4.4}Algorytm regresji wielomianowej - optymalizacja wydajności aplikacji}{31}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Wstęp}{31}{subsection.4.4.1}%
+\contentsline {paragraph}{}{31}{section*.114}%
+\contentsline {subsection}{\numberline {4.4.2}Model matematyczny}{31}{subsection.4.4.2}%
+\contentsline {paragraph}{}{31}{section*.115}%
+\contentsline {subsection}{\numberline {4.4.3}Dane wejściowe, sprzęt i środowisko}{31}{subsection.4.4.3}%
+\contentsline {paragraph}{}{31}{section*.116}%
+\contentsline {subsection}{\numberline {4.4.4}Sposób pomiarów}{32}{subsection.4.4.4}%
+\contentsline {subsubsection}{Realny benchmark}{32}{section*.117}%
+\contentsline {paragraph}{}{32}{section*.118}%
+\contentsline {subsubsection}{RDTSC}{32}{section*.119}%
+\contentsline {paragraph}{}{32}{section*.120}%
+\contentsline {subsubsection}{Implementacja pomiaru}{32}{section*.121}%
+\contentsline {paragraph}{}{32}{section*.122}%
+\contentsline {paragraph}{Rozpoczęcie pomiaru}{32}{section*.123}%
+\contentsline {paragraph}{}{32}{section*.124}%
+\contentsline {paragraph}{Zakończenie pomiaru}{32}{section*.125}%
+\contentsline {paragraph}{}{33}{section*.126}%
+\contentsline {subsubsection}{Narzut pomiaru}{33}{section*.127}%
+\contentsline {paragraph}{}{33}{section*.128}%
+\contentsline {paragraph}{}{33}{section*.129}%
+\contentsline {subsection}{\numberline {4.4.5}Pierwotny algorytm}{34}{subsection.4.4.5}%
+\contentsline {paragraph}{}{34}{section*.130}%
+\contentsline {subsubsection}{Całość}{34}{section*.131}%
+\contentsline {paragraph}{Komentarz}{36}{section*.132}%
+\contentsline {paragraph}{}{36}{section*.133}%
+\contentsline {subsubsection}{Pomiar fragmentów algorytmu}{36}{section*.134}%
+\contentsline {subsubsection}{Obserwacje i wnioski}{37}{section*.135}%
+\contentsline {paragraph}{}{37}{section*.136}%
+\contentsline {subsection}{\numberline {4.4.6}Zmiana funkcji potęgi}{38}{subsection.4.4.6}%
+\contentsline {subsubsection}{Idea}{38}{section*.137}%
+\contentsline {paragraph}{}{38}{section*.138}%
+\contentsline {subsubsection}{Kod}{38}{section*.139}%
+\contentsline {paragraph}{}{38}{section*.140}%
+\contentsline {subsubsection}{Benchmark}{38}{section*.141}%
+\contentsline {paragraph}{}{38}{section*.142}%
+\contentsline {subsubsection}{Obserwacje i wnioski}{38}{section*.143}%
+\contentsline {paragraph}{}{38}{section*.144}%
+\contentsline {subsection}{\numberline {4.4.7}Usuwanie redundancji}{39}{subsection.4.4.7}%
+\contentsline {subsubsection}{Idea}{39}{section*.145}%
+\contentsline {paragraph}{}{39}{section*.146}%
+\contentsline {subsubsection}{Kod}{39}{section*.147}%
+\contentsline {subsubsection}{Benchmark}{40}{section*.148}%
+\contentsline {subsubsection}{Obserwacje i wnioski}{40}{section*.149}%
+\contentsline {paragraph}{}{40}{section*.150}%
+\contentsline {subsection}{\numberline {4.4.8}Wypełnianie macierzy i wektora - pomiar fragmentów}{41}{subsection.4.4.8}%
+\contentsline {subsubsection}{Obserwacje i wnioski}{41}{section*.151}%
+\contentsline {paragraph}{}{41}{section*.152}%
+\contentsline {subsection}{\numberline {4.4.9}Eliminacja potęgowania - podejście iteracyjne}{42}{subsection.4.4.9}%
+\contentsline {subsubsection}{Idea}{42}{section*.153}%
+\contentsline {paragraph}{}{42}{section*.154}%
+\contentsline {paragraph}{}{42}{section*.155}%
+\contentsline {paragraph}{}{42}{section*.156}%
+\contentsline {paragraph}{}{42}{section*.157}%
+\contentsline {subsubsection}{Kod}{42}{section*.158}%
+\contentsline {subsubsection}{Benchmark}{43}{section*.159}%
+\contentsline {subsubsection}{Wypełnianie wektora - to samo podejście}{43}{section*.160}%
+\contentsline {paragraph}{}{43}{section*.161}%
+\contentsline {subsubsection}{Wypełnianie wektora - Kod}{43}{section*.162}%
+\contentsline {subsubsection}{Wypełnianie wektora - Benchmark}{44}{section*.163}%
+\contentsline {subsubsection}{Obserwacje i wnioski}{44}{section*.164}%
+\contentsline {paragraph}{}{44}{section*.165}%
+\contentsline {subsection}{\numberline {4.4.10}Podsumowanie}{45}{subsection.4.4.10}%
+\contentsline {subsubsection}{Cały algorytm przed optymalizacją}{45}{section*.166}%
+\contentsline {subsubsection}{Cały algorytm po optymalizacji}{45}{section*.167}%
+\contentsline {subsubsection}{Wnioski}{45}{section*.168}%
+\contentsline {paragraph}{}{45}{section*.169}%
+\contentsline {chapter}{\numberline {5}Przykłady zastosowania aplikacji do kompleksowej analizy wyników pomiarowych}{46}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Wstęp}{46}{section.5.1}%
+\contentsline {paragraph}{}{46}{section*.170}%
+\contentsline {section}{\numberline {5.2}Analiza prób spęczania próbek stopu BA1032 w temperaturze otoczenia}{46}{section.5.2}%
+\contentsline {paragraph}{}{46}{section*.171}%
+\contentsline {paragraph}{}{46}{section*.172}%
+\contentsline {paragraph}{}{47}{section*.173}%
+\contentsline {paragraph}{}{47}{section*.174}%
+\contentsline {paragraph}{}{48}{section*.175}%
+\contentsline {paragraph}{}{48}{section*.176}%
+\contentsline {section}{\numberline {5.3}Analiza prób spęczania próbek stopu CuSn6 w temperaturze otoczenia}{49}{section.5.3}%
+\contentsline {paragraph}{}{49}{section*.177}%
+\contentsline {paragraph}{}{49}{section*.178}%
+\contentsline {paragraph}{}{49}{section*.179}%
+\contentsline {paragraph}{}{49}{section*.180}%
+\contentsline {paragraph}{}{50}{section*.181}%
+\contentsline {paragraph}{}{51}{section*.182}%
+\contentsline {paragraph}{}{51}{section*.183}%
+\contentsline {paragraph}{}{52}{section*.184}%
+\contentsline {section}{\numberline {5.4}Analiza prób spęczania próbek stopu CuSn6 w stanie stałociekłym}{52}{section.5.4}%
+\contentsline {paragraph}{}{52}{section*.185}%
+\contentsline {paragraph}{}{52}{section*.186}%
+\contentsline {paragraph}{}{53}{section*.187}%
+\contentsline {paragraph}{}{53}{section*.188}%
+\contentsline {paragraph}{}{54}{section*.189}%
+\contentsline {paragraph}{}{54}{section*.190}%
+\contentsline {paragraph}{}{55}{section*.191}%
+\contentsline {paragraph}{}{55}{section*.192}%
+\contentsline {chapter}{\numberline {6}Podsumowanie}{56}{chapter.6}%
+\contentsline {paragraph}{}{56}{section*.193}%
+\contentsline {paragraph}{}{56}{section*.194}%
+\contentsline {paragraph}{}{56}{section*.195}%
+\contentsline {paragraph}{}{56}{section*.196}%
+\contentsline {paragraph}{}{57}{section*.197}%
+\contentsline {chapter}{\numberline {7}Oświadczenie - wykorzystanie narzędzi GenAI}{58}{chapter.7}%
+\contentsline {paragraph}{}{58}{section*.198}%
+\contentsline {paragraph}{}{58}{section*.199}%
+\contentsline {chapter}{\numberline {8}Literatura}{59}{chapter.8}%

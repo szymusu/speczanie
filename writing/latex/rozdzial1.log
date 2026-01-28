@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.1.22)  27 JAN 2026 15:21
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2026.1.22)  27 JAN 2026 19:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -372,35 +372,35 @@ Rozdzia\PlPrIeC {\l } 1.
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/loc
 al/texlive/2025/texmf-dist/fonts/enc/dvips/pl/plrm.enc}]
 LaTeX Font Info:    Trying to load font information for OML+plm on input line 4
-4.
+3.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/polski/omlplm.fd
 File: omlplm.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Trying to load font information for OMS+plsy on input line 
-44.
+43.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/polski/omsplsy.fd
 File: omsplsy.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    Trying to load font information for OMX+plex on input line 
-44.
+43.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/polski/omxplex.fd
 File: omxplex.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
 )
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <12> on input line 44.
+(Font)              <12> on input line 43.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <8> on input line 44.
+(Font)              <8> on input line 43.
 LaTeX Font Info:    External font `plex10' loaded for size
-(Font)              <6> on input line 44.
+(Font)              <6> on input line 43.
 
 
 [2{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/pl/plmi.enc}{/usr/local/t
 exlive/2025/texmf-dist/fonts/enc/dvips/pl/plms.enc}{/usr/local/texlive/2025/tex
 mf-dist/fonts/enc/dvips/pl/plme.enc}]
-Overfull \hbox (2.72961pt too wide) in paragraph at lines 66--67
+Overfull \hbox (2.72961pt too wide) in paragraph at lines 65--66
  [] \OT4/cmr/m/n/12 Ma-szy-na po-mia-ro-wa to hy-drau-licz-na ma-szy-na wy-trzy
 -ma-�o-�cio-wa z pie-cem Zwick HB100. 
  []
@@ -408,12 +408,12 @@ Overfull \hbox (2.72961pt too wide) in paragraph at lines 66--67
 <images/maszyna/cała.jpeg, id=16, 963.6pt x 1284.8pt>
 File: images/maszyna/cała.jpeg Graphic file (type jpg)
 <use images/maszyna/cała.jpeg>
-Package pdftex.def Info: images/maszyna/cała.jpeg  used on input line 69.
+Package pdftex.def Info: images/maszyna/cała.jpeg  used on input line 68.
 (pdftex.def)             Requested size: 364.19667pt x 485.58247pt.
 <images/maszyna/1.trawersa.jpeg, id=17, 1284.8pt x 963.6pt>
 File: images/maszyna/1.trawersa.jpeg Graphic file (type jpg)
 <use images/maszyna/1.trawersa.jpeg>
-Package pdftex.def Info: images/maszyna/1.trawersa.jpeg  used on input line 74.
+Package pdftex.def Info: images/maszyna/1.trawersa.jpeg  used on input line 73.
 
 (pdftex.def)             Requested size: 364.19667pt x 273.14381pt.
 
@@ -422,13 +422,13 @@ Package pdftex.def Info: images/maszyna/1.trawersa.jpeg  used on input line 74.
 <images/maszyna/2.zasilacz.jpeg, id=21, 1284.8pt x 963.6pt>
 File: images/maszyna/2.zasilacz.jpeg Graphic file (type jpg)
 <use images/maszyna/2.zasilacz.jpeg>
-Package pdftex.def Info: images/maszyna/2.zasilacz.jpeg  used on input line 79.
+Package pdftex.def Info: images/maszyna/2.zasilacz.jpeg  used on input line 78.
 
 (pdftex.def)             Requested size: 364.19667pt x 273.14381pt.
 <images/maszyna/4.siłownik.jpeg, id=22, 963.6pt x 1284.8pt>
 File: images/maszyna/4.siłownik.jpeg Graphic file (type jpg)
 <use images/maszyna/4.siłownik.jpeg>
-Package pdftex.def Info: images/maszyna/4.siłownik.jpeg  used on input line 84
+Package pdftex.def Info: images/maszyna/4.siłownik.jpeg  used on input line 83
 .
 (pdftex.def)             Requested size: 364.19667pt x 485.58247pt.
 
@@ -437,7 +437,7 @@ Package pdftex.def Info: images/maszyna/4.siłownik.jpeg  used on input line 84
 <images/maszyna/5.tensometr.jpeg, id=26, 963.6pt x 1284.8pt>
 File: images/maszyna/5.tensometr.jpeg Graphic file (type jpg)
 <use images/maszyna/5.tensometr.jpeg>
-Package pdftex.def Info: images/maszyna/5.tensometr.jpeg  used on input line 89
+Package pdftex.def Info: images/maszyna/5.tensometr.jpeg  used on input line 88
 .
 (pdftex.def)             Requested size: 364.19667pt x 485.58247pt.
 
@@ -446,7 +446,7 @@ Package pdftex.def Info: images/maszyna/5.tensometr.jpeg  used on input line 89
 <images/maszyna/6.piec.jpeg, id=30, 1284.8pt x 963.6pt>
 File: images/maszyna/6.piec.jpeg Graphic file (type jpg)
 <use images/maszyna/6.piec.jpeg>
-Package pdftex.def Info: images/maszyna/6.piec.jpeg  used on input line 94.
+Package pdftex.def Info: images/maszyna/6.piec.jpeg  used on input line 93.
 (pdftex.def)             Requested size: 364.19667pt x 273.14381pt.
 
 
@@ -457,13 +457,13 @@ Package pdftex.def Info: images/maszyna/6.piec.jpeg  used on input line 94.
 File: images/screeny-xp/3 wczytany.jpeg Graphic file (type jpg)
 <use images/screeny-xp/3 wczytany.jpeg>
 Package pdftex.def Info: images/screeny-xp/3 wczytany.jpeg  used on input line 
-107.
+106.
 (pdftex.def)             Requested size: 364.19667pt x 291.35341pt.
 <images/screeny-xp/4 scale offset.jpeg, id=40, 1284.8pt x 1027.84pt>
 File: images/screeny-xp/4 scale offset.jpeg Graphic file (type jpg)
 <use images/screeny-xp/4 scale offset.jpeg>
 Package pdftex.def Info: images/screeny-xp/4 scale offset.jpeg  used on input l
-ine 113.
+ine 112.
 (pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
 
 
@@ -472,12 +472,12 @@ ine 113.
 File: images/screeny-xp/5 truncate.jpeg Graphic file (type jpg)
 <use images/screeny-xp/5 truncate.jpeg>
 Package pdftex.def Info: images/screeny-xp/5 truncate.jpeg  used on input line 
-119.
+118.
 (pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
 <images/screeny-xp/6 zoom.jpeg, id=45, 1284.8pt x 1027.84pt>
 File: images/screeny-xp/6 zoom.jpeg Graphic file (type jpg)
 <use images/screeny-xp/6 zoom.jpeg>
-Package pdftex.def Info: images/screeny-xp/6 zoom.jpeg  used on input line 125.
+Package pdftex.def Info: images/screeny-xp/6 zoom.jpeg  used on input line 124.
 
 (pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
 
@@ -488,13 +488,13 @@ eg>]
 File: images/screeny-xp/7 regresja.jpeg Graphic file (type jpg)
 <use images/screeny-xp/7 regresja.jpeg>
 Package pdftex.def Info: images/screeny-xp/7 regresja.jpeg  used on input line 
-131.
+130.
 (pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
 <images/screeny-xp/8 wygładzanie.jpeg, id=50, 1284.8pt x 1027.84pt>
 File: images/screeny-xp/8 wygładzanie.jpeg Graphic file (type jpg)
 <use images/screeny-xp/8 wygładzanie.jpeg>
 Package pdftex.def Info: images/screeny-xp/8 wygładzanie.jpeg  used on input l
-ine 137.
+ine 136.
 (pdftex.def)             Requested size: 318.66948pt x 254.93619pt.
 
 
@@ -535,7 +535,7 @@ mf-dist/fonts/type1/public/pl/plmi8.pfb></usr/local/texlive/2025/texmf-dist/fon
 ts/type1/public/pl/plr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/pu
 blic/pl/plr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/pl/plsy
 10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/pl/plsy8.pfb>
-Output written on rozdzial1.pdf (14 pages, 2906888 bytes).
+Output written on rozdzial1.pdf (14 pages, 2906766 bytes).
 PDF statistics:
  106 PDF objects out of 1000 (max. 8388607)
  61 compressed objects within 1 object stream

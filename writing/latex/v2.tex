@@ -9,6 +9,7 @@
 \usepackage{multirow}
 \usepackage{array}
 \usepackage{hyperref}
+\usepackage{pdfpages}
 
 
 \title{Analiza wyników pomiarowych z prób spęczania z wykorzystaniem aplikacji komputerowej - praca inżynierska}
@@ -16,13 +17,13 @@
 \author{Szymon Miłkowski}
 
 \begin{document}
-	\maketitle
+	\includepdf[pages=-]{tytul.pdf}
 	\tableofcontents
 	
 	\chapter{Wstęp}
-	\section{W pracy}
+	\section{Cel pracy}
 	\paragraph{}
-	Praca obejmuje stworzenie aplikacji komputerowej do graficznej i komputerowej analizy wyników pomiarowych z prób spęczania.
+	Praca ma na celu utworzenie aplikacji komputerowej do graficznej i analizy wyników pomiarowych z prób spęczania.
 	
 	\section{Opis próby spęczania}
 	\paragraph{}
@@ -38,26 +39,134 @@
 	Wielkości mierzone przez maszynę, zawarte w pliku wyjściowym pomiaru to: czas, obciążenie, przesunięcie oraz zadany sygnał.
 	
 	\paragraph{}
-	Po przeliczeniu wartości sił i przemieszczenia na zależność naprężenia od odkształcenia możliwe jest wyznaczenie modułu sprężystości, modułu plasytczności, granicy plastyczności, a także wytrzymałości na spęczanie.
+	Po przeliczeniu wartości sił i przemieszczenia na zależność naprężenia od odkształcenia możliwe jest wyznaczenie granicy plastyczności i wytrzymałości na spęczanie.
 	
 	\paragraph{}
-	Przeprowadzone spęczania w stanie stałociekłym pozwalają również na wyznaczenie wartości lepkości badanego materiału w funkcji prędkości ścinania. (wzory jutro) 
+	Przeprowadzone spęczania w stanie stałociekłym pozwalają również na wyznaczenie wartości lepkości badanego materiału w funkcji prędkości ścinania [1].
+	
+	\pagebreak
+	\begin{equation}
+		F = -\frac{3\mu\nu^2}{2\pi h^5} \left( \frac{dh}{dt}\right) 
+	\end{equation}
+	gdzie: \\
+	$F$ - siła spęczania \\
+	$\mu$ - lepkość, \\
+	$\nu$ - objętość próbki, \\
+	$h$ - wysokość próbki, \\
+	$t$ - czas.
+	
+	\begin{equation}
+		\dot{\gamma}_{avg} = -\frac{R}{2h^2} \left(  \frac{dh}{dt}  \right) 
+	\end{equation}
+	gdzie: \\
+	$\dot{\gamma}_{avg}$ - średnia prędkość ścinania \\
+	$R$ - promień próbki, \\
+	$h$ - wysokość próbki, \\
+	$t$ - czas.
 	
 	\pagebreak
 	\section{Opis maszyny pomiarowej}
 	\paragraph{}
+	Maszyna pomiarowa to hydrauliczna maszyna wytrzymałościowa z piecem Zwick HB100 (Rysunek 1.1 - 1.6).
 	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/cała.jpeg}
+		\caption{Maszyna do przeprowadzania prób spęczania Zwick HB100}
+	\end{figure}
 	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/1.trawersa.jpeg}
+		\caption{Górna trawersa z siłownikiem hyrdaulicznym}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/2.zasilacz.jpeg}
+		\caption{Zasilacz do pieca wysokotemperaturowego}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/4.siłownik.jpeg}
+		\caption{Siłownik hytrauliczny osiągający siły do 100 kN}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/5.tensometr.jpeg}
+		\caption{Tensometr}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/maszyna/6.piec.jpeg}
+		\caption{Piec z zakresem temperatur od pokojowej do 1400 $^{\circ}$C}
+	\end{figure}
+	
+	\pagebreak
 	\section{Aktualne rozwiązania}
-	\subsection{Workshop - moduł data manager}
+	\subsection{Opis}
 	\paragraph{}
-	Program służy do wyświetlania danych na wykresie. Posiada opcje importu danych z formatu W01, zmiany osi i serii danych oraz eksportu do pliku tekstowego CSV. Program ten jednak jest trudniejszy w obsłudze oraz przydatne funkcjonalności wymagają repetytywnych czynności ze strony użytkownika.
+	Program \textbf{Workshop - moduł data manager} służy do wyświetlania danych na wykresie. Posiada opcje importu danych z formatu W01, zmiany osi i serii danych oraz eksportu do pliku tekstowego CSV. Program ten jednak jest trudniejszy w obsłudze oraz przydatne funkcjonalności wymagają repetytywnych czynności ze strony użytkownika.
+	
+	\subsection{Funkcjonalności}
+	\paragraph{}
+	Na Rysunku 1.7 przedstawiono okno z funkcją wczytania pliku z wynikami.
+	\begin{figure}[H]
+		\includegraphics[width=.8\textwidth, center]{images/screeny-xp/3 wczytany.jpeg}
+		\caption{Wczytany plik w programie}
+	\end{figure}
+	
+	\paragraph{}
+	Na Rysunku 1.8 przedstawiono okno z funkcją skalowania i przesuwania wykresu.
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/4 scale offset.jpeg}
+		\caption{Menu skalowania i przesuwanie}
+	\end{figure}
+	
+	\paragraph{}
+	Na Rysunku 1.9 przedstawiono okno z funkcją obcinania wykresu.
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/5 truncate.jpeg}
+		\caption{Menu ucinania}
+	\end{figure}
+	
+	\paragraph{}
+	Na Rysunku 1.10 przedstawiono menu z funkcją przybżliania widoku.
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/6 zoom.jpeg}
+		\caption{Menu przybliżania widoku}
+	\end{figure}
+	
+	\paragraph{}
+	Na Rysunku 1.11 przedstawiono menu z funkcją regresji liniowej.
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/7 regresja.jpeg}
+		\caption{Menu regresji}
+	\end{figure}
+	
+	\paragraph{}
+	Na Rysunku 1.12 przedstawiono okno z funkcją filtrowania danych.
+	\begin{figure}[H]
+		\includegraphics[width=.7\textwidth, center]{images/screeny-xp/8 wygładzanie.jpeg}
+		\caption{Menu filtrowania danych}
+	\end{figure}
+	
+	\subsection{Wady}
+	\subsubsection{Skomplikowana i powolna obsługa}
+	\paragraph{}
+	Większość operacji w programie wymaga wykonania wielu kliknięć. Funkcje schowane są w rozwijanych menu, a po aktywacji dane trzba wprowadzić do wyskakującego w innym miejscu ekranu okienka. Operacje takie jak przesuwanie, wymagają wprowadzenia przesunięcia jako wartośli liczbowej z klawiatury, co zmusza użytkownika do prowadzenia obliczeń "na oko" w głowie.
+	
+	\subsubsection{Restrykcyjna licencja}
+	\paragraph{}
+	Licencja oprogramowania nie pozwala na skopiowanie go i korzystanie poza stanowiskiem roboczym, zatem cała analiza musi odbywać się na komputerze w laboratorium.
+	
 	
 	\section{Zawartość pracy}
-	\paragraph{}
-	
-	Co mieści się w poszczególnych rozdziałach. (wszystko w jednym akapicie, liczby słownie (pierwszy, drugi))
-	Ten dokument zawiera opis problemu, cel i założenia, napotkane przeszkody, ogólną strukturę i sposób działania aplikacji oraz niektóre szczegóły implementacji.
+	\paragraph{Rozdział pierwszy} zawiera wstęp do pracy, opis próby spęczania oraz istniejące już rozwiązania.
+	\paragraph{Rozdział drugi} zawiera cele i założenia pracy oraz postawioną tezę.
+	\paragraph{Rozdział trzeci} zawiera wykorzystane narzędzia i technologie wraz z uzasadnieniem ich wyboru.
+	\paragraph{Rozdział czwarty} zawiera opis struktury aplikacji, instrukcję obsługi, szczegóły implementacji niektórych fragmentów i opis rozwiązanych problemów informatycznych. W tym rozdziale znajduje się również proces poprawy wydajności jednego z krytycznych fragmetów programu.
+	\paragraph{Rozdział piąty} zawiera przykład wykorzystania aplikacji w praktyce.
+	\paragraph{Rozdział szósty} zawiera podsumowanie obejmujące wady, zalety i potencjał rozwojowy aplikacji.
+	\paragraph{Rozdział siódmy} zawiera oświadczenie o braku wykorzystania GenAI w sposób niezgodny z regulaminem.
+	\paragraph{Rozdział ósmy} zawiara wykorzystane źródła i literaturę.
 	
 	
 	\chapter{Cel i teza pracy}
@@ -78,21 +187,21 @@
 	\paragraph{}
 	Stwierdzono brak powszechnego występowania prostych i darmowych aplikacji umożliwiających obróbkę danych pomiarowych z wykorzystaniem interaktywnych wykresów. W związku z powyższym sformułowano tezę, że analiza wyników pomiarowych jest możliwa dzięki takiemu podejściu, co wykazano w niniejszej pracy.
 	
+	
 	\chapter{Opis narzędzi wykorzystanych do realizacji pracy}
 	\section{Język programowania}
 	\paragraph{}
-	Wybranym językiem programowania do stworzenia aplikacji został \textbf{język C} w standardzie C11. Cechuje się on bardzo wysoką kontrolą nad działaniem programu, co pozytywnie wpływa na wydajność oraz minimalną ilością zależności, dzięki czemu łatwiej zachować kompatybilność z większą ilością systemów. Narzędzia do pracy z C pozwalają na stworzenie statycznego pliku wykonywalnego, który nie będzie potrzebować procesu instalacji.
+	Wybranym językiem programowania do stworzenia aplikacji został \textbf{język C} w standardzie C11. Cechuje się on bardzo wysoką kontrolą nad działaniem programu, co pozytywnie wpływa na wydajność oraz minimalną ilością zależności, dzięki czemu łatwiej zachować kompatybilność z większą ilością systemów. Narzędzia do pracy z C pozwalają na stworzenie statycznego pliku wykonywalnego, który nie będzie potrzebować procesu instalacji [2].
 	
 	\section{Środowisko graficzne}
 	\paragraph{}
-	Do obsługi grafiki oraz urządzeń wejścia (mysz i klawiatura) została wykorzystana \textbf{biblioteka Raylib}, posiadająca łatwe w obsłudze, bogate API kompatybilne z wieloma systemami operacyjnymi. Raylib nie posiada nie posiada zależności, można ją dołączyć statycznie do pliku wykonywalnego i wymaga jedynie obsługi OpenGL w sterowniku graficznym.
+	Do obsługi grafiki oraz urządzeń wejścia (mysz i klawiatura) została wykorzystana \textbf{biblioteka Raylib}, posiadająca łatwe w obsłudze, bogate API kompatybilne z wieloma systemami operacyjnymi. Raylib nie posiada zależności, można ją dołączyć statycznie do pliku wykonywalnego i wymaga jedynie obsługi OpenGL w sterowniku graficznym [3].
 	\paragraph{}
-	Na komputerach z systemem Windows bez zainstalowanych sterowników graficznych wspierających OpenGL, jako warstwa kompatybilności wykorzystany został software renderer \textbf{Mesa3D}, który implementuje API OpenGL.
+	Na komputerach z systemem Windows bez zainstalowanych sterowników graficznych wspierających OpenGL, jako warstwa kompatybilności wykorzystany został software renderer \textbf{Mesa3D}, który implementuje API OpenGL [10].
 	
 	\section{Kompilacja}
 	\paragraph{}
-	Prace programistyczne odbywały się na systemach Linux oraz MacOS (ARM), gdzie użyto domyślnych dla systemu kompilatorów C - odpowiednio GCC oraz Clang. Kompilacja na system Windows odbywała się na systemie Linux z wykorzystaniem MinGW. Projekt używa CMake do zarządania kompilacją.
-	
+	Prace programistyczne odbywały się na systemach Linux oraz MacOS (ARM), gdzie użyto domyślnych dla systemu kompilatorów C - odpowiednio GCC oraz Clang. Kompilacja na system Windows odbywała się na systemie Linux z wykorzystaniem MinGW-w64 [3]. Projekt używa CMake do zarządania kompilacją.
 	
 	\chapter{Opis utworzonej aplikacji}
 	\section{Architektura aplikacji}
@@ -336,7 +445,7 @@
 	
 	\subsubsection{Struktura eksportowanego pliku}
 	\paragraph{}
-	CSV (\textit{Comma-Separated Values}) jest luźnym formatem tekstowym przeznaczonym do tabelarycznych danych. Składa się z opcjonalnego nagłówka, oraz wierszy oddzielonych sekwencją znaków \verb|\r\n| (CRLF). W każdym wierszu znajduje się identyczna ilość pól oddzielonych separatorem (zazwyczaj \verb|,| lub \verb|;|). Plik taki można zaimportować jako tabelę we wielu aplikacjach do obsługi danych np. arkusz kalkulacyjny.
+	CSV (\textit{Comma-Separated Values}) jest luźnym formatem tekstowym przeznaczonym do tabelarycznych danych. Składa się z opcjonalnego nagłówka, oraz wierszy oddzielonych sekwencją znaków \verb|\r\n| (CRLF). W każdym wierszu znajduje się identyczna ilość pól oddzielonych separatorem (zazwyczaj \verb|,| lub \verb|;|). Plik taki można zaimportować jako tabelę we wielu aplikacjach do obsługi danych np. arkusz kalkulacyjny [9].
 	
 	\begin{table}[H]
 		\centering
@@ -402,9 +511,80 @@
 		\caption{Wyświetlenie wzoru wielomianu}
 	\end{figure}
 	
+
+	\section{Format pliku wejściowego}
+	\subsection{Format binarny}
+	\paragraph{}
+	Pliki z danymi pomiarowymi generowane przez maszynę wytrzymałościową z rozszerzeniem \textit{.W01}, zapisane są w niestandardowym formacie binarnym.
+	Oznacza to, że zawartość nie jest czytelna jako tekst i zawiera binarną reprezentację liczb, które należy wczytac bezpośrednio do pamięci.
+	Aby zczytać dane z plików i stworzyć algorytm importujący do programu, przeprowadzona została analiza formatu.
+	
+	\subsection{Struktura pliku}
+	\paragraph{}
+	Plik zawiera nagłówek z metadanymi i informacjami o rozmiarze oraz zmienną ilość serii danych o zmiennej długości. Wszystkie pojedyncze wartości wielobajtowe (nie wlicza to ciągów znaków) zapisane są w kolejności od najmniej znaczącego bajtu (little endian). Jest to zgodne z docelowymi architekturami aplikacji: x86, x86\_64 oraz Apple Silicon arm64, więc mogą one być wczytane bezpośrednio do pamięci bez żadnej konwersji [7, 8].
+	
+	\subsubsection{Nagłówek}
+	\paragraph{}
+	W nagłówgu pliku, który znajduje się na początku, przed właściwymi danymi liczbowymi znajdują się metadane, informacje o rozmiarze, godzina utworzenia oraz nazwa programu wejściowego do maszyny badawczej. Cały nagłówek ma stały rozmiar 208 bajtów.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Struktura nagłówka pliku}
+		\begin{tabular}{|c|c|c|c|p{5.5cm}|} \hline
+			offset & rozmiar & wartość/typ & nazwa & komentarz \\\hline
+			\hline
+			0 &  4 & 0x3f866666 & magic & stała wartość charakteryzująca format \\\hline
+			4 &  4 & 1 & nieznane & najpewniej wersja formatu \\\hline
+			8 &  4 & $rozmiar\_pliku + 1$ & rozmiar & \\\hline
+			12 &  4 & 0 & nieznana &  \\\hline
+			16 &  8 & "ScriptPl" & stały napis & ciąg znaków bez \verb|\0| \\\hline
+			24 &  4 & $rozmiar\_pliku - 16$ & rozmiar2 &  \\\hline
+			28 &  4 & liczba wierszy & liczba wierszy & ilość liczb w każdej kolumnie danych \\\hline
+			32 &  4 & liczba kolumn & liczba kolumn & ilość kolumn z danymi \\\hline
+			36 &  4 & 1 & nieznane & \\\hline
+			40 &  4 & 1 & nieznane & \\\hline
+			44 & 18 & "dd-MM-yyyyhh:mm:ss" & czas utworzenia & ciąg znaków bez \verb|\0| \\\hline
+			62 & 42 & nieznana & nieznane & 42 bajty, głównie zera \\\hline
+			104 & 104 & nazwa pliku & plik badania & nazwa pliku wejściowego do maszyny, dopełniona zerami do 104 bajtów \\\hline
+		\end{tabular}
+	\end{table}
+	
 	\pagebreak
+	\subsubsection{Kolumny (serie danych)}
+	\paragraph{}
+	Kolumny mają zmienny rozmiar, zależnie od pliku, jednak zawsze taki sam w obrębie jednego pliku.
 	
+	\begin{table}[H]
+		\centering
+		\caption{Struktura kolumny}
+		\begin{tabular}{|c|c|c|c|p{6.5cm}|} \hline
+			offset & rozmiar & wartość/typ & nazwa & komentarz \\\hline
+			\hline
+			0 & 4 & int & nieznane & 1 lub 16385  \\\hline
+			4 & 59 & ciąg znaków & nazwa & nazwa i jednostka kolumny, oddzielone spacjami \\\hline
+			63 & $4 * liczba\_wierszy$ & float & dane & tablica 32-bitowych liczb zmiennoprzecinkowych \\\hline
+		\end{tabular}
+	\end{table}
 	
+	\subsubsection{Struktura całego pliku}
+	\paragraph{}
+	Plik składa się z nagłówka o stałym rozmiarze i zmiennej liczby kolumn zmiennej długości, które zawierają swój nagłówek oraz danych liczbowych.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Struktura pliku}
+		\begin{tabular}{|p{5cm}|p{4cm}|} \hline
+			rozmiar  & element \\\hline
+			\hline
+			208 & nagłówek  \\\hline
+			$63+4*liczba\_wierszy$  & kolumna 1 \\\hline
+			$63+4*liczba\_wierszy$  & kolumna 2 \\\hline
+			...  & ... \\\hline
+			$63+4*liczba\_wierszy$  & kolumna $n$ \\\hline
+		\end{tabular}
+	\end{table}
+	
+	\pagebreak
 	\section{Algorytm regresji wielomianowej - optymalizacja wydajności aplikacji}
 	\subsection{Wstęp}
 	\paragraph{}
@@ -412,7 +592,7 @@
 	
 	\subsection{Model matematyczny}
 	\paragraph{}
-	Regresja wielomianowa polega na minimalizacji funkcji błędu, zdefiniowanej jako kwadrat różnicy między współrzędną $y$ danego punktu, a wartością wyznaczonej funkcji dla $x$ odpowiadającemu współrzędnej $x$ tego punktu. Dla znanego stopnia wielomianu, sprowadza się to do rozwiązania układu równań liniowych.
+	Regresja wielomianowa polega na minimalizacji funkcji błędu, zdefiniowanej jako kwadrat różnicy między współrzędną $y$ danego punktu, a wartością wyznaczonej funkcji dla $x$ odpowiadającemu współrzędnej $x$ tego punktu. Dla znanego stopnia wielomianu, sprowadza się to do rozwiązania układu równań liniowych [4].
 	\begin{equation}
 		\begin{bmatrix}
 			n & \sum_{i=0}^{n} x_i & \sum_{i=0}^{n} x_i^2 & \cdots & \sum_{i=0}^{n} x_i^m \\
@@ -459,11 +639,11 @@
 	\subsection{Sposób pomiarów}
 	\subsubsection{Realny benchmark}
 	\paragraph{}
-	Pomiary algorytmu oraz jego fragmentów miały miejsce jako mierzenie części całego działającego programu, maksymalnie raz na klatkę, przy zachowaniu całej jego pozostałej funkcjonalności. Rezultat był wykorzystany do wyświetlenia na żywo wykresu wyznaczonej funkcji, nie ma mowy więc o pomijaniu przez kompilator operacji, których wynik nie jest używany. Dodatkowo w syntetycznym benchmarku, wywołującym w pętli funkcję wiele razy, korzystniej mogłaby być zapełniona pamięć cache oraz bardziej dokładny predyktor skoków, dlatego wplecenie pomiarów w standardowy przepływ programu lepiej oddaje wydajność w realnych warunkach.
+	Pomiary algorytmu oraz jego fragmentów miały miejsce jako mierzenie części całego działającego programu, maksymalnie raz na klatkę, przy zachowaniu całej jego pozostałej funkcjonalności. Rezultat był wykorzystany do wyświetlenia na żywo wykresu wyznaczonej funkcji, nie ma mowy więc o pomijaniu przez kompilator operacji, których wynik nie jest używany. Dodatkowo w syntetycznym benchmarku, wywołującym w pętli funkcję wiele razy, korzystniej mogłaby być zapełniona pamięć cache oraz bardziej dokładny predyktor skoków, dlatego wplecenie pomiarów w standardowy przepływ programu lepiej oddaje wydajność w realnych warunkach [5].
 	
 	\subsubsection{RDTSC}
 	\paragraph{}
-	Architektura x86 implementuje instrukcję \textbf{RDTSC} (\textit{Read Time-Stamp Counter}), zwracającą obecną wartość licznika cykli. Licznik służy do precyzyjnego pomiaru czasu i jest inkrementowany co stałą jednostkę czasu, odpowiadającą częstotliwości procesora. Dynamiczne taktowanie obecne we współczesnych rdzeniach nie ma wpływu na częstotliwość tego licznika. W przypadku sprzętu pomiarowego jest to 3.6GHz.
+	Architektura x86 implementuje instrukcję \textbf{RDTSC} (\textit{Read Time-Stamp Counter}), zwracającą obecną wartość licznika cykli. Licznik służy do precyzyjnego pomiaru czasu i jest inkrementowany co stałą jednostkę czasu, odpowiadającą częstotliwości procesora. Dynamiczne taktowanie obecne we współczesnych rdzeniach nie ma wpływu na częstotliwość tego licznika. W przypadku sprzętu pomiarowego jest to 3.6GHz [7].
 	
 	\subsubsection{Implementacja pomiaru}
 	\paragraph{}
@@ -745,7 +925,7 @@
 	\subsection{Zmiana funkcji potęgi}
 	\subsubsection{Idea}
 	\paragraph{}
-	Pierwotna wersja używa funkcji \verb|pownf| ze standardowej biblioteki C. Funkcja ta przyjmuje jako wykładnik 64-bitową liczbę całkowitą ze znakiem. Ideą za tą zmianą była szansa poprawy wydajności poprzez zignorowanie przypadku dla liczb ujemnych, poniaważ w naszym algorytmie nie występują ujemne wykładniki, oraz zmniejszenie rozmiaru wykładnika, co pozwoli uniknąć konwersji z liczby 32-bitowej na 64-bitową oraz zaoszczędzi miejsce w pamięci cache.
+	Pierwotna wersja używa funkcji \verb|pownf| ze standardowej biblioteki C [2]. Funkcja ta przyjmuje jako wykładnik 64-bitową liczbę całkowitą ze znakiem. Ideą za tą zmianą była szansa poprawy wydajności poprzez zignorowanie przypadku dla liczb ujemnych, poniaważ w naszym algorytmie nie występują ujemne wykładniki, oraz zmniejszenie rozmiaru wykładnika, co pozwoli uniknąć konwersji z liczby 32-bitowej na 64-bitową oraz zaoszczędzi miejsce w pamięci cache.
 	
 	\subsubsection{Kod}
 	\paragraph{}
@@ -1090,11 +1270,10 @@
 	\paragraph{}
 	W pracy wykonano analizę wyników spęczania 2 stopów miedzi. Jednym z nich był brąz aluminiowy BA1032, zaś drugim brąz cynowy CuSn6.
 	
-	\section{Analiza prób spęczania próbek stopu BA1032}
+	\section{Analiza prób spęczania próbek stopu BA1032 w temperaturze otoczenia}
 	\paragraph{}
-	Podstawowe parametry geometryczne próbki są następujące
+	Podstawowe parametry geometryczne próbki są następujące:
 	\begin{itemize}
-		\item Kształt - cylinder
 		\item Średnica podstawy - 4 mm
 		\item Wysokość - 7 mm
 	\end{itemize}
@@ -1142,7 +1321,6 @@
 	\paragraph{}
 	Podstawowe parametry geometryczne próbki są następujące
 	\begin{itemize}
-		\item Kształt - cylinder
 		\item Średnica podstawy - 3,2 mm
 		\item Wysokość - 5 mm
 	\end{itemize}
@@ -1206,7 +1384,6 @@
 	\paragraph{}
 	Podstawowe parametry geometryczne próbki są następujące
 	\begin{itemize}
-		\item Kształt - cylinder
 		\item Średnica podstawy - 4 mm
 		\item Wysokość - 3,5 mm
 	\end{itemize}
@@ -1267,60 +1444,61 @@
 	
 	\chapter{Podsumowanie}
 	\paragraph{}
-	W pracy udało się stworzyć aplikację spełniającą pierwotne założenia.
+	W pracy utworzono aplikację komputerową przeznaczoną do analizy wyników prób spęczania realizowanych na maszynie wytrzymałościowej Zwick HB 100. Osiągnięcie to jest w pełni zgodne z tytułem i opisem projektu inżynierskiego, zgłoszonego do realizacji. W ramach podjętych działań zrealizowano wszystkie wcześniej zdefiniowane założenia. Aplikacja umożliwia realizację szeregu operacji pozwalających na prawidłową prezentację wyników prób oraz na wstępną ich analizę. Narzędzie to ma charakter użytkowy istotnie upraszczający obróbkę danych. Ponadto charakteryzuje się ono dużą złożonością w zakresie samej architektury oprogramowania. Do utworzenia aplikacji zastosowano szereg narzędzi programistycznych umożliwiających interaktywną obsługę wykresów, czy pracę na wielu platformach. Osiągnięcie uzyskane w pracy ma charakter informatyczny ponieważ wiąże się z opracowaniem autorskiej aplikacji. Opracowanie tego oprogramowania wymagało obszernej wiedzy oraz umiejętności kształtowanych w trakcie całego okresu studiów.
 	
-	\section{Zalety utworzonego rozwiązania}
 	\paragraph{}
-	Utworzona aplikacja charakteryzuje się wysoką wydajnością zarówno pod względem potrzebnych interakcji użytkownika do ośiągnięcia celu, jak i pod względem szybkości i płynności działania. Zależnie od sprzętu oraz systemu, liczba klatek na sekundę wacha się między 120, a 8000. Aplikacja zapewnia zadowalającą wydajność nawet bez sprzętowej akceleracji grafiki.
-	\paragraph{}
-	Aplikacja w większości przypadków nie wymaga instalacji żadnych dodatkowych zależności i jest kompatybilna zarówno z nowym i starym sprzętem na systemach Windows, Linux i MacOS.
+	Do zalet utworzonej aplikacji należy zaliczyć wysoką wydajność pod względem szybkości i płynności działania. Ponadto oprogramowanie charakteryzuje się prostą obsługą umożliwiającą szybką realizację szeregu operacji umożliwiających przetwarzanie otrzymanych wyników. Zależnie od sprzętu oraz systemu, liczba klatek na sekundę wacha się między 120, a 8000 a zatem aplikacja zapewnia zadowalającą wydajność nawet bez sprzętowej akceleracji grafiki. Aplikacja w większości przypadków nie wymaga instalacji żadnych dodatków systemowych i jest kompatybilna zarówno z nowym i starym sprzętem, wykorzystującym zarówno systemy Windows, Linux jak i macOS.
 	
-	\section{Wady i potencjalne problemy}
 	\paragraph{}
-	Brak wykorzystania gotowych narzędzi do tworzenia interfejsów skutkuje wyglądem odstającym od nowoczesnych aplikacji tworzonych w technologiach webowych. Implementacja od podstaw logiki zachowania interfejsu, takiej jak wpisywanie tekstu w pole tekstowe zwiększa również ryzyko występowania błędów, co w połączeniu z językiem bez zabezpieczeń pamięci, jakim jest C, może skutkować nawet zakończeniem działania programu, utratą danych i lukami bezpieczeństwa.
+	Na uwagę zasługuje również optymalizacja działania metod numerycznych zastosowanych do regresji wielomianowej. Z uwagi na wysoką rozdzielczość tensometrów pomiarowych w zakresie częstotliwości próbkowania niektóre zbiory wynikowe mogą składać się z dużej liczby punktów. Regresja przeprowadzana na dużych zbiorach charakteryzuje się dużą liczbą operacji arytmetycznych i w związku z tym należy tak zoptymalizować algorytm aby uzyskać szybką jego odpowiedź. Optymalizację przeprowadzono z wykorzystaniem wiedzy z zakresu algorytmiki i architektur komputerowych.
 	
-	\section{Potencjał do rozwoju}
 	\paragraph{}
-	Aplikację można rozszerzyć o większą ilość operacji na wykresie, takich jak filtrowanie, dodawanie i usuwanie dowolnych punktów, całkowanie, różniczkowanie. Można również dodać obsługę nowych formatów plików zarówno do odczytu jak i zapisu, interakcje z systemem operacyjnym takie jak okno dialogowe do odczytu i zapisu plików, dodanie programu jako domyśnej aplikacji do otwierania plików W01.
+	Do potencjalnych wad należy zaliczyć uproszczony interfejs. Jest to skutkiem braku wykorzystania gotowych narzędzi do tworzenia interfejsów. Przyjęte w pracy założenie polegało na autorskim zaprojektowaniu całości wyglądu aplikacji, pod kątem przyjaznej obsługi. W związku z tym zdecydowano się na dużo trudniejsze i wymagające rozwiązanie polegające na implementacji logiki interfejsu od podstaw.
+	
+	\paragraph{}
+	Architektura aplikacji daje możliwość jej dalszego rozwoju. Można rozszerzyć ją o większą ilość operacji na wykresie, takich jak filtrowanie, dodawanie i usuwanie dowolnych punktów, całkowanie, różniczkowanie. Można również dodać obsługę nowych formatów plików zarówno do odczytu jak i zapisu, interakcje z systemem operacyjnym takie jak okno dialogowe do odczytu i zapisu plików czy dodanie programu jako domyślnej aplikacji do otwierania plików generowanych przez oprogramowanie maszyn wytrzymałościowych.
 	
 	\chapter{Oświadczenie - wykorzystanie narzędzi GenAI}
-	\section{Oświadczeine}
 	\paragraph{}
-	Jakiekolwiek narzędzia generatywnej sztucznej inteligencji oraz duże modele językowe zostały wykorzystane wyłącznie w pozyskania informacji o:
+	Wybrane narzędzia generatywnej sztucznej inteligencji oraz duże modele językowe zostały wykorzystane wyłącznie do pozyskania informacji o:
 	\begin{itemize}
 		\item obsłudze kompilatora pod kątem kompilacji na system Windows XP
 		\item sposobie formatowania macierzy i podpisów tabeli w tym dokumencie
 	\end{itemize}
 	
 	\paragraph{}
-	Wszystkie pozostałe aspekty pracy, w tym treści merytoryczne, kody źródłowe, analiza plików, algorytmy oraz ich optymalizacja stanowią w pełni autorskie opracowanie dyplomanta.
+	Wszystkie pozostałe aspekty pracy, w tym treści merytoryczne, kody źródłowe, analiza plików, algorytmy oraz ich optymalizacja stanowią w pełni autorskie opracowanie Dyplomanta.
 	
 	\chapter{Literatura}
 	\begin{enumerate}
-		\item Dokumentacja biblioteki standardowej C \\
+		\item Solid-liquid structural break-up in M2 tool steel for semi-solid metal processing - M.Z. Omar, H.V. Atkinson, A.A. Howe, E.J. Palmiere, P. Kapranos and M.J. Ghazali
+		
+		\item Section 3: library functions - Linux man pages (1996) \\
 		\url{https://linux.die.net/man/3/}
 		
-		\item Dokumentacja biblioteki Raylib \\
+		\item Raylib \\
 		\url{https://www.raylib.com/}
 		
-		\item Polynomial regression fundamentals - Andrew Que \\
+		\item Polynomial regression fundamentals - Andrew Que (2021) \\
 		\url{https://polynomialregression.drque.net/math.html}
-				
-		\item Performance-Aware Programming Series - Casey Muratori \\
+		
+		\item Performance-Aware Programming Series - Casey Muratori (2023) \\
 		\url{https://www.computerenhance.com/p/table-of-contents/}
 		
-		\item Dokumentacja Mesa3D \\
-		\url{https://docs.mesa3d.org/}
-		
-		\item Dokumentacja MinGW-w64 \\
+		\item MinGW-w64 \\
 		\url{https://www.mingw-w64.org/}
 		
 		\item Intel® 64 and IA-32 Architectures Software Developer’s Manual
 		
-		\item Solid-liquid structural break-up in M2 tool steel for semi-solid metal processing - M.Z. Omar, H.V. Atkinson, A.A. Howe, E.J. Palmiere, P. Kapranos and M.J. Ghazali
+		\item Apple silicon (2026) \\
+		\url{https://developer.apple.com/documentation/apple-silicon}
 		
-		\item RFC4180 - Common Format and MIME Type for Comma-Separated Values (CSV) Files \\
+		\item RFC4180 - Common Format and MIME Type for Comma-Separated Values (CSV) Files (2005) \\
 		\url{https://datatracker.ietf.org/doc/html/rfc4180}
+		
+		\item Mesa3D \\
+		\url{https://docs.mesa3d.org/index.html}
+		
 	\end{enumerate}
 	
 \end{document}
